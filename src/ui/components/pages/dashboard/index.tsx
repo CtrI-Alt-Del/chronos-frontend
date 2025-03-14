@@ -1,7 +1,9 @@
-import { Button } from "@heroui/button"
+import { Button } from '@heroui/button'
 
-export const DashBoardPage = ()=> {
-  return <>
-    <Button>Banana</Button>
-  </>
+export const DashBoardPage = () => {
+  return (
+    <>
+      <Button>Banana</Button>
+    </>
+  )
 }
