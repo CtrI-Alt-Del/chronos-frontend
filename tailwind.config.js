@@ -18,6 +18,16 @@ const config = {
   plugins: [
     heroui({
       defaultTheme: "light",
+      themes: {
+        light: {
+          colors: {
+            "blue-primary": "#186BD9",
+            "blue-secondary": "#1200AF",
+            "blue-tertiary": "#CEE3FF",
+            "gray-border": "#D4D4D8",
+          },
+        },
+      },
     }),
   ],
 };
