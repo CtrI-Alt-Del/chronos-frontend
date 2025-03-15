@@ -1,6 +1,5 @@
-import { DashBoardPage } from "@/src/ui/components/pages/dashboard";
-
 const Page = () => {
-  return <DashBoardPage />;
-};
+  return <h1>Dashboard</h1>
+}
+
 export default Page
