@@ -7,7 +7,7 @@ import { CreateWorkSchedule } from './create-work-schedule'
 export const RegisterSchedulePage = () => {
   return (
     <div>
-      <div className='text-3xl font-extrabold text-black px-10 pt-2 pb-6'>
+      <div className='text-3xl font-extrabold text-black px-10 pb-6'>
         <h1 className=''>Registro de Escala</h1>
       </div>
 
@@ -24,7 +24,7 @@ export const RegisterSchedulePage = () => {
         <CreateWorkSchedule />
       </div>
 
-      <div className='flex mt-4 mr-12 pr-20 justify-end'>
+      <div className='flex mr-12 pr-20 justify-end'>
         <Button as={Link} href='' color='primary' className='px-6 py-5 text-lg'>
           Confirmar
         </Button>
