@@ -1,27 +1,7 @@
 'use client'
 
 import { TimeInput } from "@heroui/date-input";
-import { JSX, SVGProps } from "react";
-
-export const ClockCircleLinearIcon = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => {
-  return (
-    <svg
-      aria-hidden="true"
-      fill="none"
-      focusable="false"
-      height="1em"
-      role="presentation"
-      viewBox="0 0 24 24"
-      width="1em"
-      {...props}
-    >
-      <g fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 8v4l2.5 2.5" strokeLinecap="round" strokeLinejoin="round" />
-      </g>
-    </svg>
-  )
-}
+import { Clock } from "lucide-react";
 
 export const CreateWorkSchedule = () => {
   const days = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]
@@ -41,24 +21,16 @@ export const CreateWorkSchedule = () => {
           <div key={index} className="grid grid-cols-5 gap-4 items-center py-2 px-4 text-sm border-b last:border-none">
             <span className="text-md font-medium">{day}</span>
             <TimeInput
-              startContent={
-                <ClockCircleLinearIcon className="text-lg text-default-400 pointer-events-none flex-shrink-0" />
-              }
+              startContent={<Clock />}
             />
             <TimeInput
-              startContent={
-                <ClockCircleLinearIcon className="text-lg text-default-400 pointer-events-none flex-shrink-0" />
-              }
+              startContent={<Clock />}
             />
             <TimeInput
-              startContent={
-                <ClockCircleLinearIcon className="text-lg text-default-400 pointer-events-none flex-shrink-0" />
-              }
+              startContent={<Clock />}
             />
             <TimeInput
-              startContent={
-                <ClockCircleLinearIcon className="text-lg text-default-400 pointer-events-none flex-shrink-0" />
-              }
+              startContent={<Clock />}
             />
           </div>
         ))}
