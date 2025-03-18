@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import type { IconName } from '../../../../components/Icon/types/IconName'
+import { Icon } from '../../../../components/Icon'
 
 type NavbarLinkProps = {
   href: string
@@ -26,12 +27,9 @@ export const NavbarLink = ({ href, icon, title, isActive }: NavbarLinkProps) => 
         )}
       >
         <span className='mr-2'>
-          <Image
-            src={icon}
-            width={24}
-            height={24}
+          <Icon
+            name={icon}
             className={isActive ? 'fill-[#1200AF]' : 'fill-[#000]'}
-            alt=''
           />
         </span>
         <span>{title}</span>
