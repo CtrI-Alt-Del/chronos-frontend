@@ -19,13 +19,15 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   return (
     <>
-      <div
-        role="button"
-        tabIndex={0}
-        className="fixed inset-0 z-40 bg-black/50 md:hidden"
-        onClick={onClose}
-        onKeyDown={(e) => e.key === "Enter" && onClose()}
-      />
+      {isOpen && (
+        <div
+          role="button"
+          tabIndex={0}
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
+          onClick={onClose}
+          onKeyDown={(e) => e.key === "Enter" && onClose()}
+        />
+      )}
 
       <NavbarRoot
         classNames={{
