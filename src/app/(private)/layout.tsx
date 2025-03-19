@@ -1,13 +1,13 @@
-import type { ReactNode } from 'react'
+import type { ReactNode } from "react";
 
-import { PrivateLayout } from '@/src/ui/global/widgets/layouts/private-layout'
+import { PrivateLayout } from "@/src/ui/global/widgets/layouts/private-layout";
 
 type LayoutProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 const PrivateLayoutWrapper = ({ children }: LayoutProps) => {
-  return <PrivateLayout>{children}</PrivateLayout>
-}
+  return <PrivateLayout>{children}</PrivateLayout>;
+};
 
-export default PrivateLayoutWrapper
+export default PrivateLayoutWrapper;
