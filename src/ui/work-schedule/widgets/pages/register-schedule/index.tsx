@@ -1,34 +1,22 @@
-import { Button } from '@heroui/button'
-import { Input } from '@heroui/input'
-import Link from 'next/link'
+import { Button } from "@heroui/button";
+import { Input } from "@heroui/input";
+import Link from "next/link";
 
-import { CreateWorkSchedule } from './create-work-schedule'
+import { CreateWorkSchedule } from "./create-work-schedule";
+import { Search } from "lucide-react";
 
 export const RegisterSchedulePage = () => {
   return (
-    <div>
-      <div className='text-3xl font-extrabold text-black px-10 pb-6'>
-        <h1 className=''>Registro de Escala</h1>
-      </div>
-
-      <div className='flex w-full pl-10 pr-20 py-2'>
-        <Input
-          label={<span className='text-blue-500 font-bold text-lg'>Nome da Escala</span>}
-          placeholder='Buscar escala...'
-          variant='flat'
-          labelPlacement='outside'
-        />
-      </div>
-
-      <div className='flex flex-col pl-10 pr-20 py-4'>
+    <div className="p-6 rounded-lg border border-gray-border">
+      <div className="flex flex-col py-4 pr-20 pl-10">
         <CreateWorkSchedule />
       </div>
 
-      <div className='flex mr-12 pr-20 justify-end'>
-        <Button as={Link} href='' color='primary' className='px-6 py-5 text-lg'>
+      <div className="flex justify-end pr-20 mr-12">
+        <Button as={Link} href="" color="primary" className="px-6 py-5 text-lg">
           Confirmar
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
