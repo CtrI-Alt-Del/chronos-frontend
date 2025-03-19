@@ -9,6 +9,8 @@
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@heroui/avatar": "^2.2.12",
     "@heroui/button": "2.2.16",
     "@heroui/card": "^2.2.15",
@@ -27,10 +29,12 @@
     "@heroui/system": "2.4.12",
     "@heroui/table": "^2.2.15",
     "@heroui/theme": "2.4.12",
+    "@mui/material": "^6.4.8",
     "@phosphor-icons/react": "^2.1.7",
     "@react-aria/ssr": "3.9.7",
     "@react-aria/visually-hidden": "3.8.20",
     "clsx": "2.1.1",
+    "date-fns": "^4.1.0",
     "framer-motion": "11.13.1",
     "intl-messageformat": "^10.5.0",
     "lucide-react": "^0.479.0",
