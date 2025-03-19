@@ -3,7 +3,8 @@ import { cn } from "@heroui/theme";
 import { Icon } from "@/src/ui/global/widgets/components/Icon";
 import Link from "next/link";
 
-import type { IconName } from "../../../../components/Icon/types/IconName";
+import type { IconName } from '../../../../components/Icon/types/IconName'
+import { Icon } from '../../../../components/Icon'
 
 type NavbarLinkProps = {
   href: string;
@@ -30,11 +31,10 @@ export const NavbarLink = ({
             : "font-medium text-black hover:text-blue-secondary/90 hover:transition-all"
         )}
       >
-        <span className="mr-2">
+        <span className='mr-2'>
           <Icon
             name={icon}
-            size={24}
-            className={isActive ? "text-blue-secondary" : "text-black"}
+            className={isActive ? 'fill-[#1200AF]' : 'fill-[#000]'}
           />
         </span>
         <span>{title}</span>
