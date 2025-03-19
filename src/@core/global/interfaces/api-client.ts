@@ -1,4 +1,4 @@
-import type { ApiResponse } from "../../responses/api-response" 
+import type { ApiResponse } from '../responses/api-response'
 
 export interface IApiClient {
   get<ResponseBody>(url: string, body?: unknown): Promise<ApiResponse<ResponseBody>>
