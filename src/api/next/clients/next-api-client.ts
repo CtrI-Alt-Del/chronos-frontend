@@ -1,8 +1,8 @@
-import type { IApiClient } from '@/src/@core/src/interfaces' 
-import { ApiResponse } from '@/src/@core/src/responses' 
+import type { IApiClient } from '@/src/@core/src/interfaces'
+import { ApiResponse } from '@/src/@core/global/responses'
 
-import { addUrlParams } from '../utils' 
-import { handleApiError } from '../utils' 
+import { addUrlParams } from '../utils'
+import { handleApiError } from '../utils'
 import type { CacheConfig } from '../types'
 
 export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {

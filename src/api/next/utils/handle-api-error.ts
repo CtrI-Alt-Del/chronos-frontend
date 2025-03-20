@@ -1,4 +1,4 @@
-import { ApiResponse } from "@/src/@core/src/responses" 
+import { ApiResponse } from '@/src/@core/global/responses'
 
 export function handleApiError<Body>(error: object, statusCode: number) {
   if ('title' in error && 'message' in error) {
