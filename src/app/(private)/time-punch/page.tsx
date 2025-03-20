@@ -1,7 +1,7 @@
-import { TimePunchPage } from "@/src/ui/work-schedule/widgets/pages/time-punch";
+import { TimePunchPage } from '@/ui/work-schedule/widgets/pages/time-punch'
 
 const Page = () => {
-  return <TimePunchPage />;
-};
+  return <TimePunchPage />
+}
 
-export default Page;
+export default Page
