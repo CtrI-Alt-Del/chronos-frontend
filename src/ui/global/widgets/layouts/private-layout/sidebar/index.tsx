@@ -8,6 +8,7 @@ import { cn } from "@heroui/theme";
 
 import { useNavigation } from "@/src/ui/global/hooks/useNavigation";
 import { NavbarLink } from "./navbar-link";
+import { ROUTES } from ".././../../../../../@core/src/constants/routes";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -47,45 +48,45 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         <NavbarContent className="flex flex-col mt-12 w-full h-full md:mt-48 hover:cursor-pointer">
           <NavbarContent className="flex flex-col gap-0 w-full">
             <NavbarLink
-              href="/time-punch"
+              href={ROUTES.timePunch}
               icon="star"
               title="Registrar ponto"
-              isActive={currentRoute === "/time-punch"}
+              isActive={currentRoute === ROUTES.timePunch}
             />
 
             <NavbarLink
-              href="/history"
+              href={ROUTES.history}
               icon="history"
               title="Histórico de pontos"
-              isActive={currentRoute === "/history"}
+              isActive={currentRoute === ROUTES.history}
             />
 
             <NavbarLink
-              href="/espelho"
+              href={ROUTES.mirror}
               icon="mirror"
               title="Espelho de pontos"
-              isActive={currentRoute === "/mirror"}
+              isActive={currentRoute === ROUTES.mirror}
             />
 
             <NavbarLink
-              href="/revisoes"
+              href={ROUTES.reviews}
               icon="report"
               title="Revisões"
-              isActive={currentRoute === "/revisoes"}
+              isActive={currentRoute === ROUTES.reviews}
             />
 
             <NavbarLink
-              href="/relatorio"
+              href={ROUTES.report}
               icon="report"
               title="Relatório analítico"
-              isActive={currentRoute === "/relatorio"}
+              isActive={currentRoute === ROUTES.report}
             />
           </NavbarContent>
         </NavbarContent>
 
         <div className="flex justify-center items-center px-8 py-4 mb-4 w-full">
           <Link
-            href="/profile"
+            href={ROUTES.profile}
             className="flex justify-start items-center pl-1 w-full h-12 rounded-xl bg-blue-primary transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:translate-y-[-2px] hover:bg-blue-600 group"
           >
             <Avatar

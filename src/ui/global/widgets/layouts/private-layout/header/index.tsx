@@ -1,13 +1,15 @@
 import { Menu } from "lucide-react";
 import { Button } from "@heroui/button";
+import { HeaderTitle } from "./header-title";
 
 type HeaderProps = {
   onMenuClick: () => void;
+  title?: string;
 };
 
-export function Header({ onMenuClick }: HeaderProps) {
+export function Header({ onMenuClick, title = "Dashboard" }: HeaderProps) {
   return (
-    <header className="flex items-center px-6 h-16 bg-white border-b border-zinc-200">
+    <header className="flex items-center px-6 h-24 bg-white border-b border-gray-border">
       <Button
         onPress={onMenuClick}
         variant="ghost"
@@ -16,7 +18,7 @@ export function Header({ onMenuClick }: HeaderProps) {
       >
         <Menu size={24} />
       </Button>
-      <h2 className="text-lg font-medium">Dashboard</h2>
+      <HeaderTitle />
     </header>
   );
 }
