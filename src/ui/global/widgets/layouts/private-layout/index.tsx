@@ -1,27 +1,26 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import type { ReactNode } from "react";
-import { Sidebar } from "./sidebar";
-import { Header } from "./header";
+import { useState } from 'react'
+import type { ReactNode } from 'react'
+import { Sidebar } from './sidebar'
+import { Header } from './header'
+import { usePrivateLayout } from './usePrivateLayout'
 
 type PrivateLayoutProps = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 export function PrivateLayout({ children }: PrivateLayoutProps) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const { isSidebarOpen, handleSidebarClose, handleMenuClick } = usePrivateLayout()
 
   return (
-    <div className="flex w-full h-screen">
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+    <div className='flex w-full h-screen'>
+      <Sidebar isOpen={isSidebarOpen} onClose={handleSidebarClose} />
 
-      <main className="flex flex-col flex-1">
-        <Header onMenuClick={toggleSidebar} />
-        <div className="overflow-auto flex-1 p-6">{children}</div>
+      <main className='flex flex-col flex-1'>
+        <Header onMenuClick={handleMenuClick} />
+        <div className='overflow-auto flex-1 p-6'>{children}</div>
       </main>
     </div>
-  );
+  )
 }

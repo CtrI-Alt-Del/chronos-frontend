@@ -1,4 +1,4 @@
-import type { IconName } from './IconName'
+import type { IconName } from './Icon-name'
 
 export type IconProps = {
   name: IconName
