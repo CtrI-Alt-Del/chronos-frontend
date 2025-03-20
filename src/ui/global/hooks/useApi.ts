@@ -1,4 +1,4 @@
-import { NextApiClient } from '@/src/api/next'
+import { NextApiClient } from '@/api/next'
 
 const nextApiClient = NextApiClient()
 nextApiClient.setBaseUrl('***')

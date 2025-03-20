@@ -5,8 +5,8 @@ type LayoutProps = {
   children: ReactNode
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const PrivateLayoutWrapper = ({ children }: LayoutProps) => {
   return <PrivateLayout>{children}</PrivateLayout>
 }
 
-export default Layout
+export default PrivateLayoutWrapper
