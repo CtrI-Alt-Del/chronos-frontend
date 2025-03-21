@@ -2,9 +2,15 @@ import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
 import Link from 'next/link'
 
+import { NextServerApiClient } from '@/api/next/clients/next-server-api-client'
+import { WorkScheduleService } from '@/api/services/work-schedule-service'
 import { WorkScheduleCard } from './work-schedule-card'
 
-export const SchedulePage = () => {
+export const SchedulePage = async (page: number) => {
+  const apiClient = await NextServerApiClient()
+  const reportsService = WorkScheduleService(apiClient)
+  const data = await reportsService.ListWorkSchedules(page)
+
   return (
     <div className='p-6 rounded-lg border border-gray-border'>
       <div className='flex justify-between px-10 py-2'>
