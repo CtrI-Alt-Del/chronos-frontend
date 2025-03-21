@@ -4,7 +4,7 @@ import { Navbar as NavbarRoot, NavbarContent } from '@heroui/navbar'
 import { cn } from '@heroui/theme'
 import Image from 'next/image'
 
-import { useNavigation } from '@/ui/global/hooks/useNavigation'
+import { useNavigation } from '@/ui/global/hooks/use-navigation'
 import { ROUTES } from '@/@core/global/constants/routes'
 import { NavbarLink } from './navbar-link'
 import { useSidebar } from './useSidebar'
