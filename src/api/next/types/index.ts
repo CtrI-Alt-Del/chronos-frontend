@@ -1,1 +1,1 @@
-export { CacheConfig } from "./cache-config";
+export type { CacheConfig } from './cache-config'

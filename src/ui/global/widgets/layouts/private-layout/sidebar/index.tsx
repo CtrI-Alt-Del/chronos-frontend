@@ -3,7 +3,6 @@
 import { Navbar as NavbarRoot, NavbarContent } from '@heroui/navbar'
 import { cn } from '@heroui/theme'
 import Image from 'next/image'
-
 import { useNavigation } from '@/ui/global/hooks/'
 import { ROUTES } from '@/@core/global/constants/routes'
 import { NavbarLink } from './navbar-link'
