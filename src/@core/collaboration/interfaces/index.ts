@@ -1,0 +1,1 @@
+export type { ICollaboratorService } from "./collaborator-service"
