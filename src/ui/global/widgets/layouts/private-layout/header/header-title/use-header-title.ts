@@ -1,5 +1,5 @@
 import { ROUTES } from '@/@core/global/constants/routes'
-import { useNavigation } from '@/ui/global/hooks/use-navigation'
+import { useNavigation } from '@/ui/global/hooks/useNavigation'
 import { useMemo } from 'react'
 
 export function useHeaderTitle() {

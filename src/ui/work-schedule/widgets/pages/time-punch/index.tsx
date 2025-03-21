@@ -4,7 +4,7 @@ import { TimePunchStepper } from './time-stepper'
 import { Button } from '@heroui/button'
 import { Avatar } from '@heroui/avatar'
 import { useTimePunchPage } from './use-time-punch-page'
-import { useDatetime } from '@/ui/global/hooks/use-date-time'
+import { useDatetime } from '@/ui/global/hooks/useDatetime'
 
 export const TimePunchPage = () => {
   const { currentTime, currentStep, isComplete, handlePunchRegister } = useTimePunchPage()
