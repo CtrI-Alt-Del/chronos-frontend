@@ -1,4 +1,4 @@
-import { SchedulePage } from "@/src/ui/work-schedule/widgets/pages/schedule";
+import { SchedulePage } from "@/ui/work-schedule/widgets/pages/schedule";
 
 const Page = () => {
   return (
