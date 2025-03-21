@@ -4,6 +4,7 @@ export const ROUTES = {
     mirror: '/espelho',
     reviews: '/revisoes',
     report: '/relatorio',
+    collaborators: '/collaborator',
     workSchedule: {
         list: '/schedule',
         register: '/register-schedule',
