@@ -23,4 +23,3 @@ export interface IWorkScheduleService {
   punchPunch(timePunchId: string, timePunch: TimePunchDto): Promise<ApiResponse<void>>
   punchPunch(timePunchId: string, timePunch: TimePunchDto): Promise<ApiResponse<void>>
   deleteWorkSchedule(workScheduleId: string): Promise<ApiResponse<void>>
-}
