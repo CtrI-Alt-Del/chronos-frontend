@@ -1,5 +1,5 @@
 import { ROUTES } from '@/@core/global/constants/routes'
-import { useNavigation } from '@/ui/global/hooks/use-navigation'
+import { useNavigation } from '@/ui/global/hooks'
 import { useMemo } from 'react'
 
 export function useHeaderTitle() {
@@ -15,6 +15,8 @@ export function useHeaderTitle() {
       [ROUTES.profile]: 'Meu perfil',
       [ROUTES.workSchedule.list]: 'Escalas',
       [ROUTES.workSchedule.register]: 'Registro de escala',
+      [ROUTES.collaborators]: 'Registro de colaboratores'
+
     }
 
     return routeTitles[currentRoute] || 'Página não encontrada'

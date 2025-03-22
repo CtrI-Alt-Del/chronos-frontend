@@ -1,1 +1,1 @@
-export type {CollaboratorDto} from "./collaborator-dto"
+export type { CollaboratorDto } from "./collaborator-dto"
