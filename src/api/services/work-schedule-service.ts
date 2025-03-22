@@ -1,14 +1,11 @@
-import type { IApiClient } from "@/@core/global/interfaces/api-client";
-import type { PaginationResponse } from "@/@core/global/responses/pagination-response";
-import type { WorkScheduleDto } from "@/@core/work-schedule/dtos";
-import { IWorkScheduleService } from "@/@core/work-schedule/interfaces";
+import type { IApiClient } from '@/@core/global/interfaces/api-client'
+import type { IWorkScheduleService } from '@/@core/work-schedule/interfaces'
 
-export const WorkScheduleService = (ApiClient: IApiClient): IWorkScheduleService => {
-  const RESOURCES = 'work-schedules'
-
+export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService => {
   return {
-    async ListWorkSchedules(page) {
-      return await ApiClient.get<PaginationResponse<WorkScheduleDto>>(`${RESOURCES}/schedules`)
+    async listWorkSchedules(page = 1) {
+      apiClient.setParam('page', String(page))
+      return await apiClient.get('/work-schedule/schedules')
     },
-  }
+  } as IWorkScheduleService
 }
