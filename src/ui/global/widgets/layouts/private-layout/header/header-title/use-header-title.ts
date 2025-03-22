@@ -1,6 +1,6 @@
-import { ROUTES } from '@/@core/global/constants/routes'
-import { useNavigation } from '@/ui/global/hooks'
-import { useMemo } from 'react'
+import { ROUTES } from "@/@core/global/constants/routes";
+import { useNavigation } from "@/ui/global/hooks/use-navigation";
+import { useMemo } from "react";
 
 export function useHeaderTitle() {
   const { currentRoute } = useNavigation()
