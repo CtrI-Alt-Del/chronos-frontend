@@ -1,28 +1,28 @@
-import type { Metadata } from 'next'
-import type { ReactNode } from 'react'
-import { Poppins } from 'next/font/google'
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import { Poppins } from "next/font/google";
 
-import '../ui/global/styles/globals.css'
-import { RootLayout } from '../ui/global/widgets/layouts/root'
+import "../ui/global/styles/globals.css";
+import { RootLayout } from "../ui/global/widgets/layouts/root";
 
 const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-})
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
-  title: 'Chronos',
-  description: 'The best time tracking app',
-}
+  title: "Chronos",
+  description: "The best time tracking app",
+};
 
 type LayoutProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 export default function Layout({ children }: LayoutProps) {
   return (
     <RootLayout>
       <div className={poppins.className}>{children}</div>
     </RootLayout>
-  )
+  );
 }
