@@ -3,7 +3,6 @@ import { ApiResponse } from '@/@core/global/responses'
 import { addUrlParams } from '../utils'
 import { handleApiError } from '../utils'
 import type { CacheConfig } from '../types'
-import { ApiResponse } from '@/@core/global/responses'
 
 export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
   let baseUrl: string
