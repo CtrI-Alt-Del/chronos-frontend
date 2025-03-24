@@ -12,4 +12,6 @@ export const ROUTES = {
         register: '/register-schedule',
     },
     profile: '/profile',
+    timeRecordAllCollaborators: '/time-record-all-collaborators',
+    pointHistory: '/point-history',
 };

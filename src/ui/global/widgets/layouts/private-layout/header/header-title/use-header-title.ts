@@ -15,7 +15,9 @@ export function useHeaderTitle() {
       [ROUTES.profile]: 'Meu perfil',
       [ROUTES.workSchedule.list]: 'Escalas',
       [ROUTES.workSchedule.register]: 'Registro de escala',
-      [ROUTES.collaborators]: 'Registro de colaboratores'
+      [ROUTES.collaborators]: 'Registro de colaboratores',
+      [ROUTES.timeRecordAllCollaborators]: 'Registro de pontos dos colaboradores',
+      [ROUTES.pointHistory]: 'Historico de Pontos'
 
     }
 
