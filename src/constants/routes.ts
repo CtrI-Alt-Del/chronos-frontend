@@ -10,6 +10,4 @@ export const ROUTES = {
   },
   profile: '/profile',
   login: '/login',
-  forgotPassword: '/forgot-password',
-  resetPassword: '/reset-password',
 }
