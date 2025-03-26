@@ -1,11 +1,11 @@
 'use client'
 
-import { Table, TableBody, TableHeader, TableColumn, TableRow, TableCell } from "@heroui/table";
-import { TimeInput } from "@heroui/date-input";
-import { Clock } from "lucide-react";
+import { Table, TableBody, TableHeader, TableColumn, TableRow, TableCell } from "@heroui/table"
+import { TimeInput } from "@heroui/date-input"
+import { Clock } from "lucide-react"
 
 export const CreateWorkSchedule = () => {
-  const days = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
+  const days = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]
 
   return (
     <div className="w-full">
@@ -22,21 +22,21 @@ export const CreateWorkSchedule = () => {
             <TableRow key={index}>
               <TableCell>{day}</TableCell>
               <TableCell>
-                <TimeInput startContent={<Clock />} />
+                <TimeInput startContent={<Clock />} hourCycle={24} />
               </TableCell>
               <TableCell>
-                <TimeInput startContent={<Clock />} />
+                <TimeInput startContent={<Clock />} hourCycle={24} />
               </TableCell>
               <TableCell>
-                <TimeInput startContent={<Clock />} />
+                <TimeInput startContent={<Clock />} hourCycle={24} />
               </TableCell>
               <TableCell>
-                <TimeInput startContent={<Clock />} />
+                <TimeInput startContent={<Clock />} hourCycle={24} />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </div>
-  );
+  )
 }
