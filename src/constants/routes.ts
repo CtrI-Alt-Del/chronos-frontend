@@ -1,13 +1,22 @@
 export const ROUTES = {
-  timePunch: '/time-punch',
-  history: '/history',
-  mirror: '/espelho',
-  reviews: '/revisoes',
-  report: '/relatorio',
-  workSchedule: {
-    list: '/schedule',
-    register: '/register-schedule',
+  auth: {
+    login: '/auth/login',
   },
-  profile: '/profile',
-  login: '/login',
-}
+  collaboration: {
+    collaborators: '/collaboration/collaborators',
+    registerCollaboration: '/collaboration/register-collaboration',
+    profile: '/collaboration//profile',
+  },
+  workSchedule: {
+    schedules: '/work-schedule/schedules',
+    registerSchedule: '/work-schedule/register-schedule',
+    history: '/work-schedule/history',
+    collaboratorHistory: '/work-schedule/collaborator-history',
+    timePunch: '/time-punch',
+    timeCard: '/time-card',
+  },
+  solicitation: {
+    solicitations: '/solicitation/solicitations',
+  },
+  report: '/relatorio',
+} as const

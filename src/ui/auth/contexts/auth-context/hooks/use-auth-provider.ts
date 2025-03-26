@@ -7,7 +7,7 @@ import { setCookieAction } from '../../set-cookie-action'
 import { COOKIES } from '@/@core/global/constants/cookies'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { useNavigation } from '@/ui/global/hooks'
-import { ROUTES } from '@/@core/global/constants/routes'
+import { ROUTES } from '@/constants/routes'
 
 type UseAuthProviderProps = {
   authService: IAuthService
@@ -37,12 +37,30 @@ export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
       setAccount(accountDto)
       setIsAuthenticated(true)
       toast.showSuccess('Login realizado com sucesso')
-      navigation.goTo(ROUTES.collaborators)
+      navigation.goTo(getRouteByRole(accountDto.role))
     }
 
     setIsLoading(false)
   }
 
+  function getRouteByRole(role: string) {
+    let route = ''
+    switch (role) {
+      case 'admin':
+        route = ROUTES.collaboration.collaborators
+        break
+      case 'manager':
+        route = ROUTES.collaboration.collaborators
+        break
+      case 'employee':
+        route = ROUTES.workSchedule.timePunch
+        break
+      default:
+        route = ROUTES.workSchedule.timePunch
+        break
+    }
+    return route
+  }
 
   return {
     account,

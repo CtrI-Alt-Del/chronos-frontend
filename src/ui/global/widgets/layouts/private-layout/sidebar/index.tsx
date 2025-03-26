@@ -3,8 +3,8 @@
 import { Navbar as NavbarRoot, NavbarContent } from "@heroui/navbar";
 import { cn } from "@heroui/theme";
 import Image from "next/image";
-import { useNavigation } from "@/ui/global/hooks/use-navigation";
-import { ROUTES } from "@/@core/global/constants/routes";
+
+import { ROUTES } from "@/constants/routes";
 import { NavbarLink } from "./navbar-link";
 import { useSidebar } from "./useSidebar";
 import { ProfileCard } from "./profile-card";
@@ -15,7 +15,6 @@ type SidebarProps = {
 };
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
-  const { currentRoute } = useNavigation();
   const { handleExpandButtonClick } = useSidebar(onClose);
 
   return (
@@ -52,38 +51,33 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         <NavbarContent className="flex flex-col w-full hover:cursor-pointer">
           <NavbarContent className="flex flex-col gap-0 w-full">
             <NavbarLink
-              href={ROUTES.timePunch}
+              href={ROUTES.workSchedule.schedules}
               icon="star"
               title="Registrar ponto"
-              isActive={currentRoute === ROUTES.timePunch}
             />
 
             <NavbarLink
-              href={ROUTES.history}
+              href={ROUTES.workSchedule.history}
               icon="history"
               title="Histórico de pontos"
-              isActive={currentRoute === ROUTES.history}
             />
 
             <NavbarLink
-              href={ROUTES.mirror}
+              href={ROUTES.workSchedule.timeCard}
               icon="mirror"
               title="Espelho de pontos"
-              isActive={currentRoute === ROUTES.mirror}
             />
 
             <NavbarLink
-              href={ROUTES.reviews}
+              href={ROUTES.workSchedule.schedules}
               icon="report"
               title="Revisões"
-              isActive={currentRoute === ROUTES.reviews}
             />
 
             <NavbarLink
               href={ROUTES.report}
               icon="report"
               title="Relatório analítico"
-              isActive={currentRoute === ROUTES.report}
             />
           </NavbarContent>
         </NavbarContent>
