@@ -1,9 +1,16 @@
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export const useNavigation = () => {
-    const pathname = usePathname();
+  const pathname = usePathname();
+  const router = useRouter()
 
-    return {
-        currentRoute: pathname,
-    };
+  function goTo(route: string) {
+    router.push(route)
+  }
+
+  return {
+    currentRoute: pathname,
+    goTo,
+  };
 }; 

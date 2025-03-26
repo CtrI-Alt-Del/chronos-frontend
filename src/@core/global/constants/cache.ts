@@ -1,6 +1,5 @@
 export const CACHE = {
-    collaborator: {
-      key: '/collaborator',
-    },
-  }
-  
+  collaborator: {
+    key: '/collaborator',
+  },
+} as const

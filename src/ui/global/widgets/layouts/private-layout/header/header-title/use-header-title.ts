@@ -1,4 +1,4 @@
-import { ROUTES } from "@/@core/global/constants/routes";
+import { ROUTES } from "@/constants/routes";
 import { useNavigation } from "@/ui/global/hooks/use-navigation";
 import { useMemo } from "react";
 
@@ -7,17 +7,16 @@ export function useHeaderTitle() {
 
   const pageTitle = useMemo(() => {
     const routeTitles: Record<string, string> = {
-      [ROUTES.timePunch]: 'Registrar ponto',
-      [ROUTES.history]: 'Histórico de pontos',
-      [ROUTES.mirror]: 'Espelho de pontos',
-      [ROUTES.reviews]: 'Revisões',
+      [ROUTES.workSchedule.timePunch]: 'Registrar ponto',
+      [ROUTES.workSchedule.timeCard]: 'Espelho de pontos',
+      [ROUTES.solicitation.solicitations]: 'Solicitações',
       [ROUTES.report]: 'Relatório analítico',
-      [ROUTES.profile]: 'Meu perfil',
-      [ROUTES.workSchedule.list]: 'Escalas',
-      [ROUTES.workSchedule.register]: 'Registro de escala',
-      [ROUTES.collaborators]: 'Registro de colaboratores',
-      [ROUTES.timeRecordAllCollaborators]: 'Registro de pontos dos colaboradores',
-      [ROUTES.pointHistory]: 'Historico de Pontos'
+      [ROUTES.collaboration.profile]: 'Meu perfil',
+      [ROUTES.workSchedule.schedules]: 'Escalas',
+      [ROUTES.workSchedule.registerSchedule]: 'Registro de escala',
+      [ROUTES.collaboration.collaborators]: 'Registro de colaboratores',
+      [ROUTES.workSchedule.history]: 'Registro de pontos dos colaboradores',
+      [ROUTES.workSchedule.collaboratorHistory]: 'Historico de Pontos'
 
     }
 

@@ -7,4 +7,4 @@ export const HTTP_STATUS_CODE = {
   notFound: 404,
   conflict: 409,
   serverError: 500,
-}
+} as const
