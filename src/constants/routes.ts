@@ -9,4 +9,7 @@ export const ROUTES = {
     register: '/register-schedule',
   },
   profile: '/profile',
+  login: '/login',
+  forgotPassword: '/forgot-password',
+  resetPassword: '/reset-password',
 }
