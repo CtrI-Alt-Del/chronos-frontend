@@ -40,7 +40,6 @@ export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
       await setCookie(COOKIES.jwt.key, response.body.jwt, COOKIES.jwt.duration)
       setAccount(accountDto)
       setIsAuthenticated(true)
-
       toast.showSuccess('Login realizado com sucesso')
       navigation.goTo(getRouteByRole(accountDto.role))
     }
@@ -49,9 +48,10 @@ export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
   }
 
   async function logout() {
-    navigation.goTo(ROUTES.auth.login)
     setAccount(null)
     await deleteCookie(COOKIES.jwt.key)
+    navigation.goTo(ROUTES.auth.login)
+    navigation.reloadRoute()
   }
 
   function getRouteByRole(role: string) {
