@@ -6,10 +6,10 @@ import { cn } from '@heroui/theme'
 import Image from 'next/image'
 
 import { ROUTES } from '@/constants/routes'
-import { NavbarLink } from './navbar-link'
-import { useSidebar } from './useSidebar'
+import { useSidebar } from './use-sidebar'
 import { ProfileCard } from './profile-card'
 import { Icon } from '../../../components/Icon'
+import { NavbarLink } from './navbar-link'
 
 type SidebarProps = {
   isOpen: boolean
@@ -80,14 +80,14 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           </NavbarContent>
         </NavbarContent>
 
-        <Button 
-          variant="bordered" 
-          startContent={<Icon name="logout" size={16} />}
-          className="mb-12" 
-          onClick={handleLogoutButtonClick}>
+        <Button
+          variant='bordered'
+          startContent={<Icon name='logout' size={16} />}
+          className='mb-12'
+          onClick={handleLogoutButtonClick}
+        >
           Sair
         </Button>
-     
       </NavbarRoot>
     </>
   )
