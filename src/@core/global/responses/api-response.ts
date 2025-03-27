@@ -31,6 +31,7 @@ export class ApiResponse<Body = unknown> {
   }
 
   get isSuccess() {
+    console.log(this.statusCode)
     return this.statusCode <= HTTP_STATUS_CODE.badRequest
   }
 

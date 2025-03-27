@@ -8,6 +8,7 @@ export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
   let baseUrl: string
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    'ngrok-skip-browser-warning': 'true',
   }
   let params: Record<string, string> = {}
 
