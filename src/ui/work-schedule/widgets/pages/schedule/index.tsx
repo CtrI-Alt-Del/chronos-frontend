@@ -9,7 +9,8 @@ import { WorkScheduleCard } from './work-schedule-card'
 export const SchedulePage = async (page: number) => {
   const apiClient = await NextServerApiClient()
   const reportsService = WorkScheduleService(apiClient)
-  const data = await reportsService.ListWorkSchedules(page)
+  const data = await reportsService.listWorkSchedules(page)
+  const schedules = data.body.items
 
   return (
     <div className='p-6 rounded-lg border border-gray-border'>
@@ -28,22 +29,20 @@ export const SchedulePage = async (page: number) => {
         </div>
 
         <div className='flex pr-8'>
-          <Button as={Link} href='' color='primary' className='px-6 py-5'>
+          <Button as={Link} href='/work-schedule/register-schedule' color='primary' className='px-6 py-5'>
             Registrar Escala
           </Button>
         </div>
       </div>
 
       <div className='grid grid-cols-1 gap-6 place-items-center px-10 pr-16 mt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-        <WorkScheduleCard />
-        <WorkScheduleCard />
-        <WorkScheduleCard />
-        <WorkScheduleCard />
-        <WorkScheduleCard />
-        <WorkScheduleCard />
-        <WorkScheduleCard />
-        <WorkScheduleCard />
-        <WorkScheduleCard />
+        {schedules.length > 0 ? (
+          schedules.map((schedule) => (
+            <WorkScheduleCard key={schedule.id} schedule={schedule} />
+          ))
+        ) : (
+          <p className='text-gray-500'>Nenhuma escala encontrada.</p>
+        )}
       </div>
     </div>
   )
