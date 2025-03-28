@@ -1,7 +1,5 @@
 'use client'
 
-import { Button } from '@heroui/button'
-import { useDisclosure } from '@heroui/react'
 import { useUrlParamString } from '@/ui/global/hooks'
 import { Search } from '@/ui/global/widgets/components/commons/search'
 
@@ -9,8 +7,6 @@ import { PointHistoryTable } from './point-history-table'
 import { JustificationModal } from './justification-modal'
 
 export const PointHistoryPage = () => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
   const [nameSearchvalue, setNameSearchValue] = useUrlParamString('name')
   function handleNameSearchChange(name: string) {
     setNameSearchValue(name)
@@ -23,8 +19,7 @@ export const PointHistoryPage = () => {
           <Search value={nameSearchvalue} onSearchChange={handleNameSearchChange} />
         </div>
         <div>
-          <Button onPress={onOpen} color='primary'>Justificar Falta</Button>
-          <JustificationModal isOpen={isOpen} onOpenChange={onOpenChange} />
+          <JustificationModal />
         </div>
       </div>
       <PointHistoryTable />

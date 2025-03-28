@@ -8,7 +8,7 @@ import { Slot } from "@radix-ui/react-slot"
 import { ForwardedRef, ReactNode, useImperativeHandle } from "react"
 
 import { ModalRef } from "./modal-ref"
-import { useModal } from "./use-point-history"
+import { useModal } from "./use-modal"
 
 type ModalProps = {
   title?: string
