@@ -1,5 +1,5 @@
-
 export type CacheConfig = {
-  isCacheEnabled: boolean
+  isCacheEnabled?: boolean
+  refetchInterval?: number
+  cacheKey?: string
 }
-
