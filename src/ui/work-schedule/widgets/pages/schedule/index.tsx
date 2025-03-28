@@ -9,7 +9,7 @@ import { WorkScheduleCard } from './work-schedule-card'
 export const SchedulePage = async (page: number) => {
   const apiClient = await NextServerApiClient()
   const reportsService = WorkScheduleService(apiClient)
-  const data = await reportsService.ListWorkSchedules(page)
+  // const data = await reportsService.ListWorkSchedules(page)
 
   return (
     <div className='p-6 rounded-lg border border-gray-border'>
