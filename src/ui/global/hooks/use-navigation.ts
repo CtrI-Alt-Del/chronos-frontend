@@ -9,8 +9,13 @@ export const useNavigation = () => {
     router.push(route)
   }
 
+  function reloadRoute() {
+    router.refresh()
+  }
+
   return {
     currentRoute: pathname,
     goTo,
+    reloadRoute,
   };
 }; 

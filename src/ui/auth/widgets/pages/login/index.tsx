@@ -1,3 +1,5 @@
+'use client'
+
 import { Input } from "@heroui/input";
 
 import { useLoginPage } from "./use-login-page";
@@ -5,8 +7,6 @@ import { AnimatedButton } from "./animated-button";
 
 export const LoginPage = () => {
   const { errors, isSubmitting, handleSubmit, registerField } = useLoginPage();
-
-  console.log(errors);
 
   return (
     <div className="mx-auto w-full max-w-md">

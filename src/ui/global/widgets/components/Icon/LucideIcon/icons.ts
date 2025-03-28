@@ -6,6 +6,7 @@ import {
   Menu,
   FlipVertical,
   Sparkles,
+  LogOut,
   type LucideProps,
 } from 'lucide-react'
 
@@ -18,4 +19,5 @@ export const ICONS: Record<
   history: History,
   mirror: FlipVertical,
   report: ScrollText,
+  logout: LogOut,
 }

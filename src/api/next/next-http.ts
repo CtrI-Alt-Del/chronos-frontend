@@ -15,7 +15,6 @@ import { HTTP_HEADERS } from '@/@core/global/constants/http-headers'
 import { HTTP_STATUS_CODE } from '@/@core/global/constants'
 import { CLIENT_ENV } from '@/constants/client-env'
 
-
 type Cookie = {
   key: string
   value: string
@@ -89,7 +88,6 @@ export const NextHttp = async <NextSchema extends HttpSchema>({
       const jwt = nextCookies.get(COOKIES.jwt.key)
       return jwt ? jwtDecode<AccountDto>(jwt.value) : ({} as AccountDto)
     },
-
 
     getBody() {
       if (!httpSchema?.body) throw new AppError('Body is not defined')
