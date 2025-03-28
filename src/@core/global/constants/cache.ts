@@ -8,5 +8,8 @@ export const CACHE = {
     todayWordayLog: {
       key: '/workSchedule/worday-log/today',
     },
+    sectorHistory: {
+      key: '/workSchedule/sector-history',
+    },
   },
 } as const

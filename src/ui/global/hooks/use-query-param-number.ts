@@ -1,5 +1,5 @@
 import { parseAsInteger, useQueryState } from 'nuqs'
-export function useUrlParamNumber(
+export function useQueryParamNumber(
   key: string,
   defeaulNumber = 0,
 ): [number, (newValue: number) => void] {

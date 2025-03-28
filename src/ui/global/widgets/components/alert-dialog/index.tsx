@@ -11,6 +11,7 @@ type AlertModalProps = {
   trigger: ReactNode
   title: string
   onConfirm: VoidFunction
+  onCancel: VoidFunction
 }
 
 export const AlertDialog = ({
@@ -18,23 +19,29 @@ export const AlertDialog = ({
   children,
   title,
   onConfirm,
+  onCancel,
 }: PropsWithChildren<AlertModalProps>) => {
-  const { isOpen, open, handleOpenChange, handleConfirmButton } =
-    useAlertDialog(onConfirm)
+  const {
+    isOpen,
+    open,
+    handleOpenChange,
+    handleConfirmButtonClick,
+    handleCancelButtonClick,
+  } = useAlertDialog(onConfirm, onCancel)
 
   return (
     <>
       <Modal isOpen={isOpen} onOpenChange={handleOpenChange}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className='flex flex-col gap-1'>{title}</ModalHeader>
               <ModalBody>{children}</ModalBody>
               <ModalFooter>
-                <Button className='bg-slate-300' onPress={onClose}>
+                <Button className='bg-slate-300' onPress={handleCancelButtonClick}>
                   Cancelar
                 </Button>
-                <Button color='primary' onPress={handleConfirmButton}>
+                <Button color='primary' onPress={handleConfirmButtonClick}>
                   Confirmar
                 </Button>
               </ModalFooter>

@@ -65,4 +65,8 @@ export class ApiResponse<Body = unknown> {
       this.getHeader(HTTP_HEADERS.location) !== null
     )
   }
+
+  get isPagination() {
+    return this.getHeader(HTTP_HEADERS.pagination) !== null
+  }
 }

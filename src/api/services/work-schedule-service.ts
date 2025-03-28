@@ -22,7 +22,7 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       )
     },
 
-    async reportWorkdayHistory(date, page = 1) {
+    async reportSectorHistory(date, page = 1) {
       apiClient.setParam('date', String(date.toISOString().split('T')[0]))
       apiClient.setParam('page', String(page))
       return await apiClient.get(`${MODULE}/workday-logs/history`)
@@ -44,6 +44,16 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       return await apiClient.put(
         `${MODULE}/time-punches/${timePunchScheduleId}`,
         timePunch,
+      )
+    },
+
+    async adjustTimePunchLog(timePunchScheduleId, timeLog, timePunchPeriod) {
+      return await apiClient.patch(
+        `${MODULE}/time-punches/${timePunchScheduleId}/adjust`,
+        {
+          time: timeLog,
+          period: timePunchPeriod,
+        }
       )
     },
 

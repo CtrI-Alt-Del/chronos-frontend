@@ -1,6 +1,7 @@
 import type { PaginationResponse } from '@/@core/global/responses/pagination-response'
 import type { ApiResponse } from '@/@core/global/responses'
 import type { TimePunchDto, WorkdayLogDto, WorkScheduleDto } from '../dtos'
+import type { TimePunchPeriod } from '../types'
 
 export interface IWorkScheduleService {
   createWorkSchedule(workSchedule: WorkScheduleDto): Promise<ApiResponse<void>>
@@ -15,13 +16,18 @@ export interface IWorkScheduleService {
     endDate: Date,
     page: number,
   ): Promise<ApiResponse<PaginationResponse<WorkScheduleDto>>>
-  reportWorkdayHistory(
+  reportSectorHistory(
     date: Date,
     page: number,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
   editTimePunchSchedule(
     timePunchScheduleId: string,
     timePunch: TimePunchDto,
+  ): Promise<ApiResponse<void>>
+  adjustTimePunchLog(
+    timePunchScheduleId: string,
+    timeLog: string,
+    timePunchPeriod: TimePunchPeriod,
   ): Promise<ApiResponse<void>>
   punchTime(timePunchLogId: string, time: Date): Promise<ApiResponse<void>>
   deleteWorkSchedule(workScheduleId: string): Promise<ApiResponse<void>>

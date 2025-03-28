@@ -1,0 +1,10 @@
+export type IconName =
+  | 'menu'
+  | 'star'
+  | 'mirror'
+  | 'edit'
+  | 'confirm'
+  | 'report'
+  | 'history'
+  | 'logout'
+  | 'clock'
