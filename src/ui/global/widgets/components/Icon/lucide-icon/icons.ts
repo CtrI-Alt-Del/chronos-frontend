@@ -1,12 +1,15 @@
 import type { ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react'
-import type { IconName } from '../types/Icon-name'
+import type { IconName } from '../types/icon-name'
 import {
   History,
   ScrollText,
   Menu,
   FlipVertical,
   Sparkles,
+  Clock3,
+  SquarePen,
   LogOut,
+  SquareCheckBig,
   type LucideProps,
 } from 'lucide-react'
 
@@ -20,4 +23,7 @@ export const ICONS: Record<
   mirror: FlipVertical,
   report: ScrollText,
   logout: LogOut,
+  clock: Clock3,
+  edit: SquarePen,
+  confirm: SquareCheckBig,
 }

@@ -1,1 +1,1 @@
-export { LucideIcon as Icon } from './LucideIcon'
+export { LucideIcon as Icon } from './lucide-icon'

@@ -2,22 +2,23 @@ import { Input } from '@heroui/react'
 
 type SearchComponentsProps = {
   value?: string
-  onSearchChange?: (value: string) => void
+  placeholder?: string
+  onChange?: (value: string) => void
 }
 
-export const Search = ({ onSearchChange, value }: SearchComponentsProps) => {
+export const Search = ({ onChange, placeholder, value }: SearchComponentsProps) => {
   return (
     <Input
-      placeholder='Pesquise por nome'
+      placeholder={placeholder}
       size='md'
       color='default'
       radius='sm'
       classNames={{
-        inputWrapper: ['bg-zinc-100', 'h-12'],
+        inputWrapper: ['bg-zinc-100', 'h-14'],
       }}
       className='w-full md:max-w-96'
       value={value}
-      onValueChange={onSearchChange}
+      onValueChange={onChange}
     />
   )
 }
