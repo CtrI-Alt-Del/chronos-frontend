@@ -8,7 +8,7 @@ const PERIODS = ['Entrada 1', 'Saída 1', 'Entrada 2', 'Saída 2']
 const datetimeProvider = DatetimeProvider()
 
 export function useTimePunchPage(workdayLog: WorkdayLogDto) {
-  const [step, setStep] = useState(2)
+  const [step, setStep] = useState(0)
   const [currentTime, setCurrentTime] = useState(new Date())
   const { isPuchingTime, punchTime } = usePunchTimeAction()
 
