@@ -11,11 +11,12 @@ export const SectorHistoryPage = () => {
     collboratorName,
     date,
     page,
-    totalPagesCount,
-    isFetching,
+    pagesCount,
+    isLoading,
     handleCollaboratorNameChange,
     handleDateChange,
     handlePageChange,
+    handleTimeLogChange,
   } = useSectorHistoryPage()
 
   return (
@@ -33,9 +34,10 @@ export const SectorHistoryPage = () => {
       <SectorHistoryTable
         workdayLogs={workdayLogs}
         page={page}
-        totalPagesCount={totalPagesCount}
-        isLoading={isFetching}
+        pagesCount={pagesCount}
+        isLoading={isLoading}
         onPageChange={handlePageChange}
+        onTimeLogChange={handleTimeLogChange}
       />
     </div>
   )

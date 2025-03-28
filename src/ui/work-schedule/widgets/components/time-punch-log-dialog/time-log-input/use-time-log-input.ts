@@ -1,13 +1,18 @@
 import { useEffect, useState, type RefObject } from 'react'
 
-export function useTimeLogInput(inputRef: RefObject<HTMLInputElement>) {
+export function useTimeLogInput(
+  inputRef: RefObject<HTMLInputElement>,
+  onChange: (value: string) => void,
+) {
   const [isEditing, setIsEditing] = useState(false)
 
   function handleEditButtonClick() {
     setIsEditing(true)
   }
 
-  function handleConfirmButtonClick() {}
+  function handleConfirmButtonClick() {
+    if (inputRef.current) onChange(inputRef.current.value.slice(0, 5))
+  }
 
   function handleCancelButtonClick() {
     setIsEditing(false)
@@ -22,6 +27,7 @@ export function useTimeLogInput(inputRef: RefObject<HTMLInputElement>) {
 
   return {
     isEditing,
+    value: inputRef.current?.value.slice(0, 5),
     handleEditButtonClick,
     handleConfirmButtonClick,
     handleCancelButtonClick,

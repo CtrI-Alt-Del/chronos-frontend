@@ -6,27 +6,42 @@ import {
   TableHeader,
   TableRow,
 } from '@heroui/table'
+import { Button } from '@heroui/button'
+import { useRef } from 'react'
 
 import type { TimePunchDto } from '@/@core/work-schedule/dtos'
 import { Dialog } from '@/ui/global/widgets/components/dialog'
-import { Button } from '@heroui/button'
-import { Icon } from '@/ui/global/widgets/components/Icon'
+import type { TimePunchPeriod } from '@/@core/work-schedule/types'
+import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
+import { useTimePunchLogDialog } from './use-time-punch-log-dialog'
 import { TimeLog } from './time-log'
-import { Time } from '../time'
-import { TimeInput } from '../time-input'
 import { TimeLogInput } from './time-log-input'
 
 type TimePunchLogDialogProps = {
   timePunchLog: TimePunchDto
   timePunchSchedule: TimePunchDto
+  onTimeLogChange: (
+    timePunchLogId: string,
+    timeLog: string,
+    timePunchPeriod: TimePunchPeriod,
+  ) => void
 }
 
 export const TimePunchLogDialog = ({
   timePunchLog,
   timePunchSchedule,
+  onTimeLogChange,
 }: TimePunchLogDialogProps) => {
+  const dialogRef = useRef<DialogRef>(null)
+  const { handleTimeLogChange } = useTimePunchLogDialog(
+    dialogRef,
+    timePunchLog.id,
+    onTimeLogChange,
+  )
+
   return (
     <Dialog
+      ref={dialogRef}
       title='Registro de ponto'
       size='3xl'
       trigger={
@@ -67,28 +82,46 @@ export const TimePunchLogDialog = ({
                 <TableCell>Entrada 1</TableCell>
                 <TableCell>{timePunchSchedule.firstClockIn}</TableCell>
                 <TableCell>
-                  <TimeLogInput defaultValue={timePunchLog.firstClockIn} />
+                  <TimeLogInput
+                    defaultValue={timePunchLog.firstClockIn}
+                    onChange={(timeLog) => handleTimeLogChange(timeLog, 'first_clock_in')}
+                  />
                 </TableCell>
               </TableRow>
               <TableRow key='first-clock-out'>
                 <TableCell>Saída 1</TableCell>
                 <TableCell>{timePunchSchedule.firstClockOut}</TableCell>
                 <TableCell>
-                  <TimeLogInput defaultValue={timePunchLog.firstClockOut} />
+                  <TimeLogInput
+                    defaultValue={timePunchLog.firstClockOut}
+                    onChange={(timeLog) =>
+                      handleTimeLogChange(timeLog, 'first_clock_out')
+                    }
+                  />
                 </TableCell>
               </TableRow>
               <TableRow key='second-clock-in'>
                 <TableCell>Entrada 2</TableCell>
                 <TableCell>{timePunchSchedule.secondClockIn}</TableCell>
                 <TableCell>
-                  <TimeLogInput defaultValue={timePunchLog.secondClockIn} />
+                  <TimeLogInput
+                    defaultValue={timePunchLog.secondClockIn}
+                    onChange={(timeLog) =>
+                      handleTimeLogChange(timeLog, 'second_clock_in')
+                    }
+                  />
                 </TableCell>
               </TableRow>
               <TableRow key='second-clock-out'>
                 <TableCell>Saída 2</TableCell>
                 <TableCell>{timePunchSchedule.secondClockOut}</TableCell>
                 <TableCell>
-                  <TimeLogInput defaultValue={timePunchLog.secondClockOut} />
+                  <TimeLogInput
+                    defaultValue={timePunchLog.secondClockOut}
+                    onChange={(timeLog) =>
+                      handleTimeLogChange(timeLog, 'second_clock_in')
+                    }
+                  />
                 </TableCell>
               </TableRow>
             </TableBody>

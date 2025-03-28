@@ -47,6 +47,16 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       )
     },
 
+    async adjustTimePunchLog(timePunchScheduleId, timeLog, timePunchPeriod) {
+      return await apiClient.patch(
+        `${MODULE}/time-punches/${timePunchScheduleId}/adjust`,
+        {
+          time: timeLog,
+          period: timePunchPeriod,
+        }
+      )
+    },
+
     async punchTime(timePunchLogId, time) {
       const datetimeProvider = DatetimeProvider()
       return await apiClient.patch(`${MODULE}/time-punches/${timePunchLogId}`, {

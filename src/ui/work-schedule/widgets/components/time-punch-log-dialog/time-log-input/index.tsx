@@ -1,25 +1,27 @@
 'use client'
 
 import { useRef } from 'react'
-import { useTimeLogInput } from './use-time-log-input'
-import { TimeInput } from '../../time-input'
 import { Button } from '@heroui/button'
+
 import { Icon } from '@/ui/global/widgets/components/Icon'
 import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
-import { pl } from 'date-fns/locale'
+import { TimeInput } from '../../time-input'
+import { useTimeLogInput } from './use-time-log-input'
 
 type TimeInputProps = {
   defaultValue: string | null
+  onChange: (value: string) => void
 }
 
-export const TimeLogInput = ({ defaultValue }: TimeInputProps) => {
+export const TimeLogInput = ({ defaultValue, onChange }: TimeInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const {
     isEditing,
+    value,
     handleEditButtonClick,
     handleConfirmButtonClick,
     handleCancelButtonClick,
-  } = useTimeLogInput(inputRef)
+  } = useTimeLogInput(inputRef, onChange)
 
   return (
     <div className='flex items-center gap-1'>
@@ -39,7 +41,7 @@ export const TimeLogInput = ({ defaultValue }: TimeInputProps) => {
             {defaultValue ? (
               <p>
                 Tem certaza que deseja mudar esse ponto de <strong>{defaultValue}</strong>{' '}
-                para <strong>{inputRef.current?.value.slice(0, 5)}</strong>?
+                para <strong>{value}</strong>?
               </p>
             ) : (
               <p>Tem certeza que deseja alterar esse ponto?</p>

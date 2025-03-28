@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 
 import { PaginationResponse } from '@/@core/global/responses'
 import { useToast } from './use-toast'
+import { useQueryParamNumber } from './use-query-param-number'
 
 type PaginatedCacheConfig<CacheItem> = {
   key: string
@@ -23,7 +24,8 @@ type PaginatedCache<CacheItem> = {
   isFetching: boolean
   isRefetching: boolean
   isRecheadedEnd: boolean
-  totalItemsCount: number
+  itemsCount: number
+  pagesCount: number
   page: number
   refetch: () => void
   nextPage: () => void
@@ -41,8 +43,11 @@ export function usePaginatedCache<CacheItem>({
   refreshInterval = 0,
   dependencies,
 }: PaginatedCacheConfig<CacheItem>): PaginatedCache<CacheItem> {
-  const [totalItemsCount, setTotalItemsCount] = useState(0)
+  const [itemsCount, setItemsCount] = useState(0)
+  const [pagesCount, setPagesCount] = useState(0)
+  const [page, setPageQueryParam] = useQueryParamNumber('page', 1)
   const toast = useToast()
+  dependencies?.push(page)
   const dependenciesQuery = dependencies
     ? dependencies.map((dependency, index) => `dep_${index + 1}=${dependency}`).join(',')
     : ''
@@ -54,10 +59,10 @@ export function usePaginatedCache<CacheItem>({
     return `${key}?${dependenciesQuery}&itemsPerPage=${itemsPerPage}&page=${pageIndex + 1}`
   }
 
-  async function infiniteFetcher(key: string) {
-    const page = Number(key.split('&page=').at(-1))
+  async function infiniteFetcher() {
     const response = await fetcher(page)
-    setTotalItemsCount(response.itemsCount)
+    setItemsCount(response.itemsCount)
+    setPagesCount(response.pagesCount)
     return response.items
   }
 
@@ -66,6 +71,7 @@ export function usePaginatedCache<CacheItem>({
     infiniteFetcher,
     {
       revalidateOnFocus: shouldRefetchOnFocus,
+      refreshInterval: refreshInterval,
       fallbackData: initialData ? [initialData.items] : [],
       onError: (error) => {
         toast.showError(error)
@@ -75,6 +81,7 @@ export function usePaginatedCache<CacheItem>({
 
   function setPage(page: number) {
     setSize(page)
+    setPageQueryParam(page)
   }
 
   function nextPage() {
@@ -91,7 +98,8 @@ export function usePaginatedCache<CacheItem>({
     isRecheadedEnd: data ? Number(data[size - 1]?.length) < itemsPerPage : false,
     isFetching: isLoading || isValidating,
     isRefetching: isValidating,
-    totalItemsCount,
+    itemsCount,
+    pagesCount,
     page: size,
     refetch: () => mutate(),
     nextPage,

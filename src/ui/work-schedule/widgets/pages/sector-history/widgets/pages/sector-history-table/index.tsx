@@ -10,6 +10,7 @@ import {
 } from '@heroui/table'
 import { Pagination, Spinner } from '@heroui/react'
 
+import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
 import { TimePunchLogDialog } from '@/ui/work-schedule/widgets/components/time-punch-log-dialog'
 import { useSectorHistoryTable } from './use-sector-history-table'
@@ -17,30 +18,39 @@ import { useSectorHistoryTable } from './use-sector-history-table'
 type SectorHistoryTableProps = {
   workdayLogs: WorkdayLogDto[]
   isLoading: boolean
-  totalPagesCount: number
   page: number
+  pagesCount: number
   onPageChange: (page: number) => void
+  onTimeLogChange: (
+    timePunchLogId: string,
+    timeLog: string,
+    timePunchPeriod: TimePunchPeriod,
+  ) => void
 }
 
 export const SectorHistoryTable = ({
   workdayLogs,
   isLoading,
   page,
-  totalPagesCount,
+  pagesCount,
   onPageChange,
+  onTimeLogChange,
 }: SectorHistoryTableProps) => {
   const { rows } = useSectorHistoryTable(workdayLogs)
 
+  console.log({ pagesCount })
+
   return (
     <Table
+      bottomContentPlacement='outside'
       bottomContent={
-        totalPagesCount > 1 && (
+        pagesCount > 1 && (
           <div className='flex w-full justify-start'>
             <Pagination
               aria-label='paginação'
               showControls
               page={page}
-              total={totalPagesCount}
+              total={pagesCount}
               onChange={onPageChange}
             />
           </div>
@@ -60,7 +70,7 @@ export const SectorHistoryTable = ({
       </TableHeader>
       <TableBody
         items={rows}
-        isLoading={isLoading}
+        isLoading={true}
         loadingContent={<Spinner color='primary' label='Carregando...' />}
         emptyContent='Nenhum histórico encontrado.'
         aria-label='counteudo da tabela'
@@ -73,6 +83,7 @@ export const SectorHistoryTable = ({
               <TimePunchLogDialog
                 timePunchLog={row.timePunchLog}
                 timePunchSchedule={row.timePunchSchedule}
+                onTimeLogChange={onTimeLogChange}
               />
             </TableCell>
           </TableRow>

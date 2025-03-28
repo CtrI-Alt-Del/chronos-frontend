@@ -1,8 +1,9 @@
 import type { IApiClient } from '@/@core/global/interfaces'
-import { ApiResponse } from '@/@core/global/responses'
+import { ApiResponse, PaginationResponse } from '@/@core/global/responses'
 import { addUrlParams } from '../utils'
 import { handleApiError } from '../utils'
 import type { CacheConfig } from '../types'
+import { HTTP_HEADERS } from '@/@core/global/constants/http-headers'
 
 export const NextApiClient = (
   {
@@ -41,6 +42,18 @@ export const NextApiClient = (
       if (!response.ok) {
         return handleApiError<ResponseBody>(data, response.status)
       }
+
+      // const isPagination = response.headers.get(HTTP_HEADERS.pagination) != null
+      // if (isPagination) {
+      //   return new ApiResponse({
+      //     body: new PaginationResponse({
+      //       items: data,
+      //       itemsCount: Number(response.headers.get(HTTP_HEADERS.itemsCount)),
+      //       pagesCount: Number(response.headers.get(HTTP_HEADERS.pagesCount)),
+      //     }) as ResponseBody,
+      //     statusCode: response.status,
+      //   })
+      // }
 
       return new ApiResponse<ResponseBody>({
         body: data,

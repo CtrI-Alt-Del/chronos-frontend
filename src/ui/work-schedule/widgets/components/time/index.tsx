@@ -4,5 +4,5 @@ export const Time = ({
   children,
   ...timeProps
 }: PropsWithChildren<ComponentProps<'time'>>) => {
-  return <time {...timeProps}>{children ?? '__:__'}</time>
+  return <time {...timeProps}>{children ? String(children).slice(0, 5) : '__:__'}</time>
 }
