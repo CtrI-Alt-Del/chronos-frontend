@@ -4,21 +4,36 @@ import { addUrlParams } from '../utils'
 import { handleApiError } from '../utils'
 import type { CacheConfig } from '../types'
 
-export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
+export const NextApiClient = (
+  {
+    isCacheEnabled = true,
+    refetchInterval = 60 * 60 * 24, // 1 day
+    cacheKey,
+  }: CacheConfig = {} as CacheConfig,
+): IApiClient => {
   let baseUrl: string
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     'ngrok-skip-browser-warning': 'true',
   }
+
+  const requestInit: RequestInit = {
+    cache: !isCacheEnabled ? 'no-store' : undefined,
+    headers,
+    next: isCacheEnabled
+      ? {
+          revalidate: refetchInterval,
+          tags: cacheKey ? [cacheKey] : [],
+        }
+      : undefined,
+  }
   let params: Record<string, string> = {}
 
   return {
-    async get<ResponseBody>(url: string, body: unknown) {
+    async get<ResponseBody>(url: string) {
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
+        ...requestInit,
         method: 'GET',
-        headers,
-        body: JSON.stringify(body),
-        cache: cacheConfig?.isCacheEnabled ? 'force-cache' : 'no-store',
       })
       params = {}
       const data = await response.json()
@@ -34,8 +49,8 @@ export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
     },
     async patch<ResponseBody>(url: string, body: unknown = {}) {
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
+        ...requestInit,
         method: 'PATCH',
-        headers,
         body: JSON.stringify(body) ?? {},
       })
       params = {}
@@ -53,8 +68,8 @@ export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
 
     async post<ResponseBody>(url: string, body: unknown = {}) {
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
+        ...requestInit,
         method: 'POST',
-        headers,
         body: JSON.stringify(body) ?? {},
       })
       params = {}
@@ -72,8 +87,8 @@ export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
 
     async put<ResponseBody>(url: string, body: unknown) {
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
+        ...requestInit,
         method: 'PUT',
-        headers,
         body: JSON.stringify(body) ?? {},
       })
       params = {}
@@ -91,6 +106,7 @@ export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
 
     async delete(url: string, body: unknown = {}) {
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
+        ...requestInit,
         method: 'DELETE',
         headers,
         body: JSON.stringify(body),

@@ -8,7 +8,6 @@ const Middleware = async (request: NextRequest) => {
 
   for (const controller of controllers) {
     const response = await controller.handle(http)
-    console.log('isRedirecting: ', response.isRedirecting)
     if (response.isRedirecting) return response.body
   }
 
