@@ -10,7 +10,7 @@ export const ROUTES = {
   workSchedule: {
     schedules: '/work-schedule/schedules',
     registerSchedule: '/work-schedule/register-schedule',
-    history: '/work-schedule/history',
+    sectorHistory: '/work-schedule/sector-history',
     collaboratorHistory: '/work-schedule/collaborator-history',
     timePunch: '/work-schedule/time-punch',
     timeCard: '/work-schedule/time-card',
