@@ -1,5 +1,3 @@
-"use client";
-
 import { AuthLayout } from "@/ui/global/widgets/layouts/auth-layout";
 import type { ReactNode } from "react";
 

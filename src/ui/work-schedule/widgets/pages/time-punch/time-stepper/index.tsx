@@ -1,21 +1,29 @@
-interface TimePunchStepperProps {
+import type { TimePunchDto } from '@/@core/work-schedule/dtos'
+
+type TimePunchStepperProps = {
   currentStep: number
-  complete: boolean
+  isClosed: boolean
+  timesSchedule: string[]
+  timesLog: string[]
+  periods: string[]
 }
 
-export const TimePunchStepper = ({ currentStep, complete }: TimePunchStepperProps) => {
-  const steps = ['Entrada 1', 'Saída 1', 'Entrada 2', 'Saída 2']
-  const times = ['08:00', '12:00', '13:00', '17:00']
-
+export const TimePunchStepper = ({
+  currentStep,
+  isClosed,
+  timesSchedule,
+  timesLog,
+  periods,
+}: TimePunchStepperProps) => {
   return (
     <div className='flex justify-between mb-8'>
-      {steps?.map((step, index) => (
+      {periods?.map((step, index) => (
         <div
           key={String(index)}
           className={`
             flex relative flex-col justify-center items-center w-24
-            ${currentStep === index + 1 ? 'active' : ''}
-            ${index + 1 < currentStep || complete ? 'complete' : ''}
+            ${currentStep === index ? 'active' : ''}
+            ${index + 1 < currentStep || isClosed ? 'isClosed' : ''}
           `}
         >
           <p className='mb-2 text-base font-normal text-black'>{step}</p>
@@ -23,8 +31,8 @@ export const TimePunchStepper = ({ currentStep, complete }: TimePunchStepperProp
           {index !== 0 && (
             <div
               className={`
-                absolute w-full h-[3px] right-2/4 top-1/2 -translate-y-1/2
-                ${index + 1 <= currentStep || complete ? 'bg-[#1822D9]' : 'bg-[#848484]'}
+                absolute w-full h-[3px] right-2/4 top-1/2 -translate-y-3
+                ${index <= currentStep || isClosed ? 'bg-[#1822D9]' : 'bg-[#848484]'}
               `}
             />
           )}
@@ -35,14 +43,17 @@ export const TimePunchStepper = ({ currentStep, complete }: TimePunchStepperProp
               rounded-full shadow-[0_4px_12px_rgba(24,34,217,0.25)]
               transition-all duration-300 ease-in-out
               ${
-                index + 1 < currentStep || complete
+                index < currentStep || isClosed
                   ? 'bg-[#1872D9] border-2 border-[#1822D9] shadow-[0_6px_16px_rgba(24,34,217,0.4)]'
                   : 'bg-[#BFBFBF] border-2 border-[#848484]'
               }
             `}
           />
 
-          <p className='mt-2 text-sm font-bold text-black'>{times[index]}</p>
+          <time className='my-3 text-sm font-bold text-black'>
+            {timesSchedule[index]}
+          </time>
+          <time>{timesLog[index] ?? '__:__'}</time>
         </div>
       ))}
     </div>

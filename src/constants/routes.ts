@@ -12,8 +12,8 @@ export const ROUTES = {
     registerSchedule: '/work-schedule/register-schedule',
     history: '/work-schedule/history',
     collaboratorHistory: '/work-schedule/collaborator-history',
-    timePunch: '/time-punch',
-    timeCard: '/time-card',
+    timePunch: '/work-schedule/time-punch',
+    timeCard: '/work-schedule/time-card',
   },
   solicitation: {
     solicitations: '/solicitation/solicitations',

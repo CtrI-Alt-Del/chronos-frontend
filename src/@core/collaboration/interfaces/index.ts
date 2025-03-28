@@ -1,1 +1,1 @@
-export type { ICollaboratorService } from "./collaborator-service"
+export type { ICollaborationService } from './collaboration-service'

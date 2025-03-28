@@ -5,4 +5,5 @@ export type AccountDto = {
   isActive: boolean
   role: string
   sector: string
+  collaboratorId: string
 }

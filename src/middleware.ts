@@ -2,7 +2,6 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { NextHttp } from './api/next/next-http'
 import { RedirectByRoleMiddleware, VerifyJwtMiddleware } from './api/controllers/auth'
 
-
 const Middleware = async (request: NextRequest) => {
   const http = await NextHttp({ request })
   const controllers = [VerifyJwtMiddleware(), RedirectByRoleMiddleware()]

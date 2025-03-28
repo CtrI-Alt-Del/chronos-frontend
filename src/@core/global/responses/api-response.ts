@@ -16,13 +16,14 @@ export class ApiResponse<Body = unknown> {
   private readonly _errorMessage: string | null
   readonly headers: Record<string, string> = {}
 
-  constructor({ body, statusCode, errorMessage }: ApiResponseProps<Body>) {
+  constructor({ body, statusCode, errorMessage, headers }: ApiResponseProps<Body>) {
     this._body = body ?? null
     this._statusCode = statusCode ?? HTTP_STATUS_CODE.ok
     this._errorMessage = errorMessage ?? null
+    this.headers = headers ?? {}
   }
 
-  throwError() {
+  throwError(): never {
     throw new ApiError(this.errorMessage, this.statusCode)
   }
 
@@ -61,7 +62,7 @@ export class ApiResponse<Body = unknown> {
   get isRedirecting() {
     return (
       this.statusCode === HTTP_STATUS_CODE.redirect &&
-      this.getHeader(HTTP_HEADERS.location)
+      this.getHeader(HTTP_HEADERS.location) !== null
     )
   }
 }

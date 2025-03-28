@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Drawer,
@@ -7,15 +7,15 @@ import {
   DrawerBody,
   useDisclosure,
   Button,
-} from "@heroui/react";
+} from '@heroui/react'
 
-import { CollaboratorTable } from "./collaborator-table";
-import { RegisterCollaboratorForm } from "./register-collaborator-form";
-import { useCollaboratorsPage } from "./use-collaborator-page";
-import { Search } from "@/ui/global/widgets/components/commons/search";
+import { CollaboratorTable } from './collaborator-table'
+import { RegisterCollaboratorForm } from './register-collaborator-form'
+import { useCollaboratorsPage } from './use-collaborator-page'
+import { Search } from '@/ui/global/widgets/components/search'
 
 export const CollaboratorsPage = () => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const {
     collaborators,
     totalPages,
@@ -25,33 +25,30 @@ export const CollaboratorsPage = () => {
     isFetching,
     handlePageChange,
     handleRegisterCollaborator,
-  } = useCollaboratorsPage();
+  } = useCollaboratorsPage()
 
   return (
-    <div className="">
-      <div className="flex justify-between items-center py-4">
-        <div className="flex-1 space-y-2 w-full max-w-96">
-          <Search
-            value={nameSearchvalue}
-            onSearchChange={handleNameSearchChange}
-          />
+    <div className=''>
+      <div className='flex justify-between items-center py-4'>
+        <div className='flex-1 space-y-2 w-full max-w-96'>
+          <Search value={nameSearchvalue} onSearchChange={handleNameSearchChange} />
         </div>
 
-        <Button color="primary" onPress={onOpen}>
+        <Button color='primary' onPress={onOpen}>
           Registrar Colaborador
         </Button>
         <Drawer isOpen={isOpen} onOpenChange={onOpenChange}>
           <DrawerContent>
             {(onClose) => (
               <>
-                <DrawerHeader className="flex flex-col gap-1">
+                <DrawerHeader className='flex flex-col gap-1'>
                   Registrar Colaborador
                 </DrawerHeader>
                 <DrawerBody>
                   <RegisterCollaboratorForm
                     onSubmit={async () => {
-                      await handleRegisterCollaborator();
-                      onClose;
+                      await handleRegisterCollaborator()
+                      onClose
                     }}
                     onCancel={onClose}
                   />
@@ -70,5 +67,5 @@ export const CollaboratorsPage = () => {
         onPageChange={handlePageChange}
       />
     </div>
-  );
-};
+  )
+}
