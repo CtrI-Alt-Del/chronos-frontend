@@ -1,6 +1,6 @@
 import { useQueryState } from 'nuqs'
 
-export function useUrlParamString(
+export function useQueryParamString(
   key: string,
   defeaulString = '',
 ): [string, (newValue: string) => void] {

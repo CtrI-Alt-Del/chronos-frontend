@@ -4,7 +4,7 @@ import { CLIENT_ENV } from '@/constants/client-env'
 import { CollaborationService } from '@/api/services/collaboration-service'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 
-const nextApiClient = NextApiClient()
+const nextApiClient = NextApiClient({ isCacheEnabled: false })
 nextApiClient.setBaseUrl(CLIENT_ENV.serverAppUrl)
 
 export function useApi() {
