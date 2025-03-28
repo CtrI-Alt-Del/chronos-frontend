@@ -1,6 +1,6 @@
-import { ROUTES } from "@/constants/routes";
-import { useNavigation } from "@/ui/global/hooks/use-navigation";
-import { useMemo } from "react";
+import { ROUTES } from '@/constants/routes'
+import { useNavigation } from '@/ui/global/hooks/use-navigation'
+import { useMemo } from 'react'
 
 export function useHeaderTitle() {
   const { currentRoute } = useNavigation()
@@ -15,9 +15,8 @@ export function useHeaderTitle() {
       [ROUTES.workSchedule.schedules]: 'Escalas',
       [ROUTES.workSchedule.registerSchedule]: 'Registro de escala',
       [ROUTES.collaboration.collaborators]: 'Registro de colaboratores',
-      [ROUTES.workSchedule.history]: 'Registro de pontos dos colaboradores',
-      [ROUTES.workSchedule.collaboratorHistory]: 'Historico de Pontos'
-
+      [ROUTES.workSchedule.sectorHistory]: 'Histórico de colaboradores',
+      [ROUTES.workSchedule.collaboratorHistory]: 'Meu histórico',
     }
 
     return routeTitles[currentRoute] || 'Página não encontrada'

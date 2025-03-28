@@ -17,7 +17,8 @@ type SidebarProps = {
 }
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
-  const { handleExpandButtonClick, handleLogoutButtonClick } = useSidebar(onClose)
+  const { queryDate, handleExpandButtonClick, handleLogoutButtonClick } =
+    useSidebar(onClose)
 
   return (
     <>
@@ -53,15 +54,21 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         <NavbarContent className='flex flex-col w-full hover:cursor-pointer'>
           <NavbarContent className='flex flex-col gap-0 w-full'>
             <NavbarLink
-              href={ROUTES.workSchedule.schedules}
+              href={ROUTES.workSchedule.timePunch}
               icon='star'
               title='Registrar ponto'
             />
 
             <NavbarLink
-              href={ROUTES.workSchedule.history}
+              href={`${ROUTES.workSchedule.sectorHistory}?${queryDate}`}
               icon='history'
               title='Histórico de pontos'
+            />
+
+            <NavbarLink
+              href={`${ROUTES.workSchedule.collaboratorHistory}?${queryDate}`}
+              icon='history'
+              title='Meu histórico de pontos'
             />
 
             <NavbarLink

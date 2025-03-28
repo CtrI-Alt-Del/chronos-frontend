@@ -15,7 +15,7 @@ export interface IWorkScheduleService {
     endDate: Date,
     page: number,
   ): Promise<ApiResponse<PaginationResponse<WorkScheduleDto>>>
-  reportWorkdayHistory(
+  reportSectorHistory(
     date: Date,
     page: number,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
