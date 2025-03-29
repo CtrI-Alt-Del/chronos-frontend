@@ -47,16 +47,16 @@ export const TimePunchLogDialog = ({
       trigger={
         <Button variant='light'>
           <ol className='flex items-center gap-3'>
-            <li>
+            <li className='w-24'>
               <TimeLog time={timePunchLog.firstClockIn} />
             </li>
-            <li>
+            <li className='w-24'>
               <TimeLog time={timePunchLog.firstClockOut} />
             </li>
-            <li>
+            <li className='w-24'>
               <TimeLog time={timePunchLog.secondClockIn} />
             </li>
-            <li>
+            <li className='w-24'>
               <TimeLog time={timePunchLog.secondClockIn} />
             </li>
           </ol>

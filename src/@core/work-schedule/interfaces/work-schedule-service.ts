@@ -7,9 +7,7 @@ export interface IWorkScheduleService {
   createWorkSchedule(workSchedule: WorkScheduleDto): Promise<ApiResponse<void>>
   getWorkSchedule(workScheduleId: string): Promise<ApiResponse<WorkScheduleDto>>
   getTodayWorkdayLog(collaboratorId: string): Promise<ApiResponse<WorkdayLogDto>>
-  listWorkSchedules(
-    page: number,
-  ): Promise<ApiResponse<PaginationResponse<WorkScheduleDto>>>
+  listWorkSchedules(): Promise<ApiResponse<WorkScheduleDto[]>>
   reportCollaboratorHistory(
     collaboratorId: string,
     startDate: Date,

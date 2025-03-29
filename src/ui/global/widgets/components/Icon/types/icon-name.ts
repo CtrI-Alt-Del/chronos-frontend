@@ -8,3 +8,4 @@ export type IconName =
   | 'history'
   | 'logout'
   | 'clock'
+  | 'schedule'
