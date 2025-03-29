@@ -27,8 +27,8 @@ export const CollaborationService = (apiClient: IApiClient): ICollaborationServi
       )
     },
 
-    async listCollaborators({ page, name }) {
-      if (name) apiClient.setParam('name', String(name))
+    async listCollaborators({ page, name,status }) {
+      apiClient.setParam('active',String(status))
       apiClient.setParam('page', String(page))
       return await apiClient.get<PaginationResponse<CollaboratorDto>>(
         `${MODULE}/collaborators`,
