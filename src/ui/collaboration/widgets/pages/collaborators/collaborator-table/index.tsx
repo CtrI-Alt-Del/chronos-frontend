@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+'use client'
+import React from 'react'
 import {
   Table,
   TableHeader,
@@ -7,47 +7,57 @@ import {
   TableBody,
   TableRow,
   TableCell,
-} from '@heroui/table';
-import { Chip } from '@heroui/chip';
-import { Tooltip } from '@heroui/tooltip';
-import { Pagination } from "@heroui/pagination";
-import { Spinner } from "@heroui/spinner"
-import { Eye } from '@phosphor-icons/react';
-import type { CollaboratorDto } from '@/@core/collaboration/dtos';
+} from '@heroui/table'
+import { Chip } from '@heroui/chip'
+import { Tooltip } from '@heroui/tooltip'
+import { Pagination } from '@heroui/pagination'
+import { Spinner } from '@heroui/spinner'
+import { Eye } from '@phosphor-icons/react'
+import type { CollaboratorDto } from '@/@core/collaboration/dtos'
+import { IconButton } from '@/ui/global/widgets/components/icon-button'
+import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
+import { Tag } from '@/ui/global/widgets/components/tag'
 
 type CollaboratorTableProps = {
-    page: number
-    isLoading: boolean
-    collaborators: CollaboratorDto[]
-    totalPages: number
-    onPageChange: (page: number) => void
-  }
+  page: number
+  isLoading: boolean
+  collaborators: CollaboratorDto[]
+  totalPages: number
+  onPageChange: (page: number) => void
+  handleDisableEmployee: (collaboratorId: string) => void
+  handleEnableEmployee: (collaboratorId: string) => void
+  isAlteringCollaboratorStatus: boolean
+}
 
 export const CollaboratorTable = ({
-    isLoading,
-    page,
-    collaborators,
-    totalPages,
-    onPageChange,
-  }: CollaboratorTableProps) => {
+  isLoading,
+  page,
+  handleDisableEmployee,
+  handleEnableEmployee,
+  collaborators,
+  totalPages,
+  onPageChange,
+  isAlteringCollaboratorStatus
+}: CollaboratorTableProps) => {
   return (
     <>
-    <Table 
-      bottomContent={
-        totalPages > 1 ? (
-        <div className="flex w-full">
-          <Pagination
-            isCompact
-            showControls
-            showShadow
-            page={page}
-            total={totalPages}
-            onChange={onPageChange}
-          />
-        </div>
-        ) : null
-      }>
-              <TableHeader>
+      <Table
+        bottomContent={
+          totalPages > 1 ? (
+            <div className='flex w-full'>
+              <Pagination
+                isCompact
+                showControls
+                showShadow
+                page={page}
+                total={totalPages}
+                onChange={onPageChange}
+              />
+            </div>
+          ) : null
+        }
+      >
+        <TableHeader>
           <TableColumn key='name' className='uppercase'>
             Nome
           </TableColumn>
@@ -70,14 +80,14 @@ export const CollaboratorTable = ({
             Ações
           </TableColumn>
         </TableHeader>
-      <TableBody 
-        items={collaborators}
-        isLoading={isLoading}
-        loadingContent={<Spinner color='primary' />}
-        emptyContent='Nenhum colaborador encontrado.'
-      >
-        {(item) => (
-          <TableRow key={item.id}>
+        <TableBody
+          items={collaborators}
+          isLoading={isLoading}
+          loadingContent={<Spinner color='primary' />}
+          emptyContent='Nenhum colaborador encontrado.'
+        >
+          {(item) => (
+            <TableRow key={item.id}>
               <TableCell key={'name'}>
                 <span>{item.name}</span>
               </TableCell>
@@ -88,33 +98,71 @@ export const CollaboratorTable = ({
                 <span>{item.cpf}</span>
               </TableCell>
               <TableCell key={'role'}>
-                <span>{item.role}</span>
+                <span>{item.role === 'MANAGER' ? 'Gerente' : 'Colaborador'}</span>
               </TableCell>
               <TableCell key={'sector'}>
-                <span>{item.sector}</span>
+                <span>
+                  {(() => {
+                    switch (item.sector) {
+                      case 'PRODUCTION':
+                        return 'Produção'
+                      case 'HUMAN_RESOURCES':
+                        return 'Recursos Humanos'
+                      case 'COMERCIAL':
+                        return 'Comercial'
+                      case 'ADMINISTRATIVE':
+                        return 'Administrativo'
+                      default:
+                        return item.sector
+                    }
+                  })()}
+                </span>
               </TableCell>
               <TableCell key={'status'}>
-                  <Chip
-                    className="capitalize"
-                    color={item.isActive ? "success" : "warning"}
-                    size="sm"
-                    variant="flat"
-                  >
-                    {item.isActive ? "Ativado" : "Desativado"}
-                  </Chip>
+                {item.isActive ? (
+                  <Tag type='sucess'>Ativo</Tag>
+                ) : (
+                  <Tag type='danger'>Inativo</Tag>
+                )}
               </TableCell>
               <TableCell key={'actions'}>
-                <Tooltip content="Detalhes">
-                  <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                    <Eye />
-                  </span>
-                </Tooltip>
+                {item.isActive ? (
+                  <AlertDialog
+                    isLoading={isAlteringCollaboratorStatus}
+                    trigger={
+                      <IconButton
+                        name='trash'
+                        className='bg-transparent hover:bg-primary text-gray-700 hover:text-white duration-1000 border-zinc-400 h-10 min-w-10'
+                        size={20}
+                      />
+                    }
+                    onCancel={() => { }}
+                    title='ALERTA'
+                    onConfirm={() => handleDisableEmployee(item.id as string)}
+                  >
+                    Voce tem certeza que deseja desativar esse colaborador?
+                  </AlertDialog>
+                ) : (
+                  <AlertDialog
+                    trigger={
+                      <IconButton
+                        name='activity'
+                        className='bg-transparent hover:bg-primary text-gray-700 hover:text-white duration-1000 border-zinc-400 h-10 min-w-10'
+                        size={20}
+                      />
+                    }
+                    onCancel={() => { }}
+                    title='ALERTA'
+                    onConfirm={() => handleEnableEmployee(item.id as string)}
+                  >
+                    Voce tem certeza que deseja ativar esse colaborador?
+                  </AlertDialog>
+                )}
               </TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
-  </>
-
-  );
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </>
+  )
 }
