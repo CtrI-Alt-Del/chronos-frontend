@@ -1,4 +1,10 @@
 export type IconName =
+  |"users"
+  |"activity"
+  |"eye"
+  |"trash"
+  | "plus"
+  | 'arrow-down'
   | 'menu'
   | 'star'
   | 'mirror'
