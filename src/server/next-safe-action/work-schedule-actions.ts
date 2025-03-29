@@ -14,13 +14,7 @@ import {
   GetWorkScheduleAction,
   PunchTimeAction,
 } from '../actions/work-schedule'
-
-const timePunchSchema = z.object({
-  firstClockIn: z.string(),
-  firstClockOut: z.string(),
-  secondClockIn: z.string(),
-  secondClockOut: z.string(),
-})
+import { timePunchSchema } from '@/validation/schemas/work-schedule'
 
 const getTodayWorkdayLog = authActionClient.action(async ({ clientInput, ctx }) => {
   const actionServer = NextActionServer({

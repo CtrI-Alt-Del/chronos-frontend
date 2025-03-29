@@ -1,7 +1,13 @@
 import type { TimePunchDto } from './time-punch-dto'
 
 export type WeekdayScheduleDto = {
-  id?: string
-  weekday: string
+  weekday:
+    | 'sunday'
+    | 'monday'
+    | 'tuesday'
+    | 'wednesday'
+    | 'thursday'
+    | 'friday'
+    | 'saturday'
   timePunch: TimePunchDto
 }

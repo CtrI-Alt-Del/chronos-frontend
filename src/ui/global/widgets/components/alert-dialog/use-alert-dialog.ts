@@ -1,6 +1,6 @@
 import { useDisclosure } from '@heroui/react'
 
-export function useAlertDialog(onConfirm: VoidFunction, onCancel: VoidFunction) {
+export function useAlertDialog(onConfirm: VoidFunction, onCancel?: VoidFunction) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure()
 
   function open() {
@@ -14,7 +14,7 @@ export function useAlertDialog(onConfirm: VoidFunction, onCancel: VoidFunction) 
 
   function handleCancelButtonClick() {
     onClose()
-    onCancel()
+    if (onCancel) onCancel()
   }
 
   return {

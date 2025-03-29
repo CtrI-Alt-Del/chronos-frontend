@@ -10,9 +10,9 @@ import { useAlertDialog } from './use-alert-dialog'
 type AlertModalProps = {
   trigger: ReactNode
   title: string
-  onConfirm: VoidFunction
-  onCancel: VoidFunction
   isLoading?: boolean
+  onConfirm: VoidFunction
+  onCancel?: VoidFunction
 }
 
 export const AlertDialog = ({
@@ -21,7 +21,7 @@ export const AlertDialog = ({
   title,
   onConfirm,
   onCancel,
-  isLoading
+  isLoading,
 }: PropsWithChildren<AlertModalProps>) => {
   const {
     isOpen,
@@ -43,7 +43,11 @@ export const AlertDialog = ({
                 <Button className='bg-slate-300' onPress={handleCancelButtonClick}>
                   Cancelar
                 </Button>
-                <Button color='primary' onPress={handleConfirmButtonClick} isLoading={isLoading ? isLoading : false}>
+                <Button
+                  color='primary'
+                  onPress={handleConfirmButtonClick}
+                  isLoading={isLoading ? isLoading : false}
+                >
                   Confirmar
                 </Button>
               </ModalFooter>

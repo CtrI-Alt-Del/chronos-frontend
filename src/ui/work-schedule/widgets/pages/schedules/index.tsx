@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { WorkScheduleCard } from './work-schedule-card'
 import { useSchedulesPage } from './use-schedules-page'
 import { WorkScheduleCardSckeleton } from './work-schedule-card-skeleton'
+import { ROUTES } from '@/constants/routes'
 
 export const SchedulesPage = () => {
   const { schedules, isFetchingSchedules } = useSchedulesPage()
@@ -30,7 +31,7 @@ export const SchedulesPage = () => {
         <div className='flex mt-6'>
           <Button
             as={Link}
-            href='/work-schedule/register-schedule'
+            href={ROUTES.workSchedule.schedule()}
             color='primary'
             className='px-6 py-5'
           >

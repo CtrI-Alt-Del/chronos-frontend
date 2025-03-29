@@ -9,7 +9,7 @@ import { useDialog } from './use-dialog'
 
 type DialogProps = {
   title: string
-  children: (closeDialog: VoidFunction) => ReactNode
+  children: ReactNode | ((closeDialog: VoidFunction) => ReactNode)
   trigger?: ReactNode
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full'
   isDismissable?: boolean
@@ -55,7 +55,9 @@ const DialogComponent = (
       >
         <ModalContent className='z-50'>
           <ModalHeader>{title}</ModalHeader>
-          <ModalBody>{children(close)}</ModalBody>
+          <ModalBody>
+            {typeof children === 'function' ? children(close) : children}
+          </ModalBody>
         </ModalContent>
       </Modal>
       {trigger && <Slot onClick={open}>{trigger}</Slot>}

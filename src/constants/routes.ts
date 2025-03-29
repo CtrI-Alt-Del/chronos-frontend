@@ -9,8 +9,10 @@ export const ROUTES = {
   },
   workSchedule: {
     schedules: '/work-schedule/schedules',
-    schedule: (workScheduleId: string) => `/work-schedule/schedules/${workScheduleId}`,
-    registerSchedule: '/work-schedule/register-schedule',
+    schedule: (workScheduleId?: string) =>
+      workScheduleId
+        ? `/work-schedule/schedules/${workScheduleId}`
+        : '/work-schedule/schedules',
     sectorHistory: '/work-schedule/sector-history',
     collaboratorHistory: '/work-schedule/collaborator-history',
     timePunch: '/work-schedule/time-punch',
