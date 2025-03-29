@@ -12,6 +12,7 @@ type AlertModalProps = {
   title: string
   onConfirm: VoidFunction
   onCancel: VoidFunction
+  isLoading?: boolean
 }
 
 export const AlertDialog = ({
@@ -20,6 +21,7 @@ export const AlertDialog = ({
   title,
   onConfirm,
   onCancel,
+  isLoading
 }: PropsWithChildren<AlertModalProps>) => {
   const {
     isOpen,
@@ -41,7 +43,7 @@ export const AlertDialog = ({
                 <Button className='bg-slate-300' onPress={handleCancelButtonClick}>
                   Cancelar
                 </Button>
-                <Button color='primary' onPress={handleConfirmButtonClick}>
+                <Button color='primary' onPress={handleConfirmButtonClick} isLoading={isLoading ? isLoading : false}>
                   Confirmar
                 </Button>
               </ModalFooter>
