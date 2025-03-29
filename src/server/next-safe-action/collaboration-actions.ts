@@ -13,6 +13,7 @@ import {
   GetCollaboratorProfileAction,
   UpdateCollaboratorAction,
 } from '../actions/collaboration'
+import { CACHE } from '@/@core/global/constants'
 
 const collaboratorSchema = z.object({
   name: z.string(),
@@ -33,7 +34,10 @@ export const getCollaborator = authActionClient
     const actionServer = NextActionServer({
       request: clientInput,
     })
-    const apiClient = await NextServerApiClient({ isCacheEnabled: true })
+    const apiClient = await NextServerApiClient({
+      isCacheEnabled: true,
+      cacheKey: CACHE.collaboration.collaborator.key(clientInput.collaboratorId),
+    })
     const service = CollaborationService(apiClient)
     const action = GetCollaboratorAction(service)
     return action.handle(actionServer)
