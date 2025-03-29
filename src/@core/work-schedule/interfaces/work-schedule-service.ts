@@ -29,5 +29,9 @@ export interface IWorkScheduleService {
     timePunchPeriod: TimePunchPeriod,
   ): Promise<ApiResponse<void>>
   punchTime(timePunchLogId: string, time: Date): Promise<ApiResponse<void>>
+  scheduleDaysOff(
+    workdaysCount: number,
+    daysOffCount: number,
+  ): Promise<ApiResponse<string>>
   deleteWorkSchedule(workScheduleId: string): Promise<ApiResponse<void>>
 }

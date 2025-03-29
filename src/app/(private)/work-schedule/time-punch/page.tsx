@@ -8,8 +8,6 @@ const Page = async () => {
   if (!workScheduleResponse?.data) return
   if (!collaborationResponse?.data) return
 
-  console.log(workScheduleResponse?.data)
-
   return (
     <TimePunchPage
       workdayLog={workScheduleResponse.data.workdayLog}

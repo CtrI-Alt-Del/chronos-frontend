@@ -40,11 +40,14 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       return await apiClient.post(`${MODULE}/schedules`, workSchedule)
     },
 
-    async editTimePunchSchedule(timePunchScheduleId, timePunch) {
-      return await apiClient.put(
-        `${MODULE}/time-punches/${timePunchScheduleId}`,
-        timePunch,
-      )
+    async editDaysOffSchedule(workScheduleId, daysOff) {
+      return await apiClient.put(`${MODULE}/schedules/${workScheduleId}`, {
+        daysOff,
+      })
+    },
+
+    async editTimePunchSchedule(timePunch) {
+      return await apiClient.put(`${MODULE}/time-punches/${timePunch.id}`, timePunch)
     },
 
     async adjustTimePunchLog(timePunchScheduleId, timeLog, timePunchPeriod) {
@@ -53,7 +56,7 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
         {
           time: timeLog,
           period: timePunchPeriod,
-        }
+        },
       )
     },
 
@@ -62,6 +65,12 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       return await apiClient.patch(`${MODULE}/time-punches/${timePunchLogId}`, {
         time: datetimeProvider.formatTime(time),
       })
+    },
+
+    async scheduleDaysOff(workdaysCount, daysOffCount) {
+      apiClient.setParam('workdaysCount', String(workdaysCount))
+      apiClient.setParam('daysOffCount', String(daysOffCount))
+      return await apiClient.get(`${MODULE}/schedules/days-off-schedule`)
     },
 
     async deleteWorkSchedule(workScheduleId) {

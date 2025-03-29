@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Calendar } from './calendar'
 import { WeekSchedule } from './week-schedule'
 import type { WorkScheduleDto } from '@/@core/work-schedule/dtos'
+import { DaysOffSchedule } from './days-off-schedule'
 
 type SchedulePageProps = {
   schedule: WorkScheduleDto | null
@@ -19,7 +20,9 @@ export const SchedulePage = ({ schedule }: SchedulePageProps) => {
 
       <div className='py-4 max-w-[480px] sm:max-w-[520px] md:max-w-[680px] lg:max-w-full mt-6'>
         <h2 className='font-bold text-lg md:text-xl'>Registro de Dias de Trabalho</h2>
-        <Calendar />
+        <div className='mt-6'>
+          <DaysOffSchedule />
+        </div>
       </div>
 
       <div className='flex justify-end mr-[88px]'>
