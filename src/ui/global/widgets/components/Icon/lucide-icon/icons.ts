@@ -10,6 +10,7 @@ import {
   SquarePen,
   LogOut,
   SquareCheckBig,
+  NotebookTabs,
   type LucideProps,
 } from 'lucide-react'
 
@@ -25,5 +26,6 @@ export const ICONS: Record<
   logout: LogOut,
   clock: Clock3,
   edit: SquarePen,
+  schedule: NotebookTabs,
   confirm: SquareCheckBig,
 }

@@ -74,16 +74,20 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             <NavbarLink
               href={ROUTES.workSchedule.timeCard}
               icon='mirror'
-              title='Espelho de pontos'
+              title='Espelho ponto'
             />
 
             <NavbarLink
               href={ROUTES.workSchedule.schedules}
-              icon='report'
-              title='Revisões'
+              icon='schedule'
+              title='Escalas'
             />
 
-            <NavbarLink href={ROUTES.report} icon='report' title='Relatório analítico' />
+            <NavbarLink
+              href={ROUTES.solicitation.solicitations}
+              icon='report'
+              title='Solicitações'
+            />
           </NavbarContent>
         </NavbarContent>
 

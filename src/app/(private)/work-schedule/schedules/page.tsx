@@ -1,9 +1,7 @@
-import { SchedulePage } from "@/ui/work-schedule/widgets/pages/schedule";
+import { SchedulesPage } from '@/ui/work-schedule/widgets/pages/schedules'
 
-const Page = () => {
-  return (
-    <SchedulePage />
-  )
+const Page = async () => {
+  return <SchedulesPage />
 }
 
-export default Page;
+export default Page

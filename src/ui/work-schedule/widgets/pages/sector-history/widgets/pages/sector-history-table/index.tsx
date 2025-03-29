@@ -38,8 +38,6 @@ export const SectorHistoryTable = ({
 }: SectorHistoryTableProps) => {
   const { rows } = useSectorHistoryTable(workdayLogs)
 
-  console.log({ pagesCount })
-
   return (
     <Table
       bottomContentPlacement='outside'
@@ -65,12 +63,17 @@ export const SectorHistoryTable = ({
           Colaborador
         </TableColumn>
         <TableColumn key='first-entry' className='uppercase'>
-          Registro de pontos
+          <div className='flex items-center gap-16'>
+            <span>Entrada 1</span>
+            <span>Saída 1</span>
+            <span>Entrada 2</span>
+            <span>Saída 2</span>
+          </div>
         </TableColumn>
       </TableHeader>
       <TableBody
         items={rows}
-        isLoading={true}
+        isLoading={isLoading}
         loadingContent={<Spinner color='primary' label='Carregando...' />}
         emptyContent='Nenhum histórico encontrado.'
         aria-label='counteudo da tabela'
@@ -78,7 +81,9 @@ export const SectorHistoryTable = ({
         {(row) => (
           <TableRow key={row.id}>
             <TableCell>{row.date}</TableCell>
-            <TableCell>{row.collaborator.name}</TableCell>
+            <TableCell>
+              <span className='truncate'>{row.collaborator.name}</span>
+            </TableCell>
             <TableCell>
               <TimePunchLogDialog
                 timePunchLog={row.timePunchLog}
