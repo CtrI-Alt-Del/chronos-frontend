@@ -1,4 +1,5 @@
 export type IconName =
+  |"users"
   |"activity"
   |"eye"
   |"trash"

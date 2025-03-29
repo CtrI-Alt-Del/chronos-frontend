@@ -84,6 +84,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             />
 
             <NavbarLink href={ROUTES.report} icon='report' title='Relatório analítico' />
+            <NavbarLink href={ROUTES.collaboration.collaborators} icon='users' title='Colaboradores' />
           </NavbarContent>
         </NavbarContent>
 

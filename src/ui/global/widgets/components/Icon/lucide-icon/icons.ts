@@ -17,12 +17,14 @@ import {
   Trash,
   Eye,
   Activity,
+  Users,
 } from 'lucide-react'
 
 export const ICONS: Record<
   IconName,
   ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
 > = {
+  users: Users,
   activity: Activity,
   trash: Trash,
   eye: Eye,
