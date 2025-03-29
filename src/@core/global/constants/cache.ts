@@ -11,5 +11,8 @@ export const CACHE = {
     sectorHistory: {
       key: '/workSchedule/sector-history',
     },
+    workSchedule: {
+      key: '/work-schedule/schedules',
+    },
   },
 } as const
