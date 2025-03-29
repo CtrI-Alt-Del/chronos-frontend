@@ -11,12 +11,23 @@ import {
   LogOut,
   SquareCheckBig,
   type LucideProps,
+  ArrowDown,
+  ChevronDown,
+  Plus,
+  Trash,
+  Eye,
+  Activity,
 } from 'lucide-react'
 
 export const ICONS: Record<
   IconName,
   ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
 > = {
+  activity: Activity,
+  trash: Trash,
+  eye: Eye,
+  plus: Plus,
+  'arrow-down': ChevronDown,
   menu: Menu,
   star: Sparkles,
   history: History,
