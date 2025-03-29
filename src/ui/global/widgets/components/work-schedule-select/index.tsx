@@ -60,7 +60,16 @@ export const WorkScheduleSelect = ({
                     </div>
                   }
                 >
-                  {`Folgas: ${workSchedule.daysOffCount} / Dias de trabalho: ${workSchedule.workdaysCount}`}
+                  <span className='text-sm text-zinc-600'>
+                    {`📅 Dias de trabalho por semana: `}
+                    <span className='font-semibold text-primary'>
+                      {workSchedule.workdaysCount}
+                    </span>
+                    {` | 🏖 Folgas por semana: `}
+                    <span className='font-semibold text-green-500'>
+                      {workSchedule.daysOffCount}
+                    </span>
+                  </span>
                 </AccordionItem>
               ))}
             </Accordion>
