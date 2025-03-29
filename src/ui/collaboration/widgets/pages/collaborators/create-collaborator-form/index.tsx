@@ -1,7 +1,8 @@
 import { Controller } from 'react-hook-form'
-import { useRegisterCollaboratorForm } from './use-register-collaborator-form'
 import { Button, Input, Form, SelectItem, Select } from '@heroui/react'
+
 import { WorkScheduleSelect } from '@/ui/global/widgets/components/work-schedule-select'
+import { useRegisterCollaboratorForm } from './use-register-collaborator-form'
 
 type RegisterCollaboratorFormProps = {
   onCancel: VoidFunction
@@ -12,9 +13,10 @@ export const RegisterCollaboratorForm = ({
   onSubmit,
   onCancel,
 }: RegisterCollaboratorFormProps) => {
-  const { errors, isSubmiting, register, handleSubmit, control } = useRegisterCollaboratorForm({
-    onSubmit,
-  })
+  const { errors, isSubmiting, register, handleSubmit, control } =
+    useRegisterCollaboratorForm({
+      onSubmit,
+    })
 
   return (
     <Form onSubmit={handleSubmit} className='w-full max-w-lg space-y-6'>
@@ -82,4 +84,3 @@ export const RegisterCollaboratorForm = ({
     </Form>
   )
 }
-

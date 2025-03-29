@@ -16,11 +16,8 @@ export const WorkScheduleSelect = ({
   const {
     workSchedules,
     isLoading,
-    pagesCount,
-    page,
-    handlePageChange,
-    handleWorkScheduleIdChange,
     selectedWorkScheduleName,
+    handleWorkScheduleIdChange,
   } = useWorkScheduleSelect(onSelectChange, defaultSelectedWorkScheduleId)
 
   return isLoading ? (
@@ -37,35 +34,36 @@ export const WorkScheduleSelect = ({
     >
       {(closeDrawer) => (
         <div className='flex flex-col pb-6'>
-          {workSchedules.length === 0 && (
+          {workSchedules?.length === 0 && (
             <p className='text-center text-bg-zinc-600 font-semibold my-12'>
               Nenhuma escala encontrada
             </p>
           )}
-          {workSchedules.length > 0 && (
+          {workSchedules && workSchedules.length > 0 && (
             <Accordion selectionMode='single'>
-              {workSchedules.map((workSchedule) => (
+              {workSchedules?.map((workSchedule) => (
                 <AccordionItem
                   key={workSchedule.id}
                   title={workSchedule.description}
                   indicator={
-                    <div
+                    <Button
+                      variant='light'
                       className='bg-transparent rounded-lg flex items-center justify-center hover:bg-primary hover:text-white duration-1000 border-zinc-400 h-10 min-w-10'
-                      onClick={() => {
-                        handleWorkScheduleIdChange(workSchedule.id)
+                      onPress={() => {
+                        if (workSchedule.id) handleWorkScheduleIdChange(workSchedule.id)
                         closeDrawer()
                       }}
                     >
                       <Icon name='plus' size={18} />
-                    </div>
+                    </Button>
                   }
                 >
                   <span className='text-sm text-zinc-600'>
-                    {`📅 Dias de trabalho por semana: `}
+                    📅 Dias de trabalho por semana:
                     <span className='font-semibold text-primary'>
                       {workSchedule.workdaysCount}
                     </span>
-                    {` | 🏖 Folgas por semana: `}
+                    | 🏖 Folgas por semana:
                     <span className='font-semibold text-green-500'>
                       {workSchedule.daysOffCount}
                     </span>

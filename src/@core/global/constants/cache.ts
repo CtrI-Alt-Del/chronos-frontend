@@ -1,7 +1,10 @@
 export const CACHE = {
   collaboration: {
     collaborator: {
-      key: '/collaboration/collaborator',
+      key: (collaboratorId: string) => `/collaboration/collaborator/${collaboratorId}`,
+    },
+    collaborators: {
+      key: '/collaboration/collaborators',
     },
   },
   workSchedule: {

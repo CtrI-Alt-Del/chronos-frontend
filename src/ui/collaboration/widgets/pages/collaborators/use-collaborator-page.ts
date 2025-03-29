@@ -1,10 +1,10 @@
-import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
-import { useApi, useCache } from '../../../../global/hooks'
-import { PAGINATION, CACHE } from '@/@core/global/constants'
-import { useQueryParamNumber } from '@/ui/global/hooks/use-query-param-number'
-import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useState } from 'react'
+
+import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
+import { CACHE } from '@/@core/global/constants'
+import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
+import { useApi } from '@/ui/global/hooks/use-api'
 
 export function useCollaboratorsPage() {
   const { collaborationService } = useApi()
@@ -12,7 +12,6 @@ export function useCollaboratorsPage() {
     useState<boolean>(false)
   const [statusSearchValue, setStatusSearchValue] = useQueryParamString('active')
   const { showError, showSuccess } = useToast()
-
 
   function handleStatusSearchValueChange(value: string) {
     setStatusSearchValue(value)
@@ -31,15 +30,16 @@ export function useCollaboratorsPage() {
     pagesCount,
     setPage,
     refetch,
-    itemsCount,
   } = usePaginatedCache({
     fetcher: fetchCollaborators,
     dependencies: [statusSearchValue],
-    key: CACHE.collaboration.collaborator.key,
+    key: CACHE.collaboration.collaborators.key,
   })
+
   function handlePageChange(page: number) {
     setPage(page)
   }
+
   function handleRegisterCollaborator() {
     refetch()
   }
@@ -72,11 +72,10 @@ export function useCollaboratorsPage() {
     }
     setIsAlteringCollaboratorStatus(false)
   }
-  const totalItems = itemsCount
   return {
     isAlteringCollaboratorStatus,
     page,
-    totalPages: Math.ceil(totalItems / PAGINATION.itemsPerPage),
+    totalPages: pagesCount,
     collaborators,
     isFetching,
     handlePageChange,
@@ -84,6 +83,6 @@ export function useCollaboratorsPage() {
     handleDisableEmployee,
     handleEnableEmployee,
     handleStatusSearchValueChange,
-    statusSearchValue
+    statusSearchValue,
   }
 }

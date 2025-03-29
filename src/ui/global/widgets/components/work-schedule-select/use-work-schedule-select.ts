@@ -1,49 +1,38 @@
+import { useState } from 'react'
+
+import type { WorkScheduleDto } from '@/@core/work-schedule/dtos'
 import { CACHE } from '@/@core/global/constants'
-import { WorkScheduleDto } from '@/@core/work-schedule/dtos'
-import { useApi } from '@/ui/global/hooks'
-import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
-import { useQueryParamNumber } from '@/ui/global/hooks/use-query-param-number'
-import { useToast } from '@/ui/global/hooks/use-toast'
-import { useEffect, useState } from 'react'
+import { useApi, useCache } from '@/ui/global/hooks'
 export function useWorkScheduleSelect(
   onSelectChange: (workScheduleId: string) => void,
   defaultSelectedWorkScheduleId?: string,
 ) {
-  const [selectedWorkScheduleId, setWorkScheduleId] = useState(defaultSelectedWorkScheduleId)
-  const [selectedWorkSchedule, setSelectedWorkSchedule] = useState<WorkScheduleDto | null>(null)
+  const [selectedWorkSchedule, setSelectedWorkSchedule] =
+    useState<WorkScheduleDto | null>(null)
   const { workScheduleService } = useApi()
-  const { showError } = useToast()
 
-  function handleWorkScheduleIdChange(workScheduleId: string) {
-    setWorkScheduleId(workScheduleId)
-    const selected = workSchedules.find(schedule => schedule.id === workScheduleId)
-    setSelectedWorkSchedule(selected || null)
-    onSelectChange(workScheduleId)
-  }
-
-  async function fetchWorkSchedules(page: number) {
-    const response = await workScheduleService.listWorkSchedules(page)
-    return response.body
-  }
-
-  const { data: workSchedules, page, pagesCount, isFetching, refetch, setPage } = usePaginatedCache({
-    key: CACHE.workSchedule.workSchedule.key,
+  const { data: workSchedules, isFetching } = useCache({
+    key: CACHE.workSchedule.schedules.key,
     fetcher: fetchWorkSchedules,
     shouldRefetchOnFocus: false,
   })
 
-  function handlePageChange(page: number) {
-    setPage(page)
+  function handleWorkScheduleIdChange(workScheduleId: string) {
+    if (!workSchedules) return
+    const selected = workSchedules.find((schedule) => schedule.id === workScheduleId)
+    setSelectedWorkSchedule(selected || null)
+    onSelectChange(workScheduleId)
+  }
+
+  async function fetchWorkSchedules() {
+    const response = await workScheduleService.listWorkSchedules()
+    return response.body
   }
 
   return {
     selectedWorkScheduleName: selectedWorkSchedule?.description,
     workSchedules,
     isLoading: isFetching,
-    page,
-    pagesCount,
     handleWorkScheduleIdChange,
-    handlePageChange,
   }
 }
-

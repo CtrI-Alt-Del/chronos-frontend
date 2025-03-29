@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { useApi } from '../../../../../global/hooks'
 import { useToast } from '@/ui/global/hooks/use-toast'
 
-export const registerCollaboratorFormSchema = z.object({
+export const collaboratorFormSchema = z.object({
   name: z
     .string({ required_error: 'Nome é obrigatório', invalid_type_error: 'Nome inválido' })
     .min(3, { message: 'Nome deve ter pelo menos 3 caracteres' }),
@@ -41,7 +41,7 @@ export const registerCollaboratorFormSchema = z.object({
   isActive: z.boolean().default(true),
 })
 
-type RegisterCollaboratorFormData = z.infer<typeof registerCollaboratorFormSchema>
+type RegisterCollaboratorFormData = z.infer<typeof collaboratorFormSchema>
 type useRegisterCollaboratorFormProps = {
   onSubmit: VoidFunction
 }
@@ -49,22 +49,21 @@ type useRegisterCollaboratorFormProps = {
 export function useRegisterCollaboratorForm({
   onSubmit,
 }: useRegisterCollaboratorFormProps) {
-  const { formState, reset, register, handleSubmit, watch, control } =
+  const { formState, register, handleSubmit, control } =
     useForm<RegisterCollaboratorFormData>({
-      resolver: zodResolver(registerCollaboratorFormSchema),
+      resolver: zodResolver(collaboratorFormSchema),
     })
 
   const { collaborationService } = useApi()
   const { showError, showSuccess } = useToast()
   async function handleFormSubmit(formData: RegisterCollaboratorFormData) {
-    const { password, workScheduleId, ...collaboratorData } = formData 
+    const { password, workScheduleId, ...collaboratorData } = formData
 
-    const response = await collaborationService.registerCollaborator(
+    const response = await collaborationService.createCollaborator(
       collaboratorData,
       password,
       workScheduleId,
     )
-    console.log(response)
     if (response.isSuccess) {
       showSuccess('Colaborador cadastrado com sucesso')
       onSubmit()

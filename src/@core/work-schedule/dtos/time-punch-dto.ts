@@ -1,5 +1,5 @@
 export type TimePunchDto = {
-  id: string
+  id?: string
   firstClockIn: string
   firstClockOut: string
   secondClockIn: string

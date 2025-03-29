@@ -12,9 +12,7 @@ import {
 } from '@heroui/react'
 
 import { CollaboratorTable } from './collaborator-table'
-import { RegisterCollaboratorForm } from './register-collaborator-form'
-// import { useCollaboratorsPage } from './use-collaborator-page'
-import { Search } from '@/ui/global/widgets/components/search'
+import { RegisterCollaboratorForm } from './create-collaborator-form'
 import { useCollaboratorsPage } from './use-collaborator-page'
 
 export const CollaboratorsPage = () => {
@@ -24,12 +22,12 @@ export const CollaboratorsPage = () => {
     totalPages,
     page,
     isFetching,
+    isAlteringCollaboratorStatus,
+    statusSearchValue,
     handlePageChange,
     handleRegisterCollaborator,
     handleDisableEmployee,
     handleEnableEmployee,
-    isAlteringCollaboratorStatus,
-    statusSearchValue,
     handleStatusSearchValueChange,
   } = useCollaboratorsPage()
 

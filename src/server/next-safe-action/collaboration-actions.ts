@@ -7,11 +7,23 @@ import { CollaborationService } from '@/api/services'
 import { NextActionServer } from '@/server/next/next-server-action'
 import { authActionClient } from './clients/auth-action-client'
 import {
+  DisableCollaboratorAction,
+  EnableCollaboratorAction,
   GetCollaboratorAction,
   GetCollaboratorProfileAction,
+  UpdateCollaboratorAction,
 } from '../actions/collaboration'
 
-const getCollaborator = authActionClient
+const collaboratorSchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  cpf: z.string(),
+  isActive: z.boolean(),
+  role: z.string(),
+  sector: z.string(),
+})
+
+export const getCollaborator = authActionClient
   .schema(
     z.object({
       collaboratorId: z.string(),
@@ -27,15 +39,65 @@ const getCollaborator = authActionClient
     return action.handle(actionServer)
   })
 
-const getCollaboratorProfile = authActionClient.action(async ({ ctx, clientInput }) => {
-  const actionServer = NextActionServer({
-    request: clientInput,
-    account: ctx.account,
-  })
-  const apiClient = await NextServerApiClient({ isCacheEnabled: true })
-  const service = CollaborationService(apiClient)
-  const action = GetCollaboratorProfileAction(service)
-  return action.handle(actionServer)
-})
+export const getCollaboratorProfile = authActionClient.action(
+  async ({ ctx, clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+      account: ctx.account,
+    })
+    const apiClient = await NextServerApiClient({ isCacheEnabled: true })
+    const service = CollaborationService(apiClient)
+    const action = GetCollaboratorProfileAction(service)
+    return action.handle(actionServer)
+  },
+)
 
-export { getCollaborator, getCollaboratorProfile }
+export const updateCollaborator = authActionClient
+  .schema(
+    z.object({
+      collaboratorId: z.string(),
+      collaboratorDto: collaboratorSchema,
+      workScheduleId: z.string().uuid(),
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+    })
+    const apiClient = await NextServerApiClient({ isCacheEnabled: true })
+    const service = CollaborationService(apiClient)
+    const action = UpdateCollaboratorAction(service)
+    return action.handle(actionServer)
+  })
+
+export const enableCollaborator = authActionClient
+  .schema(
+    z.object({
+      collaboratorId: z.string(),
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+    })
+    const apiClient = await NextServerApiClient({ isCacheEnabled: true })
+    const service = CollaborationService(apiClient)
+    const action = EnableCollaboratorAction(service)
+    return action.handle(actionServer)
+  })
+
+export const disableCollaborator = authActionClient
+  .schema(
+    z.object({
+      collaboratorId: z.string(),
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+    })
+    const apiClient = await NextServerApiClient({ isCacheEnabled: true })
+    const service = CollaborationService(apiClient)
+    const action = DisableCollaboratorAction(service)
+    return action.handle(actionServer)
+  })

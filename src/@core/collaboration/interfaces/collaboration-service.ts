@@ -7,9 +7,13 @@ export interface ICollaborationService {
     params: CollaboratorListParams,
   ): Promise<ApiResponse<PaginationResponse<CollaboratorDto>>>
   getCollaborator(collaboratorId: string): Promise<ApiResponse<CollaboratorDto>>
-  registerCollaborator(
+  updateCollaborator(
     collaborator: CollaboratorDto,
-    password: String,
+    workScheduleId: string,
+  ): Promise<ApiResponse<CollaboratorDto>>
+  createCollaborator(
+    collaborator: CollaboratorDto,
+    password: string,
     workScheduleId: string,
   ): Promise<ApiResponse<void>>
   disableCollaborator(collaboratorId: string): Promise<ApiResponse<void>>

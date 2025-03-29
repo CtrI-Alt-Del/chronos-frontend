@@ -1,2 +1,5 @@
 export { GetCollaboratorAction } from './get-collaborator-action'
 export { GetCollaboratorProfileAction } from './get-collaborator-profile-action'
+export { EnableCollaboratorAction } from './enable-collaborator-action'
+export { DisableCollaboratorAction } from './disable-collaborator-action'
+export { UpdateCollaboratorAction } from './edit-collaborator-action'

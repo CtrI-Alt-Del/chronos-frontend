@@ -7,7 +7,7 @@ export const CollaborationService = (apiClient: IApiClient): ICollaborationServi
   const MODULE = '/collaboration'
 
   return {
-    async registerCollaborator(collaborator: CollaboratorDto) {
+    async createCollaborator(collaborator: CollaboratorDto) {
       return await apiClient.post(`${MODULE}/collaborators`, collaborator)
     },
 
@@ -17,12 +17,30 @@ export const CollaborationService = (apiClient: IApiClient): ICollaborationServi
       )
     },
 
+    async updateCollaborator(collaborator: CollaboratorDto, workScheduleId: string) {
+      return await apiClient.put<CollaboratorDto>(
+        `${MODULE}/collaborators/${collaborator.id}`,
+        {
+          collaboratorDto: collaborator,
+          workScheduleId,
+        },
+      )
+    },
+
     async listCollaborators({ page, name }) {
       if (name) apiClient.setParam('name', String(name))
       apiClient.setParam('page', String(page))
       return await apiClient.get<PaginationResponse<CollaboratorDto>>(
         `${MODULE}/collaborators`,
       )
+    },
+
+    async enableCollaborator(collaboratorId) {
+      return await apiClient.patch(`${MODULE}/enable/${collaboratorId}`)
+    },
+
+    async disableCollaborator(collaboratorId) {
+      return await apiClient.patch(`${MODULE}/disable/${collaboratorId}`)
     },
   }
 }

@@ -8,7 +8,13 @@ import {
   deleteWorkSchedule,
   punchTime,
 } from './work-schedule-actions'
-import { getCollaborator, getCollaboratorProfile } from './collaboration-actions'
+import {
+  getCollaborator,
+  getCollaboratorProfile,
+  updateCollaborator,
+  disableCollaborator,
+  enableCollaborator,
+} from './collaboration-actions'
 
 const cookieActions = {
   getCookie,
@@ -30,6 +36,9 @@ const workScheduleActions = {
 const collaborationActions = {
   getCollaborator,
   getCollaboratorProfile,
+  updateCollaborator,
+  disableCollaborator,
+  enableCollaborator,
 }
 
 export { cookieActions, workScheduleActions, collaborationActions }
