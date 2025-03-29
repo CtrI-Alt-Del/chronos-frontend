@@ -1,9 +1,9 @@
 export type IconName =
-  |"users"
-  |"activity"
-  |"eye"
-  |"trash"
-  | "plus"
+  | 'users'
+  | 'activity'
+  | 'eye'
+  | 'trash'
+  | 'plus'
   | 'arrow-down'
   | 'menu'
   | 'star'
@@ -15,3 +15,4 @@ export type IconName =
   | 'logout'
   | 'clock'
   | 'schedule'
+  | 'trash'

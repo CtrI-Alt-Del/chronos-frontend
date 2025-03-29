@@ -62,10 +62,24 @@ export function useWeekSchedule(weekSchedule?: WeekdayScheduleDto[]) {
     })
   }
 
+  function handleRemoveWeekdayScheduleButtonClick(weekday: string) {
+    const weekdaysSchedule = getValues().weekdaysSchedule
+    const weekdayIndex = weekdaysSchedule.findIndex(
+      (weekdaySchedule) => weekdaySchedule.weekday === weekday,
+    )
+    setValue(`weekdaysSchedule.${weekdayIndex}.timePunchSchedule`, {
+      firstClockIn: null,
+      firstClockOut: null,
+      secondClockIn: null,
+      secondClockOut: null,
+    })
+  }
+
   return {
     formControl: control,
     registerField: register,
     handleFormSubmit: handleSubmit(handleFormSubmit),
     handleWeekdayScheduleReplicate,
+    handleRemoveWeekdayScheduleButtonClick,
   }
 }

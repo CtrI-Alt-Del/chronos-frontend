@@ -15,10 +15,15 @@ import { TimeInput } from '../../../components/time-input'
 import { useWeekSchedule } from './use-week-schedule'
 import { ReplicateWeekdayScheduleDialog } from './replicate-weeday-schedule-dialog'
 import { WEEKDAYS } from '@/constants'
+import { Icon } from '@/ui/global/widgets/components/Icon'
 
 export const WeekSchedule = () => {
-  const { formControl, handleFormSubmit, handleWeekdayScheduleReplicate } =
-    useWeekSchedule()
+  const {
+    formControl,
+    handleFormSubmit,
+    handleWeekdayScheduleReplicate,
+    handleRemoveWeekdayScheduleButtonClick,
+  } = useWeekSchedule()
 
   return (
     <form className='flex flex-col w-full' onSubmit={handleFormSubmit}>
@@ -100,6 +105,13 @@ export const WeekSchedule = () => {
                     handleWeekdayScheduleReplicate(weekdays, weekdayValue)
                   }
                 />
+                <Button
+                  isIconOnly
+                  variant='light'
+                  onPress={() => handleRemoveWeekdayScheduleButtonClick(weekdayValue)}
+                >
+                  <Icon name='trash' size={16} className='text-slate-500' />
+                </Button>
               </TableCell>
             </TableRow>
           ))}

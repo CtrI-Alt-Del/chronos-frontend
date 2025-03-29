@@ -11,14 +11,13 @@ import {
   LogOut,
   SquareCheckBig,
   NotebookTabs,
-  type LucideProps,
-  ArrowDown,
   ChevronDown,
   Plus,
   Trash,
   Eye,
   Activity,
   Users,
+  type LucideProps,
 } from 'lucide-react'
 
 export const ICONS: Record<
