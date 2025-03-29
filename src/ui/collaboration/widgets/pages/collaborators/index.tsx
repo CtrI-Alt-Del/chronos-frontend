@@ -7,6 +7,8 @@ import {
   DrawerBody,
   useDisclosure,
   Button,
+  Select,
+  SelectItem,
 } from '@heroui/react'
 
 import { CollaboratorTable } from './collaborator-table'
@@ -20,24 +22,35 @@ export const CollaboratorsPage = () => {
     collaborators,
     totalPages,
     page,
-    nameSearchvalue,
-    handleNameSearchChange,
     isFetching,
     handlePageChange,
     handleRegisterCollaborator,
+    handleDisableEmployee,
+    handleEnableEmployee,
+    isAlteringCollaboratorStatus,
+    statusSearchValue,
+    handleStatusSearchValueChange,
   } = useCollaboratorsPage()
 
   return (
     <div className=''>
       <div className='flex justify-between items-center py-4'>
         <div className='flex-1 space-y-2 w-full max-w-96'>
-          <Search value={nameSearchvalue} onSearchChange={handleNameSearchChange} />
+          <Select
+            defaultSelectedKeys={['true']}
+            label='Status do Colaborador'
+            value={statusSearchValue}
+            onChange={(e) => handleStatusSearchValueChange(e.target.value)}
+          >
+            <SelectItem key='true'>Ativo</SelectItem>
+            <SelectItem key='false'>Inativo</SelectItem>
+          </Select>
         </div>
 
         <Button color='primary' onPress={onOpen}>
           Registrar Colaborador
         </Button>
-        <Drawer isOpen={isOpen} onOpenChange={onOpenChange}>
+        <Drawer isOpen={isOpen} onOpenChange={onOpenChange} size='lg'>
           <DrawerContent>
             {(onClose) => (
               <>
@@ -48,7 +61,7 @@ export const CollaboratorsPage = () => {
                   <RegisterCollaboratorForm
                     onSubmit={async () => {
                       await handleRegisterCollaborator()
-                      onClose
+                      onClose()
                     }}
                     onCancel={onClose}
                   />
@@ -60,6 +73,9 @@ export const CollaboratorsPage = () => {
       </div>
 
       <CollaboratorTable
+        isAlteringCollaboratorStatus={isAlteringCollaboratorStatus}
+        handleDisableEmployee={handleDisableEmployee}
+        handleEnableEmployee={handleEnableEmployee}
         page={page}
         isLoading={isFetching}
         collaborators={collaborators || []}
