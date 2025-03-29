@@ -3,6 +3,7 @@ import { ApiResponse, PaginationResponse } from '@/@core/global/responses'
 import { addUrlParams } from '../utils'
 import { handleApiError } from '../utils'
 import type { CacheConfig } from '../types'
+import { safeParseJson } from '../utils'
 import { HTTP_HEADERS } from '@/@core/global/constants/http-headers'
 
 export const NextApiClient = (
@@ -23,9 +24,9 @@ export const NextApiClient = (
     headers,
     next: isCacheEnabled
       ? {
-          revalidate: refetchInterval,
-          tags: cacheKey ? [cacheKey] : [],
-        }
+        revalidate: refetchInterval,
+        tags: cacheKey ? [cacheKey] : [],
+      }
       : undefined,
   }
   let params: Record<string, string> = {}
@@ -67,7 +68,7 @@ export const NextApiClient = (
         body: JSON.stringify(body) ?? {},
       })
       params = {}
-      const data = await response.json()
+      const data = await safeParseJson(response)
 
       if (!response.ok) {
         return handleApiError<ResponseBody>(data, response.status)
@@ -86,7 +87,7 @@ export const NextApiClient = (
         body: JSON.stringify(body) ?? {},
       })
       params = {}
-      const data = await response.json()
+      const data = await safeParseJson(response)
 
       if (!response.ok) {
         return handleApiError<ResponseBody>(data, response.status)
@@ -105,7 +106,7 @@ export const NextApiClient = (
         body: JSON.stringify(body) ?? {},
       })
       params = {}
-      const data = await response.json()
+      const data = await safeParseJson(response)
 
       if (!response.ok) {
         return handleApiError<ResponseBody>(data, response.status)
@@ -125,7 +126,7 @@ export const NextApiClient = (
         body: JSON.stringify(body),
       })
       params = {}
-      const data = await response.json()
+      const data = await safeParseJson(response)
 
       if (!response.ok) {
         return handleApiError(data, response.status)
@@ -143,7 +144,7 @@ export const NextApiClient = (
         body: body,
       })
       params = {}
-      const data = await response.json()
+      const data = await safeParseJson(response)
 
       if (!response.ok) {
         return handleApiError<ResponseBody>(data, response.status)
