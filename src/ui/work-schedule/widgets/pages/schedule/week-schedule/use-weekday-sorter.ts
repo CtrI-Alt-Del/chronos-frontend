@@ -1,6 +1,6 @@
 import type { WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
 
-export function useWeekdaysSorter(weekdaysSchedule: WeekdayScheduleDto[]) {
+export function useWeekdaysSorter(weekdaysSchedule?: WeekdayScheduleDto[]) {
   const weekdayOrder: Record<string, number> = {
     monday: 1,
     tuesday: 2,
@@ -15,5 +15,5 @@ export function useWeekdaysSorter(weekdaysSchedule: WeekdayScheduleDto[]) {
     return schedules.sort((a, b) => weekdayOrder[a.weekday] - weekdayOrder[b.weekday])
   }
 
-  return sort(weekdaysSchedule)
+  return weekdaysSchedule ? sort(weekdaysSchedule) : null
 }

@@ -1,9 +1,12 @@
+import { allowPageByRoles } from './auth-actions'
 import { getCookie, deleteCookie, hasCookie, setCookie } from './cookie-actions'
 import {
   getTodayWorkdayLog,
   getWorkSchedule,
   editDaysOffSchedule,
   editTimePunchSchedule,
+  editWeekSchedule,
+  editWorkScheduleDescription,
   createWorkSchedule,
   deleteWorkSchedule,
   punchTime,
@@ -15,6 +18,10 @@ import {
   disableCollaborator,
   enableCollaborator,
 } from './collaboration-actions'
+
+const authActions = {
+  allowPageByRoles,
+}
 
 const cookieActions = {
   getCookie,
@@ -28,6 +35,8 @@ const workScheduleActions = {
   getWorkSchedule,
   editDaysOffSchedule,
   editTimePunchSchedule,
+  editWeekSchedule,
+  editWorkScheduleDescription,
   punchTime,
   createWorkSchedule,
   deleteWorkSchedule,
@@ -41,4 +50,4 @@ const collaborationActions = {
   enableCollaborator,
 }
 
-export { cookieActions, workScheduleActions, collaborationActions }
+export { authActions, cookieActions, workScheduleActions, collaborationActions }

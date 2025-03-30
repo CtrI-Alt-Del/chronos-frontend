@@ -40,11 +40,37 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       return await apiClient.post(`${MODULE}/schedules`, workSchedule)
     },
 
-    async editTimePunchSchedule(timePunchScheduleId, timePunch) {
+    async editWorkScheduleDescription(workScheduleId, description) {
+      return await apiClient.patch(`${MODULE}/schedules/${workScheduleId}/description`, {
+        description,
+      })
+    },
+
+    async editDaysOffSchedule(
+      workScheduleId,
+      workdaysCount: number,
+      daysOffCount: number,
+      daysOff,
+    ) {
       return await apiClient.put(
-        `${MODULE}/time-punches/${timePunchScheduleId}`,
-        timePunch,
+        `${MODULE}/schedules/${workScheduleId}/days-off-schedule`,
+        {
+          workdaysCount,
+          daysOffCount,
+          daysOff,
+        },
       )
+    },
+
+    async editWeekSchedule(workScheduleId, weekSchedule) {
+      return await apiClient.put(
+        `${MODULE}/schedules/${workScheduleId}/week-schedule`,
+        weekSchedule,
+      )
+    },
+
+    async editTimePunchSchedule(timePunch) {
+      return await apiClient.put(`${MODULE}/time-punches/${timePunch.id}`, timePunch)
     },
 
     async adjustTimePunchLog(timePunchScheduleId, timeLog, timePunchPeriod) {
@@ -53,7 +79,7 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
         {
           time: timeLog,
           period: timePunchPeriod,
-        }
+        },
       )
     },
 
@@ -62,6 +88,12 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       return await apiClient.patch(`${MODULE}/time-punches/${timePunchLogId}`, {
         time: datetimeProvider.formatTime(time),
       })
+    },
+
+    async scheduleDaysOff(workdaysCount, daysOffCount) {
+      apiClient.setParam('workdaysCount', String(workdaysCount))
+      apiClient.setParam('daysOffCount', String(daysOffCount))
+      return await apiClient.get(`${MODULE}/schedules/days-off-schedule`)
     },
 
     async deleteWorkSchedule(workScheduleId) {

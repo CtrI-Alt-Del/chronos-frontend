@@ -10,7 +10,7 @@ export function useUpdateCollaboratorAction() {
     collaboratorDto: CollaboratorDto,
     workScheduleId: string,
   ) {
-    await executeAsync({ collaboratorId, workScheduleId, collaboratorDto })
+    await executeAsync({ collaboratorId, collaboratorDto })
   }
 
   return {

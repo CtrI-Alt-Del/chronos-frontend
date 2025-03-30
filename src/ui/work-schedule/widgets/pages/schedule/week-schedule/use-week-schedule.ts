@@ -1,17 +1,27 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { useForm, useFormContext } from 'react-hook-form'
 import { z } from 'zod'
 
 import { timePunchSchema } from '@/validation/schemas/work-schedule'
-import type { WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
 import { WEEKDAYS } from '@/constants'
+import type { WorkScheduleForm } from '../use-schedule-page'
+import type { WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
+import { useEditWeekScheduleAction } from './use-edit-week-schedule-action'
+import { useWeekdaysSorter } from './use-weekday-sorter'
+
+const EMPTY_TIME_PUNCH = {
+  firstClockIn: null,
+  firstClockOut: null,
+  secondClockIn: null,
+  secondClockOut: null,
+}
 
 const weekScheduleSchema = z.object({
   weekdaysSchedule: z
     .array(
       z.object({
         weekday: z.string(),
-        timePunchSchedule: timePunchSchema,
+        timePunch: timePunchSchema,
       }),
     )
     .min(7)
@@ -20,25 +30,27 @@ const weekScheduleSchema = z.object({
 
 type FormData = z.infer<typeof weekScheduleSchema>
 
-export function useWeekSchedule(weekSchedule?: WeekdayScheduleDto[]) {
-  const { control, getValues, register, handleSubmit, setValue, watch } =
-    useForm<FormData>({
-      resolver: zodResolver(weekScheduleSchema),
-      defaultValues: {
-        weekdaysSchedule: Object.keys(WEEKDAYS).map((weekday) => ({
+export function useWeekSchedule(
+  workScheduleId?: string,
+  weekdaysSchedule?: WeekdayScheduleDto[] | null,
+) {
+  const { setValue: setWorkScheduleValue } = useFormContext<WorkScheduleForm>()
+  const { control, getValues, register, handleSubmit, setValue } = useForm<FormData>({
+    resolver: zodResolver(weekScheduleSchema),
+    defaultValues: {
+      weekdaysSchedule:
+        weekdaysSchedule ??
+        Object.keys(WEEKDAYS).map((weekday) => ({
           weekday: weekday,
-          timePunchSchedule: {
-            firstClockIn: null,
-            firstClockOut: null,
-            secondClockIn: null,
-            secondClockOut: null,
-          },
+          timePunch: EMPTY_TIME_PUNCH,
         })),
-      },
-    })
+    },
+  })
+  const { editWeekSchedule, isEditingTimePunchSchedule } =
+    useEditWeekScheduleAction(workScheduleId)
 
-  function handleFormSubmit(formData: FormData) {
-    console.log(formData)
+  async function handleFormSubmit(formData: FormData) {
+    await editWeekSchedule(formData.weekdaysSchedule)
   }
 
   function handleWeekdayScheduleReplicate(
@@ -47,19 +59,19 @@ export function useWeekSchedule(weekSchedule?: WeekdayScheduleDto[]) {
   ) {
     const weekdaysSchedule = getValues().weekdaysSchedule
 
-    const timePunchScheduleToReplicate = weekdaysSchedule.find(
+    const timePunchToReplicate = weekdaysSchedule.find(
       (weekdaySchedule) => weekdaySchedule.weekday === weekdayToReplicate,
-    )?.timePunchSchedule
+    )?.timePunch
 
-    if (!timePunchScheduleToReplicate) return
+    if (!timePunchToReplicate) return
 
     weekdaysSchedule.forEach((weekdaySchedule, index) => {
-      if (weekdays.includes(weekdaySchedule.weekday))
-        setValue(
-          `weekdaysSchedule.${index}.timePunchSchedule`,
-          timePunchScheduleToReplicate,
-        )
+      if (weekdays.includes(weekdaySchedule.weekday)) {
+        setValue(`weekdaysSchedule.${index}.timePunch`, timePunchToReplicate)
+        weekdaysSchedule[index].timePunch = timePunchToReplicate
+      }
     })
+    setWorkScheduleValue('weekSchedule', weekdaysSchedule)
   }
 
   function handleRemoveWeekdayScheduleButtonClick(weekday: string) {
@@ -67,16 +79,14 @@ export function useWeekSchedule(weekSchedule?: WeekdayScheduleDto[]) {
     const weekdayIndex = weekdaysSchedule.findIndex(
       (weekdaySchedule) => weekdaySchedule.weekday === weekday,
     )
-    setValue(`weekdaysSchedule.${weekdayIndex}.timePunchSchedule`, {
-      firstClockIn: null,
-      firstClockOut: null,
-      secondClockIn: null,
-      secondClockOut: null,
-    })
+    setValue(`weekdaysSchedule.${weekdayIndex}.timePunch`, EMPTY_TIME_PUNCH)
+    weekdaysSchedule[weekdayIndex].timePunch = EMPTY_TIME_PUNCH
+    setWorkScheduleValue('weekSchedule', weekdaysSchedule)
   }
 
   return {
     formControl: control,
+    isEditing: isEditingTimePunchSchedule,
     registerField: register,
     handleFormSubmit: handleSubmit(handleFormSubmit),
     handleWeekdayScheduleReplicate,

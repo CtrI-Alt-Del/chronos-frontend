@@ -7,8 +7,11 @@ export const CollaborationService = (apiClient: IApiClient): ICollaborationServi
   const MODULE = '/collaboration'
 
   return {
-    async createCollaborator(collaborator: CollaboratorDto) {
-      return await apiClient.post(`${MODULE}/collaborators`, collaborator)
+    async createCollaborator(collaborator: CollaboratorDto, password: String) {
+      return await apiClient.post(`${MODULE}/collaborators`, {
+        collaboratorDto: collaborator,
+        password,
+      })
     },
 
     async getCollaborator(collaboratorId: string) {
@@ -27,8 +30,8 @@ export const CollaborationService = (apiClient: IApiClient): ICollaborationServi
       )
     },
 
-    async listCollaborators({ page, name,status }) {
-      apiClient.setParam('active',String(status))
+    async listCollaborators({ page, name, status }) {
+      apiClient.setParam('active', String(status))
       apiClient.setParam('page', String(page))
       return await apiClient.get<PaginationResponse<CollaboratorDto>>(
         `${MODULE}/collaborators`,

@@ -1,29 +1,35 @@
-import { useDatetime } from '@/ui/global/hooks/use-datetime'
-import type { Time } from '@internationalized/date'
+import { Time } from '@internationalized/date'
 import { useEffect, useState } from 'react'
 
-export function useTimeInput(
-  defaultValue: string | null,
-  onChange?: (time: string) => void,
-) {
-  const { formatTime } = useDatetime()
-  const parts = defaultValue ? defaultValue.split(':') : null
-  const time = parts
-    ? {
-        hours: Number(parts[0]),
-        minutes: Number(parts[1]),
-      }
-    : null
+import { useDatetime } from '@/ui/global/hooks/use-datetime'
 
-  function handleValueChange(value: Time | null) {
-    if (!value || !onChange) return
+export function useTimeInput(value?: string | null, onChange?: (time: string) => void) {
+  const { formatTime } = useDatetime()
+  const [time, setTime] = useState<Time | null>(null)
+
+  function handleValueChange(time: Time | null) {
+    if (!time || !onChange) return
     const date = new Date()
-    date.setHours(value.hour)
-    date.setMinutes(value.minute)
+    date.setHours(time.hour)
+    date.setMinutes(time.minute)
 
     const formattedTime = formatTime(date)
+    console.log({ formattedTime })
     onChange(formattedTime)
+    setTime(time)
   }
+
+  useEffect(() => {
+    const parts = value ? value.split(':') : null
+    const time = parts
+      ? {
+          hours: Number(parts[0]),
+          minutes: Number(parts[1]),
+        }
+      : null
+    console.log(time)
+    if (time) setTime(new Time(time.hours, time.minutes))
+  }, [value])
 
   return {
     time,

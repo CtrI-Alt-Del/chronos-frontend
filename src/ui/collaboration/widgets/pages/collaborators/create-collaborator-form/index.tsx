@@ -74,7 +74,7 @@ export const RegisterCollaboratorForm = ({
       </div>
 
       <div className='flex justify-end gap-3'>
-        <Button onPress={onCancel} isDisabled={isSubmiting} variant='flat'>
+        <Button onPress={onCancel} isDisabled={isSubmiting} color='danger' variant='flat'>
           Cancelar
         </Button>
         <Button type='submit' color='primary' isLoading={isSubmiting}>

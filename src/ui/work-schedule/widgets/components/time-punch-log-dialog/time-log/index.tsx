@@ -4,7 +4,7 @@ import { Icon } from '@/ui/global/widgets/components/Icon'
 import { Time } from '../../time'
 
 type TimeLogProps = {
-  time: string
+  time: string | null
 }
 
 export const TimeLog = ({ time }: TimeLogProps) => {

@@ -52,8 +52,8 @@ export function usePaginatedCache<CacheItem>({
     ? dependencies.map((dependency, index) => `dep_${index + 1}=${dependency}`).join(',')
     : ''
 
-  function getKey(pageIndex: number, previousPageData: CacheItem[]) {
-    if (isEnabled && previousPageData && !previousPageData.length) {
+  function getKey(pageIndex: number) {
+    if (!isEnabled) {
       return null
     }
     return `${key}?${dependenciesQuery}&itemsPerPage=${itemsPerPage}&page=${pageIndex + 1}`

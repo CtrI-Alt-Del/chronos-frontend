@@ -57,12 +57,11 @@ export function useRegisterCollaboratorForm({
   const { collaborationService } = useApi()
   const { showError, showSuccess } = useToast()
   async function handleFormSubmit(formData: RegisterCollaboratorFormData) {
-    const { password, workScheduleId, ...collaboratorData } = formData
+    const { password, ...collaboratorData } = formData
 
     const response = await collaborationService.createCollaborator(
       collaboratorData,
       password,
-      workScheduleId,
     )
     if (response.isSuccess) {
       showSuccess('Colaborador cadastrado com sucesso')
