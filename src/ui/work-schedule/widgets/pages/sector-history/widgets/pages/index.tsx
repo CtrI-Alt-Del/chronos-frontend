@@ -22,7 +22,7 @@ export const SectorHistoryPage = () => {
   return (
     <div className=''>
       <div className='flex justify-between items-center py-4'>
-        <div className='flex items-center gap-2 w-full'>
+        <div className='flex flex-col md:flex-row md:items-center gap-2 w-80 md:w-full'>
           <Search
             value={collboratorName}
             placeholder='Pesquisar por nome de colaborador'
@@ -31,14 +31,16 @@ export const SectorHistoryPage = () => {
           <DateInput defualtDate={date} onChange={handleDateChange} />
         </div>
       </div>
-      <SectorHistoryTable
-        workdayLogs={workdayLogs}
-        page={page}
-        pagesCount={pagesCount}
-        isLoading={isLoading}
-        onPageChange={handlePageChange}
-        onTimeLogChange={handleTimeLogChange}
-      />
+      <div className='w-screen md:w-auto overflow-x-hidden'>
+        <SectorHistoryTable
+          workdayLogs={workdayLogs}
+          page={page}
+          pagesCount={pagesCount}
+          isLoading={isLoading}
+          onPageChange={handlePageChange}
+          onTimeLogChange={handleTimeLogChange}
+        />
+      </div>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 'use server'
 
 import { z } from 'zod'
+
 import { CACHE } from '@/@core/global/constants'
 import { WorkScheduleService } from '@/api/services/work-schedule-service'
 import { NextServerApiClient } from '@/api/next/clients/next-server-api-client'
@@ -9,12 +10,20 @@ import { authActionClient } from './clients/auth-action-client'
 import {
   CreateWorkScheduleAction,
   DeleteWorkScheduleAction,
+  EditDaysOffAction,
   EditTimeScheduleAction,
+  EditWeekScheduleAction,
+  EditWorkScheduleDescriptionAction,
   GetTodayWorkdayLogAction,
   GetWorkScheduleAction,
   PunchTimeAction,
 } from '../actions/work-schedule'
-import { timePunchSchema } from '@/validation/schemas/work-schedule'
+import {
+  daysOffScheduleSchema,
+  timePunchSchema,
+  weekScheduleSchema,
+  workScheduleSchema,
+} from '@/validation/schemas/work-schedule'
 
 const getTodayWorkdayLog = authActionClient.action(async ({ clientInput, ctx }) => {
   const actionServer = NextActionServer({
@@ -48,12 +57,7 @@ export const getWorkSchedule = authActionClient
   })
 
 export const createWorkSchedule = authActionClient
-  .schema(
-    z.object({
-      timePunchSchedule: timePunchSchema,
-      daysOffSchedule: z.array(z.date()),
-    }),
-  )
+  .schema(workScheduleSchema)
   .action(async ({ clientInput }) => {
     const actionServer = NextActionServer({
       request: clientInput,
@@ -82,11 +86,11 @@ export const editTimePunchSchedule = authActionClient
     return action.handle(actionServer)
   })
 
-export const editDaysOffSchedule = authActionClient
+export const editWeekSchedule = authActionClient
   .schema(
     z.object({
       workScheduleId: z.string().uuid(),
-      daysOffSchedule: z.array(z.date()),
+      weekSchedule: weekScheduleSchema,
     }),
   )
   .action(async ({ clientInput }) => {
@@ -95,7 +99,41 @@ export const editDaysOffSchedule = authActionClient
     })
     const apiClient = await NextServerApiClient()
     const service = WorkScheduleService(apiClient)
-    const action = GetWorkScheduleAction(service)
+    const action = EditWeekScheduleAction(service)
+    return action.handle(actionServer)
+  })
+
+export const editDaysOffSchedule = authActionClient
+  .schema(
+    z.object({
+      workScheduleId: z.string().uuid(),
+      daysOffSchedule: daysOffScheduleSchema,
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+    })
+    const apiClient = await NextServerApiClient()
+    const service = WorkScheduleService(apiClient)
+    const action = EditDaysOffAction(service)
+    return action.handle(actionServer)
+  })
+
+export const editWorkScheduleDescription = authActionClient
+  .schema(
+    z.object({
+      workScheduleId: z.string().uuid(),
+      description: z.string(),
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+    })
+    const apiClient = await NextServerApiClient()
+    const service = WorkScheduleService(apiClient)
+    const action = EditWorkScheduleDescriptionAction(service)
     return action.handle(actionServer)
   })
 

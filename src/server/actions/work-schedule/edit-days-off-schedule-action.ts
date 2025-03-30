@@ -5,14 +5,23 @@ import type { IWorkScheduleService } from '@/@core/work-schedule/interfaces'
 
 type Request = {
   workScheduleId: string
-  daysOffSchedule: Date[]
+  daysOffSchedule: {
+    workdaysCount: number
+    daysOffCount: number
+    daysOff: string[]
+  }
 }
 
 export const EditDaysOffAction = (service: IWorkScheduleService): IAction<Request> => {
   return {
     async handle(actionServer: IActionServer<Request>) {
       const { workScheduleId, daysOffSchedule } = actionServer.getRequest()
-      const response = await service.editDaysOffSchedule(workScheduleId, daysOffSchedule)
+      const response = await service.editDaysOffSchedule(
+        workScheduleId,
+        daysOffSchedule.workdaysCount,
+        daysOffSchedule.daysOffCount,
+        daysOffSchedule.daysOff,
+      )
       if (response.isFailure) response.throwError()
       actionServer.resetCache(CACHE.workSchedule.schedule.key(workScheduleId))
     },

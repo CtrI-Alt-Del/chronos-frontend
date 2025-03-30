@@ -19,7 +19,6 @@ export function useSectorHistoryPage() {
   const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
 
   async function fetchSectorHistory(page: number) {
-    console.log('PAGE:', page)
     const response = await workScheduleService.reportSectorHistory(date, page)
     return response.body
   }

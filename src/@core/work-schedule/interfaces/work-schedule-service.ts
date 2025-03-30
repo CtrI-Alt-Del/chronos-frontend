@@ -1,14 +1,15 @@
 import type { PaginationResponse } from '@/@core/global/responses/pagination-response'
 import type { ApiResponse } from '@/@core/global/responses'
-import type { TimePunchDto, WorkdayLogDto, WorkScheduleDto } from '../dtos'
+import type {
+  TimePunchDto,
+  WeekdayScheduleDto,
+  WorkdayLogDto,
+  WorkScheduleDto,
+} from '../dtos'
 import type { TimePunchPeriod } from '../types'
 
 export interface IWorkScheduleService {
-  requestTimePunchAdjustment(arg0: { timePunchLogId: string; newTime: string; period: TimePunchPeriod; requesterId: any }): unknown
-  createWorkSchedule(
-    timePunchSchedule: Omit<TimePunchDto, 'id'>,
-    daysOffSchedule: Date[],
-  ): Promise<ApiResponse<void>>
+  createWorkSchedule(workSchedule: WorkScheduleDto): Promise<ApiResponse<void>>
   getWorkSchedule(workScheduleId: string): Promise<ApiResponse<WorkScheduleDto>>
   getTodayWorkdayLog(collaboratorId: string): Promise<ApiResponse<WorkdayLogDto>>
   listWorkSchedules(): Promise<ApiResponse<WorkScheduleDto[]>>
@@ -23,7 +24,20 @@ export interface IWorkScheduleService {
     page: number,
     collaboratorId?: string,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
-  editDaysOffSchedule(workScheduleId: string, daysOff: Date[]): Promise<ApiResponse<void>>
+  editWorkScheduleDescription(
+    workScheduleId: string,
+    description: string,
+  ): Promise<ApiResponse<void>>
+  editDaysOffSchedule(
+    workScheduleId: string,
+    workdaysCount: number,
+    daysOffCount: number,
+    daysOff: string[],
+  ): Promise<ApiResponse<void>>
+  editWeekSchedule(
+    workScheduleId: string,
+    weekSchedule: WeekdayScheduleDto[],
+  ): Promise<ApiResponse<void>>
   editTimePunchSchedule(timePunch: TimePunchDto): Promise<ApiResponse<void>>
   adjustTimePunchLog(
     timePunchScheduleId: string,
@@ -31,5 +45,9 @@ export interface IWorkScheduleService {
     timePunchPeriod: TimePunchPeriod,
   ): Promise<ApiResponse<void>>
   punchTime(timePunchLogId: string, time: Date): Promise<ApiResponse<void>>
+  scheduleDaysOff(
+    workdaysCount: number,
+    daysOffCount: number,
+  ): Promise<ApiResponse<string>>
   deleteWorkSchedule(workScheduleId: string): Promise<ApiResponse<void>>
 }

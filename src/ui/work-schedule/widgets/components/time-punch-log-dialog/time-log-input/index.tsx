@@ -7,6 +7,7 @@ import { Icon } from '@/ui/global/widgets/components/Icon'
 import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
 import { TimeInput } from '../../time-input'
 import { useTimeLogInput } from './use-time-log-input'
+import { Time } from '../../time'
 
 type TimeInputProps = {
   defaultValue: string | null
@@ -14,18 +15,18 @@ type TimeInputProps = {
 }
 
 export const TimeLogInput = ({ defaultValue, onChange }: TimeInputProps) => {
-  const inputRef = useRef<HTMLInputElement>(null)
   const {
     isEditing,
     value,
+    handleInputChange,
     handleEditButtonClick,
     handleConfirmButtonClick,
     handleCancelButtonClick,
-  } = useTimeLogInput(inputRef, onChange)
+  } = useTimeLogInput(defaultValue, onChange)
 
   return (
     <div className='flex items-center gap-1'>
-      <TimeInput ref={inputRef} defaultValue={defaultValue} isDisabled={!isEditing} />
+      <TimeInput value={value} onChange={handleInputChange} isDisabled={!isEditing} />
       {isEditing ? (
         <AlertDialog
           title='Editar ponto'
@@ -40,8 +41,9 @@ export const TimeLogInput = ({ defaultValue, onChange }: TimeInputProps) => {
           <div className='text-md text-slate-600'>
             {defaultValue ? (
               <p>
-                Tem certaza que deseja mudar esse ponto de <strong>{defaultValue}</strong>{' '}
-                para <strong>{value}</strong>?
+                Tem certaza que deseja mudar esse ponto de{' '}
+                <Time className='font-bold'>{defaultValue}</Time> para{' '}
+                <Time className='font-bold'>{value}</Time>?
               </p>
             ) : (
               <p>Tem certeza que deseja alterar esse ponto?</p>

@@ -22,6 +22,7 @@ const collaboratorSchema = z.object({
   isActive: z.boolean(),
   role: z.string(),
   sector: z.string(),
+  workScheduleId: z.string().uuid(),
 })
 
 export const getCollaborator = authActionClient
@@ -59,9 +60,8 @@ export const getCollaboratorProfile = authActionClient.action(
 export const updateCollaborator = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
+      collaboratorId: z.string().uuid(),
       collaboratorDto: collaboratorSchema,
-      workScheduleId: z.string().uuid(),
     }),
   )
   .action(async ({ clientInput }) => {

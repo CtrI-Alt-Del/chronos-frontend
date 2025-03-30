@@ -2,7 +2,15 @@
 
 import { formatInTimeZone, toZonedTime } from 'date-fns-tz'
 import { ptBR } from 'date-fns/locale'
-import { addDays, subDays } from 'date-fns'
+import {
+  addDays,
+  eachDayOfInterval,
+  endOfMonth,
+  getDay,
+  getDaysInMonth,
+  startOfMonth,
+  subDays,
+} from 'date-fns'
 import { useCallback } from 'react'
 
 const TIME_ZONE = 'America/Sao_Paulo'
@@ -32,6 +40,44 @@ export function useDatetime() {
     })
   }
 
+  function getFirstMonthDayOf(date: Date) {
+    return startOfMonth(date)
+  }
+
+  function getLastMonthDayOf(date: Date) {
+    return startOfMonth(date)
+  }
+
+  function getCurrentMonthFirstMonday() {
+    const today = new Date()
+    const firstDayOfMonth = getFirstMonthDayOf(today)
+    const firstWeekDay = getDay(firstDayOfMonth)
+
+    let firstMonday = firstDayOfMonth
+    while (firstWeekDay !== 1) {
+      firstMonday = plusDays(firstDayOfMonth, firstWeekDay === 0 ? 1 : 8 - firstWeekDay)
+    }
+    return firstMonday
+  }
+
+  function getMonthDaysOf(date: Date) {
+    const today = new Date()
+    const firstDayOfMonth = startOfMonth(today)
+    const daysInMonth = eachDayOfInterval({
+      start: firstDayOfMonth,
+      end: endOfMonth(today),
+    })
+    return daysInMonth
+  }
+
+  function getWeekdayIndex(date: Date) {
+    return getDay(date)
+  }
+
+  function getMonthDaysCountOf(date: Date) {
+    return getDaysInMonth(date)
+  }
+
   const inZonedTime = useCallback((date: Date | string) => {
     if (typeof date === 'string') {
       return toZonedTime(new Date(date), TIME_ZONE)
@@ -57,9 +103,15 @@ export function useDatetime() {
     formatTime,
     formatIsoDate,
     formatDate,
-    getCurrentDate,
     minusDays,
     plusDays,
     inZonedTime,
+    getFirstMonthDayOf,
+    getLastMonthDayOf,
+    getMonthDaysOf,
+    getCurrentMonthFirstMonday,
+    getMonthDaysCountOf,
+    getWeekdayIndex,
+    getCurrentDate,
   }
 }
