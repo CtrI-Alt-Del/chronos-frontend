@@ -11,12 +11,13 @@ import {
 import { Button } from '@heroui/button'
 import { Controller } from 'react-hook-form'
 
-import { TimeInput } from '../../../components/time-input'
-import { useWeekSchedule } from './use-week-schedule'
 import { ReplicateWeekdayScheduleDialog } from './replicate-weeday-schedule-dialog'
 import { WEEKDAYS } from '@/constants'
 import { Icon } from '@/ui/global/widgets/components/Icon'
 import type { WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
+import { useWeekdaysSorter } from './use-weekday-sorter'
+import { TimeInput } from '../../../components/time-input'
+import { useWeekSchedule } from './use-week-schedule'
 
 type WeekScheduleProps = {
   workScheduleId?: string
@@ -24,13 +25,14 @@ type WeekScheduleProps = {
 }
 
 export const WeekSchedule = ({ workScheduleId, weekSchedule }: WeekScheduleProps) => {
+  const weekdaysSchedule = useWeekdaysSorter(weekSchedule)
   const {
     formControl,
     isEditing,
     handleFormSubmit,
     handleWeekdayScheduleReplicate,
     handleRemoveWeekdayScheduleButtonClick,
-  } = useWeekSchedule(workScheduleId, weekSchedule)
+  } = useWeekSchedule(workScheduleId, weekdaysSchedule)
 
   return (
     <form className='flex flex-col w-full' onSubmit={handleFormSubmit}>

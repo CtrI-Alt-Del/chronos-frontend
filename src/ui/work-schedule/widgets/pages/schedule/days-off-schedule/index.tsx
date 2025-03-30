@@ -33,7 +33,12 @@ export const DaysOffSchedule = ({
     handleDaysOffCountChange,
     handleDaysOffSchedule,
     handleDayButtonClick,
-  } = useDaysOffSchedule(defaultWorkdaysCount, defaultDaysOffCount, defaultDaysOff)
+  } = useDaysOffSchedule(
+    workScheduleId,
+    defaultWorkdaysCount,
+    defaultDaysOffCount,
+    defaultDaysOff,
+  )
 
   return (
     <div>

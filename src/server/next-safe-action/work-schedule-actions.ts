@@ -10,8 +10,10 @@ import { authActionClient } from './clients/auth-action-client'
 import {
   CreateWorkScheduleAction,
   DeleteWorkScheduleAction,
+  EditDaysOffAction,
   EditTimeScheduleAction,
   EditWeekScheduleAction,
+  EditWorkScheduleDescriptionAction,
   GetTodayWorkdayLogAction,
   GetWorkScheduleAction,
   PunchTimeAction,
@@ -88,7 +90,7 @@ export const editWeekSchedule = authActionClient
   .schema(
     z.object({
       workScheduleId: z.string().uuid(),
-      timePunchesSchedule: z.array(timePunchSchema),
+      weekSchedule: weekScheduleSchema,
     }),
   )
   .action(async ({ clientInput }) => {
@@ -114,7 +116,24 @@ export const editDaysOffSchedule = authActionClient
     })
     const apiClient = await NextServerApiClient()
     const service = WorkScheduleService(apiClient)
-    const action = GetWorkScheduleAction(service)
+    const action = EditDaysOffAction(service)
+    return action.handle(actionServer)
+  })
+
+export const editWorkScheduleDescription = authActionClient
+  .schema(
+    z.object({
+      workScheduleId: z.string().uuid(),
+      description: z.string(),
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+    })
+    const apiClient = await NextServerApiClient()
+    const service = WorkScheduleService(apiClient)
+    const action = EditWorkScheduleDescriptionAction(service)
     return action.handle(actionServer)
   })
 

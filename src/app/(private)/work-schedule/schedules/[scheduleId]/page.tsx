@@ -8,8 +8,6 @@ const Page = async ({ params }: NextParams<'scheduleId'>) => {
   })
   if (!response?.data) return
 
-  console.log(response?.data)
-
   return <SchedulePage schedule={response?.data?.workSchedule} />
 }
 

@@ -23,22 +23,13 @@ export const SchedulePage = ({ schedule }: SchedulePageProps) => {
 
   return (
     <FormProvider {...form}>
-      <div className='flex flex-col p-6 rounded-lg border border-gray-border'>
-        {!schedule && (
-          <Button
-            color='primary'
-            onPress={handleCreateWorkScheduleButtonClick}
-            isDisabled={!isFormFilled || isCreatingWorkSchedule}
-            isLoading={isCreatingWorkSchedule}
-            className='ml-auto'
-          >
-            Criar escala
-          </Button>
-        )}
-
+      <div className='p-6 rounded-lg border border-gray-border'>
         <h2 className='font-bold text-lg md:text-xl'>Nome da escala</h2>
         <div className='mt-3'>
-          <ScheduleName defaultValue={schedule?.description} />
+          <ScheduleName
+            workScheduleId={schedule?.id}
+            defaultValue={schedule?.description}
+          />
         </div>
 
         <h2 className='font-bold text-lg md:text-xl mt-12'>Registro de Horário</h2>

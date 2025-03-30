@@ -7,6 +7,7 @@ import { WEEKDAYS } from '@/constants'
 import type { WorkScheduleForm } from '../use-schedule-page'
 import type { WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
 import { useEditWeekScheduleAction } from './use-edit-week-schedule-action'
+import { useWeekdaysSorter } from './use-weekday-sorter'
 
 const EMPTY_TIME_PUNCH = {
   firstClockIn: null,
@@ -31,14 +32,14 @@ type FormData = z.infer<typeof weekScheduleSchema>
 
 export function useWeekSchedule(
   workScheduleId?: string,
-  weekSchedule?: WeekdayScheduleDto[],
+  weekdaysSchedule?: WeekdayScheduleDto[] | null,
 ) {
   const { setValue: setWorkScheduleValue } = useFormContext<WorkScheduleForm>()
   const { control, getValues, register, handleSubmit, setValue } = useForm<FormData>({
     resolver: zodResolver(weekScheduleSchema),
     defaultValues: {
       weekdaysSchedule:
-        weekSchedule ??
+        weekdaysSchedule ??
         Object.keys(WEEKDAYS).map((weekday) => ({
           weekday: weekday,
           timePunch: EMPTY_TIME_PUNCH,
@@ -49,13 +50,7 @@ export function useWeekSchedule(
     useEditWeekScheduleAction(workScheduleId)
 
   async function handleFormSubmit(formData: FormData) {
-    const timePunches = formData.weekdaysSchedule.map((weekday) => ({
-      firstClockIn: weekday.timePunch.firstClockIn ?? null,
-      firstClockOut: weekday.timePunch.firstClockOut ?? null,
-      secondClockIn: weekday.timePunch.secondClockIn ?? null,
-      secondClockOut: weekday.timePunch.secondClockOut ?? null,
-    }))
-    await editWeekSchedule(timePunches)
+    await editWeekSchedule(formData.weekdaysSchedule)
   }
 
   function handleWeekdayScheduleReplicate(

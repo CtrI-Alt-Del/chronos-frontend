@@ -11,6 +11,7 @@ const WEEKDAYS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
 const TODAY = new Date()
 
 export function useDaysOffSchedule(
+  workScheduleId?: string,
   defaultWorkdaysCount?: number,
   defaultDaysOffCount?: number,
   defaultDaysOff?: string[],
@@ -30,7 +31,7 @@ export function useDaysOffSchedule(
   const [isLoading, setIsLoading] = useState(false)
   const [daysOff, setDaysOff] = useState<Set<string>>(new Set(defaultDaysOff))
   const { workScheduleService } = useApi()
-  const { editDaysOffSchedule, isEditingDaysOffSchedule } = useEditDaysOffScheduleAction()
+  const { editDaysOffSchedule, isEditing } = useEditDaysOffScheduleAction(workScheduleId)
 
   function handleDaysOffCountChange(value: number) {
     if (error) setError(null)
@@ -110,7 +111,7 @@ export function useDaysOffSchedule(
     weekdays: WEEKDAYS,
     daysOff: Array.from(daysOff).map((dayOff) => Number(dayOff.split('-').at(-1))),
     monthDays,
-    isLoading: isLoading || isEditingDaysOffSchedule,
+    isLoading: isLoading || isEditing,
     isCalendarEnabled,
     handleWorkdaysCountChange,
     handleDaysOffCountChange,

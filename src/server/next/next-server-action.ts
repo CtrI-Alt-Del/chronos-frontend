@@ -1,10 +1,10 @@
 import { notFound, redirect } from 'next/navigation'
 import { cookies as NextCookies } from 'next/headers'
+import { revalidateTag } from 'next/cache'
 
 import type { IActionServer } from '@/@core/global/interfaces/action-server'
 import type { AccountDto } from '@/@core/auth/dtos'
 import { AppError } from '@/@core/global/errors'
-import { revalidatePath, revalidateTag } from 'next/cache'
 
 type NextActionServerParams<Request> = {
   request?: Request

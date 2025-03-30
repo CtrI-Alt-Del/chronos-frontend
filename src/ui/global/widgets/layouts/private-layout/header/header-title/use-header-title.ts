@@ -14,7 +14,7 @@ export function useHeaderTitle() {
       [ROUTES.report]: 'Relatório analítico',
       [ROUTES.collaboration.profile]: 'Meu perfil',
       [ROUTES.workSchedule.schedules]: 'Escalas',
-      [ROUTES.workSchedule.schedule()]: 'Criar escala',
+      [ROUTES.workSchedule.schedule()]: 'Escala',
       [ROUTES.collaboration.collaborators]: 'Registro de colaboratores',
       [ROUTES.workSchedule.sectorHistory]: 'Histórico de colaboradores',
       [ROUTES.workSchedule.collaboratorHistory]: 'Meu histórico',
@@ -24,6 +24,10 @@ export function useHeaderTitle() {
       return account?.role === 'manager' || account?.role === 'admin'
         ? 'Solicitações'
         : 'Solicitações do Setor'
+    }
+
+    if (currentRoute.startsWith('/work-schedule/schedules/')) {
+      return 'Escala'
     }
 
     return routeTitles[currentRoute] || 'Página não encontrada'

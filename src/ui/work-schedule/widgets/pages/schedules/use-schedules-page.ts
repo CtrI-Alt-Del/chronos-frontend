@@ -13,19 +13,15 @@ export function useSchedulesPage() {
     return response.body
   }
 
-  const { data, isFetching, refetch } = useCache({
+  const { data, isFetching, isRefetching } = useCache({
     fetcher: fetchSchedules,
     key: CACHE.workSchedule.schedules.key,
     dependencies: [],
-    shouldRefetchOnFocus: true,
+    shouldRefetchOnFocus: false,
   })
-
-  useEffect(() => {
-    refetch()
-  }, [])
 
   return {
     schedules: data,
-    isFetchingSchedules: isFetching,
+    isFetchingSchedules: isFetching || isRefetching,
   }
 }

@@ -22,6 +22,6 @@ export function useEditDaysOffScheduleAction(workScheduleId?: string) {
 
   return {
     editDaysOffSchedule,
-    isEditingDaysOffSchedule: isPending,
+    isEditing: isPending,
   }
 }

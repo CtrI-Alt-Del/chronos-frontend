@@ -40,7 +40,7 @@ export const SchedulesPage = () => {
         </div>
       </div>
 
-      <div className='grid grid-cols-1 gap-6 place-items-center sm:px-6 mt-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      <div className='grid grid-cols-1 gap-6 w-full place-items-center sm:px-6 mt-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {isFetchingSchedules ? (
           <>
             <WorkScheduleCardSckeleton />
