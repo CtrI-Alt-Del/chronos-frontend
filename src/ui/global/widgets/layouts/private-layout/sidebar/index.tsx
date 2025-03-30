@@ -18,7 +18,6 @@ type SidebarProps = {
 }
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
-  const { account } = useAuthContext()
   const { queryDate, queryDateRange, handleExpandButtonClick, handleLogoutButtonClick } =
     useSidebar(onClose)
 
