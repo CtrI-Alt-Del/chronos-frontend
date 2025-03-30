@@ -3,8 +3,9 @@ import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import type { KeyboardEvent } from 'react'
 
 export function useSidebar(onClose: VoidFunction) {
-  const { formatIsoDate, getCurrentDate } = useDatetime()
+  const { formatIsoDate, getCurrentDate, minusDays } = useDatetime()
   const { logout } = useAuthContext()
+  const date = getCurrentDate()
 
   function handleExpandButtonClick(event: KeyboardEvent) {
     if (event.key === 'Enter') onClose()
@@ -15,7 +16,8 @@ export function useSidebar(onClose: VoidFunction) {
   }
 
   return {
-    queryDate: `date=${formatIsoDate(getCurrentDate())}`,
+    queryDate: `date=${formatIsoDate(date)}`,
+    queryDateRange: `startDate=${formatIsoDate(minusDays(date, 7))}&endDate=${formatIsoDate(date)}`,
     handleExpandButtonClick,
     handleLogoutButtonClick,
   }

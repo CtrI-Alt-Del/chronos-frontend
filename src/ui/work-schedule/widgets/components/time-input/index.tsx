@@ -12,6 +12,7 @@ type TimeInputProps = {
   value?: string | null
   isDisabled?: boolean
   hasIcon?: boolean
+  isReadOnly?: boolean
   onChange?: (time: string) => void
 }
 
@@ -20,6 +21,7 @@ export const TimeInput = ({
   value,
   isDisabled = false,
   hasIcon = false,
+  isReadOnly = false,
   onChange,
 }: TimeInputProps) => {
   const { time, handleValueChange } = useTimeInput(value, onChange)
@@ -30,6 +32,7 @@ export const TimeInput = ({
       defaultValue={time}
       value={time}
       isDisabled={isDisabled}
+      isReadOnly={isReadOnly}
       startContent={hasIcon ? <Icon name='clock' /> : null}
       className={cn(hasIcon ? 'w-24' : 'w-20')}
       onChange={handleValueChange}

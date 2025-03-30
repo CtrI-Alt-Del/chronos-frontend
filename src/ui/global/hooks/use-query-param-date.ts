@@ -5,12 +5,12 @@ export function useQueryParamDate(
   key: string,
   defeaulDate = new Date(),
 ): [Date, (newDate: Date) => void] {
-  const { plusDays } = useDatetime()
+  const { plusDays, minusDays } = useDatetime()
   const [date, setDate] = useQueryState(key, parseAsIsoDate)
 
   function setState(newDate: Date) {
-    setDate(newDate)
+    setDate(minusDays(newDate, 1))
   }
 
-  return [date ?? defeaulDate, setState]
+  return [plusDays(date ?? defeaulDate, 1), setState]
 }

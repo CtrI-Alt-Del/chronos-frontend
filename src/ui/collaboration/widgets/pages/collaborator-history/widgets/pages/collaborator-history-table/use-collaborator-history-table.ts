@@ -6,22 +6,16 @@ type Row = {
   date: string
   timePunchLog: TimePunchDto
   timePunchSchedule: TimePunchDto
-  collaborator: {
-    name: string
-  }
 }
 
-export function useSectorHistoryTable(workdayLogs: WorkdayLogDto[]) {
+export function useCollaboratorHistoryTable(workdayLogs: WorkdayLogDto[]) {
   const { formatDate } = useDatetime()
 
   const rows: Row[] = workdayLogs.map((workdayLog) => ({
-    id: String(workdayLog.id),
+    id: workdayLog.id,
     date: formatDate(workdayLog.date),
     timePunchLog: workdayLog.timePunchLog,
     timePunchSchedule: workdayLog.timePunchSchedule,
-    collaborator: {
-      name: workdayLog.responsible.dto?.name || 'N/A',
-    },
   }))
 
   return {

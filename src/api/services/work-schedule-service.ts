@@ -23,17 +23,16 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
     },
 
     async reportSectorHistory(date, page = 1) {
-      apiClient.setParam('date', String(date.toISOString().split('T')[0]))
+      apiClient.setParam('date', date)
       apiClient.setParam('page', String(page))
       return await apiClient.get(`${MODULE}/workday-logs/history`)
     },
 
     async reportCollaboratorHistory(collaboratorId, startDate, endDate, page = 1) {
-      apiClient.setParam('collaboratorId', String(collaboratorId))
-      apiClient.setParam('startDate', String(startDate.toISOString().split('T')[0]))
-      apiClient.setParam('endDate', String(endDate.toISOString().split('T')[0]))
+      apiClient.setParam('startDate', startDate)
+      apiClient.setParam('endDate', endDate)
       apiClient.setParam('page', String(page))
-      return await apiClient.get(`${MODULE}/workday-logs/history/collaborators`)
+      return await apiClient.get(`${MODULE}/workday-logs/history/${collaboratorId}`)
     },
 
     async createWorkSchedule(workSchedule) {

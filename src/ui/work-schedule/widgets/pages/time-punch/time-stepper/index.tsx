@@ -1,4 +1,4 @@
-import type { TimePunchDto } from '@/@core/work-schedule/dtos'
+import { Time } from '../../../components/time'
 
 type TimePunchStepperProps = {
   currentStep: number
@@ -50,10 +50,10 @@ export const TimePunchStepper = ({
             `}
           />
 
-          <time className='my-3 text-sm font-bold text-black'>
+          <Time className='my-3 text-sm font-bold text-black'>
             {timesSchedule[index]}
-          </time>
-          <time>{timesLog[index] ?? '__:__'}</time>
+          </Time>
+          <Time>{timesLog[index]}</Time>
         </div>
       ))}
     </div>

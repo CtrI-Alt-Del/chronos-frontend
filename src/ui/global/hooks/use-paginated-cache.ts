@@ -52,8 +52,8 @@ export function usePaginatedCache<CacheItem>({
     ? dependencies.map((dependency, index) => `dep_${index + 1}=${dependency}`).join(',')
     : ''
 
-  function getKey(pageIndex: number, previousPageData: CacheItem[]) {
-    if (isEnabled && previousPageData && !previousPageData.length) {
+  function getKey(pageIndex: number) {
+    if (!isEnabled) {
       return null
     }
     return `${key}?${dependenciesQuery}&itemsPerPage=${itemsPerPage}&page=${pageIndex + 1}`
@@ -66,7 +66,7 @@ export function usePaginatedCache<CacheItem>({
     return response.items
   }
 
-  const { data, isLoading, isValidating, size, setSize, mutate } = useSWRInfinite(
+  const { data, error, isLoading, isValidating, size, setSize, mutate } = useSWRInfinite(
     getKey,
     infiniteFetcher,
     {
@@ -96,7 +96,7 @@ export function usePaginatedCache<CacheItem>({
   return {
     data: items,
     isRecheadedEnd: data ? Number(data[size - 1]?.length) < itemsPerPage : false,
-    isFetching: isLoading || isValidating,
+    isFetching: isLoading,
     isRefetching: isValidating,
     itemsCount,
     pagesCount,

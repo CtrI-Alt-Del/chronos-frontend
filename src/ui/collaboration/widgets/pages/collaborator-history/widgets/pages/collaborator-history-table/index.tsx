@@ -13,9 +13,9 @@ import { Pagination, Spinner } from '@heroui/react'
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
 import { TimePunchLogDialog } from '@/ui/work-schedule/widgets/components/time-punch-log-dialog'
-import { useSectorHistoryTable } from './use-sector-history-table'
+import { useCollaboratorHistoryTable } from './use-collaborator-history-table'
 
-type SectorHistoryTableProps = {
+type CollaboratorHistoryTableProps = {
   workdayLogs: WorkdayLogDto[]
   isLoading: boolean
   page: number
@@ -28,19 +28,18 @@ type SectorHistoryTableProps = {
   ) => void
 }
 
-export const SectorHistoryTable = ({
+export const CollaboratorHistoryTable = ({
   workdayLogs,
   isLoading,
   page,
   pagesCount,
   onPageChange,
   onTimeLogChange,
-}: SectorHistoryTableProps) => {
-  const { rows } = useSectorHistoryTable(workdayLogs)
+}: CollaboratorHistoryTableProps) => {
+  const { rows } = useCollaboratorHistoryTable(workdayLogs)
 
   return (
     <Table
-      className='w-screen md:w-auto'
       bottomContentPlacement='outside'
       bottomContent={
         pagesCount > 1 && (
@@ -60,16 +59,8 @@ export const SectorHistoryTable = ({
         <TableColumn key='date' className='uppercase'>
           Data
         </TableColumn>
-        <TableColumn key='collaborator' className='uppercase'>
-          Colaborador
-        </TableColumn>
-        <TableColumn key='first-entry' className='uppercase'>
-          <div className='flex items-center gap-16'>
-            <span>Entrada 1</span>
-            <span>Saída 1</span>
-            <span>Entrada 2</span>
-            <span>Saída 2</span>
-          </div>
+        <TableColumn key='time-punch' className='uppercase'>
+          Registros de Ponto
         </TableColumn>
       </TableHeader>
       <TableBody
@@ -77,14 +68,11 @@ export const SectorHistoryTable = ({
         isLoading={isLoading}
         loadingContent={<Spinner color='primary' label='Carregando...' />}
         emptyContent='Nenhum histórico encontrado.'
-        aria-label='pontos'
+        aria-label='conteúdo da tabela'
       >
         {(row) => (
           <TableRow key={row.id} className={isLoading ? 'opacity-25' : 'opacity-100'}>
             <TableCell>{row.date}</TableCell>
-            <TableCell>
-              <span className='truncate'>{row.collaborator.name}</span>
-            </TableCell>
             <TableCell>
               <TimePunchLogDialog
                 timePunchLog={row.timePunchLog}

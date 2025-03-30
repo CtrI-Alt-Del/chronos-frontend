@@ -10,7 +10,7 @@ const Page = async () => {
   return (
     <SolicitationsPage
       userRole={collaborationResponse.data.collaborator.role}
-      workdayLog={workScheduleResponse.data.workdayLog}
+      workdayLogId={String(workScheduleResponse.data.workdayLog.id)}
     />
   )
 }

@@ -58,7 +58,7 @@ export const TimePunchLogDialog = ({
               <TimeLog time={timePunchLog.secondClockIn} />
             </li>
             <li className='w-24'>
-              <TimeLog time={timePunchLog.secondClockIn} />
+              <TimeLog time={timePunchLog.secondClockOut} />
             </li>
           </ol>
         </Button>
