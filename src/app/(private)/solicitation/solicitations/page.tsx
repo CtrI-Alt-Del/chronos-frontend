@@ -1,7 +1,18 @@
-import { SolicitationsPage } from "@/ui/solicitation/solicitations";
+import { collaborationActions, workScheduleActions } from '@/server/next-safe-action'
+import { SolicitationsPage } from '@/ui/solicitation/solicitations'
 
-const Page = () => {
-  return <SolicitationsPage />;
-};
+const Page = async () => {
+  const collaborationResponse = await collaborationActions.getCollaboratorProfile()
+  const workScheduleResponse = await workScheduleActions.getTodayWorkdayLog()
+  if (!collaborationResponse?.data) return
+  if (!workScheduleResponse?.data) return
 
-export default Page;
+  return (
+    <SolicitationsPage
+      userRole={collaborationResponse.data.collaborator.role}
+      workdayLog={workScheduleResponse.data.workdayLog}
+    />
+  )
+}
+
+export default Page
