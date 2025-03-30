@@ -6,4 +6,5 @@ export type CollaboratorDto = {
   isActive: boolean
   role: string
   sector: string
+  workScheduleId:string
 }

@@ -5,7 +5,7 @@ export const ROUTES = {
   collaboration: {
     collaborators: '/collaboration/collaborators',
     registerCollaboration: '/collaboration/register-collaboration',
-    profile: '/collaboration//profile',
+    profile: '/collaboration/profile',
   },
   workSchedule: {
     schedules: '/work-schedule/schedules',

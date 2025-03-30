@@ -71,11 +71,11 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               title='Meu histórico de pontos'
             />
 
-            <NavbarLink
+            {/*<NavbarLink
               href={ROUTES.workSchedule.timeCard}
               icon='mirror'
               title='Espelho ponto'
-            />
+            />*/}
 
             <NavbarLink
               href={ROUTES.workSchedule.schedules}

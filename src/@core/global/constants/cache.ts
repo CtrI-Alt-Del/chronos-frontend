@@ -21,4 +21,9 @@ export const CACHE = {
       key: (scheduleId: string) => `/workSchedule/schedules/${scheduleId}`,
     },
   },
+  solicitation:{
+    solicitations:{
+      key: 'solicitation/solicitations',
+    }
+  }
 } as const
