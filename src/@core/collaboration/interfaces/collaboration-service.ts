@@ -14,7 +14,6 @@ export interface ICollaborationService {
   createCollaborator(
     collaborator: CollaboratorDto,
     password: string,
-    workScheduleId: string,
   ): Promise<ApiResponse<void>>
   disableCollaborator(collaboratorId: string): Promise<ApiResponse<void>>
   enableCollaborator(collaboratorId: string): Promise<ApiResponse<void>>
