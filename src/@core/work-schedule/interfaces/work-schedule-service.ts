@@ -4,6 +4,7 @@ import type { TimePunchDto, WorkdayLogDto, WorkScheduleDto } from '../dtos'
 import type { TimePunchPeriod } from '../types'
 
 export interface IWorkScheduleService {
+  requestTimePunchAdjustment(arg0: { timePunchLogId: string; newTime: string; period: TimePunchPeriod; requesterId: any }): unknown
   createWorkSchedule(
     timePunchSchedule: Omit<TimePunchDto, 'id'>,
     daysOffSchedule: Date[],
@@ -20,6 +21,7 @@ export interface IWorkScheduleService {
   reportSectorHistory(
     date: Date,
     page: number,
+    collaboratorId?: string,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
   editDaysOffSchedule(workScheduleId: string, daysOff: Date[]): Promise<ApiResponse<void>>
   editTimePunchSchedule(timePunch: TimePunchDto): Promise<ApiResponse<void>>
