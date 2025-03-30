@@ -10,6 +10,7 @@ import { useSidebar } from './use-sidebar'
 import { ProfileCard } from './profile-card'
 import { Icon } from '../../../components/Icon'
 import { NavbarLink } from './navbar-link'
+import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 
 type SidebarProps = {
   isOpen: boolean
@@ -19,6 +20,9 @@ type SidebarProps = {
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const { queryDate, handleExpandButtonClick, handleLogoutButtonClick } =
     useSidebar(onClose)
+
+  const { account } = useAuthContext()
+  const isManager = account?.role === 'manager' || account?.role === 'admin'
 
   return (
     <>
@@ -88,6 +92,14 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               icon='report'
               title='Solicitações'
             />
+
+            {isManager && (
+              <NavbarLink
+                href={ROUTES.collaboration.collaborators}
+                icon='users'
+                title='Colaboradores'
+              />
+            )}
           </NavbarContent>
         </NavbarContent>
 
