@@ -22,7 +22,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     useSidebar(onClose)
 
   const { account } = useAuthContext()
-  const isManager = account?.role === 'manager'
+  const isManager = account?.role === 'manager' || account?.role === 'admin'
 
   return (
     <>
