@@ -46,16 +46,15 @@ export const WorkScheduleSelect = ({
                   key={workSchedule.id}
                   title={workSchedule.description}
                   indicator={
-                    <Button
-                      variant='light'
+                    <div
                       className='bg-transparent rounded-lg flex items-center justify-center hover:bg-primary hover:text-white duration-1000 border-zinc-400 h-10 min-w-10'
-                      onPress={() => {
+                      onClick={() => {
                         if (workSchedule.id) handleWorkScheduleIdChange(workSchedule.id)
                         closeDrawer()
                       }}
                     >
                       <Icon name='plus' size={18} />
-                    </Button>
+                    </div>
                   }
                 >
                   <span className='text-sm text-zinc-600'>
