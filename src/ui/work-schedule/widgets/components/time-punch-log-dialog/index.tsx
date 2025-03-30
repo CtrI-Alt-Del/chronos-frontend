@@ -16,6 +16,7 @@ import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
 import { useTimePunchLogDialog } from './use-time-punch-log-dialog'
 import { TimeLog } from './time-log'
 import { TimeLogInput } from './time-log-input'
+import { Time } from '../time'
 
 type TimePunchLogDialogProps = {
   timePunchLog: TimePunchDto
@@ -35,8 +36,8 @@ export const TimePunchLogDialog = ({
   const dialogRef = useRef<DialogRef>(null)
   const { handleTimeLogChange } = useTimePunchLogDialog(
     dialogRef,
-    timePunchLog.id,
     onTimeLogChange,
+    timePunchLog.id,
   )
 
   return (
@@ -80,7 +81,9 @@ export const TimePunchLogDialog = ({
             <TableBody aria-label='counteudo da tabela'>
               <TableRow key='first-clock-in'>
                 <TableCell>Entrada 1</TableCell>
-                <TableCell>{timePunchSchedule.firstClockIn}</TableCell>
+                <TableCell>
+                  <Time>{timePunchSchedule.firstClockIn}</Time>
+                </TableCell>
                 <TableCell>
                   <TimeLogInput
                     defaultValue={timePunchLog.firstClockIn}
@@ -90,7 +93,9 @@ export const TimePunchLogDialog = ({
               </TableRow>
               <TableRow key='first-clock-out'>
                 <TableCell>Saída 1</TableCell>
-                <TableCell>{timePunchSchedule.firstClockOut}</TableCell>
+                <TableCell>
+                  <Time>{timePunchSchedule.firstClockOut}</Time>
+                </TableCell>
                 <TableCell>
                   <TimeLogInput
                     defaultValue={timePunchLog.firstClockOut}
@@ -102,7 +107,9 @@ export const TimePunchLogDialog = ({
               </TableRow>
               <TableRow key='second-clock-in'>
                 <TableCell>Entrada 2</TableCell>
-                <TableCell>{timePunchSchedule.secondClockIn}</TableCell>
+                <TableCell>
+                  <Time>{timePunchSchedule.secondClockIn}</Time>
+                </TableCell>
                 <TableCell>
                   <TimeLogInput
                     defaultValue={timePunchLog.secondClockIn}
@@ -114,7 +121,9 @@ export const TimePunchLogDialog = ({
               </TableRow>
               <TableRow key='second-clock-out'>
                 <TableCell>Saída 2</TableCell>
-                <TableCell>{timePunchSchedule.secondClockOut}</TableCell>
+                <TableCell>
+                  <Time>{timePunchSchedule.secondClockOut}</Time>
+                </TableCell>
                 <TableCell>
                   <TimeLogInput
                     defaultValue={timePunchLog.secondClockOut}

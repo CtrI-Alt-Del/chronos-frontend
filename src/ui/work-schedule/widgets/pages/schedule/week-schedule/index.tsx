@@ -66,12 +66,7 @@ export const WeekSchedule = ({ workScheduleId, weekSchedule }: WeekScheduleProps
                   name={`weekdaysSchedule.${index}.timePunch.firstClockIn`}
                   render={({ field: { value, onChange } }) => {
                     return (
-                      <TimeInput
-                        key={value}
-                        hasIcon
-                        defaultValue={value}
-                        onChange={onChange}
-                      />
+                      <TimeInput key={value} hasIcon value={value} onChange={onChange} />
                     )
                   }}
                 />
@@ -81,12 +76,7 @@ export const WeekSchedule = ({ workScheduleId, weekSchedule }: WeekScheduleProps
                   control={formControl}
                   name={`weekdaysSchedule.${index}.timePunch.firstClockOut`}
                   render={({ field: { value, onChange } }) => (
-                    <TimeInput
-                      key={value}
-                      hasIcon
-                      defaultValue={value}
-                      onChange={onChange}
-                    />
+                    <TimeInput key={value} hasIcon value={value} onChange={onChange} />
                   )}
                 />
               </TableCell>
@@ -95,12 +85,7 @@ export const WeekSchedule = ({ workScheduleId, weekSchedule }: WeekScheduleProps
                   control={formControl}
                   name={`weekdaysSchedule.${index}.timePunch.secondClockIn`}
                   render={({ field: { value, onChange } }) => (
-                    <TimeInput
-                      key={value}
-                      hasIcon
-                      defaultValue={value}
-                      onChange={onChange}
-                    />
+                    <TimeInput key={value} hasIcon value={value} onChange={onChange} />
                   )}
                 />
               </TableCell>
@@ -109,12 +94,7 @@ export const WeekSchedule = ({ workScheduleId, weekSchedule }: WeekScheduleProps
                   control={formControl}
                   name={`weekdaysSchedule.${index}.timePunch.secondClockOut`}
                   render={({ field: { value, onChange } }) => (
-                    <TimeInput
-                      key={value}
-                      hasIcon
-                      defaultValue={value}
-                      onChange={onChange}
-                    />
+                    <TimeInput key={value} hasIcon value={value} onChange={onChange} />
                   )}
                 />
                 <ReplicateWeekdayScheduleDialog

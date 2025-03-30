@@ -76,10 +76,10 @@ export const SectorHistoryTable = ({
         isLoading={isLoading}
         loadingContent={<Spinner color='primary' label='Carregando...' />}
         emptyContent='Nenhum histórico encontrado.'
-        aria-label='counteudo da tabela'
+        aria-label='pontos'
       >
         {(row) => (
-          <TableRow key={row.id}>
+          <TableRow key={row.id} className={isLoading ? 'opacity-25' : 'opacity-100'}>
             <TableCell>{row.date}</TableCell>
             <TableCell>
               <span className='truncate'>{row.collaborator.name}</span>
