@@ -6,8 +6,7 @@ import type { ICollaborationService } from '@/@core/collaboration/interfaces'
 
 type Request = {
   collaboratorId: string
-  collaboratorDto: Omit<CollaboratorDto, 'id'>
-  workScheduleId: string
+  collaboratorDto: CollaboratorDto
 }
 
 export const UpdateCollaboratorAction = (
@@ -15,14 +14,8 @@ export const UpdateCollaboratorAction = (
 ): IAction<Request> => {
   return {
     async handle(actionServer: IActionServer<Request>) {
-      const { collaboratorId, collaboratorDto, workScheduleId } =
-        actionServer.getRequest()
-
-      const collaborator = {
-        id: collaboratorId,
-        ...collaboratorDto,
-      }
-      const response = await service.updateCollaborator(collaborator, workScheduleId)
+      const { collaboratorId, collaboratorDto } = actionServer.getRequest()
+      const response = await service.updateCollaborator(collaboratorDto)
       if (response.isFailure) response.throwError()
       actionServer.resetCache(CACHE.collaboration.collaborator.key(collaboratorId))
     },
