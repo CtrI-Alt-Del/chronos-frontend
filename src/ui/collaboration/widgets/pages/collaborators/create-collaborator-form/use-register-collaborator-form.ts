@@ -41,35 +41,32 @@ export const collaboratorFormSchema = z.object({
   isActive: z.boolean().default(true),
 })
 
-type RegisterCollaboratorFormData = z.infer<typeof collaboratorFormSchema>
-type useRegisterCollaboratorFormProps = {
+type CollaboratorFormData = z.infer<typeof collaboratorFormSchema>
+type CollaboratorFormProps = {
   onSubmit: VoidFunction
 }
 
-export function useRegisterCollaboratorForm({
-  onSubmit,
-}: useRegisterCollaboratorFormProps) {
-  const { formState, register, handleSubmit, control } =
-    useForm<RegisterCollaboratorFormData>({
-      resolver: zodResolver(collaboratorFormSchema),
-    })
+export function useCollaboratorForm({ onSubmit }: CollaboratorFormProps) {
+  const { formState, register, handleSubmit, control } = useForm<CollaboratorFormData>({
+    resolver: zodResolver(collaboratorFormSchema),
+  })
 
   const { collaborationService } = useApi()
   const { showError, showSuccess } = useToast()
-  async function handleFormSubmit(formData: RegisterCollaboratorFormData) {
+  async function handleFormSubmit(formData: CollaboratorFormData) {
     const { password, ...collaboratorData } = formData
 
     const response = await collaborationService.createCollaborator(
       collaboratorData,
       password,
     )
-    if (response.isSuccess) {
-      showSuccess('Colaborador cadastrado com sucesso')
-      onSubmit()
-    }
     if (response.isFailure) {
       showError(response.errorMessage)
+      return
     }
+
+    showSuccess('Colaborador cadastrado com sucesso')
+    onSubmit()
   }
 
   return {

@@ -6,5 +6,11 @@ export const AuthService = (apiClient: IApiClient): IAuthService => {
     async login(email: string, password: string) {
       return await apiClient.post('/auth/login', { email, password })
     },
+
+    async updatePassword(collaboratorId: string, password: string) {
+      return await apiClient.patch(`/auth/${collaboratorId}/password`, {
+        password,
+      })
+    },
   }
 }

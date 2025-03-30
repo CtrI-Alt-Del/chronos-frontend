@@ -24,7 +24,7 @@ type Cookie = {
 type NextHttpParams = {
   request?: NextRequest
   schema?: ZodSchema
-  params?: NextParams
+  params?: NextParams<string>
 }
 
 export const NextHttp = async <NextSchema extends HttpSchema>({

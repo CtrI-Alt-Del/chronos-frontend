@@ -16,6 +16,7 @@ import {
   EditWorkScheduleDescriptionAction,
   GetTodayWorkdayLogAction,
   GetWorkScheduleAction,
+  ListWorkSchedulesAction,
   PunchTimeAction,
 } from '../actions/work-schedule'
 import {
@@ -55,6 +56,18 @@ export const getWorkSchedule = authActionClient
     const action = GetWorkScheduleAction(service)
     return action.handle(actionServer)
   })
+
+export const listWorkSchedules = authActionClient
+  .action(async () => {
+    const actionServer = NextActionServer()
+    const apiClient = await NextServerApiClient({
+      cacheKey: CACHE.workSchedule.schedules.key,
+    })
+    const service = WorkScheduleService(apiClient)
+    const action = ListWorkSchedulesAction(service)
+    return action.handle(actionServer)
+  })
+
 
 export const createWorkSchedule = authActionClient
   .schema(workScheduleSchema)

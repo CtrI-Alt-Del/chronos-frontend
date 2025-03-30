@@ -14,5 +14,7 @@ export type IconName =
   | 'history'
   | 'logout'
   | 'clock'
+  | 'lock'
+  | 'collaborator'
   | 'schedule'
   | 'trash'

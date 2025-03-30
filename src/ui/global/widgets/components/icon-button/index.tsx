@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge'
 
 
 import { Tag } from '../tag'
-import { IconName } from '../Icon/types'
+import type { IconName } from '../Icon/types'
 import { Icon } from '../Icon'
 
 type IconButton = {
@@ -21,11 +21,11 @@ const IconButtonComponent = (
 ) => {
   return (
     <Button
+      type='button'
       ref={ref}
       isIconOnly
-      aria-label='OPA'
-      onClick={onClick}
-      className={twMerge('relative bg-transparent overflow-visible', className)}
+      onPress={onClick}
+      className={twMerge('overflow-visible relative bg-transparent', className)}
       size='sm'
       {...buttonProps}
     >

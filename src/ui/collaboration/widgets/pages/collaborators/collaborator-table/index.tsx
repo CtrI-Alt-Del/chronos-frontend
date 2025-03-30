@@ -32,12 +32,12 @@ type CollaboratorTableProps = {
 export const CollaboratorTable = ({
   isLoading,
   page,
-  handleDisableEmployee,
-  handleEnableEmployee,
   collaborators,
   totalPages,
+  isAlteringCollaboratorStatus,
   onPageChange,
-  isAlteringCollaboratorStatus
+  handleDisableEmployee,
+  handleEnableEmployee,
 }: CollaboratorTableProps) => {
   return (
     <>
@@ -87,7 +87,7 @@ export const CollaboratorTable = ({
           emptyContent='Nenhum colaborador encontrado.'
         >
           {(item) => (
-            <TableRow key={item.id}>
+            <TableRow key={item.id} className={isLoading ? 'opacity-25' : 'opacity-100'}>
               <TableCell key={'name'}>
                 <span>{item.name}</span>
               </TableCell>
@@ -132,7 +132,7 @@ export const CollaboratorTable = ({
                     trigger={
                       <IconButton
                         name='trash'
-                        className='bg-transparent hover:bg-primary text-gray-700 hover:text-white duration-1000 border-zinc-400 h-10 min-w-10'
+                        className='h-10 text-gray-700 bg-transparent duration-1000 hover:bg-primary hover:text-white border-zinc-400 min-w-10'
                         size={20}
                       />
                     }
@@ -140,14 +140,14 @@ export const CollaboratorTable = ({
                     title='ALERTA'
                     onConfirm={() => handleDisableEmployee(item.id as string)}
                   >
-                    Voce tem certeza que deseja desativar esse colaborador?
+                    Voce tem certeza que deseja desativar esse colaborador? Foi vc que fez?
                   </AlertDialog>
                 ) : (
                   <AlertDialog
                     trigger={
                       <IconButton
                         name='activity'
-                        className='bg-transparent hover:bg-primary text-gray-700 hover:text-white duration-1000 border-zinc-400 h-10 min-w-10'
+                        className='h-10 text-gray-700 bg-transparent duration-1000 hover:bg-primary hover:text-white border-zinc-400 min-w-10'
                         size={20}
                       />
                     }

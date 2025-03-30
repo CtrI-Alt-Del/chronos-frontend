@@ -1,4 +1,4 @@
-import { allowPageByRoles } from './auth-actions'
+import { allowPageByRoles, updatePassword } from './auth-actions'
 import { getCookie, deleteCookie, hasCookie, setCookie } from './cookie-actions'
 import {
   getTodayWorkdayLog,
@@ -10,6 +10,7 @@ import {
   createWorkSchedule,
   deleteWorkSchedule,
   punchTime,
+  listWorkSchedules,
 } from './work-schedule-actions'
 import {
   getCollaborator,
@@ -21,6 +22,7 @@ import {
 
 const authActions = {
   allowPageByRoles,
+  updatePassword,
 }
 
 const cookieActions = {
@@ -32,6 +34,7 @@ const cookieActions = {
 
 const workScheduleActions = {
   getTodayWorkdayLog,
+  listWorkSchedules,
   getWorkSchedule,
   editDaysOffSchedule,
   editTimePunchSchedule,

@@ -1,8 +1,8 @@
 import { Controller } from 'react-hook-form'
 import { Button, Input, Form, SelectItem, Select } from '@heroui/react'
 
-import { WorkScheduleSelect } from '@/ui/global/widgets/components/work-schedule-select'
-import { useRegisterCollaboratorForm } from './use-register-collaborator-form'
+import { useCollaboratorForm } from './use-register-collaborator-form'
+import { WorkScheduleSelect } from '../../profile/work-schedule-select'
 
 type RegisterCollaboratorFormProps = {
   onCancel: VoidFunction
@@ -13,23 +13,21 @@ export const RegisterCollaboratorForm = ({
   onSubmit,
   onCancel,
 }: RegisterCollaboratorFormProps) => {
-  const { errors, isSubmiting, register, handleSubmit, control } =
-    useRegisterCollaboratorForm({
+  const { control, errors, isSubmiting, register, handleSubmit } =
+    useCollaboratorForm({
       onSubmit,
     })
 
   return (
-    <Form onSubmit={handleSubmit} className='w-full max-w-lg space-y-6'>
-      <div className='space-y-4 w-full'>
+    <Form onSubmit={handleSubmit} className='space-y-6 w-full max-w-lg'>
+      <div className='space-y-6 w-full'>
         <Input
-          isRequired
           errorMessage={errors.name?.message}
           label='Nome'
           placeholder='Digite o nome'
           {...register('name')}
         />
         <Input
-          isRequired
           errorMessage={errors.email?.message}
           label='Email'
           placeholder='Digite o email'
@@ -63,17 +61,17 @@ export const RegisterCollaboratorForm = ({
           name='workScheduleId'
           control={control}
           render={({ field: { onChange } }) => (
-            <div className='w-full'>
-              <WorkScheduleSelect onSelectChange={onChange} />
+            <div className='mt-6 w-full'>
+              <WorkScheduleSelect onChange={onChange} hasIcon={false} />
               {errors.workScheduleId && (
-                <p className='text-red-600 text-sm'>{errors.workScheduleId.message}</p>
+                <p className='text-sm text-red-600'>{errors.workScheduleId.message}</p>
               )}
             </div>
           )}
         />
       </div>
 
-      <div className='flex justify-end gap-3'>
+      <div className='flex gap-3 justify-end'>
         <Button onPress={onCancel} isDisabled={isSubmiting} color='danger' variant='flat'>
           Cancelar
         </Button>

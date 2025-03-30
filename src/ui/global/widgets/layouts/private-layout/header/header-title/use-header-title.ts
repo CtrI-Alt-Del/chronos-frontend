@@ -12,7 +12,6 @@ export function useHeaderTitle() {
       [ROUTES.workSchedule.timePunch]: 'Registrar ponto',
       [ROUTES.workSchedule.timeCard]: 'Espelho de pontos',
       [ROUTES.report]: 'Relatório analítico',
-      [ROUTES.collaboration.profile]: 'Meu perfil',
       [ROUTES.workSchedule.schedules]: 'Escalas',
       [ROUTES.workSchedule.schedule()]: 'Escala',
       [ROUTES.collaboration.collaborators]: 'Registro de colaboratores',
@@ -28,6 +27,10 @@ export function useHeaderTitle() {
 
     if (currentRoute.startsWith('/work-schedule/schedules/')) {
       return 'Escala'
+    }
+
+    if (currentRoute.startsWith('/collaboration/profile')) {
+      return 'Perfil'
     }
 
     return routeTitles[currentRoute] || 'Página não encontrada'

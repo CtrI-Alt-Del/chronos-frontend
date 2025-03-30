@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 import { COOKIES } from '@/@core/global/constants/cookies'
 import type { AccountDto } from '@/@core/auth/dtos'
 import { ROUTES } from '@/constants/routes'
-import type { Role } from '@/@core/auth/types'
+import type { Role } from '@/@core/global/types'
 
 
 export async function allowPageByRole(roles: Role[]) {

@@ -52,10 +52,8 @@ export function useCollaboratorsPage() {
       setIsAlteringCollaboratorStatus(false)
       return
     }
-    if (response.isSuccess) {
-      showSuccess('Colaborador desativado com sucesso')
-      refetch()
-    }
+    showSuccess('Colaborador desativado com sucesso')
+    refetch()
     setIsAlteringCollaboratorStatus(false)
   }
   async function handleEnableEmployee(collaboratorId: string) {
@@ -66,10 +64,8 @@ export function useCollaboratorsPage() {
       setIsAlteringCollaboratorStatus(false)
       return
     }
-    if (response.isSuccess) {
-      showSuccess('Colaborador ativado com sucesso')
-      refetch()
-    }
+    showSuccess('Colaborador ativado com sucesso')
+    refetch()
     setIsAlteringCollaboratorStatus(false)
   }
   return {

@@ -8,9 +8,8 @@ export function useUpdateCollaboratorAction() {
   async function updateCollaborator(
     collaboratorId: string,
     collaboratorDto: CollaboratorDto,
-    workScheduleId: string,
   ) {
-    await executeAsync({ collaboratorId, workScheduleId, collaboratorDto })
+    await executeAsync({ collaboratorId, collaboratorDto })
   }
 
   return {

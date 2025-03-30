@@ -15,7 +15,7 @@ export const UpdateCollaboratorAction = (
   return {
     async handle(actionServer: IActionServer<Request>) {
       const { collaboratorId, collaboratorDto } = actionServer.getRequest()
-      const response = await service.updateCollaborator(collaboratorDto)
+      const response = await service.updateCollaborator(collaboratorId, collaboratorDto)
       if (response.isFailure) response.throwError()
       actionServer.resetCache(CACHE.collaboration.collaborator.key(collaboratorId))
     },
