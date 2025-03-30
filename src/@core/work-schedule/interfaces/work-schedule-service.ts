@@ -22,6 +22,7 @@ export interface IWorkScheduleService {
   reportSectorHistory(
     date: Date,
     page: number,
+    collaboratorId?: string,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
   editWorkScheduleDescription(
     workScheduleId: string,
