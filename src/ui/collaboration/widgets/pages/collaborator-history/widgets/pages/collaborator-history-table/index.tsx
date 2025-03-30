@@ -71,7 +71,7 @@ export const CollaboratorHistoryTable = ({
         aria-label='conteúdo da tabela'
       >
         {(row) => (
-          <TableRow key={row.id}>
+          <TableRow key={row.id} className={isLoading ? 'opacity-25' : 'opacity-100'}>
             <TableCell>{row.date}</TableCell>
             <TableCell>
               <TimePunchLogDialog

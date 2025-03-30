@@ -30,7 +30,7 @@ export const DateRangeInput = ({
           end: endDate,
         }}
         onChange={handleValueChange}
-        label='Stay duration'
+        label='Período'
       />
     </div>
   )

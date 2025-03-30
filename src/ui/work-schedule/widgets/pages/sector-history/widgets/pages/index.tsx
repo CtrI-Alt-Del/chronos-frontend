@@ -31,16 +31,14 @@ export const SectorHistoryPage = () => {
           <DateInput defualtDate={date} onChange={handleDateChange} />
         </div>
       </div>
-      <div className='w-screen md:w-auto overflow-x-hidden'>
-        <SectorHistoryTable
-          workdayLogs={workdayLogs}
-          page={page}
-          pagesCount={pagesCount}
-          isLoading={isLoading}
-          onPageChange={handlePageChange}
-          onTimeLogChange={handleTimeLogChange}
-        />
-      </div>
+      <SectorHistoryTable
+        workdayLogs={workdayLogs}
+        page={page}
+        pagesCount={pagesCount}
+        isLoading={isLoading}
+        onPageChange={handlePageChange}
+        onTimeLogChange={handleTimeLogChange}
+      />
     </div>
   )
 }

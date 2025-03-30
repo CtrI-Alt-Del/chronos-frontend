@@ -7,7 +7,7 @@ export const CollaborationService = (apiClient: IApiClient): ICollaborationServi
   const MODULE = '/collaboration'
 
   return {
-    async createCollaborator(collaborator: CollaboratorDto, password: String) {
+    async createCollaborator(collaborator: CollaboratorDto, password: string) {
       return await apiClient.post(`${MODULE}/collaborators`, {
         collaboratorDto: collaborator,
         password,
@@ -20,12 +20,11 @@ export const CollaborationService = (apiClient: IApiClient): ICollaborationServi
       )
     },
 
-    async updateCollaborator(collaborator: CollaboratorDto, workScheduleId: string) {
+    async updateCollaborator(collaborator: CollaboratorDto) {
       return await apiClient.put<CollaboratorDto>(
         `${MODULE}/collaborators/${collaborator.id}`,
         {
           collaboratorDto: collaborator,
-          workScheduleId,
         },
       )
     },

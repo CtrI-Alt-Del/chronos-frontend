@@ -20,6 +20,7 @@ export function useDateRangeInput({
 
   function handleValueChange(value: RangeValue<CalendarDate> | null) {
     if (value) {
+      console.log({ value })
       onStartDateChange(inZonedTime(value.start.toString()))
       onEndDateChange(inZonedTime(value.end.toString()))
     }

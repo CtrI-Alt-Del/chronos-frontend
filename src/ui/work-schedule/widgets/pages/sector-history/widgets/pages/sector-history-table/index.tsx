@@ -40,6 +40,7 @@ export const SectorHistoryTable = ({
 
   return (
     <Table
+      className='w-screen md:w-auto'
       bottomContentPlacement='outside'
       bottomContent={
         pagesCount > 1 && (

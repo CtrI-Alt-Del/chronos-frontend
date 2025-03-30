@@ -11,15 +11,19 @@ import { useApi } from '@/ui/global/hooks/use-api'
 import { useToast } from '@/ui/global/hooks/use-toast'
 
 export function useSectorHistoryPage() {
-  const { getCurrentDate } = useDatetime()
+  const { getCurrentDate, formatIsoDate } = useDatetime()
   const [date, setDate] = useQueryParamDate('date', getCurrentDate())
   const [collboratorName, setCollboratorName] = useQueryParamString('name')
   const { workScheduleService } = useApi()
   const { showError, showSuccess } = useToast()
   const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
+  console.log(date)
 
   async function fetchSectorHistory(page: number) {
-    const response = await workScheduleService.reportSectorHistory(date, page)
+    const response = await workScheduleService.reportSectorHistory(
+      formatIsoDate(date),
+      page,
+    )
     return response.body
   }
 

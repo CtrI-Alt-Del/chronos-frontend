@@ -5,7 +5,7 @@ import { useProfileCard } from "./use-profile-card";
 import { ROUTES } from "@/constants/routes";
 
 export const ProfileCard = () => {
-  const { displayName, isLoading } = useProfileCard();
+  const { displayName } = useProfileCard();
 
   return (
     <Link

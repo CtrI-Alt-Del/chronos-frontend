@@ -24,15 +24,16 @@ export const NextApiClient = (
     headers,
     next: isCacheEnabled
       ? {
-        revalidate: refetchInterval,
-        tags: cacheKey ? [cacheKey] : [],
-      }
+          revalidate: refetchInterval,
+          tags: cacheKey ? [cacheKey] : [],
+        }
       : undefined,
   }
   let params: Record<string, string> = {}
 
   return {
     async get<ResponseBody>(url: string) {
+      console.log(`${baseUrl}${addUrlParams(url, params)}`)
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
         ...requestInit,
         method: 'GET',

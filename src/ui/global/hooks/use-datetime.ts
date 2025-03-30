@@ -17,17 +17,17 @@ const TIME_ZONE = 'America/Sao_Paulo'
 
 export function useDatetime() {
   function formatCompleteDate(date: Date): string {
-    return formatInTimeZone(new Date(date), TIME_ZONE, "EEEE, dd 'de' MMMM 'de' yyyy", {
+    return formatInTimeZone(date, TIME_ZONE, "EEEE, dd 'de' MMMM 'de' yyyy", {
       locale: ptBR,
     })
   }
 
-  function formatIsoDate(date: Date): string {
-    return formatInTimeZone(new Date(date), TIME_ZONE, 'yyyy-MM-dd')
+  function formatIsoDate(date: Date | string): string {
+    return formatInTimeZone(date, TIME_ZONE, 'yyyy-MM-dd')
   }
 
-  function formatDate(date: Date): string {
-    return formatInTimeZone(new Date(date), TIME_ZONE, 'dd/MM/yyyy')
+  function formatDate(date: Date | string): string {
+    return formatInTimeZone(date, TIME_ZONE, 'dd/MM/yyyy')
   }
 
   function formatTime(date: Date | string): string {
@@ -60,7 +60,7 @@ export function useDatetime() {
     return firstMonday
   }
 
-  function getMonthDaysOf(date: Date) {
+  function getMonthDaysOf() {
     const today = new Date()
     const firstDayOfMonth = startOfMonth(today)
     const daysInMonth = eachDayOfInterval({
@@ -79,10 +79,6 @@ export function useDatetime() {
   }
 
   const inZonedTime = useCallback((date: Date | string) => {
-    if (typeof date === 'string') {
-      return toZonedTime(new Date(date), TIME_ZONE)
-    }
-
     return toZonedTime(date, TIME_ZONE)
   }, [])
 

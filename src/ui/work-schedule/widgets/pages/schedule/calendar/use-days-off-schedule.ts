@@ -49,7 +49,7 @@ export function useDaysOffSchedule(today: Date) {
 
     let firstSaturday: unknown = null
     let firstSunday: unknown = null
-    const monthDays = getMonthDaysOf(today)
+    const monthDays = getMonthDaysOf()
 
     monthDays.forEach((day) => {
       const formattedDate = formatIsoDate(day)

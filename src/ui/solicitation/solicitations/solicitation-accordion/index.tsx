@@ -6,6 +6,8 @@ import { ChevronDown } from 'lucide-react'
 import { Spinner } from '@heroui/spinner'
 import { Button } from '@heroui/button'
 import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
+import { Avatar } from '@heroui/avatar'
+import { useDatetime } from '@/ui/global/hooks/use-datetime'
 
 type SolicitationAccordionProps = {
   solicitations: SolicitationDto[] | null
@@ -23,6 +25,8 @@ export const SolicitationAccordion = ({
   handleDeny,
   handleApprove,
 }: SolicitationAccordionProps) => {
+  const { formatDate } = useDatetime()
+
   if (isLoading) {
     return (
       <div className='flex items-center justify-center h-64'>
@@ -57,16 +61,16 @@ export const SolicitationAccordion = ({
             <AccordionItem
               key={solicitation.id}
               aria-label={`Accordion ${solicitation.id}`}
-              startContent={
-                <div
-                  className={`w-3 h-3 rounded-full ${statusInfo.color.split(' ')[1]}`}
-                />
-              }
               title={
                 <div className='flex items-center justify-between w-full'>
-                  <span className='text-gray-500 text-sm'>
-                    {solicitation.description}
-                  </span>
+                  <div className='flex items-center gap-2'>
+                    <div
+                      className={`w-3 h-3 rounded-full ${statusInfo.color.split(' ')[1]}`}
+                    />
+                    <span className='text-gray-500 text-lg'>
+                      {solicitation.description}
+                    </span>
+                  </div>
                   <div className='flex items-center justify-center'>
                     <span
                       className={`block translate-y-3 text-base ${statusInfo.color.split(' ')[0]}`}
@@ -77,13 +81,21 @@ export const SolicitationAccordion = ({
                 </div>
               }
               subtitle={
-                <div>
-                  <span className='text-black text-lg'>
-                    {new Date(solicitation.date).toLocaleDateString()}
+                <div className='flex items-center gap-6 mt-2 pl-6'>
+                  <span className='text-slate-800 text-sm'>
+                    {formatDate(solicitation.date)}
                   </span>
-                  <span className='text-black pl-8'>
-                    {solicitation.senderResponsible.dto.name}
-                  </span>
+                  <div className='flex items-center gap-2'>
+                    <Avatar
+                      color='primary'
+                      isBordered
+                      className='size-3 rounded-full'
+                      radius='sm'
+                    />
+                    <span className='text-slate-800'>
+                      {solicitation.senderResponsible.dto.name}
+                    </span>
+                  </div>
                 </div>
               }
               indicator={<ChevronDown className='w-4 h-4' />}
@@ -99,7 +111,7 @@ export const SolicitationAccordion = ({
                           Aprovar
                         </Button>
                       }
-                      onCancel={() => { }}
+                      onCancel={() => {}}
                       title='ALERTA'
                       onConfirm={() => handleApprove(solicitation.id as string)}
                     >
@@ -112,7 +124,7 @@ export const SolicitationAccordion = ({
                           Negar
                         </Button>
                       }
-                      onCancel={() => { }}
+                      onCancel={() => {}}
                       title='ALERTA'
                       onConfirm={() => handleDeny(solicitation.id as string)}
                     >

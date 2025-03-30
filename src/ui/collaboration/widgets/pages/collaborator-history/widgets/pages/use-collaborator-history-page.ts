@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import { CACHE } from '@/@core/global/constants'
@@ -8,27 +9,27 @@ import { useQueryParamDate } from '@/ui/global/hooks/use-query-param-date'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useApi } from '@/ui/global/hooks/use-api'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import type { WorkScheduleDto, WorkdayLogDto } from '@/@core/work-schedule/dtos'
-import { AppError } from '@/@core/global/errors'
 
 export function useCollaboratorHistoryPage() {
-  const { getCurrentDate } = useDatetime()
-  const [date, setDate] = useQueryParamDate('date', getCurrentDate())
+  const { getCurrentDate, minusDays, formatIsoDate } = useDatetime()
+  const [startDate, setStartDate] = useQueryParamDate(
+    'startDate',
+    minusDays(getCurrentDate(), 7),
+  )
+  const [endDate, setEndDate] = useQueryParamDate('endDate', getCurrentDate())
   const [collboratorName, setCollboratorName] = useQueryParamString('name')
+  const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
   const { account } = useAuthContext()
   const { workScheduleService } = useApi()
   const { showError, showSuccess } = useToast()
-  const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
+  console.log(startDate)
+  console.log(endDate)
 
   async function fetchCollaboratorHistory(page: number) {
-    if (!account?.collaboratorId) throw new Error()
-
-    const startDate = date
-    const endDate = new Date(date.getTime())
     const response = await workScheduleService.reportCollaboratorHistory(
-      account.collaboratorId,
-      startDate,
-      endDate,
+      String(account?.collaboratorId),
+      formatIsoDate(startDate),
+      formatIsoDate(endDate),
       page,
     )
     return response.body
@@ -37,13 +38,17 @@ export function useCollaboratorHistoryPage() {
   const { data, page, pagesCount, isFetching, refetch, setPage } = usePaginatedCache({
     key: CACHE.workSchedule.collaboratorHistory.key,
     fetcher: fetchCollaboratorHistory,
-    dependencies: [date, account?.collaboratorId],
+    dependencies: [startDate, endDate],
     shouldRefetchOnFocus: false,
-    isEnabled: Boolean(account?.collaboratorId),
+    isEnabled: Boolean(account),
   })
 
-  function handleDateChange(date: Date) {
-    setDate(date)
+  function handleStartDateChange(date: Date) {
+    setStartDate(date)
+  }
+
+  function handleEndDateChange(date: Date) {
+    setEndDate(date)
   }
 
   function handlePageChange(page: number) {
@@ -75,15 +80,15 @@ export function useCollaboratorHistoryPage() {
     setIsAdjustingTimePunchLog(false)
   }
 
-  console.log(data)
-
   return {
     workdayLogs: data ?? [],
-    date,
+    startDate,
+    endDate,
     isLoading: isAdjustingTimePunchLog || isFetching,
     page,
     pagesCount,
-    handleDateChange,
+    handleStartDateChange,
+    handleEndDateChange,
     handlePageChange,
     handleTimeLogChange,
   }

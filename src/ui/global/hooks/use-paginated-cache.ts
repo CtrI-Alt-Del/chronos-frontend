@@ -66,7 +66,7 @@ export function usePaginatedCache<CacheItem>({
     return response.items
   }
 
-  const { data, isLoading, isValidating, size, setSize, mutate } = useSWRInfinite(
+  const { data, error, isLoading, isValidating, size, setSize, mutate } = useSWRInfinite(
     getKey,
     infiniteFetcher,
     {
@@ -96,7 +96,7 @@ export function usePaginatedCache<CacheItem>({
   return {
     data: items,
     isRecheadedEnd: data ? Number(data[size - 1]?.length) < itemsPerPage : false,
-    isFetching: isLoading || isValidating,
+    isFetching: isLoading,
     isRefetching: isValidating,
     itemsCount,
     pagesCount,

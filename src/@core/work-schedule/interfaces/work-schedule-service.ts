@@ -15,12 +15,12 @@ export interface IWorkScheduleService {
   listWorkSchedules(): Promise<ApiResponse<WorkScheduleDto[]>>
   reportCollaboratorHistory(
     collaboratorId: string,
-    startDate: Date,
-    endDate: Date,
+    startDate: string,
+    endDate: string,
     page: number,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
   reportSectorHistory(
-    date: Date,
+    date: string,
     page: number,
     collaboratorId?: string,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
