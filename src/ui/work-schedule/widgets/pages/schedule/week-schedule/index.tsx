@@ -35,7 +35,7 @@ export const WeekSchedule = ({ workScheduleId, weekSchedule }: WeekScheduleProps
   } = useWeekSchedule(workScheduleId, weekdaysSchedule)
 
   return (
-    <form className='flex flex-col w-full' onSubmit={handleFormSubmit}>
+    <form className='flex flex-col max-w-5xl' onSubmit={handleFormSubmit}>
       {weekSchedule && (
         <Button
           type='submit'
