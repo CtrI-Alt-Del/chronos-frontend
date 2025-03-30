@@ -52,6 +52,7 @@ const DialogComponent = (
         scrollBehavior='inside'
         classNames={{ wrapper: 'overflow-x-hidden' }}
         onClose={close}
+        className='mb-16'
       >
         <ModalContent className='z-50'>
           <ModalHeader>{title}</ModalHeader>
