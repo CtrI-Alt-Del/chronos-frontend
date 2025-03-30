@@ -3,6 +3,7 @@
 import { CACHE } from '@/@core/global/constants'
 import { useApi } from '@/ui/global/hooks'
 import { useCache } from '@/ui/global/hooks/use-cache'
+import { useEffect } from 'react'
 
 export function useSchedulesPage() {
   const api = useApi()
@@ -12,11 +13,16 @@ export function useSchedulesPage() {
     return response.body
   }
 
-  const { data, isFetching } = useCache({
+  const { data, isFetching, refetch } = useCache({
     fetcher: fetchSchedules,
     key: CACHE.workSchedule.schedules.key,
     dependencies: [],
+    shouldRefetchOnFocus: true,
   })
+
+  useEffect(() => {
+    refetch()
+  }, [])
 
   return {
     schedules: data,

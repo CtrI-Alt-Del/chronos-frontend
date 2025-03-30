@@ -16,22 +16,37 @@ import { useWeekSchedule } from './use-week-schedule'
 import { ReplicateWeekdayScheduleDialog } from './replicate-weeday-schedule-dialog'
 import { WEEKDAYS } from '@/constants'
 import { Icon } from '@/ui/global/widgets/components/Icon'
+import type { WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
 
-export const WeekSchedule = () => {
+type WeekScheduleProps = {
+  workScheduleId?: string
+  weekSchedule?: WeekdayScheduleDto[]
+}
+
+export const WeekSchedule = ({ workScheduleId, weekSchedule }: WeekScheduleProps) => {
   const {
     formControl,
+    isEditing,
     handleFormSubmit,
     handleWeekdayScheduleReplicate,
     handleRemoveWeekdayScheduleButtonClick,
-  } = useWeekSchedule()
+  } = useWeekSchedule(workScheduleId, weekSchedule)
 
   return (
     <form className='flex flex-col w-full' onSubmit={handleFormSubmit}>
-      <Button type='submit' color='primary' className='self-end'>
-        Salvar horário
-      </Button>
+      {weekSchedule && (
+        <Button
+          type='submit'
+          color='primary'
+          isDisabled={isEditing}
+          isLoading={isEditing}
+          className='self-end mb-6'
+        >
+          Atualizar horário
+        </Button>
+      )}
 
-      <Table className='mt-6'>
+      <Table>
         <TableHeader>
           <TableColumn className='text-md'>Dia</TableColumn>
           <TableColumn className='text-md'>Entrada 1</TableColumn>
@@ -46,7 +61,7 @@ export const WeekSchedule = () => {
               <TableCell>
                 <Controller
                   control={formControl}
-                  name={`weekdaysSchedule.${index}.timePunchSchedule.firstClockIn`}
+                  name={`weekdaysSchedule.${index}.timePunch.firstClockIn`}
                   render={({ field: { value, onChange } }) => {
                     return (
                       <TimeInput
@@ -62,7 +77,7 @@ export const WeekSchedule = () => {
               <TableCell>
                 <Controller
                   control={formControl}
-                  name={`weekdaysSchedule.${index}.timePunchSchedule.firstClockOut`}
+                  name={`weekdaysSchedule.${index}.timePunch.firstClockOut`}
                   render={({ field: { value, onChange } }) => (
                     <TimeInput
                       key={value}
@@ -76,7 +91,7 @@ export const WeekSchedule = () => {
               <TableCell>
                 <Controller
                   control={formControl}
-                  name={`weekdaysSchedule.${index}.timePunchSchedule.secondClockIn`}
+                  name={`weekdaysSchedule.${index}.timePunch.secondClockIn`}
                   render={({ field: { value, onChange } }) => (
                     <TimeInput
                       key={value}
@@ -90,7 +105,7 @@ export const WeekSchedule = () => {
               <TableCell className='flex items-center'>
                 <Controller
                   control={formControl}
-                  name={`weekdaysSchedule.${index}.timePunchSchedule.secondClockOut`}
+                  name={`weekdaysSchedule.${index}.timePunch.secondClockOut`}
                   render={({ field: { value, onChange } }) => (
                     <TimeInput
                       key={value}

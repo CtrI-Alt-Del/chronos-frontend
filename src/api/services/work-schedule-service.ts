@@ -40,10 +40,27 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       return await apiClient.post(`${MODULE}/schedules`, workSchedule)
     },
 
-    async editDaysOffSchedule(workScheduleId, daysOff) {
-      return await apiClient.put(`${MODULE}/schedules/${workScheduleId}`, {
-        daysOff,
-      })
+    async editDaysOffSchedule(
+      workScheduleId,
+      workdaysCount: number,
+      daysOffCount: number,
+      daysOff,
+    ) {
+      return await apiClient.put(
+        `${MODULE}/schedules/${workScheduleId}/days-off-schedule`,
+        {
+          workdaysCount,
+          daysOffCount,
+          daysOff,
+        },
+      )
+    },
+
+    async editWeekSchedule(timePunchesSchedule) {
+      return await apiClient.put(
+        `${MODULE}/time-punches/week-schedule`,
+        timePunchesSchedule,
+      )
     },
 
     async editTimePunchSchedule(timePunch) {

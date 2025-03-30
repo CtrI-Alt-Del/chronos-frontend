@@ -12,7 +12,7 @@ export const ROUTES = {
     schedule: (workScheduleId?: string) =>
       workScheduleId
         ? `/work-schedule/schedules/${workScheduleId}`
-        : '/work-schedule/schedules',
+        : '/work-schedule/schedules/create',
     sectorHistory: '/work-schedule/sector-history',
     collaboratorHistory: '/work-schedule/collaborator-history',
     timePunch: '/work-schedule/time-punch',

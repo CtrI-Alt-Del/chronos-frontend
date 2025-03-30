@@ -2,12 +2,20 @@ import { useMemo, useState } from 'react'
 
 import { useApi } from '@/ui/global/hooks'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
+import { useFormContext } from 'react-hook-form'
+import type { WorkScheduleForm } from '../use-schedule-page'
+import { useEditDaysOffScheduleAction } from './use-edit-days-off-schedule-action'
 
 const WEEKDAYS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
 
 const TODAY = new Date()
 
-export function useDaysOffSchedule() {
+export function useDaysOffSchedule(
+  defaultWorkdaysCount?: number,
+  defaultDaysOffCount?: number,
+  defaultDaysOff?: string[],
+) {
+  const { setValue } = useFormContext<WorkScheduleForm>()
   const {
     getFirstMonthDayOf,
     getWeekdayIndex,
@@ -15,13 +23,14 @@ export function useDaysOffSchedule() {
     getMonthDaysOf,
     formatIsoDate,
   } = useDatetime()
-  const [workdaysCount, setWorkdaysCount] = useState(5)
-  const [daysOffCount, setDaysOffCount] = useState(2)
+  const [workdaysCount, setWorkdaysCount] = useState(defaultWorkdaysCount ?? 5)
+  const [daysOffCount, setDaysOffCount] = useState(defaultDaysOffCount ?? 2)
   const [error, setError] = useState<string | null>(null)
-  const [isCalendarEnabled, setIsCalendarEnabled] = useState(false)
+  const [isCalendarEnabled, setIsCalendarEnabled] = useState(Boolean(defaultDaysOff))
   const [isLoading, setIsLoading] = useState(false)
-  const [daysOff, setDaysOff] = useState<Set<string>>(new Set())
+  const [daysOff, setDaysOff] = useState<Set<string>>(new Set(defaultDaysOff))
   const { workScheduleService } = useApi()
+  const { editDaysOffSchedule, isEditingDaysOffSchedule } = useEditDaysOffScheduleAction()
 
   function handleDaysOffCountChange(value: number) {
     if (error) setError(null)
@@ -52,10 +61,20 @@ export function useDaysOffSchedule() {
     if (response.isSuccess) {
       setError(null)
       setIsCalendarEnabled(true)
-      setDaysOff(new Set(response.body))
+      const daysOff = new Set(response.body)
+      setDaysOff(daysOff)
+      setValue('workdaysCount', workdaysCount)
+      setValue('daysOffCount', daysOffCount)
+      setValue('daysOff', Array.from(daysOff))
     }
 
     setIsLoading(false)
+  }
+
+  async function handleEditDaysOffScheduleButtonClick() {
+    if (error) setError(null)
+
+    await editDaysOffSchedule(workdaysCount, daysOffCount, Array.from(daysOff))
   }
 
   function handleDayButtonClick(dayNumber: number) {
@@ -69,7 +88,9 @@ export function useDaysOffSchedule() {
     } else {
       daysOff.add(selectedDay)
     }
-    setDaysOff(new Set(daysOff))
+    const newDaysOff = new Set(daysOff)
+    setDaysOff(newDaysOff)
+    setValue('daysOff', Array.from(newDaysOff))
   }
 
   const monthDays: Array<number | null> = useMemo(() => {
@@ -89,11 +110,12 @@ export function useDaysOffSchedule() {
     weekdays: WEEKDAYS,
     daysOff: Array.from(daysOff).map((dayOff) => Number(dayOff.split('-').at(-1))),
     monthDays,
-    isLoading,
+    isLoading: isLoading || isEditingDaysOffSchedule,
     isCalendarEnabled,
     handleWorkdaysCountChange,
     handleDaysOffCountChange,
     handleDaysOffSchedule,
     handleDayButtonClick,
+    handleEditDaysOffScheduleButtonClick,
   }
 }

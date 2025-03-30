@@ -1,7 +1,7 @@
 import { CACHE } from '@/@core/global/constants'
 import type { IAction } from '@/@core/global/interfaces/action'
 import type { IActionServer } from '@/@core/global/interfaces/action-server'
-import type { TimePunchDto, WorkScheduleDto } from '@/@core/work-schedule/dtos'
+import type { TimePunchDto } from '@/@core/work-schedule/dtos'
 import type { IWorkScheduleService } from '@/@core/work-schedule/interfaces'
 
 type Request = {

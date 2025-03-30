@@ -1,6 +1,7 @@
 'use server'
 
 import { z } from 'zod'
+
 import { CACHE } from '@/@core/global/constants'
 import { WorkScheduleService } from '@/api/services/work-schedule-service'
 import { NextServerApiClient } from '@/api/next/clients/next-server-api-client'
@@ -10,11 +11,17 @@ import {
   CreateWorkScheduleAction,
   DeleteWorkScheduleAction,
   EditTimeScheduleAction,
+  EditWeekScheduleAction,
   GetTodayWorkdayLogAction,
   GetWorkScheduleAction,
   PunchTimeAction,
 } from '../actions/work-schedule'
-import { timePunchSchema } from '@/validation/schemas/work-schedule'
+import {
+  daysOffScheduleSchema,
+  timePunchSchema,
+  weekScheduleSchema,
+  workScheduleSchema,
+} from '@/validation/schemas/work-schedule'
 
 const getTodayWorkdayLog = authActionClient.action(async ({ clientInput, ctx }) => {
   const actionServer = NextActionServer({
@@ -48,12 +55,7 @@ export const getWorkSchedule = authActionClient
   })
 
 export const createWorkSchedule = authActionClient
-  .schema(
-    z.object({
-      timePunchSchedule: timePunchSchema,
-      daysOffSchedule: z.array(z.date()),
-    }),
-  )
+  .schema(workScheduleSchema)
   .action(async ({ clientInput }) => {
     const actionServer = NextActionServer({
       request: clientInput,
@@ -82,11 +84,28 @@ export const editTimePunchSchedule = authActionClient
     return action.handle(actionServer)
   })
 
+export const editWeekSchedule = authActionClient
+  .schema(
+    z.object({
+      workScheduleId: z.string().uuid(),
+      timePunchesSchedule: z.array(timePunchSchema),
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+    })
+    const apiClient = await NextServerApiClient()
+    const service = WorkScheduleService(apiClient)
+    const action = EditWeekScheduleAction(service)
+    return action.handle(actionServer)
+  })
+
 export const editDaysOffSchedule = authActionClient
   .schema(
     z.object({
       workScheduleId: z.string().uuid(),
-      daysOffSchedule: z.array(z.date()),
+      daysOffSchedule: daysOffScheduleSchema,
     }),
   )
   .action(async ({ clientInput }) => {

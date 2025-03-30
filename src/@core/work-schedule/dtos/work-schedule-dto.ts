@@ -6,5 +6,5 @@ export type WorkScheduleDto = {
   workdaysCount: number
   daysOffCount: number
   weekSchedule: WeekdayScheduleDto[]
-  daysOff: Date[]
+  daysOff: string[]
 }

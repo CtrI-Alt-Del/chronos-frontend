@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import ResetPasswordPage from "@/ui/auth/widgets/pages/reset-password";
+import ResetPasswordPage from '@/ui/auth/widgets/pages/reset-password'
 
 export default function Page() {
-  return <ResetPasswordPage />;
+  return <ResetPasswordPage />
 }

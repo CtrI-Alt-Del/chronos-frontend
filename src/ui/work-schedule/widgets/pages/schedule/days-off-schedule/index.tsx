@@ -1,11 +1,24 @@
 'use client'
 
 import { Button } from '@heroui/button'
-import { useDaysOffSchedule } from './use-days-off-schedule'
-import { cn, spacer } from '@heroui/theme'
+import { cn } from '@heroui/theme'
 import { Input } from '@heroui/input'
 
-export const DaysOffSchedule = () => {
+import { useDaysOffSchedule } from './use-days-off-schedule'
+
+type DaysOffScheduleProps = {
+  workScheduleId?: string
+  defaultWorkdaysCount?: number
+  defaultDaysOffCount?: number
+  defaultDaysOff?: string[]
+}
+
+export const DaysOffSchedule = ({
+  workScheduleId,
+  defaultWorkdaysCount,
+  defaultDaysOffCount,
+  defaultDaysOff,
+}: DaysOffScheduleProps) => {
   const {
     error,
     workdaysCount,
@@ -15,14 +28,26 @@ export const DaysOffSchedule = () => {
     monthDays,
     weekdays,
     daysOff,
+    handleEditDaysOffScheduleButtonClick,
     handleWorkdaysCountChange,
     handleDaysOffCountChange,
     handleDaysOffSchedule,
     handleDayButtonClick,
-  } = useDaysOffSchedule()
+  } = useDaysOffSchedule(defaultWorkdaysCount, defaultDaysOffCount, defaultDaysOff)
 
   return (
     <div>
+      {workScheduleId && (
+        <Button
+          color='primary'
+          onPress={handleEditDaysOffScheduleButtonClick}
+          isDisabled={Boolean(error) || isLoading}
+          isLoading={isLoading}
+          className='ml-8 my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
+        >
+          Atualizar jornada
+        </Button>
+      )}
       <div className='flex gap-4 mb-4 items-end mr-16'>
         <Input
           isRequired
@@ -50,7 +75,7 @@ export const DaysOffSchedule = () => {
           isLoading={isLoading}
           className='ml-8 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
         >
-          Definir Jornada
+          {workScheduleId ? 'Redefinir jornada' : 'Definir Jornada'}
         </Button>
       </div>
 

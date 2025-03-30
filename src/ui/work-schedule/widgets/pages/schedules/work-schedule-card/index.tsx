@@ -1,9 +1,9 @@
 import { Card, CardHeader } from '@heroui/card'
-import { Image } from '@heroui/image'
 import Link from 'next/link'
 
 import type { WorkScheduleDto } from '@/@core/work-schedule/dtos'
 import { Icon } from '@/ui/global/widgets/components/Icon'
+import { ROUTES } from '@/constants'
 
 type WorkScheduleCardProps = {
   schedule: WorkScheduleDto
@@ -11,9 +11,9 @@ type WorkScheduleCardProps = {
 
 export const WorkScheduleCard = ({ schedule }: WorkScheduleCardProps) => {
   return (
-    <Link href='' className='focus:outline-none'>
+    <Link href={ROUTES.workSchedule.schedule(schedule.id)} className='focus:outline-none'>
       <Card
-        className='max-w-72 border hover:bg-gray-100 transition-all cursor-pointer'
+        className='w-64 border hover:bg-gray-100 transition-all cursor-pointer'
         shadow='none'
       >
         <CardHeader className='flex gap-3'>

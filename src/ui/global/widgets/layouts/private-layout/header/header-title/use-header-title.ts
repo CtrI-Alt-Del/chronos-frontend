@@ -13,7 +13,7 @@ export function useHeaderTitle() {
       [ROUTES.report]: 'Relatório analítico',
       [ROUTES.collaboration.profile]: 'Meu perfil',
       [ROUTES.workSchedule.schedules]: 'Escalas',
-      [ROUTES.workSchedule.registerSchedule]: 'Registro de escala',
+      [ROUTES.workSchedule.schedule()]: 'Criar escala',
       [ROUTES.collaboration.collaborators]: 'Registro de colaboratores',
       [ROUTES.workSchedule.sectorHistory]: 'Histórico de colaboradores',
       [ROUTES.workSchedule.collaboratorHistory]: 'Meu histórico',
