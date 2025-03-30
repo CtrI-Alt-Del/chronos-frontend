@@ -22,6 +22,9 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const { queryDate, queryDateRange, handleExpandButtonClick, handleLogoutButtonClick } =
     useSidebar(onClose)
 
+  const { account } = useAuthContext()
+  const isManager = account?.role === 'manager' || account?.role === 'admin'
+
   return (
     <>
       {isOpen && (
@@ -90,6 +93,14 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               icon='report'
               title='Solicitações'
             />
+
+            {isManager && (
+              <NavbarLink
+                href={ROUTES.collaboration.collaborators}
+                icon='users'
+                title='Colaboradores'
+              />
+            )}
           </NavbarContent>
         </NavbarContent>
 
