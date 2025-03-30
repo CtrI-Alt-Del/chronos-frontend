@@ -16,7 +16,7 @@ type UseAuthProviderProps = {
 }
 
 export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
-  const accountDto = jwt ? jwtDecode<AccountDto>(jwt) : null
+  const accountDto = jwt ? JSON.parse(jwtDecode<Jwt>(jwt).sub) : null
   const [account, setAccount] = useState<AccountDto | null>(accountDto)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(Boolean(jwt))
@@ -36,7 +36,6 @@ export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
     if (response.isSuccess) {
       const jwt = jwtDecode<Jwt>(response.body.jwt)
       const accountDto = JSON.parse(jwt.sub)
-      console.log({ accountDto })
       await cookieActions.setCookie({
         key: COOKIES.jwt.key,
         value: response.body.jwt,

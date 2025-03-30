@@ -14,14 +14,14 @@ export const CACHE = {
     sectorHistory: {
       key: '/workSchedule/sector-history',
     },
+    collaboratorHistory: {
+      key: '/workSchedule/collaborator-history',
+    },
     schedules: {
       key: '/workSchedule/schedules',
     },
     schedule: {
       key: (scheduleId: string) => `/workSchedule/schedules/${scheduleId}`,
-    },
-    collaboratorHistory: {
-      key: 'collaboratorHistory',
     },
   },
   solicitation:{

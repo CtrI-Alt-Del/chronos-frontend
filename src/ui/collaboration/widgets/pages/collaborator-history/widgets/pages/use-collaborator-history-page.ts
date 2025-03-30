@@ -9,40 +9,37 @@ import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useApi } from '@/ui/global/hooks/use-api'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import type { WorkScheduleDto, WorkdayLogDto } from '@/@core/work-schedule/dtos'
+import { AppError } from '@/@core/global/errors'
 
 export function useCollaboratorHistoryPage() {
   const { getCurrentDate } = useDatetime()
   const [date, setDate] = useQueryParamDate('date', getCurrentDate())
   const [collboratorName, setCollboratorName] = useQueryParamString('name')
-  const {account} = useAuthContext()
+  const { account } = useAuthContext()
   const { workScheduleService } = useApi()
   const { showError, showSuccess } = useToast()
   const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
 
-   const cacheKey = account?.collaboratorId 
-     ? `collaboratorHistory_${account.collaboratorId}`
-     : 'collaboratorHistory_default'
-
   async function fetchCollaboratorHistory(page: number) {
-     if (!account?.collaboratorId) throw new Error('ID do colaborador não encontrado')
-    
+    if (!account?.collaboratorId) throw new Error()
+
     const startDate = date
-     const endDate = new Date(date.getTime())
-    
-     const response = await workScheduleService.reportCollaboratorHistory(
+    const endDate = new Date(date.getTime())
+    const response = await workScheduleService.reportCollaboratorHistory(
       account.collaboratorId,
       startDate,
       endDate,
-      page
+      page,
     )
-     return response.body
+    return response.body
   }
 
   const { data, page, pagesCount, isFetching, refetch, setPage } = usePaginatedCache({
-    key: "",
+    key: CACHE.workSchedule.collaboratorHistory.key,
     fetcher: fetchCollaboratorHistory,
     dependencies: [date, account?.collaboratorId],
     shouldRefetchOnFocus: false,
+    isEnabled: Boolean(account?.collaboratorId),
   })
 
   function handleDateChange(date: Date) {
@@ -59,34 +56,35 @@ export function useCollaboratorHistoryPage() {
     timePunchPeriod: TimePunchPeriod,
   ) {
     setIsAdjustingTimePunchLog(true)
-    
-    try {
-      const response = await workScheduleService.adjustTimePunchLog(
-        timePunchLogId,
-        timeLog,
-        timePunchPeriod,
-      )
-      
-      if (response.isFailure) {
-        showError(response.errorMessage)
-        return
-      }
 
-      await refetch()
-      showSuccess('Ponto ajustado com sucesso')
-    } finally {
-      setIsAdjustingTimePunchLog(false)
+    const response = await workScheduleService.adjustTimePunchLog(
+      timePunchLogId,
+      timeLog,
+      timePunchPeriod,
+    )
+
+    if (response.isFailure) {
+      showError(response.errorMessage)
     }
+
+    if (response.isSuccess) {
+      refetch()
+      showSuccess('Ponto ajustado com sucesso')
+    }
+
+    setIsAdjustingTimePunchLog(false)
   }
 
+  console.log(data)
+
   return {
-    // workdayLogs: data ?? [],
-    // date,
-    // isLoading: isAdjustingTimePunchLog || isFetching,
-    // page,
-    // pagesCount,
-    // handleDateChange,
-    // handlePageChange,
-    // // handleTimeLogChange,
+    workdayLogs: data ?? [],
+    date,
+    isLoading: isAdjustingTimePunchLog || isFetching,
+    page,
+    pagesCount,
+    handleDateChange,
+    handlePageChange,
+    handleTimeLogChange,
   }
 }

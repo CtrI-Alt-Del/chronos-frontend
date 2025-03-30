@@ -1,3 +1,4 @@
+import { useAuthContext } from '@/ui/auth/contexts/auth-context/auth-context'
 import { useState } from 'react'
 
 export function useTimeLogInput(
@@ -6,6 +7,7 @@ export function useTimeLogInput(
 ) {
   const [value, setValue] = useState(defaultValue)
   const [isEditing, setIsEditing] = useState(false)
+  const { account } = useAuthContext()
 
   function handleEditButtonClick() {
     setIsEditing(true)
@@ -29,6 +31,7 @@ export function useTimeLogInput(
   return {
     isEditing,
     value,
+    isEnable: account?.role === 'manager',
     handleInputChange,
     handleEditButtonClick,
     handleConfirmButtonClick,
