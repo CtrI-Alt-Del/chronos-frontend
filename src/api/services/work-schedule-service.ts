@@ -7,8 +7,7 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
   const MODULE = '/work-schedule'
 
   return {
-    async listWorkSchedules(page = 1) {
-      apiClient.setParam('page', String(page))
+    async listWorkSchedules() {
       return await apiClient.get(`${MODULE}/schedules`)
     },
 

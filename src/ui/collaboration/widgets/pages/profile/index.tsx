@@ -22,7 +22,8 @@ export const ProfilePage = ({ collaborator }: ProfilePageProps) => {
     errors,
     isSubmitting,
     isFormDirty,
-    canEdit,
+    isAdmin,
+    isManager,
     registerField,
     handleFormSubmit,
   } = useProfilePage(collaborator)
@@ -127,7 +128,7 @@ export const ProfilePage = ({ collaborator }: ProfilePageProps) => {
               <SelectItem key='employee'>Funcionário</SelectItem>
             </Select>
 
-            <Select
+           {isAdmin && <Select
               variant='flat'
               labelPlacement='outside'
               classNames={{
@@ -143,7 +144,7 @@ export const ProfilePage = ({ collaborator }: ProfilePageProps) => {
               <SelectItem key='comercial'>Comercial</SelectItem>
               <SelectItem key='administrative'>Administrativo</SelectItem>
               <SelectItem key='human_resources'>RH</SelectItem>
-            </Select>
+            </Select>}
 
             <Controller
               control={formControl}
@@ -163,7 +164,7 @@ export const ProfilePage = ({ collaborator }: ProfilePageProps) => {
 
       <div className='flex justify-between py-6'>
         <>
-          {canEdit && collaborator.id && (
+          {(isManager || isAdmin) && collaborator.id && (
             <>
               <PasswordFormDialog collaboratorId={collaborator.id} />
               <Button

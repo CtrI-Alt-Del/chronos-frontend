@@ -10,7 +10,6 @@ import { useSidebar } from './use-sidebar'
 import { ProfileCard } from './profile-card'
 import { Icon } from '../../../components/Icon'
 import { NavbarLink } from './navbar-link'
-import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 
 type SidebarProps = {
   isOpen: boolean
@@ -18,11 +17,15 @@ type SidebarProps = {
 }
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
-  const { queryDate, queryDateRange, handleExpandButtonClick, handleLogoutButtonClick } =
-    useSidebar(onClose)
-
-  const { account } = useAuthContext()
-  const isManager = account?.role === 'manager' || account?.role === 'admin'
+  const {
+    isAdmin,
+    isManager,
+    isEmployee,
+    queryDate,
+    queryDateRange,
+    handleExpandButtonClick,
+    handleLogoutButtonClick,
+  } = useSidebar(onClose)
 
   return (
     <>
@@ -57,23 +60,29 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
         <NavbarContent className='flex flex-col w-full hover:cursor-pointer'>
           <NavbarContent className='flex flex-col gap-0 w-full'>
-            <NavbarLink
-              href={ROUTES.workSchedule.timePunch}
-              icon='star'
-              title='Registrar ponto'
-            />
+            {(isManager || isEmployee) && (
+                <NavbarLink
+                  href={ROUTES.workSchedule.timePunch}
+                  icon='star'
+                  title='Registrar ponto'
+                />
+              )}
 
-            <NavbarLink
-              href={`${ROUTES.workSchedule.sectorHistory}?${queryDate}`}
-              icon='history'
-              title='Histórico de pontos'
-            />
+            {(isManager) && (
+              <NavbarLink
+                href={`${ROUTES.workSchedule.sectorHistory}?${queryDate}`}
+                icon='history'
+                title='Histórico de pontos'
+              />
+            )}
 
-            <NavbarLink
-              href={`${ROUTES.workSchedule.collaboratorHistory}?${queryDateRange}`}
-              icon='history'
-              title='Meu histórico de pontos'
-            />
+            {(isManager || isEmployee) && (
+                <NavbarLink
+                  href={`${ROUTES.workSchedule.collaboratorHistory}?${queryDateRange}`}
+                  icon='history'
+                  title='Meu histórico de pontos'
+                />
+              )}
 
             {/*<NavbarLink
               href={ROUTES.workSchedule.timeCard}
@@ -81,29 +90,27 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               title='Espelho ponto'
             />*/}
 
-            <NavbarLink
-              href={ROUTES.workSchedule.schedules}
-              icon='schedule'
-              title='Escalas'
-            />
+            {(isManager || isEmployee) && (
+              <NavbarLink
+                href={ROUTES.workSchedule.schedules}
+                icon='schedule'
+                title='Escalas'
+              />
+            )}
 
-            <NavbarLink
-              href={ROUTES.collaboration.collaborators}
-              icon='collaborator'
-              title='Colaboradores'
-            />
-
-            <NavbarLink
-              href={ROUTES.solicitation.solicitations}
-              icon='report'
-              title='Solicitações'
-            />
-
-            {isManager && (
+            {(isAdmin || isManager) && (
               <NavbarLink
                 href={ROUTES.collaboration.collaborators}
-                icon='users'
+                icon='collaborator'
                 title='Colaboradores'
+              />
+            )}
+
+            {(isManager || isEmployee) && (
+              <NavbarLink
+                href={ROUTES.solicitation.solicitations}
+                icon='report'
+                title='Solicitações'
               />
             )}
           </NavbarContent>

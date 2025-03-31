@@ -24,7 +24,10 @@ export const SchedulePage = ({ schedule }: SchedulePageProps) => {
   return (
     <FormProvider {...form}>
       <div className='p-6 rounded-lg border border-gray-border w-[21.5rem] md:w-full '>
-        <h2 className='font-bold text-lg md:text-xl'>Nome da escala</h2>
+        <Button color='primary' isLoading={isCreatingWorkSchedule} isDisabled={!isFormFilled} onPress={handleCreateWorkScheduleButtonClick} className='my-6'>
+          Cadastrar escala
+        </Button>
+        <h2 className='text-lg font-bold md:text-xl'>Nome da escala</h2>
         <div className='mt-3'>
           <ScheduleName
             workScheduleId={schedule?.id}
@@ -32,16 +35,16 @@ export const SchedulePage = ({ schedule }: SchedulePageProps) => {
           />
         </div>
 
-        <h2 className='font-bold text-lg md:text-xl mt-12'>Registro de Horário</h2>
-        <div className='flex flex-col my-4 mx-auto w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-4xl'>
+        <h2 className='mt-12 text-lg font-bold md:text-xl'>Registro de Horário</h2>
+        <div className='flex flex-col mx-auto my-4 w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-4xl'>
           <WeekSchedule
             workScheduleId={schedule?.id}
             weekSchedule={schedule?.weekSchedule}
           />
         </div>
 
-        <div className='py-4 w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-4xl mt-6 mx-auto'>
-          <h2 className='font-bold text-lg md:text-xl'>Registro de Dias de Trabalho</h2>
+        <div className='py-4 mx-auto mt-6 w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-4xl'>
+          <h2 className='text-lg font-bold md:text-xl'>Registro de Dias de Trabalho</h2>
           <div className='mt-3'>
             <DaysOffSchedule
               workScheduleId={schedule?.id}

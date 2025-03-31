@@ -17,16 +17,16 @@ export const ScheduleName = ({ defaultValue, workScheduleId }: ScheduleNameProps
     useScheduleName(editWorkScheduleDescription, defaultValue)
 
   return (
-    <div className='flex items-center gap-2 max-w-lg'>
+    <div className='flex gap-2 items-center max-w-lg'>
       <Input value={name} placeholder='Escala 5x2' onChange={handleInputChange} />
-      <Button
+     {workScheduleId && <Button
         color='primary'
         isDisabled={isInputDisabled || isEditing}
         isLoading={isEditing}
         onPress={handleConfirmButtonClick}
       >
         Salvar
-      </Button>
+      </Button>}
     </div>
   )
 }

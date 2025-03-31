@@ -6,7 +6,6 @@ import { useToast } from '@/ui/global/hooks/use-toast'
 import { useUpdateCollaboratorAction } from './use-update-collaborator-action'
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import { profileFormSchema } from '@/validation/schemas/work-schedule'
-import { useState } from 'react'
 
 export type ProfileFormData = z.infer<typeof profileFormSchema>
 
@@ -27,17 +26,21 @@ export function useProfilePage(collaborator: CollaboratorDto) {
     if (!collaborator.id) return
 
     console.log(data)
-    // await updateCollaborator(collaborator.id, data)
+    await updateCollaborator(collaborator.id, data)
     toast.showSuccess('Perfil atualizado com sucesso!')
     return true
   }
+
+  const isManager = collaborator.role.toLowerCase() === 'manager'
+  const isAdmin = collaborator.role.toLowerCase() === 'admin'
 
   return {
     formControl: control,
     errors,
     isSubmitting: isSubmitting || isUpdating,
     isFormDirty: isDirty,
-    canEdit: collaborator.role === 'manager' || collaborator.role === 'admin',
+    isManager,
+    isAdmin,
     registerField: register,
     handleFormSubmit: handleSubmit(handleFormSubmit),
   }

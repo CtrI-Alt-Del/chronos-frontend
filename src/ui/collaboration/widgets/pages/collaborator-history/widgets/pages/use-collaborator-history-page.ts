@@ -22,8 +22,6 @@ export function useCollaboratorHistoryPage() {
   const { account } = useAuthContext()
   const { workScheduleService } = useApi()
   const { showError, showSuccess } = useToast()
-  console.log(startDate)
-  console.log(endDate)
 
   async function fetchCollaboratorHistory(page: number) {
     const response = await workScheduleService.reportCollaboratorHistory(

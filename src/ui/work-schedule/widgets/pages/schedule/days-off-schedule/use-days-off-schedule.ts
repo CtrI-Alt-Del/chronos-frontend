@@ -79,7 +79,7 @@ export function useDaysOffSchedule(
   }
 
   function handleDayButtonClick(dayNumber: number) {
-    const days = getMonthDaysOf(TODAY)
+    const days = getMonthDaysOf()
     const day = days.find((day) => day.getDate() === dayNumber)
     if (!day) return
 
