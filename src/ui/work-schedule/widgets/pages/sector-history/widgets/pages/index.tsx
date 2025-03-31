@@ -22,7 +22,7 @@ export const SectorHistoryPage = () => {
   return (
     <div className=''>
       <div className='flex justify-between items-center py-4'>
-        <div className='flex flex-col md:flex-row md:items-center gap-2 w-80 md:w-full'>
+        <div className='flex flex-col gap-2 w-80 md:flex-row md:items-center md:w-full'>
           <Search
             value={collboratorName}
             placeholder='Pesquisar por nome de colaborador'

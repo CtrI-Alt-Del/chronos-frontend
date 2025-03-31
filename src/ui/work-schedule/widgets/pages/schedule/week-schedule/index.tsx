@@ -35,7 +35,7 @@ export const WeekSchedule = ({ workScheduleId, weekSchedule }: WeekScheduleProps
   } = useWeekSchedule(workScheduleId, weekdaysSchedule)
 
   return (
-    <form className='flex flex-col max-w-5xl' onSubmit={handleFormSubmit}>
+    <form className='flex overflow-scroll flex-col mx-auto w-max md:w-[64rem]' onSubmit={handleFormSubmit}>
       {weekSchedule && (
         <Button
           type='submit'
@@ -48,7 +48,9 @@ export const WeekSchedule = ({ workScheduleId, weekSchedule }: WeekScheduleProps
         </Button>
       )}
 
-      <Table>
+      <Table
+      className='w-screen md:w-auto'
+      >
         <TableHeader>
           <TableColumn className='text-md'>Dia</TableColumn>
           <TableColumn className='text-md'>Entrada 1</TableColumn>

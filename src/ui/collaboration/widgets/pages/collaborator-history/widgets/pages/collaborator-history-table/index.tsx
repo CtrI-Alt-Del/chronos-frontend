@@ -40,10 +40,11 @@ export const CollaboratorHistoryTable = ({
 
   return (
     <Table
+      className='w-screen md:w-auto'
       bottomContentPlacement='outside'
       bottomContent={
         pagesCount > 1 && (
-          <div className='flex w-full justify-start'>
+          <div className='flex justify-start w-full'>
             <Pagination
               aria-label='paginação'
               showControls

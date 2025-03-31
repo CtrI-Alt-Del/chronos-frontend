@@ -6,6 +6,7 @@ import { useToast } from '@/ui/global/hooks/use-toast'
 import { useUpdateCollaboratorAction } from './use-update-collaborator-action'
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import { profileFormSchema } from '@/validation/schemas/work-schedule'
+import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 
 export type ProfileFormData = z.infer<typeof profileFormSchema>
 
@@ -19,6 +20,7 @@ export function useProfilePage(collaborator: CollaboratorDto) {
     resolver: zodResolver(profileFormSchema),
     defaultValues: collaborator,
   })
+  const { account } = useAuthContext()
   const { updateCollaborator, isUpdating } = useUpdateCollaboratorAction()
   const toast = useToast()
 
@@ -31,8 +33,8 @@ export function useProfilePage(collaborator: CollaboratorDto) {
     return true
   }
 
-  const isManager = collaborator.role.toLowerCase() === 'manager'
-  const isAdmin = collaborator.role.toLowerCase() === 'admin'
+  const isManager = account?.role.toLowerCase() === 'manager'
+  const isAdmin = account?.role.toLowerCase() === 'admin'
 
   return {
     formControl: control,

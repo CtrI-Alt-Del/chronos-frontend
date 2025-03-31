@@ -17,6 +17,10 @@ import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import { IconButton } from '@/ui/global/widgets/components/icon-button'
 import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
 import { Tag } from '@/ui/global/widgets/components/tag'
+import { Button } from '@heroui/button'
+import { Icon } from '@/ui/global/widgets/components/Icon'
+import { ROUTES } from '@/constants'
+import Link from 'next/link'
 
 type CollaboratorTableProps = {
   page: number
@@ -89,6 +93,15 @@ export const CollaboratorTable = ({
           {(item) => (
             <TableRow key={item.id} className={isLoading ? 'opacity-25' : 'opacity-100'}>
               <TableCell key={'name'}>
+                <Button
+                  as={Link}
+                  href={ROUTES.collaboration.profile(String(item.id))}
+                  isIconOnly
+                  variant='light'
+                  className='translate-y-1 text-slate-600'
+                >
+                  <Icon name='collaborator' size={20} />
+                </Button>
                 <span>{item.name}</span>
               </TableCell>
               <TableCell key={'email'}>
@@ -136,11 +149,12 @@ export const CollaboratorTable = ({
                         size={20}
                       />
                     }
-                    onCancel={() => { }}
+                    onCancel={() => {}}
                     title='ALERTA'
                     onConfirm={() => handleDisableEmployee(item.id as string)}
                   >
-                    Voce tem certeza que deseja desativar esse colaborador? Foi vc que fez?
+                    Voce tem certeza que deseja desativar esse colaborador? Foi vc que
+                    fez?
                   </AlertDialog>
                 ) : (
                   <AlertDialog
@@ -151,7 +165,7 @@ export const CollaboratorTable = ({
                         size={20}
                       />
                     }
-                    onCancel={() => { }}
+                    onCancel={() => {}}
                     title='ALERTA'
                     onConfirm={() => handleEnableEmployee(item.id as string)}
                   >

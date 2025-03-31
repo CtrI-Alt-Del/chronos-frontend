@@ -11,7 +11,6 @@ type DaysOffScheduleProps = {
   defaultWorkdaysCount?: number
   defaultDaysOffCount?: number
   defaultDaysOff?: string[]
-  canEdit?: boolean
 }
 
 export const DaysOffSchedule = ({
@@ -19,7 +18,6 @@ export const DaysOffSchedule = ({
   defaultWorkdaysCount,
   defaultDaysOffCount,
   defaultDaysOff,
-  canEdit = true,
 }: DaysOffScheduleProps) => {
   const {
     error,
@@ -50,13 +48,14 @@ export const DaysOffSchedule = ({
           onPress={handleEditDaysOffScheduleButtonClick}
           isDisabled={Boolean(error) || isLoading}
           isLoading={isLoading}
-          className='my-6 ml-8 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
+          className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
         >
           Atualizar jornada
         </Button>
       )}
-      <div className='flex gap-4 items-end mr-16 mb-4'>
-        <Input
+      <div className='flex flex-col mb-4 md:flex-row'>
+      <div className='flex gap-2 items-center'>
+      <Input
           isRequired
           className='max-w-40 md:max-w-44'
           size='sm'
@@ -75,12 +74,13 @@ export const DaysOffSchedule = ({
           value={daysOffCount.toString()}
           onChange={(e) => handleDaysOffCountChange(Number(e.target.value))}
         />
+      </div>
         <Button
           color='primary'
           onPress={handleDaysOffSchedule}
           isDisabled={Boolean(error) || isLoading}
           isLoading={isLoading}
-          className='ml-8 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
+          className='mt-6 text-xs md:mt-0 min-w-32 md:ml-auto md:text-sm md:min-w-36'
         >
           {workScheduleId ? 'Redefinir jornada' : 'Definir Jornada'}
         </Button>
@@ -88,22 +88,10 @@ export const DaysOffSchedule = ({
 
       {error && <p className='mx-6 my-2 text-red-500'>{error}</p>}
 
-      <div>
-        <div className='flex gap-2 items-center'>
-          <span className='block bg-red-500 rounded-lg size-2' />
-          <p>Folga</p>
-        </div>
-        <div className='flex gap-2 items-center'>
-          <span className='block rounded-lg bg-slate-200 size-2' />
-          <p>Dia de trabalho</p>
-        </div>
-      </div>
-
       <div
         className={cn(
-          'grid grid-cols-7 gap-2 mt-6',
-          canEdit && (!isCalendarEnabled || isLoading) && 'opacity-20 cursor-not-allowed',
-          !canEdit && 'pointer-events-none',
+          'grid grid-cols-7 gap-2',
+          (!isCalendarEnabled || isLoading) && 'opacity-20 cursor-not-allowed',
         )}
       >
         <div className='grid grid-cols-7 col-span-7 bg-slate-100'>
