@@ -93,15 +93,6 @@ export const CollaboratorTable = ({
           {(item) => (
             <TableRow key={item.id} className={isLoading ? 'opacity-25' : 'opacity-100'}>
               <TableCell key={'name'}>
-                <Button
-                  as={Link}
-                  href={ROUTES.collaboration.profile(String(item.id))}
-                  isIconOnly
-                  variant='light'
-                  className='translate-y-1 text-slate-600'
-                >
-                  <Icon name='collaborator' size={20} />
-                </Button>
                 <span>{item.name}</span>
               </TableCell>
               <TableCell key={'email'}>
@@ -139,6 +130,15 @@ export const CollaboratorTable = ({
                 )}
               </TableCell>
               <TableCell key={'actions'}>
+                <Button
+                  as={Link}
+                  href={ROUTES.collaboration.profile(String(item.id))}
+                  isIconOnly
+                  variant='light'
+                  className='translate-y-1 text-slate-600'
+                >
+                  <Icon name='collaborator' size={20} />
+                </Button>
                 {item.isActive ? (
                   <AlertDialog
                     isLoading={isAlteringCollaboratorStatus}
