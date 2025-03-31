@@ -27,7 +27,7 @@ export function useCollaboratorsPage() {
     data: collaborators,
     isFetching,
     page,
-    pagesCount,
+    itemsCount,
     setPage,
     refetch,
   } = usePaginatedCache({
@@ -71,7 +71,7 @@ export function useCollaboratorsPage() {
   return {
     isAlteringCollaboratorStatus,
     page,
-    totalPages: pagesCount,
+    totalPages: Math.ceil(itemsCount/10),
     collaborators,
     isFetching,
     handlePageChange,

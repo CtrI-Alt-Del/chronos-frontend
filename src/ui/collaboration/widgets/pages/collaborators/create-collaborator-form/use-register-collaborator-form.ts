@@ -28,12 +28,6 @@ export const collaboratorFormSchema = z.object({
       invalid_type_error: 'Cargo inválido',
     })
     .min(1, { message: 'Cargo deve ser selecionado' }),
-  sector: z
-    .string({
-      required_error: 'Setor é obrigatório',
-      invalid_type_error: 'Setor inválido',
-    })
-    .min(1, { message: 'Setor deve ser selecionado' }),
   workScheduleId: z.string({
     required_error: 'Escala de trabalho é obrigatória',
     invalid_type_error: 'Escala de trabalho inválida',

@@ -50,13 +50,6 @@ export const RegisterCollaboratorForm = ({
           <SelectItem key='employee'>Colaborador</SelectItem>
           <SelectItem key='manager'>Gestor</SelectItem>
         </Select>
-        <Select label='Setor ' placeholder='Selecione o setor' {...register('sector')}>
-          <SelectItem key='human_resources'>Recursos Humanos</SelectItem>
-          <SelectItem key='production'>Produção</SelectItem>
-          <SelectItem key='comercial'>Comercial</SelectItem>
-          <SelectItem key='administrative'>Administrativo</SelectItem>
-        </Select>
-
         <Controller
           name='workScheduleId'
           control={control}

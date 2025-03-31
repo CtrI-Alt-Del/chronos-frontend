@@ -36,11 +36,11 @@ export const CollaborationService = (apiClient: IApiClient): ICollaborationServi
     },
 
     async enableCollaborator(collaboratorId) {
-      return await apiClient.patch(`${MODULE}/${collaboratorId}/enable`)
+      return await apiClient.patch(`${MODULE}/collaborators/${collaboratorId}/enable`)
     },
 
     async disableCollaborator(collaboratorId) {
-      return await apiClient.patch(`${MODULE}/${collaboratorId}/disable`)
+      return await apiClient.patch(`${MODULE}/collaborators/${collaboratorId}/disable`)
     },
   }
 }
