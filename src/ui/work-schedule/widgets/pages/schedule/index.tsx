@@ -23,7 +23,7 @@ export const SchedulePage = ({ schedule }: SchedulePageProps) => {
 
   return (
     <FormProvider {...form}>
-      <div className='p-6 rounded-lg border border-gray-border'>
+      <div className='p-6 rounded-lg border border-gray-border w-[21.5rem] md:w-full '>
         <h2 className='font-bold text-lg md:text-xl'>Nome da escala</h2>
         <div className='mt-3'>
           <ScheduleName
@@ -33,14 +33,14 @@ export const SchedulePage = ({ schedule }: SchedulePageProps) => {
         </div>
 
         <h2 className='font-bold text-lg md:text-xl mt-12'>Registro de Horário</h2>
-        <div className='flex flex-col my-4 mx-4 md:mx-20 max-w-[480px] sm:max-w-[520px] md:max-w-[680px] lg:max-w-full'>
+        <div className='flex flex-col my-4 mx-auto w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-4xl'>
           <WeekSchedule
             workScheduleId={schedule?.id}
             weekSchedule={schedule?.weekSchedule}
           />
         </div>
 
-        <div className='py-4 max-w-[480px] sm:max-w-[520px] md:max-w-[680px] lg:max-w-full mt-12'>
+        <div className='py-4 w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-4xl mt-6 mx-auto'>
           <h2 className='font-bold text-lg md:text-xl'>Registro de Dias de Trabalho</h2>
           <div className='mt-3'>
             <DaysOffSchedule
