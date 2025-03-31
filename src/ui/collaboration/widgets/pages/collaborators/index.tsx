@@ -71,16 +71,18 @@ export const CollaboratorsPage = () => {
         </Drawer>
       </div>
 
-      <CollaboratorTable
-        isAlteringCollaboratorStatus={isAlteringCollaboratorStatus}
-        handleDisableEmployee={handleDisableEmployee}
-        handleEnableEmployee={handleEnableEmployee}
-        page={page}
-        isLoading={isFetching}
-        collaborators={collaborators || []}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      <div className='max-w-[460px] md:max-w-xl lg:max-w-full'>
+        <CollaboratorTable
+          isAlteringCollaboratorStatus={isAlteringCollaboratorStatus}
+          handleDisableEmployee={handleDisableEmployee}
+          handleEnableEmployee={handleEnableEmployee}
+          page={page}
+          isLoading={isFetching}
+          collaborators={collaborators || []}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   )
 }

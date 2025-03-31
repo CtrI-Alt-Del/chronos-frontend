@@ -62,12 +62,12 @@ export const SolicitationAccordion = ({
               key={solicitation.id}
               aria-label={`Accordion ${solicitation.id}`}
               title={
-                <div className='flex items-center justify-between w-full'>
+                <div className='flex items-center justify-between w-full text-sm lg:text-base'>
                   <div className='flex items-center gap-2'>
                     <div
                       className={`w-3 h-3 rounded-full ${statusInfo.color.split(' ')[1]}`}
                     />
-                    <span className='text-gray-500 text-lg'>
+                    <span className='text-gray-500 text-base md:text-lg'>
                       {solicitation.description}
                     </span>
                   </div>
