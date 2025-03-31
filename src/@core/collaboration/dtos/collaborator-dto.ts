@@ -5,6 +5,6 @@ export type CollaboratorDto = {
   cpf: string
   isActive: boolean
   role: string
-  sector: string
+  sector?: string
   workScheduleId: string
 }
