@@ -20,5 +20,6 @@ export type IconName =
   | 'clock'
   | 'lock'
   | 'collaborator'
-  | 'schedule'
+  | 'week-schedule'
+  | 'day-off-schedule'
   | 'trash'

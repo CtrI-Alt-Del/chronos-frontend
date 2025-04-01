@@ -17,7 +17,7 @@ import { Icon } from '@/ui/global/widgets/components/Icon'
 import type { WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
 import { useWeekdaysSorter } from './use-weekday-sorter'
 import { TimeInput } from '../../../../../work-schedule/widgets/components/time-input'
-import { useWeekScheduleTab } from './use-week-schedule'
+import { useWeekScheduleTab } from './use-week-schedule-tab'
 
 type WeekScheduleProps = {
   weekSchedule?: WeekdayScheduleDto[]
@@ -28,6 +28,7 @@ export const WeekScheduleTab = ({ weekSchedule }: WeekScheduleProps) => {
   const {
     formControl,
     isEditing,
+    isFormDirty,
     handleFormSubmit,
     handleWeekdayScheduleReplicate,
     handleRemoveWeekdayScheduleButtonClick,
@@ -35,15 +36,15 @@ export const WeekScheduleTab = ({ weekSchedule }: WeekScheduleProps) => {
 
   return (
     <form
-      className='flex overflow-scroll flex-col mx-auto w-max md:w-[64rem]'
+      className='flex flex-col mx-auto w-max md:w-[64rem]'
       onSubmit={handleFormSubmit}
     >
       <Button
         type='submit'
         color='primary'
-        isDisabled={isEditing}
+        isDisabled={isEditing || !isFormDirty}
         isLoading={isEditing}
-        className='self-end mb-6'
+        className='self-end mb-3'
       >
         Salvar horário
       </Button>

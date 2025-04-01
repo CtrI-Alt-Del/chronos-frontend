@@ -4,5 +4,5 @@ export const INITIAL_COLLABORATOR_STORE_STATE: CollaboratorStoreState = {
   collaborator: null,
   dayOffSchedule: null,
   weekSchedule: [],
-  tab: 1,
+  tab: 'collaborator-tab',
 }

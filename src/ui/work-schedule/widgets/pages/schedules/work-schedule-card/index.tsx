@@ -21,7 +21,7 @@ export const WorkScheduleCard = ({ schedule }: WorkScheduleCardProps) => {
       >
         <CardHeader className='flex gap-3'>
           <div className='rounded-md p-2 border border-slate-300 text-slate-700 bg-slate-50'>
-            <Icon name='schedule' size={32} />
+            {/* <Icon name='schedule' size={32} /> */}
           </div>
           <div className='flex flex-col'>
             <p className='text-sm text-slate-700 font-semibold'>{schedule.description}</p>

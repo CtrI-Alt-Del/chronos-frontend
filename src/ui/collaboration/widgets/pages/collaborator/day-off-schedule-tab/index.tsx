@@ -17,7 +17,9 @@ export const DayOffScheduleTab = ({ dayOffSchedule }: DayOffScheduleProps) => {
     workdaysCount,
     daysOffCount,
     isLoading,
+    isSchedulingDaysOff,
     isCalendarEnabled,
+    isSaveButtonDisabled,
     monthDays,
     weekdays,
     daysOff,
@@ -32,8 +34,9 @@ export const DayOffScheduleTab = ({ dayOffSchedule }: DayOffScheduleProps) => {
     <div>
       <Button
         color='primary'
+        size='md'
         onPress={handleSaveButtonClick}
-        isDisabled={Boolean(error) || isLoading}
+        isDisabled={isSaveButtonDisabled}
         isLoading={isLoading}
         className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
       >
@@ -63,11 +66,13 @@ export const DayOffScheduleTab = ({ dayOffSchedule }: DayOffScheduleProps) => {
           />
         </div>
         <Button
+          type='button'
           color='primary'
           onPress={handleDaysOffSchedule}
-          isDisabled={Boolean(error) || isLoading}
-          isLoading={isLoading}
-          className='mt-6 text-xs md:mt-0 min-w-32 md:ml-auto md:text-sm md:min-w-36'
+          isDisabled={Boolean(error) || isSchedulingDaysOff || isLoading}
+          isLoading={isSchedulingDaysOff}
+          size='md'
+          className='mt-6 md:mt-0 min-w-32 md:ml-auto md:text-sm md:min-w-36'
         >
           {dayOffSchedule ? 'Redefinir jornada' : 'Definir Jornada'}
         </Button>
@@ -75,9 +80,20 @@ export const DayOffScheduleTab = ({ dayOffSchedule }: DayOffScheduleProps) => {
 
       {error && <p className='mx-6 my-2 text-red-500'>{error}</p>}
 
+      <div className='mt-6'>
+        <div className='flex items-center gap-2'>
+          <span className='block h-2 w-4 rounded-lg bg-red-400' />
+          <p className='text-sm text-slate-600'>Folga</p>
+        </div>
+        <div className='flex items-center gap-2'>
+          <span className='block h-2 w-4 rounded-lg bg-gray-400' />
+          <p className='text-sm text-slate-600'>Dia de trabalho</p>
+        </div>
+      </div>
+
       <div
         className={cn(
-          'grid grid-cols-7 gap-2',
+          'grid grid-cols-7 gap-2 mt-3',
           (!isCalendarEnabled || isLoading) && 'opacity-20 cursor-not-allowed',
         )}
       >

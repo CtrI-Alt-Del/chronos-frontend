@@ -14,15 +14,18 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
     },
 
     async createCollaboratorSchedule(collaboratorSchedule) {
-      return apiClient.post(`${MODULE}/collaborator-schedules`, collaboratorSchedule)
+      return await apiClient.post(
+        `${MODULE}/collaborator-schedules/${collaboratorSchedule.collaboratorId}`,
+        collaboratorSchedule,
+      )
     },
 
     async getWeekSchedule(collaboratorId) {
-      return apiClient.get(`${MODULE}/week-schedule/${collaboratorId}`)
+      return await apiClient.get(`${MODULE}/week-schedule/${collaboratorId}`)
     },
 
     async getDayOffSchedule(collaboratorId) {
-      return apiClient.get(`${MODULE}/day-off-schedules/${collaboratorId}`)
+      return await apiClient.get(`${MODULE}/day-off-schedules/${collaboratorId}`)
     },
 
     async reportSectorHistory(date, page = 1) {
@@ -79,7 +82,7 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
     async scheduleDaysOff(workdaysCount, daysOffCount) {
       apiClient.setParam('workdaysCount', String(workdaysCount))
       apiClient.setParam('daysOffCount', String(daysOffCount))
-      return await apiClient.get(`${MODULE}/schedules/days-off-schedule`)
+      return await apiClient.get(`${MODULE}/day-off-schedules`)
     },
   }
 }

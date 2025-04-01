@@ -1,8 +1,11 @@
+'use client'
+
 import { Tabs, Tab } from '@heroui/react'
 
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import type { DayOffScheduleDto, WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
 import { Icon } from '@/ui/global/widgets/components/Icon'
+import type { Tab as TabKey } from '@/ui/collaboration/stores/collaborator-store/types'
 import { CollaboratorTab } from './collaborator-tab'
 import { WeekScheduleTab } from './week-schedule-tab'
 import { DayOffScheduleTab } from './day-off-schedule-tab'
@@ -19,25 +22,32 @@ export const CollaboratorPage = ({
   weekSchedule,
   dayOffSchedule,
 }: CollaboratorPageProps) => {
-  const { activeTab, handleTabClick } = useCollaboratorPage()
+  const {
+    activeTab,
+    isWeekScheduleTabDisabled,
+    isDayOffScheduleTabDisabled,
+    handleTabChange,
+  } = useCollaboratorPage()
 
   return (
-    <div className='flex w-full flex-col'>
+    <div className='w-full max-w-4xl mx-auto justify-between mt-3 -translate-x-6'>
       <Tabs
         aria-label='Options'
         selectedKey={activeTab}
+        onSelectionChange={(key) => handleTabChange(key as TabKey)}
         classNames={{
-          tabList: 'gap-6 w-full relative rounded-none p-0 border-b border-divider',
+          base: 'block',
+          tabList: 'w-full mx-auto relative rounded-none p-0 border-b border-divider',
           cursor: 'w-full bg-[#22d3ee]',
-          tab: 'max-w-fit px-0 h-12',
+          tab: 'w-full px-0 h-12',
           tabContent: 'group-data-[selected=true]:text-[#06b6d4]',
+          panel: 'pt-3',
         }}
         color='primary'
         variant='underlined'
       >
         <Tab
           key='collaborator-tab'
-          onClick={() => handleTabClick('collaborator-tab')}
           title={
             <div className='flex items-center space-x-2'>
               <Icon name='collaborator' />
@@ -48,11 +58,11 @@ export const CollaboratorPage = ({
           <CollaboratorTab collaborator={collaborator} />
         </Tab>
         <Tab
-          onClick={() => handleTabClick('week-schedule-tab')}
           key='week-schedule-tab'
+          isDisabled={isWeekScheduleTabDisabled}
           title={
             <div className='flex items-center space-x-2'>
-              <Icon name='collaborator' />
+              <Icon name='week-schedule' />
               <span>Escala de horário</span>
             </div>
           }
@@ -61,10 +71,10 @@ export const CollaboratorPage = ({
         </Tab>
         <Tab
           key='day-off-schedule-tab'
-          onClick={() => handleTabClick('day-off-schedule-tab')}
+          isDisabled={isDayOffScheduleTabDisabled}
           title={
             <div className='flex items-center space-x-2'>
-              <Icon name='collaborator' />
+              <Icon name='day-off-schedule' />
               <span>Escala de folga</span>
             </div>
           }

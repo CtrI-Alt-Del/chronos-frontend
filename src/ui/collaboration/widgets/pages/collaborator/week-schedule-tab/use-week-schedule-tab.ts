@@ -1,13 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, useFormContext } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { WEEKDAYS } from '@/constants'
 import { timePunchSchema } from '@/validation/schemas/work-schedule'
-import type { WorkScheduleForm } from '../../../../../work-schedule/widgets/pages/schedule/use-schedule-page'
 import type { WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
-import { useUpdateWeekScheduleAction } from './use-edit-week-schedule-action'
 import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store/use-collaborator-store'
+import { useUpdateWeekScheduleAction } from './use-edit-week-schedule-action'
 
 const EMPTY_TIME_PUNCH = {
   firstClockIn: null,
@@ -15,6 +14,11 @@ const EMPTY_TIME_PUNCH = {
   secondClockIn: null,
   secondClockOut: null,
 }
+
+const DEFAULT_WEEKDAYS_SCHEDULE = Object.keys(WEEKDAYS).map((weekday) => ({
+  weekday: weekday,
+  timePunch: EMPTY_TIME_PUNCH,
+}))
 
 const weekScheduleSchema = z.object({
   weekdaysSchedule: z
@@ -30,26 +34,26 @@ const weekScheduleSchema = z.object({
 
 type FormData = z.infer<typeof weekScheduleSchema>
 
-export function useWeekScheduleTab(weekdaysSchedule?: WeekdayScheduleDto[] | null) {
-  const { setValue: setWorkScheduleValue } = useFormContext<WorkScheduleForm>()
-  const { control, getValues, register, handleSubmit, setValue } = useForm<FormData>({
-    resolver: zodResolver(weekScheduleSchema),
-    defaultValues: {
-      weekdaysSchedule:
-        weekdaysSchedule ??
-        Object.keys(WEEKDAYS).map((weekday) => ({
-          weekday: weekday,
-          timePunch: EMPTY_TIME_PUNCH,
-        })),
-    },
-  })
-  const { isUpdating, updateWeekSchedule } = useUpdateWeekScheduleAction()
+export function useWeekScheduleTab(
+  currentWeekdaysSchedule?: WeekdayScheduleDto[] | null,
+) {
   const { getWeekScheduleSlice, getTabSlice } = useCollaboratorStore()
-  const { setWeekSchedule } = getWeekScheduleSlice()
+  const { weekSchedule, setWeekSchedule } = getWeekScheduleSlice()
+  const { control, formState, getValues, register, handleSubmit, setValue } =
+    useForm<FormData>({
+      resolver: zodResolver(weekScheduleSchema),
+      defaultValues: {
+        weekdaysSchedule:
+          weekSchedule.length > 0
+            ? weekSchedule
+            : currentWeekdaysSchedule ?? DEFAULT_WEEKDAYS_SCHEDULE,
+      },
+    })
+  const { isUpdating, updateWeekSchedule } = useUpdateWeekScheduleAction()
   const { setTab } = getTabSlice()
 
   async function handleFormSubmit(formData: FormData) {
-    if (weekdaysSchedule) {
+    if (!currentWeekdaysSchedule) {
       setWeekSchedule(formData.weekdaysSchedule)
       setTab('day-off-schedule-tab')
       return
@@ -76,7 +80,6 @@ export function useWeekScheduleTab(weekdaysSchedule?: WeekdayScheduleDto[] | nul
         weekdaysSchedule[index].timePunch = timePunchToReplicate
       }
     })
-    setWorkScheduleValue('weekSchedule', weekdaysSchedule)
   }
 
   function handleRemoveWeekdayScheduleButtonClick(weekday: string) {
@@ -86,12 +89,12 @@ export function useWeekScheduleTab(weekdaysSchedule?: WeekdayScheduleDto[] | nul
     )
     setValue(`weekdaysSchedule.${weekdayIndex}.timePunch`, EMPTY_TIME_PUNCH)
     weekdaysSchedule[weekdayIndex].timePunch = EMPTY_TIME_PUNCH
-    setWorkScheduleValue('weekSchedule', weekdaysSchedule)
   }
 
   return {
     formControl: control,
     isEditing: isUpdating,
+    isFormDirty: formState.isDirty,
     registerField: register,
     handleFormSubmit: handleSubmit(handleFormSubmit),
     handleWeekdayScheduleReplicate,

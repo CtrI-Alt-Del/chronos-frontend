@@ -3,11 +3,10 @@ import { z } from 'zod'
 export const collaboratorSchema = z.object({
   name: z.string().min(3, { message: 'Nome deve ter pelo menos 3 caracteres' }),
   email: z.string().email({ message: 'Email inválido' }),
-  cpf: z.string(),
+  cpf: z.string().min(11, { message: 'CPF deve ter 11 dígitos' }),
   role: z.string().min(1, { message: 'Cargo é obrigatório' }),
   sector: z.string().min(1, { message: 'Setor é obrigatório' }),
-  isActive: z.boolean(),
-  workScheduleId: z.string(),
+  isActive: z.boolean().default(true),
   password: z
     .string()
     .min(6, { message: 'Senha deve ter pelo menos 6 caracteres' })

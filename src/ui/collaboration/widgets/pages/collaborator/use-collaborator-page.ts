@@ -4,23 +4,27 @@ import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-sto
 import type { Tab } from '@/ui/collaboration/stores/collaborator-store/types/tab'
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 
-export function useCollaboratorPage(collaborator?: CollaboratorDto) {
-  const { getCollaboratorSlice, getTabSlice } = useCollaboratorStore()
+export function useCollaboratorPage(currentCollaborator?: CollaboratorDto) {
+  const { getCollaboratorSlice, getWeekScheduleSlice, getTabSlice } =
+    useCollaboratorStore()
   const { tab, setTab } = getTabSlice()
-  const { setCollaborator } = getCollaboratorSlice()
+  const { collaborator, setCollaborator } = getCollaboratorSlice()
+  const { weekSchedule } = getWeekScheduleSlice()
 
-  function handleTabClick(tab: Tab) {
+  function handleTabChange(tab: Tab) {
     setTab(tab)
   }
 
   useEffect(() => {
-    if (collaborator) {
-      setCollaborator(collaborator)
+    if (currentCollaborator && !collaborator) {
+      setCollaborator(currentCollaborator)
     }
-  }, [collaborator, setCollaborator])
+  }, [currentCollaborator, collaborator, setCollaborator])
 
   return {
     activeTab: tab,
-    handleTabClick,
+    isWeekScheduleTabDisabled: collaborator === null,
+    isDayOffScheduleTabDisabled: weekSchedule.length === 0,
+    handleTabChange,
   }
 }

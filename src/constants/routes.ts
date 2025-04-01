@@ -5,6 +5,8 @@ export const ROUTES = {
   },
   collaboration: {
     collaborators: '/collaboration/collaborators',
+    collaborator: (collaboratorId: string) =>
+      `/collaboration/collaborators/${collaboratorId}`,
     registerCollaboration: '/collaboration/register-collaboration',
     profile: (collaboratorId: string) => `/collaboration/profile/${collaboratorId}`,
   },

@@ -14,16 +14,17 @@ import {
   SquareCheckBig,
   NotebookTabs,
   ChevronDown,
+  CalendarDays,
   Plus,
   Trash,
   Eye,
   Activity,
   Users,
-  type LucideProps,
   CreditCard,
   Mail,
   Briefcase,
   Building,
+  type LucideProps,
 } from 'lucide-react'
 
 export const ICONS: Record<
@@ -50,6 +51,7 @@ export const ICONS: Record<
   clock: Clock3,
   lock: Lock,
   edit: SquarePen,
-  schedule: NotebookTabs,
   confirm: SquareCheckBig,
+  'week-schedule': NotebookTabs,
+  'day-off-schedule': CalendarDays,
 }

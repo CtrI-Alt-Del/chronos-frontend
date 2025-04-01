@@ -2,18 +2,16 @@ import { useMemo, useState } from 'react'
 
 import { useApi } from '@/ui/global/hooks'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
-import { useFormContext } from 'react-hook-form'
-import type { WorkScheduleForm } from '../../../../../work-schedule/widgets/pages/schedule/use-schedule-page'
 import { useUpdateDaysOffScheduleAction } from './use-update-days-off-schedule-action'
 import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
+import { useToast } from '@/ui/global/hooks/use-toast'
 
 const WEEKDAYS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
 
 const TODAY = new Date()
 
 export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
-  const { setValue } = useFormContext<WorkScheduleForm>()
   const {
     getFirstMonthDayOf,
     getWeekdayIndex,
@@ -26,12 +24,14 @@ export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
   const [daysOff, setDaysOff] = useState<Set<string>>(new Set(dayOffSchedule?.daysOff))
   const [error, setError] = useState<string | null>(null)
   const [isCalendarEnabled, setIsCalendarEnabled] = useState(Boolean(dayOffSchedule))
-  const [isLoading, setIsLoading] = useState(false)
+  const [isCreating, setIsCreating] = useState(false)
+  const [isSchedulingDaysOff, setIsSchedulingDaysOff] = useState(false)
   const { workScheduleService, collaborationService } = useApi()
   const { isUpdating, updateDaysOffSchedule } = useUpdateDaysOffScheduleAction()
   const { getCollaboratorSlice, getWeekScheduleSlice } = useCollaboratorStore()
   const { collaborator } = getCollaboratorSlice()
   const { weekSchedule } = getWeekScheduleSlice()
+  const { showSuccess, showError } = useToast()
 
   function handleDaysOffCountChange(value: number) {
     if (error) setError(null)
@@ -49,7 +49,7 @@ export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
       return
     }
 
-    setIsLoading(true)
+    setIsSchedulingDaysOff(true)
     const response = await workScheduleService.scheduleDaysOff(
       workdaysCount,
       daysOffCount,
@@ -64,12 +64,9 @@ export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
       setIsCalendarEnabled(true)
       const daysOff = new Set(response.body)
       setDaysOff(daysOff)
-      setValue('workdaysCount', workdaysCount)
-      setValue('daysOffCount', daysOffCount)
-      setValue('daysOff', Array.from(daysOff))
     }
 
-    setIsLoading(false)
+    setIsSchedulingDaysOff(false)
   }
 
   async function createCollaborator() {
@@ -90,30 +87,43 @@ export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
       weekSchedule,
       dayOffSchedule,
     }
-    await workScheduleService.createCollaboratorSchedule(collaboratorSchedule)
+    const response =
+      await workScheduleService.createCollaboratorSchedule(collaboratorSchedule)
+    if (response.isFailure) {
+      showError(response.errorMessage)
+    }
+
+    if (response.isSuccess) {
+      showSuccess('Colaborador criado')
+    }
   }
 
   async function handleSaveButtonClick() {
     if (error) setError(null)
 
+    const newDayOffSchedule = {
+      workdaysCount,
+      daysOffCount,
+      daysOff: Array.from(daysOff),
+    }
+
     if (dayOffSchedule) {
-      await updateDaysOffSchedule({
-        workdaysCount,
-        daysOffCount,
-        daysOff: Array.from(daysOff),
-      })
+      await updateDaysOffSchedule(newDayOffSchedule)
       return
     }
+    setIsCreating(true)
 
     const response = await createCollaborator()
 
     if (response?.isSuccess) {
-      await createCollaborationSchedule(response.body.collaboratorId, {
-        workdaysCount,
-        daysOffCount,
-        daysOff: Array.from(daysOff),
-      })
+      await createCollaborationSchedule(response.body.collaboratorId, newDayOffSchedule)
     }
+
+    if (response?.isFailure) {
+      showError(response.errorMessage)
+    }
+
+    setIsCreating(false)
   }
 
   function handleDayButtonClick(dayNumber: number) {
@@ -129,7 +139,6 @@ export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
     }
     const newDaysOff = new Set(daysOff)
     setDaysOff(newDaysOff)
-    setValue('daysOff', Array.from(newDaysOff))
   }
 
   const monthDays: Array<number | null> = useMemo(() => {
@@ -149,8 +158,10 @@ export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
     weekdays: WEEKDAYS,
     daysOff: Array.from(daysOff).map((dayOff) => Number(dayOff.split('-').at(-1))),
     monthDays,
-    isLoading: isLoading || isUpdating,
+    isLoading: isCreating || isUpdating,
+    isSchedulingDaysOff,
     isCalendarEnabled,
+    isSaveButtonDisabled: Boolean(error) || isCreating || daysOff.size === 0,
     handleWorkdaysCountChange,
     handleDaysOffCountChange,
     handleDaysOffSchedule,
