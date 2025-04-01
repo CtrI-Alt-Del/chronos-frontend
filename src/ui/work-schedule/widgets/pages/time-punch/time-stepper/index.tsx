@@ -31,7 +31,7 @@ export const TimePunchStepper = ({
           {index !== 0 && (
             <div
               className={`
-                absolute w-full h-[3px] right-2/4 top-1/2 -translate-y-3
+                absolute w-full h-[3px] right-2/4 top-[60px] -translate-y-3
                 ${index <= currentStep || isClosed ? 'bg-[#1822D9]' : 'bg-[#848484]'}
               `}
             />
