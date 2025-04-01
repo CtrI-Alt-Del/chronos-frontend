@@ -20,6 +20,10 @@ import {
   Activity,
   Users,
   type LucideProps,
+  CreditCard,
+  Mail,
+  Briefcase,
+  Building,
 } from 'lucide-react'
 
 export const ICONS: Record<
@@ -37,6 +41,10 @@ export const ICONS: Record<
   history: History,
   collaborator: CircleUserRound,
   mirror: FlipVertical,
+  cpf: CreditCard,
+  sector: Building,
+  email: Mail,
+  role: Briefcase,
   report: ScrollText,
   logout: LogOut,
   clock: Clock3,
