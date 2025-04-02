@@ -28,6 +28,8 @@ export const ProfilePage = ({ collaborator }: ProfilePageProps) => {
     handleFormSubmit,
   } = useProfilePage(collaborator)
 
+  if (collaborator == null || collaborator.sector == null) return null
+
   return (
     <div className='container px-4 py-8 mx-auto max-w-3xl'>
       <div className='flex flex-col gap-4 items-center pt-8 pb-6'>
@@ -165,7 +167,7 @@ export const ProfilePage = ({ collaborator }: ProfilePageProps) => {
       <div className='flex justify-between py-6'>
         <>
           {(isManager || isAdmin) && collaborator.id && (
-            <>
+            <div className='flex justify-between items-center w-full'>
               <PasswordFormDialog collaboratorId={collaborator.id} />
               <Button
                 form='profile-form'
@@ -177,7 +179,7 @@ export const ProfilePage = ({ collaborator }: ProfilePageProps) => {
               >
                 Editar Perfil
               </Button>
-            </>
+            </div>
           )}
         </>
       </div>
