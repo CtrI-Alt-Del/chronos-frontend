@@ -175,9 +175,9 @@ export const SolicitationAccordion = ({
                             return timePunchSolicitation.period
                         }
                       })()}
-                    </span>
                   </div>
-                }
+                </div>
+              }
                 indicator={<Icon name='arrow-down' className='w-4 h-4' />}
               >
                 <div className='flex justify-between items-center flex-col md:flex-row'>
@@ -232,7 +232,7 @@ export const SolicitationAccordion = ({
                     <AlertDialog
                       isLoading={isResolvingSolicitation}
                       trigger={
-                        <Button color='success' className='text-white  ' size='sm'>
+                        <Button color='primary' className='text-white' size='sm'>
                           Aprovar
                         </Button>
                       }

@@ -9,7 +9,7 @@ type HeaderProps = {
 
 export function Header({ onMenuClick }: HeaderProps) {
   return (
-    <header className='flex items-center px-6 h-16 bg-white border-b border-gray-border'>
+    <header className='flex items-center px-6 bg-white border-b border-gray-border'>
       <Button
         onPress={onMenuClick}
         variant='ghost'

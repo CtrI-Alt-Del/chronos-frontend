@@ -33,7 +33,6 @@ export const NextApiClient = (
 
   return {
     async get<ResponseBody>(url: string) {
-      console.log(`${baseUrl}${addUrlParams(url, params)}`)
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
         ...requestInit,
         method: 'GET',
@@ -45,6 +44,7 @@ export const NextApiClient = (
         return handleApiError<ResponseBody>(data, response.status)
       }
 
+      console.log(data)
       // const isPagination = response.headers.get(HTTP_HEADERS.pagination) != null
       // if (isPagination) {
       //   return new ApiResponse({

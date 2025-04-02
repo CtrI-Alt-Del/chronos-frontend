@@ -66,7 +66,7 @@ export function usePaginatedCache<CacheItem>({
     return response.items
   }
 
-  const { data, error, isLoading, isValidating, size, setSize, mutate } = useSWRInfinite(
+  const { data, isLoading, isValidating, size, setSize, mutate } = useSWRInfinite(
     getKey,
     infiniteFetcher,
     {
@@ -86,6 +86,7 @@ export function usePaginatedCache<CacheItem>({
 
   function nextPage() {
     setSize(size + 1)
+    setPageQueryParam(size + 1)
   }
 
   const items = useMemo(() => {

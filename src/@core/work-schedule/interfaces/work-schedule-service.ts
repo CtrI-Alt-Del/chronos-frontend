@@ -1,6 +1,8 @@
 import type { PaginationResponse } from '@/@core/global/responses/pagination-response'
 import type { ApiResponse } from '@/@core/global/responses'
 import type {
+  CollaboratorScheduleDto,
+  DayOffScheduleDto,
   TimePunchDto,
   WeekdayScheduleDto,
   WorkdayLogDto,
@@ -9,10 +11,13 @@ import type {
 import type { TimePunchPeriod } from '../types'
 
 export interface IWorkScheduleService {
+  createCollaboratorSchedule(
+    collaboratorSchedule: CollaboratorScheduleDto,
+  ): Promise<ApiResponse<void>>
   createWorkSchedule(workSchedule: WorkScheduleDto): Promise<ApiResponse<void>>
-  getWorkSchedule(workScheduleId: string): Promise<ApiResponse<WorkScheduleDto>>
+  getWeekSchedule(collaboratorId: string): Promise<ApiResponse<WeekdayScheduleDto[]>>
+  getDayOffSchedule(collaboratorId: string): Promise<ApiResponse<DayOffScheduleDto>>
   getTodayWorkdayLog(collaboratorId: string): Promise<ApiResponse<WorkdayLogDto>>
-  listWorkSchedules(): Promise<ApiResponse<WorkScheduleDto[]>>
   reportCollaboratorHistory(
     collaboratorId: string,
     startDate: string,
@@ -24,21 +29,15 @@ export interface IWorkScheduleService {
     page: number,
     collaboratorId?: string,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
-  editWorkScheduleDescription(
-    workScheduleId: string,
-    description: string,
+  updateDayOffSchedule(
+    collaboratorId: string,
+    dayOffSchedule: DayOffScheduleDto,
   ): Promise<ApiResponse<void>>
-  editDaysOffSchedule(
-    workScheduleId: string,
-    workdaysCount: number,
-    daysOffCount: number,
-    daysOff: string[],
-  ): Promise<ApiResponse<void>>
-  editWeekSchedule(
-    workScheduleId: string,
+  updateWeekSchedule(
+    collaboratorId: string,
     weekSchedule: WeekdayScheduleDto[],
   ): Promise<ApiResponse<void>>
-  editTimePunchSchedule(timePunch: TimePunchDto): Promise<ApiResponse<void>>
+  updateTimePunchSchedule(timePunch: TimePunchDto): Promise<ApiResponse<void>>
   adjustTimePunchLog(
     timePunchScheduleId: string,
     timeLog: string,
@@ -49,5 +48,4 @@ export interface IWorkScheduleService {
     workdaysCount: number,
     daysOffCount: number,
   ): Promise<ApiResponse<string>>
-  deleteWorkSchedule(workScheduleId: string): Promise<ApiResponse<void>>
 }

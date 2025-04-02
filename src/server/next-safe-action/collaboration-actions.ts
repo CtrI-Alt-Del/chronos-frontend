@@ -22,7 +22,6 @@ const collaboratorSchema = z.object({
   isActive: z.boolean(),
   role: z.string(),
   sector: z.string(),
-  workScheduleId: z.string().uuid(),
 })
 
 export const getCollaborator = authActionClient

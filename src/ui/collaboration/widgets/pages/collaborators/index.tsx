@@ -13,7 +13,9 @@ import {
 
 import { CollaboratorTable } from './collaborator-table'
 import { RegisterCollaboratorForm } from './create-collaborator-form'
-import { useCollaboratorsPage } from './use-collaborator-page'
+import { useCollaboratorsPage } from './use-collaborators-page'
+import Link from 'next/link'
+import { ROUTES } from '@/constants'
 
 export const CollaboratorsPage = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -25,7 +27,6 @@ export const CollaboratorsPage = () => {
     isAlteringCollaboratorStatus,
     statusSearchValue,
     handlePageChange,
-    handleRegisterCollaborator,
     handleDisableEmployee,
     handleEnableEmployee,
     handleStatusSearchValueChange,
@@ -37,7 +38,7 @@ export const CollaboratorsPage = () => {
         <div className='flex-1 space-y-2 w-full max-w-96'>
           <Select
             defaultSelectedKeys={['true']}
-            label='Status do Colaborador'
+            label='Status do colaborador'
             value={statusSearchValue}
             onChange={(e) => handleStatusSearchValueChange(e.target.value)}
           >
@@ -46,29 +47,9 @@ export const CollaboratorsPage = () => {
           </Select>
         </div>
 
-        <Button color='primary' onPress={onOpen}>
-          Registrar Colaborador
+        <Button as={Link} href={ROUTES.collaboration.createCollaborator} color='primary'>
+          Cadastrar colaborador
         </Button>
-        <Drawer isOpen={isOpen} onOpenChange={onOpenChange} size='lg'>
-          <DrawerContent>
-            {(onClose) => (
-              <>
-                <DrawerHeader className='flex flex-col gap-1'>
-                  Registrar Colaborador
-                </DrawerHeader>
-                <DrawerBody>
-                  <RegisterCollaboratorForm
-                    onSubmit={async () => {
-                      await handleRegisterCollaborator()
-                      onClose()
-                    }}
-                    onCancel={onClose}
-                  />
-                </DrawerBody>
-              </>
-            )}
-          </DrawerContent>
-        </Drawer>
       </div>
 
       <div className='max-w-[460px] md:max-w-xl lg:max-w-full'>

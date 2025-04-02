@@ -71,14 +71,14 @@ export function useCollaboratorsPage() {
   return {
     isAlteringCollaboratorStatus,
     page,
-    totalPages: Math.ceil(itemsCount/10),
+    totalPages: Math.ceil(itemsCount / 10),
     collaborators,
     isFetching,
+    statusSearchValue,
     handlePageChange,
     handleRegisterCollaborator,
     handleDisableEmployee,
     handleEnableEmployee,
     handleStatusSearchValueChange,
-    statusSearchValue,
   }
 }

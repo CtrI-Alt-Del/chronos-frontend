@@ -14,7 +14,6 @@ export function useTimeInput(value?: string | null, onChange?: (time: string) =>
     date.setMinutes(time.minute)
 
     const formattedTime = formatTime(date)
-    console.log({ formattedTime })
     onChange(formattedTime)
     setTime(time)
   }
@@ -27,7 +26,6 @@ export function useTimeInput(value?: string | null, onChange?: (time: string) =>
           minutes: Number(parts[1]),
         }
       : null
-    console.log(time)
     if (time) setTime(new Time(time.hours, time.minutes))
   }, [value])
 
