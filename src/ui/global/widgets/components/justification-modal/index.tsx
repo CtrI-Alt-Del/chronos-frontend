@@ -23,17 +23,18 @@ export const JustificationModal = ({
     <Dialog
       trigger={<Button color='primary'>Nova solicitacao</Button>}
       size='xl'
+      className='mb-20'
       title='Nova solicitacao'
     >
       {(onClose) => (
         <>
-          <ModalHeader className='w-full flex items-center justify-center text-xl '>
+          <ModalHeader className='flex justify-center items-center w-full text-xl'>
             Dia: {today}
           </ModalHeader>
           <ModalBody>
             <Tabs
               variant='underlined'
-              className='w-full  flex justify-center items-center'
+              className='flex justify-center items-center w-full'
             >
               <Tab key='time-punch' title='Ajuste de ponto'>
                 <TimePunchAdjustmentTab
