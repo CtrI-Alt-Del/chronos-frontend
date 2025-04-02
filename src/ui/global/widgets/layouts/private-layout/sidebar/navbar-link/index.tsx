@@ -15,7 +15,10 @@ type NavbarLinkProps = {
 
 export const NavbarLink = ({ href, icon, title }: NavbarLinkProps) => {
   const { currentRoute } = useNavigation()
-  const isActive = currentRoute === href
+  
+  const baseHref = href.split('?')[0]
+  const currentBaseRoute = currentRoute.split('?')[0]
+  const isActive = currentBaseRoute === baseHref
 
   return (
     <NavbarItem className='flex flex-col justify-center items-center mb-2 w-full'>
