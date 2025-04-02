@@ -47,7 +47,7 @@ export const TimePunchLogDialog = ({
       size='3xl'
       trigger={
         <Button variant='light'>
-          <ol className='flex items-center gap-3'>
+          <ol className='flex gap-3 items-center'>
             <li className='w-24'>
               <TimeLog time={timePunchLog.firstClockIn} />
             </li>
