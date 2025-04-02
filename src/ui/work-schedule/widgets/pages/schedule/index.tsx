@@ -23,8 +23,14 @@ export const SchedulePage = ({ schedule }: SchedulePageProps) => {
 
   return (
     <FormProvider {...form}>
-      <div className='p-6 rounded-lg border border-gray-border'>
-      <Button color='primary' isLoading={isCreatingWorkSchedule} isDisabled={!isFormFilled} onPress={handleCreateWorkScheduleButtonClick} className='my-6'>
+      <div className='p-10 rounded-lg border border-gray-border w-[calc(100vw-50px)] md:w-full '>
+        <Button
+          color='primary'
+          isLoading={isCreatingWorkSchedule}
+          isDisabled={!isFormFilled}
+          onPress={handleCreateWorkScheduleButtonClick}
+          className='my-6'
+        >
           Cadastrar escala
         </Button>
         <h2 className='text-lg font-bold md:text-xl'>Nome da escala</h2>
@@ -36,10 +42,10 @@ export const SchedulePage = ({ schedule }: SchedulePageProps) => {
         </div>
 
         <h2 className='mt-12 text-lg font-bold md:text-xl'>Registro de Horário</h2>
-          <WeekSchedule
-            workScheduleId={schedule?.id}
-            weekSchedule={schedule?.weekSchedule}
-          />
+        <WeekSchedule
+          workScheduleId={schedule?.id}
+          weekSchedule={schedule?.weekSchedule}
+        />
 
         <div className='py-4 max-w-[480px] sm:max-w-[520px] md:max-w-[680px] lg:max-w-full mt-12'>
           <h2 className='text-lg font-bold md:text-xl'>Registro de Dias de Trabalho</h2>

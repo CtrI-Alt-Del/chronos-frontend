@@ -96,7 +96,7 @@ export const DaysOffSchedule = ({
       >
         <div className='grid grid-cols-7 col-span-7 bg-slate-100'>
           {weekdays.map((weekday) => (
-            <span key={weekday} className='px-6 py-2 text-gray-500 uppercase'>
+            <span key={weekday} className='px-1 py-2 text-gray-500 uppercase text-[10px] sm:text-xs md:text-base md:px-12'>
               {weekday}
             </span>
           ))}
@@ -104,17 +104,18 @@ export const DaysOffSchedule = ({
 
         {monthDays.map((day, index) => {
           return day ? (
-            <Button
+            <button
+              type='button'
               key={String(index)}
               className={cn(
-                'p-8 border rounded-xl text-center transition-all bg-slate-200',
+                'md:w-32 md:h-32 w-7 h-7 border rounded-xl text-center text-xs md:text-base transition-all bg-slate-200',
                 (!isCalendarEnabled || isLoading) && 'pointer-events-none',
                 daysOff.includes(day) ? 'bg-red-300' : 'bg-auto',
               )}
-              onPress={() => handleDayButtonClick(day)}
+              onClick={() => handleDayButtonClick(day)}
             >
               {day.toString()}
-            </Button>
+            </button>
           ) : (
             <span key={String(index)} />
           )
