@@ -4,15 +4,26 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { format, parse } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-export const timePunchAdjustmentRequestSchema = z.object({
-  description: z
-    .string()
-    .min(5, { message: 'Descrição deve ter pelo menos 5 caracteres' }),
-  feedbackMessage: z.string().min(1, { message: 'Mensagem obrigatória' }),
-  workdayLogId: z.string().optional(),
-  period: z.string().nonempty({ message: 'Período do ponto é obrigatório' }),
-  time: z.string({ message: 'Horario e obrigatório' }),
-})
+export const timePunchAdjustmentRequestSchema = z
+  .object({
+    description: z.string().optional(),
+    workdayLogDate: z.string().nonempty({ message: 'Data do ponto é obrigatória' }),
+    period: z.string().nonempty({ message: 'Período do ponto é obrigatório' }),
+    time: z.string({ message: 'Horário é obrigatório' }),
+    reason: z.string({ message: 'Motivo é obrigatório' }),
+  })
+  .refine(
+    (data) => {
+      if (data.reason === 'other' && !data.description) {
+        return false
+      }
+      return true
+    },
+    {
+      message: 'Descrição é obrigatória quando o motivo é "outro"',
+      path: ['description'],
+    },
+  )
 type useRegisterTimePunchAdjustmentForm = {
   onSubmit: VoidFunction
   workdayLogId: string
@@ -32,22 +43,25 @@ export function useTimePunchAdjustmentTab({
   const { solicitationService } = useApi()
   const { showSuccess, showError } = useToast()
   async function handleFormSubmit(formData: RegisterTimePunchAdjustmentFormData) {
-    const parsedTime = parse(formData.time, "HH:mm", new Date())
-     const formattedTime = format(parsedTime, "HH:mm:ss")
+    const parsedTime = parse(formData.time, 'HH:mm', new Date())
+    const formattedTime = format(parsedTime, 'HH:mm:ss')
+    const parsedDate = parse(formData.workdayLogDate, 'yyyy-MM-dd', new Date())
+    const formattedDate = format(parsedDate, 'yyyy-MM-dd')
     const dataToBeSent = {
       ...formData,
       time: formattedTime,
-      workdayLogId,
+      workdayLogDate: parsedDate,
     }
-    console.log(dataToBeSent)
     const response =
       await solicitationService.createTimePunchLogAdjustmentSolicitation(dataToBeSent)
+    if (response.isFailure) {
+      showError(response.errorMessage)
+      return
+    }
+
     if (response.isSuccess) {
       showSuccess('Solicitação de alteração de ponto criada com sucesso!')
       onSubmit()
-    }
-    if (response.isFailure) {
-      showError(response.errorMessage)
     }
   }
   return {
