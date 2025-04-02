@@ -153,8 +153,7 @@ export const CollaboratorTable = ({
                     title='ALERTA'
                     onConfirm={() => handleDisableEmployee(item.id as string)}
                   >
-                    Voce tem certeza que deseja desativar esse colaborador? Foi vc que
-                    fez?
+                    Voce tem certeza que deseja desativar esse colaborador?
                   </AlertDialog>
                 ) : (
                   <AlertDialog
