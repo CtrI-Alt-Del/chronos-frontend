@@ -17,7 +17,6 @@ export function useSectorHistoryPage() {
   const { workScheduleService } = useApi()
   const { showError, showSuccess } = useToast()
   const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
-  console.log(date)
 
   async function fetchSectorHistory(page: number) {
     const response = await workScheduleService.reportSectorHistory(
@@ -27,12 +26,13 @@ export function useSectorHistoryPage() {
     return response.body
   }
 
-  const { data, page, pagesCount, isFetching, refetch, setPage } = usePaginatedCache({
-    key: CACHE.workSchedule.sectorHistory.key,
-    fetcher: fetchSectorHistory,
-    dependencies: [date, collboratorName],
-    shouldRefetchOnFocus: false,
-  })
+  const { data, page, pagesCount, isFetching, isRefetching, refetch, setPage } =
+    usePaginatedCache({
+      key: CACHE.workSchedule.sectorHistory.key,
+      fetcher: fetchSectorHistory,
+      dependencies: [date, collboratorName],
+      shouldRefetchOnFocus: false,
+    })
 
   function handleCollaboratorNameChange(name: string) {
     setCollboratorName(name)
@@ -74,7 +74,7 @@ export function useSectorHistoryPage() {
     workdayLogs: data,
     collboratorName,
     date,
-    isLoading: isAdjustingTimePunchLog || isFetching,
+    isLoading: isAdjustingTimePunchLog || isFetching || isRefetching,
     page,
     pagesCount,
     handleCollaboratorNameChange,

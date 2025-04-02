@@ -1,12 +1,6 @@
 import type { ResponsibleAggregateDto } from "@/@core/global/dtos/ResponsibleAggregateDto"
+import { SolicitationDto } from "./solicitation-dto"
 
-export type WorkScheduleAdjustmentSolicitationDto = {
-  id?: string
-  description: string
-  date?: Date
-  status?: string
-  feedbackMessage: string
-  senderResponsible?: ResponsibleAggregateDto
-  replierResponsible?: ResponsibleAggregateDto
+export type WorkScheduleAdjustmentSolicitationDto = SolicitationDto & {
   workScheduleId: string
 }

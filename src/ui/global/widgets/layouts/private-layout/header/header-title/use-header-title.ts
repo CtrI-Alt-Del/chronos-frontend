@@ -21,7 +21,7 @@ export function useHeaderTitle() {
     }
 
     if (currentRoute === ROUTES.solicitation.solicitations) {
-      return account?.role === 'manager' || account?.role === 'admin'
+      return account?.role === 'MANAGER' || account?.role === 'ADMIN'
         ? 'Solicitações'
         : 'Solicitações do Setor'
     }
