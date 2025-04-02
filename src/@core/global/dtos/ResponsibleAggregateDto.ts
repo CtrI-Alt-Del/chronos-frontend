@@ -1,7 +1,6 @@
-import { ResponsibleDto } from "./ResponsibleDto"
+import type { ResponsibleDto } from './ResponsibleDto'
 
 export type ResponsibleAggregateDto = {
-
-  id?:string
+  id?: string
   dto: ResponsibleDto
 }
