@@ -1,16 +1,18 @@
 import type { NextParams } from '@/api/next/types'
-import { collaborationActions, workScheduleActions } from '@/server/next-safe-action'
+import { authActions, collaborationActions, workScheduleActions } from '@/server/next-safe-action'
 import { CollaboratorPage } from '@/ui/collaboration/widgets/pages/collaborator'
 
 export default async function Page({ params }: NextParams<'collaboratorId'>) {
+  const { collaboratorId } = await params
+
   const collaboratoResponse = await collaborationActions.getCollaborator({
-    collaboratorId: params.collaboratorId,
+    collaboratorId: collaboratorId,
   })
   const weekScheduleResponse = await workScheduleActions.getWeekSchedule({
-    collaboratorId: params.collaboratorId,
+    collaboratorId: collaboratorId,
   })
   const dayOffScheduleResponse = await workScheduleActions.getDayOffSchedule({
-    collaboratorId: params.collaboratorId,
+    collaboratorId: collaboratorId,
   })
   if (!collaboratoResponse?.data?.collaborator) return
   if (!weekScheduleResponse?.data?.weekSchedule) return

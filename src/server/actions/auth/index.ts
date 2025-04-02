@@ -1,2 +1,2 @@
-export { AllowPageByRolesAction } from './allow-page-by-roles-action'
+export { AllowPageForRolesAction } from './allow-page-for-roles-action'
 export { UpdatePasswordAction } from './update-password-action'
