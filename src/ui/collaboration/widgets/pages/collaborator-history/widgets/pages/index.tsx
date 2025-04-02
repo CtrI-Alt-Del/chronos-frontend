@@ -20,9 +20,9 @@ export const CollaboratorHistoryPage = () => {
   } = useCollaboratorHistoryPage()
 
   return (
-    <div className=''>
-      <div className='flex justify-between items-center py-4'>
-        <div className='flex items-center gap-2 w-full'>
+    <div className='w-[calc(100vw-50px)] md:w-auto border-gray-border border rounded-lg p-10'>
+      <div className='flex justify-between items-center'>
+        <div className='flex gap-2 items-center w-full'>
           <DateRangeInput
             defualtStartDate={startDate}
             defualtEndDate={endDate}
