@@ -19,13 +19,11 @@ export const SolicitationsPage = ({ userRole, workdayLogId }: SolcitationPagePro
     handleDenySolicitation,
   } = useSolicitationPage()
   return (
-    <div>
-      <div className='flex px-4 md:px-10 pt-8 pb-2 justify-between md:flex items-end gap-4'>
-        <div className='flex'>
+    <div className='w-[calc(100vw-50px)] md:w-full p-5 md:p-10'>
+      <div className='flex'>
           <JustificationModal onSubmit={refetch} workdayLogId={workdayLogId} />
-        </div>
       </div>
-      <div className='px-10 py-4'>
+      <div className='mt-10'>
         <SolicitationAccordion
           isResolvingSolicitation={isResolvingSolicitation}
           solicitations={solicitations}

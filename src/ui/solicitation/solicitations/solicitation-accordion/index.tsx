@@ -29,7 +29,7 @@ export const SolicitationAccordion = ({
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center h-64'>
+      <div className='flex justify-center items-center h-64'>
         <Spinner color='primary' />
       </div>
     )
@@ -37,7 +37,7 @@ export const SolicitationAccordion = ({
 
   if (!solicitations || solicitations.length === 0) {
     return (
-      <div className='flex items-center justify-center h-64'>
+      <div className='flex justify-center items-center h-64'>
         <span className='text-gray-500'>Nenhuma solicitação encontrada</span>
       </div>
     )
@@ -49,8 +49,8 @@ export const SolicitationAccordion = ({
     DENIED: { label: 'Negado', color: 'text-red-500 bg-red-500' },
   }
   return (
-    <div>
-      <Accordion className='border border-gray-border rounded-lg px-4'>
+    <div className='w-full'>
+      <Accordion className='px-4 rounded-lg border border-gray-border'>
         {solicitations.map((solicitation) => {
           const statusInfo = statusMapping[solicitation.status] || {
             label: solicitation.status,
@@ -62,18 +62,18 @@ export const SolicitationAccordion = ({
               key={solicitation.id}
               aria-label={`Accordion ${solicitation.id}`}
               title={
-                <div className='flex items-center justify-between w-full text-sm lg:text-base'>
-                  <div className='flex items-center gap-2'>
+                <div className='flex flex-col gap-3 items-start w-full text-sm sm:flex-row sm:justify-between sm:items-center lg:text-base sm:gap-2'>
+                  <div className='flex gap-2 items-center'>
                     <div
                       className={`w-3 h-3 rounded-full ${statusInfo.color.split(' ')[1]}`}
                     />
-                    <span className='text-gray-500 text-base md:text-lg'>
+                    <span className='text-base text-gray-500 md:text-lg'>
                       {solicitation.description}
                     </span>
                   </div>
-                  <div className='flex items-center justify-center'>
+                  <div className='flex justify-center items-center mt-2 ml-5 sm:ml-0 sm:mt-0'>
                     <span
-                      className={`block translate-y-3 text-base ${statusInfo.color.split(' ')[0]}`}
+                      className={`block sm:translate-y-3 text-base ${statusInfo.color.split(' ')[0]}`}
                     >
                       {statusInfo.label}
                     </span>
@@ -81,15 +81,15 @@ export const SolicitationAccordion = ({
                 </div>
               }
               subtitle={
-                <div className='flex items-center gap-6 mt-2 pl-6'>
-                  <span className='text-slate-800 text-sm'>
+                <div className='flex flex-col items-start pl-6 mt-3 sm:flex-row sm:gap-6 sm:items-center sm:mt-2'>
+                  <span className='text-sm text-slate-800'>
                     {formatDate(solicitation.date)}
                   </span>
-                  <div className='flex items-center gap-2'>
+                  <div className='flex gap-2 items-center mt-2 sm:mt-0'>
                     <Avatar
                       color='primary'
                       isBordered
-                      className='size-3 rounded-full'
+                      className='rounded-full size-3'
                       radius='sm'
                     />
                     <span className='text-slate-800'>
@@ -100,14 +100,14 @@ export const SolicitationAccordion = ({
               }
               indicator={<ChevronDown className='w-4 h-4' />}
             >
-              <div className='flex justify-between items-center'>
-                {solicitation.feedbackMessage}
+              <div className='flex flex-col gap-4 justify-between items-start sm:flex-row sm:items-center sm:gap-3'>
+                <div className='text-sm sm:text-base'>{solicitation.feedbackMessage}</div>
                 {userRole === 'MANAGER' && solicitation.status === 'PENDING' && (
-                  <div className='flex gap-2 mt-2'>
+                  <div className='flex gap-2 mt-3 w-full sm:mt-2 sm:w-auto'>
                     <AlertDialog
                       isLoading={isResolvingSolicitation}
                       trigger={
-                        <Button color='success' className='text-white' size='sm'>
+                        <Button color='success' className='w-full text-white sm:w-auto' size='sm'>
                           Aprovar
                         </Button>
                       }
@@ -120,7 +120,7 @@ export const SolicitationAccordion = ({
                     <AlertDialog
                       isLoading={isResolvingSolicitation}
                       trigger={
-                        <Button color='danger' size='sm'>
+                        <Button color='danger' className='w-full sm:w-auto' size='sm'>
                           Negar
                         </Button>
                       }
