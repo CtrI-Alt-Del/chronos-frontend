@@ -9,7 +9,7 @@ export const CACHE = {
   },
   workSchedule: {
     todayWordayLog: {
-      key: '/workSchedule/worday-log/today',
+      key: (collaboratorId: string) => `/workSchedule/worday-log/today/${collaboratorId}`,
     },
     sectorHistory: {
       key: '/workSchedule/sector-history',

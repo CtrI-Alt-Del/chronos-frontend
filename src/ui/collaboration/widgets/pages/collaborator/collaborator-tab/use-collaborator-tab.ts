@@ -27,7 +27,7 @@ export function useCollaboratorTab(currentCollaborator?: CollaboratorDto) {
       return collaborator
     }
 
-    if (!isManager && !currentCollaborator)
+    if (isManager && !currentCollaborator)
       return {
         sector: account?.sector,
         isActive: true,
@@ -35,6 +35,10 @@ export function useCollaboratorTab(currentCollaborator?: CollaboratorDto) {
 
     if (currentCollaborator) {
       return currentCollaborator
+    }
+
+    return {
+      isActive: true,
     }
   }, [account, isManager, collaborator, currentCollaborator])
 

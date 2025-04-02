@@ -14,7 +14,7 @@ export function useHeaderTitle() {
       [ROUTES.report]: 'Relatório analítico',
       [ROUTES.workSchedule.schedules]: 'Escalas',
       [ROUTES.workSchedule.schedule()]: 'Escala',
-      [ROUTES.collaboration.collaborators]: 'Registro de colaboratores',
+      [ROUTES.collaboration.collaborators]: 'Registro de colaboradores',
       [ROUTES.workSchedule.sectorHistory]: 'Histórico de colaboradores',
       [ROUTES.workSchedule.collaboratorHistory]: 'Meu histórico',
       [ROUTES.collaboration.createCollaborator]: 'Cadastrar colaborador',
@@ -28,6 +28,10 @@ export function useHeaderTitle() {
 
     if (currentRoute.startsWith('/work-schedule/schedules/')) {
       return 'Escala'
+    }
+
+    if (currentRoute.startsWith('/collaboration/collaborators/create')) {
+      return 'Cadastrar colaborador'
     }
 
     if (currentRoute.startsWith('/collaboration/collaborators/')) {

@@ -19,7 +19,6 @@ import {
 } from '../actions/work-schedule'
 import {
   daysOffScheduleSchema,
-  timePunchSchema,
   weekScheduleSchema,
   workScheduleSchema,
 } from '@/validation/schemas/work-schedule'
@@ -30,7 +29,7 @@ const getTodayWorkdayLog = authActionClient.action(async ({ clientInput, ctx }) 
     account: ctx.account,
   })
   const apiClient = await NextServerApiClient({
-    cacheKey: CACHE.workSchedule.todayWordayLog.key,
+    cacheKey: CACHE.workSchedule.todayWordayLog.key(ctx.account.id),
   })
   const service = WorkScheduleService(apiClient)
   const action = GetTodayWorkdayLogAction(service)

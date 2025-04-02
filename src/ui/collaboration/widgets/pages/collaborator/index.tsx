@@ -10,6 +10,7 @@ import { CollaboratorTab } from './collaborator-tab'
 import { WeekScheduleTab } from './week-schedule-tab'
 import { DayOffScheduleTab } from './day-off-schedule-tab'
 import { useCollaboratorPage } from './use-collaborator-page'
+import { useBreakpoint } from '@/ui/global/hooks/use-breakpoint'
 
 type CollaboratorPageProps = {
   collaborator?: CollaboratorDto
@@ -28,9 +29,10 @@ export const CollaboratorPage = ({
     isDayOffScheduleTabDisabled,
     handleTabChange,
   } = useCollaboratorPage(collaborator, weekSchedule, dayOffSchedule)
+  const { md } = useBreakpoint()
 
   return (
-    <div className='w-full max-w-4xl mx-auto justify-between mt-3 -translate-x-6'>
+    <div className='w-full max-w-4xl mx-auto justify-between mt-3 md:-translate-x-6'>
       <Tabs
         aria-label='Options'
         selectedKey={activeTab}
@@ -49,8 +51,8 @@ export const CollaboratorPage = ({
         <Tab
           key='collaborator-tab'
           title={
-            <div className='flex items-center space-x-2'>
-              <Icon name='collaborator' />
+            <div className='flex items-center space-x-2 text-sm'>
+              {md && <Icon name='collaborator' />}
               <span>Colaborador</span>
             </div>
           }
@@ -61,8 +63,8 @@ export const CollaboratorPage = ({
           key='week-schedule-tab'
           isDisabled={isWeekScheduleTabDisabled}
           title={
-            <div className='flex items-center space-x-2'>
-              <Icon name='week-schedule' />
+            <div className='flex items-center space-x-2 text-sm'>
+              {md && <Icon name='week-schedule' />}
               <span>Escala de horário</span>
             </div>
           }
@@ -76,8 +78,8 @@ export const CollaboratorPage = ({
           key='day-off-schedule-tab'
           isDisabled={isDayOffScheduleTabDisabled}
           title={
-            <div className='flex items-center space-x-2'>
-              <Icon name='day-off-schedule' />
+            <div className='flex items-center space-x-2 text-sm'>
+              {md && <Icon name='day-off-schedule' />}
               <span>Escala de folga</span>
             </div>
           }

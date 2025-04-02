@@ -21,6 +21,7 @@ export const DayOffScheduleTab = ({
     workdaysCount,
     daysOffCount,
     isLoading,
+    isEmployee,
     isSchedulingDaysOff,
     isCalendarEnabled,
     isSaveButtonDisabled,
@@ -36,17 +37,18 @@ export const DayOffScheduleTab = ({
 
   return (
     <div>
-      <Button
-        color='primary'
-        size='md'
-        onPress={handleSaveButtonClick}
-        isDisabled={isSaveButtonDisabled}
-        isLoading={isLoading}
-        className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
-      >
-        Salvar jornada
-      </Button>
-
+      {!isEmployee && (
+        <Button
+          color='primary'
+          size='md'
+          onPress={handleSaveButtonClick}
+          isDisabled={isSaveButtonDisabled}
+          isLoading={isLoading}
+          className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
+        >
+          Salvar jornada
+        </Button>
+      )}
       <div className='flex flex-col mb-4 md:flex-row'>
         <div className='flex gap-2 items-center'>
           <Input
@@ -56,6 +58,7 @@ export const DayOffScheduleTab = ({
             type='number'
             label='Dias de Trabalho'
             value={workdaysCount.toString()}
+            isReadOnly={isEmployee}
             onChange={(e) => handleWorkdaysCountChange(Number(e.target.value))}
           />
           <span className='self-center'>x</span>
@@ -66,20 +69,23 @@ export const DayOffScheduleTab = ({
             type='number'
             label='Dias de Folga'
             value={daysOffCount.toString()}
+            isReadOnly={isEmployee}
             onChange={(e) => handleDaysOffCountChange(Number(e.target.value))}
           />
         </div>
-        <Button
-          type='button'
-          color='primary'
-          onPress={handleDaysOffSchedule}
-          isDisabled={Boolean(error) || isSchedulingDaysOff || isLoading}
-          isLoading={isSchedulingDaysOff}
-          size='md'
-          className='mt-6 md:mt-0 min-w-32 md:ml-auto md:text-sm md:min-w-36'
-        >
-          {dayOffSchedule ? 'Redefinir jornada' : 'Definir Jornada'}
-        </Button>
+        {!isEmployee && (
+          <Button
+            type='button'
+            color='primary'
+            onPress={handleDaysOffSchedule}
+            isDisabled={Boolean(error) || isSchedulingDaysOff || isLoading}
+            isLoading={isSchedulingDaysOff}
+            size='md'
+            className='mt-6 md:mt-0 min-w-32 md:ml-auto md:text-sm md:min-w-36'
+          >
+            {dayOffSchedule ? 'Redefinir jornada' : 'Definir Jornada'}
+          </Button>
+        )}
       </div>
 
       {error && <p className='mx-6 my-2 text-red-500'>{error}</p>}
@@ -113,12 +119,15 @@ export const DayOffScheduleTab = ({
           return day ? (
             <Button
               key={String(index)}
+              size='sm'
+              isIconOnly
               className={cn(
-                'p-8 border rounded-xl text-center transition-all bg-slate-200',
+                'px-6 py-2 md:px-10 md:py-4 lg:px-14 lg:py-8 text-md md:text-lg border rounded-xl text-center text-slate-800 transition-all bg-slate-200',
                 (!isCalendarEnabled || isLoading) && 'pointer-events-none',
                 daysOff.includes(day) ? 'bg-red-300' : 'bg-auto',
               )}
               onPress={() => handleDayButtonClick(day)}
+              isDisabled={isEmployee}
             >
               {day.toString()}
             </Button>

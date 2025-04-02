@@ -7,6 +7,7 @@ import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-sto
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { ROUTES } from '@/constants'
+import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 
 const WEEKDAYS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
 
@@ -40,6 +41,7 @@ export function useDayOffScheduleTab(
   const { collaborator } = getCollaboratorSlice()
   const { weekSchedule } = getWeekScheduleSlice()
   const { setDayOffSchedule } = getDayOffScheduleSlice()
+  const { account } = useAuthContext()
 
   function handleDaysOffCountChange(value: number) {
     if (error) setError(null)
@@ -169,6 +171,7 @@ export function useDayOffScheduleTab(
     weekdays: WEEKDAYS,
     daysOff: Array.from(daysOff).map((dayOff) => Number(dayOff.split('-').at(-1))),
     monthDays,
+    isEmployee: account?.role.toLowerCase() === 'employee',
     isLoading: isCreating || isUpdating,
     isSchedulingDaysOff,
     isCalendarEnabled,

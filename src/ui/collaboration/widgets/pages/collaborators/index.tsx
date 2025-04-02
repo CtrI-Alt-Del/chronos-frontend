@@ -27,7 +27,6 @@ export const CollaboratorsPage = () => {
     isAlteringCollaboratorStatus,
     statusSearchValue,
     handlePageChange,
-    handleRegisterCollaborator,
     handleDisableEmployee,
     handleEnableEmployee,
     handleStatusSearchValueChange,
@@ -39,7 +38,7 @@ export const CollaboratorsPage = () => {
         <div className='flex-1 space-y-2 w-full max-w-96'>
           <Select
             defaultSelectedKeys={['true']}
-            label='Status do Colaborador'
+            label='Status do colaborador'
             value={statusSearchValue}
             onChange={(e) => handleStatusSearchValueChange(e.target.value)}
           >

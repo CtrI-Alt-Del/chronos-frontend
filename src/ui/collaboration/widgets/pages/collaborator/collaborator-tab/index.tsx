@@ -40,7 +40,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
         {collaborator && (
           <div className='flex flex-col gap-4 items-center'>
             <Avatar
-              name={collaborator?.name}
+              name={collaborator.name}
               color='primary'
               isBordered
               className='w-24 h-24 text-3xl'
@@ -48,7 +48,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
           </div>
         )}
 
-        <div className='grid grid-cols-2 gap-4 mt-6'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-6'>
           <Input
             label='Nome'
             isReadOnly={isFormReadOnly}
@@ -70,7 +70,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
           />
         </div>
 
-        <div className='grid grid-cols-2 gap-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
           <Input
             label='E-mail'
             isReadOnly={isFormReadOnly}
@@ -100,10 +100,8 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
                 label: 'text-slate-900',
               }}
               label='Cargo'
-              isDisabled={isFormReadOnly}
               isInvalid={Boolean(formErrors.role)}
               startContent={<Icon name='role' className='text-slate-700' size={20} />}
-              selectedKeys={collaboratorRole ? [collaboratorRole] : []}
               errorMessage={formErrors?.role?.message}
               {...registerField('role')}
             >
@@ -113,7 +111,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
           )}
         </div>
 
-        <div className='grid grid-cols-2 gap-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
           {!collaborator && (
             <Select
               variant='flat'
@@ -126,7 +124,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
               isInvalid={Boolean(formErrors.role)}
               startContent={<Icon name='role' className='text-slate-700' size={20} />}
               errorMessage={formErrors?.role?.message}
-              selectedKeys={collaboratorRole ? [collaboratorRole] : []}
+              selectedKeys={collaboratorRole ? [collaboratorRole] : undefined}
               {...registerField('role')}
             >
               <SelectItem key='MANAGER'>Gerente</SelectItem>
@@ -146,7 +144,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
               isDisabled={isFormReadOnly}
               isInvalid={Boolean(formErrors.role)}
               label='Setor'
-              selectedKeys={collaboratorSector ? [collaboratorSector] : []}
+              selectedKeys={collaboratorSector ? [collaboratorSector] : undefined}
               {...registerField('sector')}
             >
               <SelectItem key='PRODUCTION'>Produção</SelectItem>
@@ -158,6 +156,18 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
         </div>
 
         <Divider className='my-6' />
+
+        {(isManager || isAdmin) && !collaborator && (
+          <Button
+            type='submit'
+            color='primary'
+            isLoading={isFormSubmitting}
+            isDisabled={!isFormDirty || isFormSubmitting}
+            className='self-end'
+          >
+            Confirmar
+          </Button>
+        )}
       </form>
 
       <div className='flex justify-between'>

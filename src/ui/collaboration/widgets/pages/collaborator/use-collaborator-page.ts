@@ -15,6 +15,7 @@ export function useCollaboratorPage(
     getWeekScheduleSlice,
     getDayOffScheduleSlice,
     getTabSlice,
+    resetStore,
   } = useCollaboratorStore()
   const { tab, setTab } = getTabSlice()
   const { collaborator, setCollaborator } = getCollaboratorSlice()
@@ -42,6 +43,12 @@ export function useCollaboratorPage(
       setDayOffSchedule(currentDayOffSchedule)
     }
   }, [currentDayOffSchedule, dayOffSchedule, setDayOffSchedule])
+
+  useEffect(() => {
+    return () => {
+      resetStore()
+    }
+  }, [])
 
   return {
     activeTab: tab,
