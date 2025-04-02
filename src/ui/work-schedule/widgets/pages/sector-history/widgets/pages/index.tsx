@@ -20,14 +20,17 @@ export const SectorHistoryPage = () => {
   } = useSectorHistoryPage()
 
   return (
-    <div className=''>
-      <div className='flex justify-between items-center py-4'>
-        <div className='flex flex-col gap-2 w-80 md:flex-row md:items-center md:w-full'>
-          <Search
-            value={collboratorName}
-            placeholder='Pesquisar por nome de colaborador'
-            onChange={handleCollaboratorNameChange}
-          />
+    <div className='w-[calc(100vw-50px)] md:w-full border-gray-border border rounded-lg p-10'>
+      <div className='flex justify-between items-center'>
+        <div className='flex flex-col gap-2 w-80 md:flex-row md:items-center md:justify-start md:w-[600px]'>
+          <div className='flex flex-col gap-2 w-full'>
+            <label htmlFor="" className='text-lg font-bold text-blue-500'>Nome do colaborador</label>
+            <Search
+              value={collboratorName}
+              placeholder='Pesquisar por nome de colaborador'
+              onChange={handleCollaboratorNameChange}
+            />
+          </div>
           <DateInput defualtDate={date} onChange={handleDateChange} />
         </div>
       </div>

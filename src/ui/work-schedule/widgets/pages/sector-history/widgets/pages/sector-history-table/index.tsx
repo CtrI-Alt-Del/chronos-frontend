@@ -40,11 +40,11 @@ export const SectorHistoryTable = ({
 
   return (
     <Table
-      className='w-screen md:w-auto'
+      className='w-full'
       bottomContentPlacement='outside'
       bottomContent={
         pagesCount > 1 && (
-          <div className='flex w-full justify-start'>
+          <div className='flex justify-start w-full'>
             <Pagination
               aria-label='paginação'
               showControls
@@ -64,7 +64,7 @@ export const SectorHistoryTable = ({
           Colaborador
         </TableColumn>
         <TableColumn key='first-entry' className='uppercase'>
-          <div className='flex items-center gap-16'>
+          <div className='flex gap-16 items-center'>
             <span>Entrada 1</span>
             <span>Saída 1</span>
             <span>Entrada 2</span>
