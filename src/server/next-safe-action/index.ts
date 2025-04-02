@@ -2,15 +2,12 @@ import { allowPageByRoles, updatePassword } from './auth-actions'
 import { getCookie, deleteCookie, hasCookie, setCookie } from './cookie-actions'
 import {
   getTodayWorkdayLog,
-  getWorkSchedule,
-  editDaysOffSchedule,
-  editTimePunchSchedule,
-  editWeekSchedule,
-  editWorkScheduleDescription,
+  getDayOffSchedule,
+  getWeekSchedule,
+  updateDayOffSchedule,
+  updateWeekSchedule,
   createWorkSchedule,
-  deleteWorkSchedule,
   punchTime,
-  listWorkSchedules,
 } from './work-schedule-actions'
 import {
   getCollaborator,
@@ -34,15 +31,12 @@ const cookieActions = {
 
 const workScheduleActions = {
   getTodayWorkdayLog,
-  listWorkSchedules,
-  getWorkSchedule,
-  editDaysOffSchedule,
-  editTimePunchSchedule,
-  editWeekSchedule,
-  editWorkScheduleDescription,
+  getDayOffSchedule,
+  getWeekSchedule,
+  updateDayOffSchedule,
+  updateWeekSchedule,
   punchTime,
   createWorkSchedule,
-  deleteWorkSchedule,
 }
 
 const collaborationActions = {

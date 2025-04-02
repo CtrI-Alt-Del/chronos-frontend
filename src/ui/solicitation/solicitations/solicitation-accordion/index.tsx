@@ -81,7 +81,7 @@ export const SolicitationAccordion = ({
                 </div>
               }
               subtitle={
-                <div className='flex items-center gap-6 mt-2 pl-6'>
+                <div className='flex items-center gap-6 mt-6 md:mt-3 pl-6'>
                   <span className='text-slate-800 text-sm'>
                     {formatDate(solicitation.date)}
                   </span>
@@ -107,7 +107,7 @@ export const SolicitationAccordion = ({
                     <AlertDialog
                       isLoading={isResolvingSolicitation}
                       trigger={
-                        <Button color='success' className='text-white' size='sm'>
+                        <Button color='primary' className='text-white' size='sm'>
                           Aprovar
                         </Button>
                       }

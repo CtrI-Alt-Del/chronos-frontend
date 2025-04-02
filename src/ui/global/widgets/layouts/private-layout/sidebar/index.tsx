@@ -61,14 +61,14 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         <NavbarContent className='flex flex-col w-full hover:cursor-pointer'>
           <NavbarContent className='flex flex-col gap-0 w-full'>
             {(isManager || isEmployee) && (
-                <NavbarLink
-                  href={ROUTES.workSchedule.timePunch}
-                  icon='star'
-                  title='Registrar ponto'
-                />
-              )}
+              <NavbarLink
+                href={ROUTES.workSchedule.timePunch}
+                icon='star'
+                title='Registrar ponto'
+              />
+            )}
 
-            {(isManager) && (
+            {isManager && (
               <NavbarLink
                 href={`${ROUTES.workSchedule.sectorHistory}?${queryDate}`}
                 icon='history'
@@ -77,26 +77,18 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             )}
 
             {(isManager || isEmployee) && (
-                <NavbarLink
-                  href={`${ROUTES.workSchedule.collaboratorHistory}?${queryDateRange}`}
-                  icon='history'
-                  title='Meu histórico de pontos'
-                />
-              )}
+              <NavbarLink
+                href={`${ROUTES.workSchedule.collaboratorHistory}?${queryDateRange}`}
+                icon='history'
+                title='Meu histórico de pontos'
+              />
+            )}
 
             {/*<NavbarLink
               href={ROUTES.workSchedule.timeCard}
               icon='mirror'
               title='Espelho ponto'
             />*/}
-
-            {(isManager || isEmployee) && (
-              <NavbarLink
-                href={ROUTES.workSchedule.schedules}
-                icon='schedule'
-                title='Escalas'
-              />
-            )}
 
             {(isAdmin || isManager) && (
               <NavbarLink

@@ -1,23 +1,23 @@
 import { CACHE } from '@/@core/global/constants'
 import type { IAction } from '@/@core/global/interfaces/action'
 import type { IActionServer } from '@/@core/global/interfaces/action-server'
+import type { WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
 import type { IWorkScheduleService } from '@/@core/work-schedule/interfaces'
-import { ROUTES } from '@/constants/routes'
 
 type Request = {
-  workScheduleId: string
+  collaboratorId: string
+  weekSchedule: WeekdayScheduleDto[]
 }
 
-export const DeleteWorkScheduleAction = (
+export const UpdateWeekScheduleAction = (
   service: IWorkScheduleService,
 ): IAction<Request> => {
   return {
     async handle(actionServer: IActionServer<Request>) {
-      const { workScheduleId } = actionServer.getRequest()
-      const response = await service.deleteWorkSchedule(workScheduleId)
+      const { collaboratorId, weekSchedule } = actionServer.getRequest()
+      const response = await service.updateWeekSchedule(collaboratorId, weekSchedule)
       if (response.isFailure) response.throwError()
-      actionServer.resetCache(CACHE.workSchedule.schedule.key(workScheduleId))
-      actionServer.redirect(ROUTES.workSchedule.schedules)
+      actionServer.resetCache(CACHE.workSchedule.weekSchedule.key(collaboratorId))
     },
   }
 }
