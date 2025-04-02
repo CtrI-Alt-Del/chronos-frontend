@@ -1,17 +1,21 @@
 import { useMemo, useState } from 'react'
 
-import { useApi } from '@/ui/global/hooks'
+import { useApi, useNavigation } from '@/ui/global/hooks'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { useUpdateDaysOffScheduleAction } from './use-update-days-off-schedule-action'
 import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import { useToast } from '@/ui/global/hooks/use-toast'
+import { ROUTES } from '@/constants'
 
 const WEEKDAYS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
 
 const TODAY = new Date()
 
-export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
+export function useDayOffScheduleTab(
+  dayOffSchedule?: DayOffScheduleDto,
+  collaboratorId?: string,
+) {
   const {
     getFirstMonthDayOf,
     getWeekdayIndex,
@@ -27,11 +31,15 @@ export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
   const [isCreating, setIsCreating] = useState(false)
   const [isSchedulingDaysOff, setIsSchedulingDaysOff] = useState(false)
   const { workScheduleService, collaborationService } = useApi()
-  const { isUpdating, updateDaysOffSchedule } = useUpdateDaysOffScheduleAction()
-  const { getCollaboratorSlice, getWeekScheduleSlice } = useCollaboratorStore()
+  const { showSuccess, showError } = useToast()
+  const { goTo } = useNavigation()
+  const { isUpdating, updateDaysOffSchedule } =
+    useUpdateDaysOffScheduleAction(collaboratorId)
+  const { getCollaboratorSlice, getWeekScheduleSlice, getDayOffScheduleSlice } =
+    useCollaboratorStore()
   const { collaborator } = getCollaboratorSlice()
   const { weekSchedule } = getWeekScheduleSlice()
-  const { showSuccess, showError } = useToast()
+  const { setDayOffSchedule } = getDayOffScheduleSlice()
 
   function handleDaysOffCountChange(value: number) {
     if (error) setError(null)
@@ -95,6 +103,7 @@ export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
 
     if (response.isSuccess) {
       showSuccess('Colaborador criado')
+      goTo(ROUTES.collaboration.collaborators)
     }
   }
 
@@ -109,6 +118,7 @@ export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
 
     if (dayOffSchedule) {
       await updateDaysOffSchedule(newDayOffSchedule)
+      setDayOffSchedule(newDayOffSchedule)
       return
     }
     setIsCreating(true)
@@ -124,6 +134,7 @@ export function useDayOffScheduleTab(dayOffSchedule?: DayOffScheduleDto) {
     }
 
     setIsCreating(false)
+    setDayOffSchedule(newDayOffSchedule)
   }
 
   function handleDayButtonClick(dayNumber: number) {

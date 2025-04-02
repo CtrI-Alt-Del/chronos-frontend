@@ -21,7 +21,7 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
     },
 
     async getWeekSchedule(collaboratorId) {
-      return await apiClient.get(`${MODULE}/week-schedule/${collaboratorId}`)
+      return await apiClient.get(`${MODULE}/week-schedules/${collaboratorId}`)
     },
 
     async getDayOffSchedule(collaboratorId) {
@@ -46,14 +46,15 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
     },
 
     async updateDayOffSchedule(collaboratorId, dayOffSchedule) {
-      return await apiClient.put(`${MODULE}/day-off-schedules/${collaboratorId}`, {
+      return await apiClient.put(
+        `${MODULE}/day-off-schedules/${collaboratorId}`,
         dayOffSchedule,
-      })
+      )
     },
 
-    async updateWeekSchedule(workScheduleId, weekSchedule) {
+    async updateWeekSchedule(collaboratorId, weekSchedule) {
       return await apiClient.put(
-        `${MODULE}/schedules/${workScheduleId}/week-schedule`,
+        `${MODULE}/week-schedules/${collaboratorId}`,
         weekSchedule,
       )
     },

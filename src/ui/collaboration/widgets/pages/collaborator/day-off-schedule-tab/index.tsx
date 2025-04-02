@@ -9,9 +9,13 @@ import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 
 type DayOffScheduleProps = {
   dayOffSchedule?: DayOffScheduleDto
+  collaboratorId?: string
 }
 
-export const DayOffScheduleTab = ({ dayOffSchedule }: DayOffScheduleProps) => {
+export const DayOffScheduleTab = ({
+  dayOffSchedule,
+  collaboratorId,
+}: DayOffScheduleProps) => {
   const {
     error,
     workdaysCount,
@@ -28,7 +32,7 @@ export const DayOffScheduleTab = ({ dayOffSchedule }: DayOffScheduleProps) => {
     handleDaysOffCountChange,
     handleDaysOffSchedule,
     handleDayButtonClick,
-  } = useDayOffScheduleTab(dayOffSchedule)
+  } = useDayOffScheduleTab(dayOffSchedule, collaboratorId)
 
   return (
     <div>

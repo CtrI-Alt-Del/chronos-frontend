@@ -21,9 +21,10 @@ import { useWeekScheduleTab } from './use-week-schedule-tab'
 
 type WeekScheduleProps = {
   weekSchedule?: WeekdayScheduleDto[]
+  collaboratorId?: string
 }
 
-export const WeekScheduleTab = ({ weekSchedule }: WeekScheduleProps) => {
+export const WeekScheduleTab = ({ weekSchedule, collaboratorId }: WeekScheduleProps) => {
   const weekdaysSchedule = useWeekdaysSorter(weekSchedule)
   const {
     formControl,
@@ -32,7 +33,7 @@ export const WeekScheduleTab = ({ weekSchedule }: WeekScheduleProps) => {
     handleFormSubmit,
     handleWeekdayScheduleReplicate,
     handleRemoveWeekdayScheduleButtonClick,
-  } = useWeekScheduleTab(weekdaysSchedule)
+  } = useWeekScheduleTab(weekdaysSchedule, collaboratorId)
 
   return (
     <form

@@ -17,6 +17,7 @@ export function useHeaderTitle() {
       [ROUTES.collaboration.collaborators]: 'Registro de colaboratores',
       [ROUTES.workSchedule.sectorHistory]: 'Histórico de colaboradores',
       [ROUTES.workSchedule.collaboratorHistory]: 'Meu histórico',
+      [ROUTES.collaboration.createCollaborator]: 'Cadastrar colaborador',
     }
 
     if (currentRoute === ROUTES.solicitation.solicitations) {
@@ -29,7 +30,7 @@ export function useHeaderTitle() {
       return 'Escala'
     }
 
-    if (currentRoute.startsWith('/collaboration/profile')) {
+    if (currentRoute.startsWith('/collaboration/collaborators/')) {
       return 'Perfil'
     }
 

@@ -7,7 +7,7 @@ export const ROUTES = {
     collaborators: '/collaboration/collaborators',
     collaborator: (collaboratorId: string) =>
       `/collaboration/collaborators/${collaboratorId}`,
-    registerCollaboration: '/collaboration/register-collaboration',
+    createCollaborator: '/collaboration/collaborators/create',
     profile: (collaboratorId: string) => `/collaboration/profile/${collaboratorId}`,
   },
   workSchedule: {

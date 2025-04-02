@@ -6,7 +6,7 @@ import { WEEKDAYS } from '@/constants'
 import { timePunchSchema } from '@/validation/schemas/work-schedule'
 import type { WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
 import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store/use-collaborator-store'
-import { useUpdateWeekScheduleAction } from './use-edit-week-schedule-action'
+import { useUpdateWeekScheduleAction } from './use-update-week-schedule-action'
 
 const EMPTY_TIME_PUNCH = {
   firstClockIn: null,
@@ -36,6 +36,7 @@ type FormData = z.infer<typeof weekScheduleSchema>
 
 export function useWeekScheduleTab(
   currentWeekdaysSchedule?: WeekdayScheduleDto[] | null,
+  collaboratorId?: string,
 ) {
   const { getWeekScheduleSlice, getTabSlice } = useCollaboratorStore()
   const { weekSchedule, setWeekSchedule } = getWeekScheduleSlice()
@@ -49,17 +50,18 @@ export function useWeekScheduleTab(
             : currentWeekdaysSchedule ?? DEFAULT_WEEKDAYS_SCHEDULE,
       },
     })
-  const { isUpdating, updateWeekSchedule } = useUpdateWeekScheduleAction()
+  const { isUpdating, updateWeekSchedule } = useUpdateWeekScheduleAction(collaboratorId)
   const { setTab } = getTabSlice()
 
   async function handleFormSubmit(formData: FormData) {
-    if (!currentWeekdaysSchedule) {
+    if (currentWeekdaysSchedule) {
+      await updateWeekSchedule(formData.weekdaysSchedule)
       setWeekSchedule(formData.weekdaysSchedule)
-      setTab('day-off-schedule-tab')
       return
     }
 
-    await updateWeekSchedule(formData.weekdaysSchedule)
+    setWeekSchedule(formData.weekdaysSchedule)
+    setTab('day-off-schedule-tab')
   }
 
   function handleWeekdayScheduleReplicate(

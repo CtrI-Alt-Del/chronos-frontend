@@ -27,7 +27,7 @@ export const CollaboratorPage = ({
     isWeekScheduleTabDisabled,
     isDayOffScheduleTabDisabled,
     handleTabChange,
-  } = useCollaboratorPage()
+  } = useCollaboratorPage(collaborator, weekSchedule, dayOffSchedule)
 
   return (
     <div className='w-full max-w-4xl mx-auto justify-between mt-3 -translate-x-6'>
@@ -67,7 +67,10 @@ export const CollaboratorPage = ({
             </div>
           }
         >
-          <WeekScheduleTab weekSchedule={weekSchedule} />
+          <WeekScheduleTab
+            weekSchedule={weekSchedule}
+            collaboratorId={collaborator?.id}
+          />
         </Tab>
         <Tab
           key='day-off-schedule-tab'
@@ -79,7 +82,10 @@ export const CollaboratorPage = ({
             </div>
           }
         >
-          <DayOffScheduleTab dayOffSchedule={dayOffSchedule} />
+          <DayOffScheduleTab
+            dayOffSchedule={dayOffSchedule}
+            collaboratorId={collaborator?.id}
+          />
         </Tab>
       </Tabs>
     </div>
