@@ -15,12 +15,14 @@ type DialogProps = {
   isDismissable?: boolean
   hideCloseButton?: boolean
   onOpen?: () => void
+  className?: string
 }
 
 const DialogComponent = (
   {
     title,
     children,
+    className,
     trigger,
     size,
     isDismissable,
@@ -54,7 +56,7 @@ const DialogComponent = (
         onClose={close}
         className='mb-16'
       >
-        <ModalContent className='z-50'>
+        <ModalContent className={`z-50 mb-52 ${className} md:mb-0`}>
           <ModalHeader>{title}</ModalHeader>
           <ModalBody>
             {typeof children === 'function' ? children(close) : children}

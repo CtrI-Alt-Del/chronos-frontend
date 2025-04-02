@@ -34,7 +34,7 @@ export const AlertDialog = ({
   return (
     <>
       <Modal isOpen={isOpen} onOpenChange={handleOpenChange}>
-        <ModalContent>
+        <ModalContent className='mx-5 mb-72 md:mb-0 md:mx-0'> 
           {() => (
             <>
               <ModalHeader className='flex flex-col gap-1'>{title}</ModalHeader>
