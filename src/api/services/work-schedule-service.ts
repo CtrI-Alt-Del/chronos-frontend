@@ -7,18 +7,25 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
   const MODULE = '/work-schedule'
 
   return {
-    async listWorkSchedules() {
-      return await apiClient.get(`${MODULE}/schedules`)
-    },
-
-    async getWorkSchedule(workScheduleId) {
-      return await apiClient.get(`${MODULE}/schedules/${workScheduleId}`)
-    },
-
     async getTodayWorkdayLog(collaboratorId) {
       return await apiClient.get<WorkdayLogDto>(
         `${MODULE}/workday-logs/${collaboratorId}/today`,
       )
+    },
+
+    async createCollaboratorSchedule(collaboratorSchedule) {
+      return await apiClient.post(
+        `${MODULE}/collaborator-schedules/${collaboratorSchedule.collaboratorId}`,
+        collaboratorSchedule,
+      )
+    },
+
+    async getWeekSchedule(collaboratorId) {
+      return await apiClient.get(`${MODULE}/week-schedules/${collaboratorId}`)
+    },
+
+    async getDayOffSchedule(collaboratorId) {
+      return await apiClient.get(`${MODULE}/day-off-schedules/${collaboratorId}`)
     },
 
     async reportSectorHistory(date, page = 1) {
@@ -38,36 +45,21 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       return await apiClient.post(`${MODULE}/schedules`, workSchedule)
     },
 
-    async editWorkScheduleDescription(workScheduleId, description) {
-      return await apiClient.patch(`${MODULE}/schedules/${workScheduleId}/description`, {
-        description,
-      })
-    },
-
-    async editDaysOffSchedule(
-      workScheduleId,
-      workdaysCount: number,
-      daysOffCount: number,
-      daysOff,
-    ) {
+    async updateDayOffSchedule(collaboratorId, dayOffSchedule) {
       return await apiClient.put(
-        `${MODULE}/schedules/${workScheduleId}/days-off-schedule`,
-        {
-          workdaysCount,
-          daysOffCount,
-          daysOff,
-        },
+        `${MODULE}/day-off-schedules/${collaboratorId}`,
+        dayOffSchedule,
       )
     },
 
-    async editWeekSchedule(workScheduleId, weekSchedule) {
+    async updateWeekSchedule(collaboratorId, weekSchedule) {
       return await apiClient.put(
-        `${MODULE}/schedules/${workScheduleId}/week-schedule`,
+        `${MODULE}/week-schedules/${collaboratorId}`,
         weekSchedule,
       )
     },
 
-    async editTimePunchSchedule(timePunch) {
+    async updateTimePunchSchedule(timePunch) {
       return await apiClient.put(`${MODULE}/time-punches/${timePunch.id}`, timePunch)
     },
 
@@ -91,11 +83,7 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
     async scheduleDaysOff(workdaysCount, daysOffCount) {
       apiClient.setParam('workdaysCount', String(workdaysCount))
       apiClient.setParam('daysOffCount', String(daysOffCount))
-      return await apiClient.get(`${MODULE}/schedules/days-off-schedule`)
-    },
-
-    async deleteWorkSchedule(workScheduleId) {
-      return await apiClient.delete(`${MODULE}/schedules/${workScheduleId}`)
+      return await apiClient.get(`${MODULE}/day-off-schedules`)
     },
   }
 }

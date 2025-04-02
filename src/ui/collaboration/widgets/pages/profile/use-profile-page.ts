@@ -5,10 +5,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { useUpdateCollaboratorAction } from './use-update-collaborator-action'
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
-import { profileFormSchema } from '@/validation/schemas/work-schedule'
+import { collaboratorSchema } from '@/validation/schemas/work-schedule'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 
-export type ProfileFormData = z.infer<typeof profileFormSchema>
+export type ProfileFormData = z.infer<typeof collaboratorSchema>
 
 export function useProfilePage(collaborator: CollaboratorDto) {
   const {
@@ -17,7 +17,7 @@ export function useProfilePage(collaborator: CollaboratorDto) {
     handleSubmit,
     formState: { isSubmitting, errors, isDirty },
   } = useForm<ProfileFormData>({
-    resolver: zodResolver(profileFormSchema),
+    resolver: zodResolver(collaboratorSchema),
     defaultValues: collaborator,
   })
   const { account } = useAuthContext()
@@ -27,10 +27,8 @@ export function useProfilePage(collaborator: CollaboratorDto) {
   async function handleFormSubmit(data: ProfileFormData) {
     if (!collaborator.id) return
 
-    console.log(data)
     await updateCollaborator(collaborator.id, data)
     toast.showSuccess('Perfil atualizado com sucesso!')
-    return true
   }
 
   const isManager = account?.role.toLowerCase() === 'manager'

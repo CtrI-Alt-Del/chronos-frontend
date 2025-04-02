@@ -12,7 +12,7 @@ export function useCollaboratorHistoryTable(workdayLogs: WorkdayLogDto[]) {
   const { formatDate } = useDatetime()
 
   const rows: Row[] = workdayLogs.map((workdayLog) => ({
-    id: workdayLog.id,
+    id: String(workdayLog.id),
     date: formatDate(workdayLog.date),
     timePunchLog: workdayLog.timePunchLog,
     timePunchSchedule: workdayLog.timePunchSchedule,
