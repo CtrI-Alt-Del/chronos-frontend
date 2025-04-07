@@ -21,7 +21,7 @@ export const JustificationModal = ({
   const { today } = useJustificationModal()
   return (
     <Dialog
-      trigger={<Button color='primary'>Nova solicitacao</Button>}
+      trigger={<Button color='primary'>Nova solicitação</Button>}
       size='xl'
       className='mb-20'
       title='Nova solicitacao'

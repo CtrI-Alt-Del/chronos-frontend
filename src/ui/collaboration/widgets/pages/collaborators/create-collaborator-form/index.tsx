@@ -2,7 +2,6 @@ import { Controller } from 'react-hook-form'
 import { Button, Input, Form, SelectItem, Select } from '@heroui/react'
 
 import { useCollaboratorForm } from './use-register-collaborator-form'
-import { WorkScheduleSelect } from '../../profile/work-schedule-select'
 
 type RegisterCollaboratorFormProps = {
   onCancel: VoidFunction
@@ -13,10 +12,9 @@ export const RegisterCollaboratorForm = ({
   onSubmit,
   onCancel,
 }: RegisterCollaboratorFormProps) => {
-  const { control, errors, isSubmiting, register, handleSubmit } =
-    useCollaboratorForm({
-      onSubmit,
-    })
+  const { control, errors, isSubmiting, register, handleSubmit } = useCollaboratorForm({
+    onSubmit,
+  })
 
   return (
     <Form onSubmit={handleSubmit} className='space-y-6 w-full max-w-lg'>
@@ -50,7 +48,7 @@ export const RegisterCollaboratorForm = ({
           <SelectItem key='employee'>Colaborador</SelectItem>
           <SelectItem key='manager'>Gestor</SelectItem>
         </Select>
-        <Controller
+        {/* <Controller
           name='workScheduleId'
           control={control}
           render={({ field: { onChange } }) => (
@@ -61,7 +59,7 @@ export const RegisterCollaboratorForm = ({
               )}
             </div>
           )}
-        />
+        /> */}
       </div>
 
       <div className='flex gap-3 justify-end'>

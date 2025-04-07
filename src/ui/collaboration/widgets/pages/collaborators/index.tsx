@@ -13,7 +13,9 @@ import {
 
 import { CollaboratorTable } from './collaborator-table'
 import { RegisterCollaboratorForm } from './create-collaborator-form'
-import { useCollaboratorsPage } from './use-collaborator-page'
+import { useCollaboratorsPage } from './use-collaborators-page'
+import Link from 'next/link'
+import { ROUTES } from '@/constants'
 
 export const CollaboratorsPage = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -25,7 +27,6 @@ export const CollaboratorsPage = () => {
     isAlteringCollaboratorStatus,
     statusSearchValue,
     handlePageChange,
-    handleRegisterCollaborator,
     handleDisableEmployee,
     handleEnableEmployee,
     handleStatusSearchValueChange,
@@ -37,11 +38,6 @@ export const CollaboratorsPage = () => {
         <div className='flex flex-col gap-2 w-full md:flex-row md:gap-4'>
           <Select
             defaultSelectedKeys={['true']}
-            label='Status do Colaborador'
-            classNames={{
-              mainWrapper: 'w-50 md:w-96',
-              label: 'text-[10px] md:text-base',
-            }}
             value={statusSearchValue}
             onChange={(e) => handleStatusSearchValueChange(e.target.value)}
           >
@@ -53,31 +49,9 @@ export const CollaboratorsPage = () => {
           </Button>
         </div>
 
-        <Drawer
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-          size='lg'
-          className='w-96 md:w-full'
-        >
-          <DrawerContent>
-            {(onClose) => (
-              <>
-                <DrawerHeader className='flex flex-col gap-1'>
-                  Registrar Colaborador
-                </DrawerHeader>
-                <DrawerBody>
-                  <RegisterCollaboratorForm
-                    onSubmit={async () => {
-                      await handleRegisterCollaborator()
-                      onClose()
-                    }}
-                    onCancel={onClose}
-                  />
-                </DrawerBody>
-              </>
-            )}
-          </DrawerContent>
-        </Drawer>
+        <Button as={Link} href={ROUTES.collaboration.createCollaborator} color='primary'>
+          Cadastrar colaborador
+        </Button>
       </div>
 
       <div className='max-w-[460px] md:max-w-xl lg:max-w-full'>

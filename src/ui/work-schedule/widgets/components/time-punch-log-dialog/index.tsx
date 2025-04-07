@@ -78,7 +78,7 @@ export const TimePunchLogDialog = ({
                 Registrado
               </TableColumn>
             </TableHeader>
-            <TableBody aria-label='counteudo da tabela'>
+            <TableBody aria-label='counteudo da tabela' className='text-sm'>
               <TableRow key='first-clock-in'>
                 <TableCell>Entrada 1</TableCell>
                 <TableCell>

@@ -11,10 +11,11 @@ type Request = {
 export const PunchTimeAction = (service: IWorkScheduleService): IAction<Request> => {
   return {
     async handle(actionServer: IActionServer<Request>) {
+      const account = await actionServer.getAccount()
       const { timePunchLogId, time } = actionServer.getRequest()
       const response = await service.punchTime(timePunchLogId, time)
       if (response.isFailure) response.throwError()
-      actionServer.resetCache(CACHE.workSchedule.todayWordayLog.key)
+      actionServer.resetCache(CACHE.workSchedule.todayWordayLog.key(account.id))
     },
   }
 }

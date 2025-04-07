@@ -37,7 +37,7 @@ export function useCollaboratorHistoryPage() {
     key: CACHE.workSchedule.collaboratorHistory.key,
     fetcher: fetchCollaboratorHistory,
     dependencies: [startDate, endDate],
-    shouldRefetchOnFocus: false,
+    shouldRefetchOnFocus: true,
     isEnabled: Boolean(account),
   })
 

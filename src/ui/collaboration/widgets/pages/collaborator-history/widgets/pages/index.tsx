@@ -1,6 +1,5 @@
 'use client'
 
-import { DateInput } from '@/ui/global/widgets/components/date-input'
 import { useCollaboratorHistoryPage } from './use-collaborator-history-page'
 import { CollaboratorHistoryTable } from './collaborator-history-table'
 import { DateRangeInput } from '@/ui/global/widgets/components/date-range-input'

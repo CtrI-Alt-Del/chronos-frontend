@@ -11,6 +11,7 @@ import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import { WorkScheduleSelect } from './work-schedule-select'
 import { Controller } from 'react-hook-form'
 import { PasswordFormDialog } from './password-form-dialog'
+import type { DayOffScheduleDto, WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
 
 type ProfilePageProps = {
   collaborator: CollaboratorDto
@@ -130,23 +131,25 @@ export const ProfilePage = ({ collaborator }: ProfilePageProps) => {
               <SelectItem key='employee'>Funcionário</SelectItem>
             </Select>
 
-           {isAdmin && <Select
-              variant='flat'
-              labelPlacement='outside'
-              classNames={{
-                trigger: 'bg-gray-200 text-slate-700',
-                label: 'text-slate-900',
-              }}
-              startContent={<Building size={16} />}
-              label='Setor'
-              defaultSelectedKeys={[collaborator.sector.toLowerCase()]}
-              {...registerField('sector')}
-            >
-              <SelectItem key='production'>Produção</SelectItem>
-              <SelectItem key='comercial'>Comercial</SelectItem>
-              <SelectItem key='administrative'>Administrativo</SelectItem>
-              <SelectItem key='human_resources'>RH</SelectItem>
-            </Select>}
+            {isAdmin && (
+              <Select
+                variant='flat'
+                labelPlacement='outside'
+                classNames={{
+                  trigger: 'bg-gray-200 text-slate-700',
+                  label: 'text-slate-900',
+                }}
+                startContent={<Building size={16} />}
+                label='Setor'
+                defaultSelectedKeys={[collaborator?.sector.toLowerCase()]}
+                {...registerField('sector')}
+              >
+                <SelectItem key='production'>Produção</SelectItem>
+                <SelectItem key='comercial'>Comercial</SelectItem>
+                <SelectItem key='administrative'>Administrativo</SelectItem>
+                <SelectItem key='human_resources'>RH</SelectItem>
+              </Select>
+            )}
 
             <Controller
               control={formControl}

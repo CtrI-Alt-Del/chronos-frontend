@@ -11,8 +11,8 @@ export const SolicitationService = (apiClient: IApiClient): ISolicitationService
       return await apiClient.post(`${MODULE}/work-schedule-adjustment`, solicitation)
     },
     async resolveSolicitation(solicitationId: string, action: "APPROVED" | "DENIED") {
-      const value = action
-      return await apiClient.post(`${MODULE}/resolve/${solicitationId}`, { value })
+      const status = action
+      return await apiClient.patch(`${MODULE}/resolve/${solicitationId}`, { status })
     },
     createTimePunchLogAdjustmentSolicitation(solicitation) {
       return apiClient.post(`${MODULE}/time-punch-adjustment`, solicitation)

@@ -92,19 +92,19 @@ export const CollaboratorTable = ({
         >
           {(item) => (
             <TableRow key={item.id} className={isLoading ? 'opacity-25' : 'opacity-100'}>
-              <TableCell key={'name'}>
+              <TableCell key='name'>
                 <span>{item.name}</span>
               </TableCell>
-              <TableCell key={'email'}>
+              <TableCell key='email'>
                 <span>{item.email}</span>
               </TableCell>
-              <TableCell key={'cpf'}>
+              <TableCell key='cpf'>
                 <span>{item.cpf}</span>
               </TableCell>
-              <TableCell key={'role'}>
+              <TableCell key='role'>
                 <span>{item.role === 'MANAGER' ? 'Gerente' : 'Colaborador'}</span>
               </TableCell>
-              <TableCell key={'sector'}>
+              <TableCell key='sector'>
                 <span>
                   {(() => {
                     switch (item.sector) {
@@ -132,10 +132,10 @@ export const CollaboratorTable = ({
               <TableCell key={'actions'}>
                 <Button
                   as={Link}
-                  href={ROUTES.collaboration.profile(String(item.id))}
+                  href={ROUTES.collaboration.collaborator(String(item.id))}
                   isIconOnly
                   variant='light'
-                  className='translate-y-1 text-slate-600'
+                  className='text-slate-600'
                 >
                   <Icon name='collaborator' size={20} />
                 </Button>
@@ -153,8 +153,7 @@ export const CollaboratorTable = ({
                     title='ALERTA'
                     onConfirm={() => handleDisableEmployee(item.id as string)}
                   >
-                    Voce tem certeza que deseja desativar esse colaborador? Foi vc que
-                    fez?
+                    Voce tem certeza que deseja desativar esse colaborador?
                   </AlertDialog>
                 ) : (
                   <AlertDialog

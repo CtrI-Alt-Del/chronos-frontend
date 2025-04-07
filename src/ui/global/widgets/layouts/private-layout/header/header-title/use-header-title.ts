@@ -17,10 +17,11 @@ export function useHeaderTitle() {
       [ROUTES.collaboration.collaborators]: 'Registro de colaboradores',
       [ROUTES.workSchedule.sectorHistory]: 'Histórico de colaboradores',
       [ROUTES.workSchedule.collaboratorHistory]: 'Meu histórico',
+      [ROUTES.collaboration.createCollaborator]: 'Cadastrar colaborador',
     }
 
     if (currentRoute === ROUTES.solicitation.solicitations) {
-      return account?.role === 'manager' || account?.role === 'admin'
+      return account?.role === 'MANAGER' || account?.role === 'ADMIN'
         ? 'Solicitações'
         : 'Solicitações do Setor'
     }
@@ -29,7 +30,11 @@ export function useHeaderTitle() {
       return 'Escala'
     }
 
-    if (currentRoute.startsWith('/collaboration/profile')) {
+    if (currentRoute.startsWith('/collaboration/collaborators/create')) {
+      return 'Cadastrar colaborador'
+    }
+
+    if (currentRoute.startsWith('/collaboration/collaborators/')) {
       return 'Perfil'
     }
 
