@@ -31,7 +31,7 @@ export const SolicitationAccordion = ({
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center h-64'>
+      <div className='flex justify-center items-center h-64'>
         <Spinner color='primary' />
       </div>
     )
@@ -39,7 +39,7 @@ export const SolicitationAccordion = ({
 
   if (!solicitations || solicitations.length === 0) {
     return (
-      <div className='flex items-center justify-center h-64'>
+      <div className='flex justify-center items-center h-64'>
         <span className='text-gray-500'>Nenhuma solicitação encontrada</span>
       </div>
     )
@@ -99,7 +99,6 @@ export const SolicitationAccordion = ({
         if (solicitation.type === 'TIME_PUNCH') {
           const timePunchSolicitation =
             solicitation as TimePunchLogAdjustmentSolicitationDto
-
           return (
             <AccordionItem
               key={solicitation.id}
@@ -115,9 +114,9 @@ export const SolicitationAccordion = ({
                       {formatDate(timePunchSolicitation.workdayLogDate)}
                     </span>
                   </div>
-                  <div className='flex items-center justify-center'>
+                  <div className='flex justify-center items-center mt-2 ml-5 sm:ml-0 sm:mt-0'>
                     <span
-                      className={`block translate-y-3 text-base ${statusInfo.color.split(' ')[0]}`}
+                      className={`block sm:translate-y-3 text-base ${statusInfo.color.split(' ')[0]}`}
                     >
                       {statusInfo.label}
                     </span>
@@ -129,11 +128,11 @@ export const SolicitationAccordion = ({
                   <span className='text-slate-800 text-sm'>
                     {formatDate(solicitation.date)}
                   </span>
-                  <div className='flex items-center gap-2'>
+                  <div className='flex gap-2 items-center mt-2 sm:mt-0'>
                     <Avatar
                       color='primary'
                       isBordered
-                      className='size-3 rounded-full'
+                      className='rounded-full size-3'
                       radius='sm'
                     />
                     <span className='text-slate-800'>
@@ -175,7 +174,7 @@ export const SolicitationAccordion = ({
                 </div>
               }
               indicator={<Icon name='arrow-down' className='w-4 h-4' />}
-            >
+            
               <div className='flex justify-between items-center flex-col md:flex-row'>
                 <div>{timePunchSolicitation.description}</div>
                 {userRole === 'MANAGER' && solicitation.status === 'PENDING' && (
@@ -183,7 +182,7 @@ export const SolicitationAccordion = ({
                     <AlertDialog
                       isLoading={isResolvingSolicitation}
                       trigger={
-                        <Button color='success' className='text-white' size='sm'>
+                        <Button color='success' className='w-full text-white sm:w-auto' size='sm'>
                           Aprovar
                         </Button>
                       }
@@ -196,7 +195,7 @@ export const SolicitationAccordion = ({
                     <AlertDialog
                       isLoading={isResolvingSolicitation}
                       trigger={
-                        <Button color='danger' size='sm'>
+                        <Button color='danger' className='w-full sm:w-auto' size='sm'>
                           Negar
                         </Button>
                       }

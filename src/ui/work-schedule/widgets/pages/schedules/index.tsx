@@ -13,8 +13,8 @@ export const SchedulesPage = () => {
   const { schedules, isFetchingSchedules } = useSchedulesPage()
 
   return (
-    <div className='p-6 rounded-lg border border-gray-border'>
-      <div className='flex flex-col md:flex-row justify-between px-10 py-2'>
+    <div className='p-10 rounded-lg border border-gray-border'>
+      <div className='flex flex-col justify-between md:flex-row'>
         <div className='flex max-w-[280px]'>
           <Input
             label={
@@ -40,7 +40,7 @@ export const SchedulesPage = () => {
         </div>
       </div>
 
-      <div className='grid grid-cols-1 gap-6 w-full place-items-center sm:px-6 mt-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      <div className='grid grid-cols-1 gap-6 place-items-center mt-10 w-full sm:px-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {isFetchingSchedules ? (
           <>
             <WorkScheduleCardSckeleton />

@@ -33,18 +33,20 @@ export const CollaboratorsPage = () => {
   } = useCollaboratorsPage()
 
   return (
-    <div className=''>
-      <div className='flex justify-between items-center py-4'>
-        <div className='flex-1 space-y-2 w-full max-w-96'>
+    <div className='w-[calc(100vw-50px)] md:w-full border-gray-border border rounded-lg p-2 md:p-10'>
+      <div className='flex justify-between items-center'>
+        <div className='flex flex-col gap-2 w-full md:flex-row md:gap-4'>
           <Select
             defaultSelectedKeys={['true']}
-            label='Status do colaborador'
             value={statusSearchValue}
             onChange={(e) => handleStatusSearchValueChange(e.target.value)}
           >
-            <SelectItem key='true'>Ativo</SelectItem>
-            <SelectItem key='false'>Inativo</SelectItem>
+            <SelectItem classNames={{ title: 'text-xs md:text-base' }} key='true'>Ativo</SelectItem>
+            <SelectItem classNames={{ title: 'text-xs md:text-base' }} key='false'>Inativo</SelectItem>
           </Select>
+          <Button color='primary' className='px-5 text-xs md:text-base' onPress={onOpen}>
+            Registrar Colaborador
+          </Button>
         </div>
 
         <Button as={Link} href={ROUTES.collaboration.createCollaborator} color='primary'>

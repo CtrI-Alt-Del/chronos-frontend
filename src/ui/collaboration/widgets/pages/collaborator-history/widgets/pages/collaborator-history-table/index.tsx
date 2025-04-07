@@ -40,7 +40,11 @@ export const CollaboratorHistoryTable = ({
 
   return (
     <Table
-      className='w-screen md:w-auto'
+      className='w-full md:w-auto'
+      classNames={{
+        wrapper: ''
+      }
+      }
       bottomContentPlacement='outside'
       bottomContent={
         pagesCount > 1 && (
@@ -56,11 +60,11 @@ export const CollaboratorHistoryTable = ({
         )
       }
     >
-      <TableHeader>
+      <TableHeader >
         <TableColumn key='date' className='uppercase'>
           Data
         </TableColumn>
-        <TableColumn key='time-punch' className='uppercase'>
+        <TableColumn key='time-punch'>
           Registros de Ponto
         </TableColumn>
       </TableHeader>
