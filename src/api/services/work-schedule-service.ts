@@ -1,5 +1,5 @@
 import type { IApiClient } from '@/@core/global/interfaces/api-client'
-import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
+import type { WorkdayLogDto, DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import type { IWorkScheduleService } from '@/@core/work-schedule/interfaces'
 import { DatetimeProvider } from '@/providers'
 
@@ -13,10 +13,13 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       )
     },
 
-    async createCollaboratorSchedule(collaboratorSchedule) {
+    async createDayOffSchedule(
+      dayOffSchedule: DayOffScheduleDto,
+      collaboratorId: string,
+    ) {
       return await apiClient.post(
-        `${MODULE}/collaborator-schedules/${collaboratorSchedule.collaboratorId}`,
-        collaboratorSchedule,
+        `${MODULE}/day-off-schedules/${collaboratorId}`,
+        dayOffSchedule,
       )
     },
 
@@ -28,28 +31,24 @@ export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService
       return await apiClient.get(`${MODULE}/day-off-schedules/${collaboratorId}`)
     },
 
-    async reportSectorHistory(date, page = 1) {
-      apiClient.setParam('date', date)
-      apiClient.setParam('page', String(page))
-      return await apiClient.get(`${MODULE}/workday-logs/history`)
-    },
-
-    async reportCollaboratorHistory(collaboratorId, startDate, endDate, page = 1) {
-      apiClient.setParam('startDate', startDate)
-      apiClient.setParam('endDate', endDate)
-      apiClient.setParam('page', String(page))
-      return await apiClient.get(`${MODULE}/workday-logs/history/${collaboratorId}`)
-    },
-
-    async createWorkSchedule(workSchedule) {
-      return await apiClient.post(`${MODULE}/schedules`, workSchedule)
-    },
-
     async updateDayOffSchedule(collaboratorId, dayOffSchedule) {
       return await apiClient.put(
         `${MODULE}/day-off-schedules/${collaboratorId}`,
         dayOffSchedule,
       )
+    },
+
+    async getSectorHistory(date, page = 1) {
+      apiClient.setParam('date', date)
+      apiClient.setParam('page', String(page))
+      return await apiClient.get(`${MODULE}/workday-logs/history`)
+    },
+
+    async getCollaboratorHistory(collaboratorId, startDate, endDate, page = 1) {
+      apiClient.setParam('startDate', startDate)
+      apiClient.setParam('endDate', endDate)
+      apiClient.setParam('page', String(page))
+      return await apiClient.get(`${MODULE}/workday-logs/history/${collaboratorId}`)
     },
 
     async updateWeekSchedule(collaboratorId, weekSchedule) {

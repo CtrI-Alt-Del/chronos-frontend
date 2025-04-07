@@ -25,16 +25,6 @@ export const useZustandCollaboratorStore = create<CollaboratorStore>((set) => ({
       }))
     },
 
-    setWeekSchedule(weekSchedule) {
-      return set(({ state, actions }) => ({
-        state: {
-          ...state,
-          weekSchedule,
-        },
-        actions,
-      }))
-    },
-
     setTab(tab) {
       return set(({ state, actions }) => ({
         state: {

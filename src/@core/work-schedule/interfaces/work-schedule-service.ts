@@ -6,25 +6,24 @@ import type {
   TimePunchDto,
   WeekdayScheduleDto,
   WorkdayLogDto,
-  WorkScheduleDto,
 } from '../dtos'
 import type { TimePunchPeriod } from '../types'
 
 export interface IWorkScheduleService {
-  createCollaboratorSchedule(
-    collaboratorSchedule: CollaboratorScheduleDto,
+  createDayOffSchedule(
+    dayOffScheduleDto: DayOffScheduleDto,
+    collaboratorId: string,
   ): Promise<ApiResponse<void>>
-  createWorkSchedule(workSchedule: WorkScheduleDto): Promise<ApiResponse<void>>
   getWeekSchedule(collaboratorId: string): Promise<ApiResponse<WeekdayScheduleDto[]>>
   getDayOffSchedule(collaboratorId: string): Promise<ApiResponse<DayOffScheduleDto>>
   getTodayWorkdayLog(collaboratorId: string): Promise<ApiResponse<WorkdayLogDto>>
-  reportCollaboratorHistory(
+  getCollaboratorHistory(
     collaboratorId: string,
     startDate: string,
     endDate: string,
     page: number,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
-  reportSectorHistory(
+  getSectorHistory(
     date: string,
     page: number,
     collaboratorId?: string,

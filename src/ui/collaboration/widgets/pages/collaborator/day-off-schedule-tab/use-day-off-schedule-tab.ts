@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react'
 
+import { ROUTES } from '@/constants'
 import { useApi, useNavigation } from '@/ui/global/hooks'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { useUpdateDaysOffScheduleAction } from './use-update-days-off-schedule-action'
 import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import { ROUTES } from '@/constants'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 
 const WEEKDAYS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
@@ -36,11 +36,9 @@ export function useDayOffScheduleTab(
   const { goTo } = useNavigation()
   const { isUpdating, updateDaysOffSchedule } =
     useUpdateDaysOffScheduleAction(collaboratorId)
-  const { getCollaboratorSlice, getWeekScheduleSlice, getDayOffScheduleSlice } =
-    useCollaboratorStore()
-  const { collaborator } = getCollaboratorSlice()
-  const { weekSchedule } = getWeekScheduleSlice()
-  const { setDayOffSchedule } = getDayOffScheduleSlice()
+  const { useCollaboratorSlice, useDayOffScheduleSlice } = useCollaboratorStore()
+  const { collaborator } = useCollaboratorSlice()
+  const { setDayOffSchedule } = useDayOffScheduleSlice()
   const { account } = useAuthContext()
 
   function handleDaysOffCountChange(value: number) {
@@ -92,19 +90,16 @@ export function useDayOffScheduleTab(
     collaboratorId: string,
     dayOffSchedule: DayOffScheduleDto,
   ) {
-    const collaboratorSchedule = {
-      collaboratorId,
-      weekSchedule,
+    const response = await workScheduleService.createDayOffSchedule(
       dayOffSchedule,
-    }
-    const response =
-      await workScheduleService.createCollaboratorSchedule(collaboratorSchedule)
+      collaboratorId,
+    )
     if (response.isFailure) {
       showError(response.errorMessage)
     }
 
     if (response.isSuccess) {
-      showSuccess('Colaborador criado')
+      showSuccess('Escala de trabalho criada')
       goTo(ROUTES.collaboration.collaborators)
     }
   }

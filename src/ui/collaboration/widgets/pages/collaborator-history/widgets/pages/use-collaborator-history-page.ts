@@ -24,7 +24,7 @@ export function useCollaboratorHistoryPage() {
   const { showError, showSuccess } = useToast()
 
   async function fetchCollaboratorHistory(page: number) {
-    const response = await workScheduleService.reportCollaboratorHistory(
+    const response = await workScheduleService.getCollaboratorHistory(
       String(account?.collaboratorId),
       formatIsoDate(startDate),
       formatIsoDate(endDate),
