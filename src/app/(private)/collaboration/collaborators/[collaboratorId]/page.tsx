@@ -8,13 +8,18 @@ export default async function Page({ params }: NextParams<'collaboratorId'>) {
 
   const currentProfile = await collaborationActions.getCollaboratorProfile()
 
-  if (!currentProfile ) {
-    throw new Error('/not-found')
+
+  if (!currentProfile?.data?.collaborator) return
+  if (!currentProfile?.data?.collaborator) {
+    return
   }
+
+  const currentUser = currentProfile.data.collaborator
+
   if (
-    !currentProfile?.data?.collaborator.role.includes('admin') &&
-    !currentProfile?.data?.collaborator.role.includes('manager') &&
-    currentProfile?.data?.collaborator.id !== collaboratorId
+    !currentUser.role.includes('admin') &&
+    !currentUser.role.includes('manager') &&
+    currentUser.id !== collaboratorId
   ) {
     redirect('/not-found')
     
@@ -32,12 +37,11 @@ export default async function Page({ params }: NextParams<'collaboratorId'>) {
   if (!collaboratoResponse?.data?.collaborator) return
   if (!weekScheduleResponse?.data?.weekSchedule) return
   if (!dayOffScheduleResponse?.data?.dayOffSchedule) return
-  if (!currentProfile?.data?.collaborator) return
+
 
   const collaborator = collaboratoResponse.data.collaborator
   const weekSchedule = weekScheduleResponse.data.weekSchedule
   const dayOffSchedule = dayOffScheduleResponse.data.dayOffSchedule
-  const currentCollaborator = currentProfile.data.collaborator
 
   return (
     <CollaboratorPage
