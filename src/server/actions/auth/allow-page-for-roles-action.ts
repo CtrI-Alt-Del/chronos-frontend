@@ -4,14 +4,14 @@ import { ROUTES } from '@/constants'
 
 type Request = Role[]
 
-export const AllowPageByRolesAction = (): IAction<Request> => {
+export const AllowPageForRolesAction = (): IAction<Request> => {
   return {
     async handle(actionServer: IActionServer<Request>) {
       const roles = actionServer.getRequest()
       const account = await actionServer.getAccount()
-
+      
       if (!roles.includes(account.role as Role)) {
-        actionServer.redirect(ROUTES.root)
+        actionServer.notFound()
       }
     },
   }

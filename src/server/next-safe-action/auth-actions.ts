@@ -4,18 +4,18 @@ import { z } from 'zod'
 
 import { authActionClient } from './clients/auth-action-client'
 import { NextActionServer } from '../next/next-server-action'
-import { AllowPageByRolesAction, UpdatePasswordAction } from '../actions/auth'
+import { AllowPageForRolesAction, UpdatePasswordAction } from '../actions/auth'
 import { NextServerApiClient } from '@/api/next/clients/next-server-api-client'
 import { AuthService } from '@/api/services/auth-service'
 
-export const allowPageByRoles = authActionClient
+export const allowPageForRoles = authActionClient
   .schema(z.array(z.enum(['admin', 'manager', 'employee'])))
   .action(async ({ clientInput, ctx }) => {
     const actionServer = NextActionServer({
       request: clientInput,
       account: ctx.account,
     })
-    const action = AllowPageByRolesAction()
+    const action = AllowPageForRolesAction()
     return action.handle(actionServer)
   })
 

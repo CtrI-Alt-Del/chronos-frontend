@@ -1,4 +1,4 @@
-import { allowPageByRoles, updatePassword } from './auth-actions'
+import { allowPageForRoles, updatePassword } from './auth-actions'
 import { getCookie, deleteCookie, hasCookie, setCookie } from './cookie-actions'
 import {
   getTodayWorkdayLog,
@@ -18,7 +18,7 @@ import {
 } from './collaboration-actions'
 
 const authActions = {
-  allowPageByRoles,
+  allowPageForRoles,
   updatePassword,
 }
 
