@@ -10,10 +10,6 @@ export default async function Page({ params }: NextParams<'collaboratorId'>) {
 
 
   if (!currentProfile?.data?.collaborator) return
-  if (!currentProfile?.data?.collaborator) {
-    return
-  }
-
   const currentUser = currentProfile.data.collaborator
 
   if (
