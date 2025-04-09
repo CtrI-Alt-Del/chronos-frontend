@@ -108,6 +108,8 @@ export function useDayOffScheduleTab(
       goTo(ROUTES.collaboration.collaborators)
     }
   }
+  async function createDayOffScheduleAdjustmentSolicitation(dayOffSchedule: DayOffScheduleDto){
+  }
 
   async function handleSaveButtonClick() {
     if (error) setError(null)

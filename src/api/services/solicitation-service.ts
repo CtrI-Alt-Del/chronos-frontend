@@ -7,8 +7,8 @@ export const SolicitationService = (apiClient: IApiClient): ISolicitationService
     async listSolicitations() {
       return await apiClient.get(`${MODULE}/solicitations`)
     },
-    async createWorkScheduleAdjustmentSolicitation(solicitation) {
-      return await apiClient.post(`${MODULE}/work-schedule-adjustment`, solicitation)
+    async createWorkScheduleAdjustmentSolicitation(solicitation ) {
+      return await apiClient.post(`${MODULE}/day-off-schedule-adjustment`, solicitation)
     },
     async resolveSolicitation(solicitationId: string, action: "APPROVED" | "DENIED") {
       const status = action
