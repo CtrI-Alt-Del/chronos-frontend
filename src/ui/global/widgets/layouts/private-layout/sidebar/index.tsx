@@ -68,6 +68,14 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               />
             )}
 
+            {(isManager || isEmployee) && (
+              <NavbarLink
+                href={ROUTES.workSchedule.hoursBank}
+                icon='clock'
+                title='Banco de horas'
+              />
+            )}
+
             {isManager && (
               <NavbarLink
                 href={`${ROUTES.workSchedule.sectorHistory}?${queryDate}`}
