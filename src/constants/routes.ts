@@ -20,6 +20,7 @@ export const ROUTES = {
     collaboratorHistory: '/work-schedule/collaborator-history',
     timePunch: '/work-schedule/time-punch',
     timeCard: '/work-schedule/time-card',
+    hoursBank: '/work-schedule/hours-bank',
   },
   solicitation: {
     solicitations: '/solicitation/solicitations',
