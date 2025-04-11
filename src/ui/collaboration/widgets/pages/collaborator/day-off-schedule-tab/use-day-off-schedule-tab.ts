@@ -8,6 +8,7 @@ import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { ROUTES } from '@/constants'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
+import { useCreateDayOffScheduleSolicitationAction } from './use-create-day-off-schedule-solicitation-action'
 
 const WEEKDAYS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
 
@@ -36,12 +37,36 @@ export function useDayOffScheduleTab(
   const { goTo } = useNavigation()
   const { isUpdating, updateDaysOffSchedule } =
     useUpdateDaysOffScheduleAction(collaboratorId)
+  const { isCreatingSolicitation, createDayOffScheduleSolicitation } =
+    useCreateDayOffScheduleSolicitationAction()
   const { getCollaboratorSlice, getWeekScheduleSlice, getDayOffScheduleSlice } =
     useCollaboratorStore()
   const { collaborator } = getCollaboratorSlice()
   const { weekSchedule } = getWeekScheduleSlice()
   const { setDayOffSchedule } = getDayOffScheduleSlice()
   const { account } = useAuthContext()
+
+  const isFormDirty = useMemo(() => {
+    if (!dayOffSchedule) return false
+
+    const initialDaysOff = new Set(dayOffSchedule.daysOff)
+    const currentDaysOff = daysOff
+
+    if (
+      dayOffSchedule.workdaysCount !== workdaysCount ||
+      dayOffSchedule.daysOffCount !== daysOffCount
+    ) {
+      return true
+    }
+
+    if (initialDaysOff.size !== currentDaysOff.size) return true
+
+    for (const day of Array.from(initialDaysOff)) {
+      if (!currentDaysOff.has(day)) return true
+    }
+
+    return false
+  }, [workdaysCount, daysOffCount, daysOff, dayOffSchedule])
 
   function handleDaysOffCountChange(value: number) {
     if (error) setError(null)
@@ -107,6 +132,15 @@ export function useDayOffScheduleTab(
       showSuccess('Colaborador criado')
       goTo(ROUTES.collaboration.collaborators)
     }
+  }
+  async function handleCreateDayOffScheduleSolicitationButtonClick() {
+    if (error) setError(null)
+    const adjustedDayOffSchedule = {
+      workdaysCount,
+      daysOffCount,
+      daysOff: Array.from(daysOff),
+    }
+    await createDayOffScheduleSolicitation(adjustedDayOffSchedule)
   }
 
   async function handleSaveButtonClick() {
@@ -175,11 +209,14 @@ export function useDayOffScheduleTab(
     isLoading: isCreating || isUpdating,
     isSchedulingDaysOff,
     isCalendarEnabled,
-    isSaveButtonDisabled: Boolean(error) || isCreating || daysOff.size === 0,
+    isCreateDayOffSolicitationButtonDisabled:
+      Boolean(error) || isCreatingSolicitation || daysOff.size === 0 || !isFormDirty,
+    isSaveButtonDisabled: Boolean(error) || isCreating || daysOff.size === 0 || !isFormDirty,
     handleWorkdaysCountChange,
     handleDaysOffCountChange,
     handleDaysOffSchedule,
     handleDayButtonClick,
     handleSaveButtonClick,
+    handleCreateDayOffScheduleSolicitationButtonClick,
   }
 }

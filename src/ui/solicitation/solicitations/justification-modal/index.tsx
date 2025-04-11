@@ -8,7 +8,7 @@ import { useJustificationModal } from './use-justification-modal'
 import { Tab, Tabs } from '@heroui/react'
 import { TimePunchAdjustmentTab } from './time-punch-adjustment-tab'
 import { WorkSheduleAdjustmentTab } from './work-schedule-adjustmen-tab'
-import { Dialog } from '../dialog'
+import { Dialog } from '@/ui/global/widgets/components/dialog' 
 
 type JustificationModalProps = {
   onSubmit: VoidFunction
@@ -38,15 +38,6 @@ export const JustificationModal = ({
               <Tab key='time-punch' title='Ajuste de ponto'>
                 <TimePunchAdjustmentTab
                   workdayLogId={workdayLogId as string}
-                  onCancel={onClose}
-                  onSubmit={() => {
-                    onSubmit()
-                    onClose()
-                  }}
-                />
-              </Tab>
-              <Tab key='work-schedule' title='Ajuste de escala'>
-                <WorkSheduleAdjustmentTab
                   onCancel={onClose}
                   onSubmit={() => {
                     onSubmit()
