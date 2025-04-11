@@ -1,3 +1,4 @@
+"use server"
 import { NextServerApiClient } from "@/api/next/clients/next-server-api-client";
 import { NextActionServer } from "../next/next-server-action";
 import { authActionClient } from "./clients/auth-action-client";
