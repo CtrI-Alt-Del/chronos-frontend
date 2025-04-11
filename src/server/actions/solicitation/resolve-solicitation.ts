@@ -22,7 +22,7 @@ export const ResolveSolicitation = (service: ISolicitationService): IAction<Requ
       if (response.isFailure) response.throwError()
       if (response.isSuccess && solicitation.type == 'DAY_OFF_SCHEDULE') {
         actionServer.redirect(
-          `/collaboration/collaborators/${solicitation.collaboratorId}`,
+          `/collaboration/collaborators/${solicitation.collaboratorId}?tab=day-off-schedule-tab`,
         )
       }
       if (response.isSuccess && solicitation.type == 'TIME_PUNCH') {

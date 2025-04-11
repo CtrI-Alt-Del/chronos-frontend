@@ -86,7 +86,7 @@ export const DayOffScheduleTab = ({
             onChange={(e) => handleDaysOffCountChange(Number(e.target.value))}
           />
         </div>
-        {isEmployee && (
+        {true && (
           <Button
             type='button'
             color='primary'

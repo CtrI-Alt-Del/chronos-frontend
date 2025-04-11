@@ -4,6 +4,7 @@ import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-sto
 import type { Tab } from '@/ui/collaboration/stores/collaborator-store/types/tab'
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import type { DayOffScheduleDto, WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
+import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
 
 export function useCollaboratorPage(
   currentCollaborator?: CollaboratorDto,
@@ -19,6 +20,7 @@ export function useCollaboratorPage(
   } = useCollaboratorStore()
   const { tab, setTab } = getTabSlice()
   const { collaborator, setCollaborator } = getCollaboratorSlice()
+  const [activeTab] = useQueryParamString('tab')
   const { weekSchedule, setWeekSchedule } = getWeekScheduleSlice()
   const { dayOffSchedule, setDayOffSchedule } = getDayOffScheduleSlice()
 
@@ -43,6 +45,14 @@ export function useCollaboratorPage(
       setDayOffSchedule(currentDayOffSchedule)
     }
   }, [currentDayOffSchedule, dayOffSchedule, setDayOffSchedule])
+  useEffect(() => {
+    const mappedTab =
+      activeTab === 'day-off-schedule-tab' ? 'day-off-schedule-tab' : 'collaborator-tab'
+
+    if (mappedTab !== tab) {
+      setTab(mappedTab as Tab)
+    }
+  }, [activeTab,setTab])
 
   useEffect(() => {
     return () => {
@@ -53,7 +63,7 @@ export function useCollaboratorPage(
   return {
     activeTab: tab,
     isWeekScheduleTabDisabled: collaborator === null,
-    isDayOffScheduleTabDisabled: weekSchedule.length === 0,
+    isDayOffScheduleTabDisabled: false,
     handleTabChange,
   }
 }
