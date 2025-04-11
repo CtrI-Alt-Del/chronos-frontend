@@ -8,5 +8,5 @@ export type SolicitationDto = {
   feedbackMessage?: string
   senderResponsible?: ResponsibleAggregateDto
   replierResponsible?: ResponsibleAggregateDto
-  type?: "WORK_SCHEDULE" | "TIME_PUNCH"
+  type?: "DAY_OFF_SCHEDULE" | "TIME_PUNCH"
 }

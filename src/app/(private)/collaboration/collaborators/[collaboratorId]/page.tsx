@@ -4,6 +4,7 @@ import { CollaboratorPage } from '@/ui/collaboration/widgets/pages/collaborator'
 import { notFound, redirect } from 'next/navigation'
 
 export default async function Page({ params }: NextParams<'collaboratorId'>) {
+
   const { collaboratorId } = await params
 
   const currentProfile = await collaborationActions.getCollaboratorProfile()
@@ -11,13 +12,13 @@ export default async function Page({ params }: NextParams<'collaboratorId'>) {
 
   if (!currentProfile?.data?.collaborator) return
   const currentUser = currentProfile.data.collaborator
-
+  console.log(currentUser)
   if (
     !currentUser.role.includes('admin') &&
     !currentUser.role.includes('manager') &&
     currentUser.id !== collaboratorId
   ) {
-    redirect('/not-found')
+    console.log("caca")
     
   }
 

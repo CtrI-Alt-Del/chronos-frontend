@@ -11,9 +11,9 @@ export const SolicitationService = (apiClient: IApiClient): ISolicitationService
     async createDayOffScheduleAdjustmentSolicitation(solicitation: DayOffScheduleAdjustmentSolicitationDto) {
       return await apiClient.post(`${MODULE}/day-off-schedule-adjustment`, solicitation)
     },
-    async resolveSolicitation(solicitationId: string, action: "APPROVED" | "DENIED") {
-      const status = action
-      return await apiClient.patch(`${MODULE}/resolve/${solicitationId}`, { status })
+    async resolveSolicitation(solicitationId: string, action: "APPROVED" | "DENIED",solicitationType: "DAY_OFF_SCHEDULE" | "TIME_PUNCH") {
+      const status = action 
+      return await apiClient.patch(`${MODULE}/resolve/${solicitationId}`, { status,solicitationType })
     },
     createTimePunchLogAdjustmentSolicitation(solicitation) {
       return apiClient.post(`${MODULE}/time-punch-adjustment`, solicitation)

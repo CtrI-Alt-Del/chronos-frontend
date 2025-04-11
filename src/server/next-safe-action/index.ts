@@ -16,10 +16,11 @@ import {
   disableCollaborator,
   enableCollaborator,
 } from './collaboration-actions'
-import { createDayOffScheduleAdjustmentSolicitation } from './solicitation-actions'
+import { createDayOffScheduleAdjustmentSolicitation, resolveSolicitation } from './solicitation-actions'
 
 const solicitationActions = {
   createDayOffScheduleAdjustmentSolicitation,
+  resolveSolicitation
 }
 
 const authActions = {

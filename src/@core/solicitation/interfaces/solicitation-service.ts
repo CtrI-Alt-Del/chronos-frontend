@@ -14,5 +14,6 @@ export interface ISolicitationService {
   resolveSolicitation(
     solicitationId: string,
     action: 'APPROVED' | 'DENIED',
+    solicitationType: "DAY_OFF_SCHEDULE" | "TIME_PUNCH"
   ): Promise<ApiResponse<void>>
 }

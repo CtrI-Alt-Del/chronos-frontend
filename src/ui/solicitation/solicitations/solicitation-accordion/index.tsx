@@ -1,6 +1,7 @@
 'use client'
 
 import type {
+  DayOffScheduleAdjustmentSolicitationDto,
   SolicitationDto,
   TimePunchLogAdjustmentSolicitationDto,
 } from '@/@core/solicitation/dtos'
@@ -18,8 +19,8 @@ type SolicitationAccordionProps = {
   isLoading: boolean
   userRole: string
   isResolvingSolicitation: boolean
-  handleDeny: (solicitationId: string) => void
-  handleApprove: (solicitationId: string) => void
+  handleDeny: (solicitation: SolicitationDto) => void
+  handleApprove: (solicitation: SolicitationDto) => void
 }
 
 export const SolicitationAccordion = ({
@@ -32,7 +33,6 @@ export const SolicitationAccordion = ({
 }: SolicitationAccordionProps) => {
   const { formatDate } = useDatetime()
 
-  // ======= Estados básicos =======
   if (isLoading) {
     return (
       <div className='flex items-center justify-center h-64'>
@@ -49,15 +49,13 @@ export const SolicitationAccordion = ({
     )
   }
 
-  // ======= Mapeamento de status =======
   const statusMapping: Record<string, { label: string; color: string }> = {
-    PENDING: { label: 'Pendente', color: 'text-yellow-500 bg-yellow-500' },
-    APPROVED: { label: 'Aprovado', color: 'text-green-500 bg-green-500' },
-    DENIED: { label: 'Negado', color: 'text-red-500 bg-red-500' },
+    PENDING: { label: 'Pendente', color: 'bg-yellow-500 text-yellow-500' },
+    APPROVED: { label: 'Aprovado', color: 'bg-green-500 text-green-500' },
+    DENIED: { label: 'Negado', color: 'bg-red-500 text-red-500' },
   }
 
-  // ======= Utilitários =======
-  const renderManagerActions = (id: string) => (
+  const renderManagerActions = (solicitation: SolicitationDto) => (
     <div className='flex flex-col md:flex-row gap-2 mt-2 w-full md:w-fit'>
       <AlertDialog
         isLoading={isResolvingSolicitation}
@@ -68,7 +66,7 @@ export const SolicitationAccordion = ({
         }
         onCancel={() => { }}
         title='ALERTA'
-        onConfirm={() => handleApprove(id)}
+        onConfirm={() => handleApprove(solicitation)}
       >
         Você tem certeza que deseja aprovar essa solicitação?
       </AlertDialog>
@@ -81,26 +79,21 @@ export const SolicitationAccordion = ({
         }
         onCancel={() => { }}
         title='ALERTA'
-        onConfirm={() => handleDeny(id)}
+        onConfirm={() => handleDeny(solicitation)}
       >
         Você tem certeza que deseja negar essa solicitação?
       </AlertDialog>
     </div>
   )
 
-  const renderStatusInfo = (status: string) =>
-    statusMapping[status] || {
-      label: status,
-      color: 'text-gray-500 bg-gray-500',
-    }
-
-  // ======= Accordion =======
   return (
     <Accordion className='border border-gray-border rounded-lg px-4'>
       {solicitations.map((solicitation) => {
-        const statusInfo = renderStatusInfo(solicitation.status)
+        const statusInfo = statusMapping[solicitation.status] || {
+          label: solicitation.status,
+          color: 'bg-gray-500 text-gray-500',
+        }
 
-        // ======= TIME_PUNCH Solicitation =======
         if (solicitation.type === 'TIME_PUNCH') {
           const timePunch = solicitation as TimePunchLogAdjustmentSolicitationDto
 
@@ -129,7 +122,7 @@ export const SolicitationAccordion = ({
                 <div className='flex flex-col md:flex-row items-center justify-between w-full text-sm lg:text-base'>
                   <div className='flex items-center gap-2'>
                     <div
-                      className={`w-3 h-3 rounded-full ${statusInfo.color.split(' ')[1]}`}
+                      className={`w-3 h-3 rounded-full ${statusInfo.color.split(' ')[0]}`}
                     />
                     <span className='text-gray-500 text-sm md:text-lg'>
                       Pedido pra alteração de ponto do dia{' '}
@@ -137,7 +130,7 @@ export const SolicitationAccordion = ({
                     </span>
                   </div>
                   <span
-                    className={`block translate-y-3 text-base ${statusInfo.color.split(' ')[0]}`}
+                    className={`block translate-y-3 text-base ${statusInfo.color.split(' ')[1]}`}
                   >
                     {statusInfo.label}
                   </span>
@@ -146,7 +139,7 @@ export const SolicitationAccordion = ({
               subtitle={
                 <div className='flex flex-col md:flex-row items-center gap-6 mt-2 pl-6'>
                   <span className='text-slate-800 text-sm'>
-                    {formatDate(solicitation.date)}
+                    {formatDate(solicitation.date as Date)}
                   </span>
                   <div className='flex items-center gap-2'>
                     <Avatar
@@ -168,62 +161,67 @@ export const SolicitationAccordion = ({
                 <div>{timePunch.description}</div>
                 {userRole === 'MANAGER' &&
                   solicitation.status === 'PENDING' &&
-                  renderManagerActions(solicitation.id ?? '')}
+                  renderManagerActions(solicitation)}
               </div>
             </AccordionItem>
           )
         }
 
-        // ======= Outras Solicitações =======
-        return (
-          <AccordionItem
-            key={solicitation.id}
-            aria-label={`Accordion ${solicitation.id}`}
-            indicator={<ChevronDown className='w-4 h-4' />}
-            title={
-              <div className='flex flex-col md:flex-row items-center justify-between w-full text-sm lg:text-base'>
-                <div className='flex items-center gap-2'>
-                  <div
-                    className={`w-3 h-3 rounded-full ${statusInfo.color.split(' ')[1]}`}
-                  />
-                  <span className='text-gray-500 text-sm md:text-lg'>
-                    {solicitation.description}
+        if (solicitation.type === 'DAY_OFF_SCHEDULE') {
+          const dayOffSchedule = solicitation as DayOffScheduleAdjustmentSolicitationDto
+          return (
+            <AccordionItem
+              key={solicitation.id}
+              aria-label={`Accordion ${solicitation.id}`}
+              indicator={<ChevronDown className='w-4 h-4' />}
+              title={
+                <div className='flex flex-col md:flex-row items-center justify-between w-full text-sm lg:text-base'>
+                  <div className='flex items-center gap-2'>
+                    <div
+                      className={`w-3 h-3 rounded-full ${statusInfo.color.split(' ')[0]}`}
+                    />
+                    <span className='text-gray-500 text-sm md:text-lg'>
+                      Pedido de troca de escala
+                    </span>
+                  </div>
+                  <span
+                    className={`block translate-y-3 text-base ${statusInfo.color.split(' ')[1]}`}
+                  >
+                    {statusInfo.label}
                   </span>
                 </div>
-                <span
-                  className={`block translate-y-3 text-base ${statusInfo.color.split(' ')[0]}`}
-                >
-                  {statusInfo.label}
-                </span>
-              </div>
-            }
-            subtitle={
-              <div className='flex flex-col md:flex-row items-center gap-6 mt-2 pl-6'>
-                <span className='text-slate-800 text-sm'>
-                  {formatDate(solicitation.date)}
-                </span>
-                <div className='flex items-center gap-2'>
-                  <Avatar
-                    color='primary'
-                    isBordered
-                    className='size-3 rounded-full'
-                    radius='sm'
-                  />
-                  <span className='text-slate-800'>
-                    {solicitation.senderResponsible?.dto.name}
+              }
+              subtitle={
+                <div className='flex flex-col md:flex-row items-center gap-6 mt-2 pl-6'>
+                  <span className='text-slate-800 text-sm'>
+                    {formatDate(solicitation.date as Date)}
                   </span>
+                  <div className='flex items-center gap-2'>
+                    <Avatar
+                      color='primary'
+                      isBordered
+                      className='size-3 rounded-full'
+                      radius='sm'
+                    />
+                    <span className='text-slate-800'>
+                      {solicitation.senderResponsible?.dto.name}
+                    </span>
+                  </div>
+                  <span>{`Escala ${dayOffSchedule.dayOffScheduleDto.workdaysCount} X ${dayOffSchedule.dayOffScheduleDto.daysOffCount}`}</span>
                 </div>
+              }
+            >
+              <div className='flex justify-between flex-col md:flex-row items-center'>
+                <div>{solicitation.feedbackMessage}</div>
+                {userRole === 'MANAGER' &&
+                  solicitation.status === 'PENDING' &&
+                  renderManagerActions(solicitation)}
               </div>
-            }
-          >
-            <div className='flex justify-between flex-col md:flex-row items-center'>
-              {solicitation.feedbackMessage}
-              {userRole === 'MANAGER' &&
-                solicitation.status === 'PENDING' &&
-                renderManagerActions(solicitation.id ?? "")}
-            </div>
-          </AccordionItem>
-        )
+            </AccordionItem>
+          )
+        }
+
+        return null
       })}
     </Accordion>
   )

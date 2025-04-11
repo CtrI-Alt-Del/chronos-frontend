@@ -10,6 +10,6 @@ export const dayOffScheduleAdjustmentSolicitationSchema = z.object({
   feedbackMessage: z.string().optional(),
   senderResponsible: responsibleAggregateSchema.optional(),
   replierResponsible: responsibleAggregateSchema.optional(),
-  type: z.literal("WORK_SCHEDULE").optional(),
+  type: z.literal("DAY_OFF_SCHEDULE").optional(),
   dayOffScheduleDto: daysOffScheduleSchema
 })

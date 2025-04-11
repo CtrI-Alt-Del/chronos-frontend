@@ -1,13 +1,15 @@
 import { CACHE } from '@/@core/global/constants'
+import { SolicitationDto } from '@/@core/solicitation/dtos'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 import { useApi, useCache } from '@/ui/global/hooks'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { useState } from 'react'
+import { useResolveSolicitationAction } from './use-resolve-solicitation-action'
 
 export function useSolicitationPage() {
   const { solicitationService } = useApi()
   const { showError, showSuccess } = useToast()
-  const [isResolvingSolicitation, setIsResolvingSolicitation] = useState<boolean>(false)
+  const { isResolvingSolicitation, resolveSolicitation } = useResolveSolicitationAction()
   async function fetchSolicitations() {
     const response = await solicitationService.listSolicitations()
     return response.body
@@ -17,37 +19,11 @@ export function useSolicitationPage() {
     key: CACHE.solicitation.solicitations.key,
     dependencies: [],
   })
-  async function handleDenySolicitation(solicitationId: string) {
-    setIsResolvingSolicitation(true)
-    const response = await solicitationService.resolveSolicitation(
-      solicitationId,
-      'DENIED',
-    )
-    if (response.isSuccess) {
-      showSuccess('Solicitação negada com sucesso')
-      refetch()
-    }
-    if (response.isFailure) {
-      showError(response.errorMessage)
-    }
-    setIsResolvingSolicitation(false)
-    refetch()
+  async function handleDenySolicitation(solicitation: SolicitationDto) {
+    resolveSolicitation(solicitation, 'DENIED')
   }
-  async function handleApproveSolicitation(solicitationId: string) {
-    setIsResolvingSolicitation(true)
-    const response = await solicitationService.resolveSolicitation(
-      solicitationId,
-      'APPROVED',
-    )
-    if (response.isSuccess) {
-      showSuccess('Solicitação aprovada com sucesso')
-      refetch()
-    }
-    if (response.isFailure) {
-      showError(response.errorMessage)
-    }
-    setIsResolvingSolicitation(false)
-    refetch()
+  async function handleApproveSolicitation(solicitation: SolicitationDto) {
+    resolveSolicitation(solicitation, 'APPROVED')
   }
 
   return {

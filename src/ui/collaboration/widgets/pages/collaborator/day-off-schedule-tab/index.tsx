@@ -73,7 +73,6 @@ export const DayOffScheduleTab = ({
             type='number'
             label='Dias de Trabalho'
             value={workdaysCount.toString()}
-            isReadOnly={isEmployee}
             onChange={(e) => handleWorkdaysCountChange(Number(e.target.value))}
           />
           <span className='self-center'>x</span>
@@ -84,11 +83,10 @@ export const DayOffScheduleTab = ({
             type='number'
             label='Dias de Folga'
             value={daysOffCount.toString()}
-            isReadOnly={isEmployee}
             onChange={(e) => handleDaysOffCountChange(Number(e.target.value))}
           />
         </div>
-        {!isEmployee && (
+        {isEmployee && (
           <Button
             type='button'
             color='primary'
