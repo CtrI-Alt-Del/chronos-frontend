@@ -1,25 +1,21 @@
 'use client'
-import React from 'react'
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-} from '@heroui/table'
-import { Chip } from '@heroui/chip'
-import { Tooltip } from '@heroui/tooltip'
-import { Pagination } from '@heroui/pagination'
-import { Spinner } from '@heroui/spinner'
-import { Eye } from '@phosphor-icons/react'
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
-import { IconButton } from '@/ui/global/widgets/components/icon-button'
+import { ROUTES } from '@/constants'
 import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
+import { Icon } from '@/ui/global/widgets/components/Icon'
+import { IconButton } from '@/ui/global/widgets/components/icon-button'
 import { Tag } from '@/ui/global/widgets/components/tag'
 import { Button } from '@heroui/button'
-import { Icon } from '@/ui/global/widgets/components/Icon'
-import { ROUTES } from '@/constants'
+import { Pagination } from '@heroui/pagination'
+import { Spinner } from '@heroui/spinner'
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
+} from '@heroui/table'
 import Link from 'next/link'
 
 type CollaboratorTableProps = {

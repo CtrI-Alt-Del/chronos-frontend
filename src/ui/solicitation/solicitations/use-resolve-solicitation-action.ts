@@ -27,7 +27,6 @@ export function useResolveSolicitationAction() {
       type: solicitation.type ?? "DAY_OFF_SCHEDULE"
 
     })
-    console.log(result)
     
   }
   return { resolveSolicitation, isResolvingSolicitation: isPending }

@@ -1,5 +1,5 @@
 import { CACHE } from '@/@core/global/constants'
-import { SolicitationDto } from '@/@core/solicitation/dtos'
+import type { SolicitationDto } from '@/@core/solicitation/dtos'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 import { useApi, useCache } from '@/ui/global/hooks'
 import { useToast } from '@/ui/global/hooks/use-toast'
