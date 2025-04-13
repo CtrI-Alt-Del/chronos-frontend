@@ -1,24 +1,13 @@
 'use client'
 
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  useDisclosure,
-  Button,
-  Select,
-  SelectItem,
-} from '@heroui/react'
+import { Button, Select, SelectItem } from '@heroui/react'
 
 import { CollaboratorTable } from './collaborator-table'
-import { RegisterCollaboratorForm } from './create-collaborator-form'
 import { useCollaboratorsPage } from './use-collaborators-page'
 import Link from 'next/link'
 import { ROUTES } from '@/constants'
 
 export const CollaboratorsPage = () => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const {
     collaborators,
     totalPages,
