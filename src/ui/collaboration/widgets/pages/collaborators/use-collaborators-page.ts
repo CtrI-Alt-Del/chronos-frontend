@@ -10,17 +10,17 @@ export function useCollaboratorsPage() {
   const { authService, collaborationService } = useApi()
   const [isAlteringCollaboratorStatus, setIsAlteringCollaboratorStatus] =
     useState<boolean>(false)
-  const [statusSearchValue, setStatusSearchValue] = useQueryParamString('active')
+  const [status, setStatus] = useQueryParamString('active', 'true')
   const { showError, showSuccess } = useToast()
 
-  function handleStatusSearchValueChange(value: string) {
-    setStatusSearchValue(value)
+  function handleStatusChange(value: string) {
+    setStatus(value)
   }
 
   async function fetchCollaborators(page: number) {
     const response = await collaborationService.listCollaborators({
       page,
-      status: statusSearchValue,
+      status: status,
     })
     return response.body
   }
@@ -33,7 +33,7 @@ export function useCollaboratorsPage() {
     refetch,
   } = usePaginatedCache({
     fetcher: fetchCollaborators,
-    dependencies: [statusSearchValue],
+    dependencies: [status],
     key: CACHE.collaboration.collaborators.key,
   })
 
@@ -79,12 +79,12 @@ export function useCollaboratorsPage() {
     page,
     totalPages: pagesCount,
     collaborators,
-    isFetching,
-    statusSearchValue,
+    isLoadingCollaborators: isFetching || isAlteringCollaboratorStatus,
+    status,
     handlePageChange,
     handleRegisterCollaborator,
     handleDisableEmployee,
     handleEnableEmployee,
-    handleStatusSearchValueChange,
+    handleStatusChange,
   }
 }

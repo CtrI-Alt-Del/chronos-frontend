@@ -12,13 +12,13 @@ export const CollaboratorsPage = () => {
     collaborators,
     totalPages,
     page,
-    isFetching,
+    isLoadingCollaborators,
     isAlteringCollaboratorStatus,
-    statusSearchValue,
+    status,
     handlePageChange,
     handleDisableEmployee,
     handleEnableEmployee,
-    handleStatusSearchValueChange,
+    handleStatusChange,
   } = useCollaboratorsPage()
 
   return (
@@ -28,8 +28,8 @@ export const CollaboratorsPage = () => {
           <Select
             defaultSelectedKeys={['true']}
             label='Status do colaborador'
-            value={statusSearchValue}
-            onChange={(e) => handleStatusSearchValueChange(e.target.value)}
+            value={status}
+            onChange={(e) => handleStatusChange(e.target.value)}
           >
             <SelectItem key='true'>Ativo</SelectItem>
             <SelectItem key='false'>Inativo</SelectItem>
@@ -47,7 +47,7 @@ export const CollaboratorsPage = () => {
           handleDisableEmployee={handleDisableEmployee}
           handleEnableEmployee={handleEnableEmployee}
           page={page}
-          isLoading={isFetching}
+          isLoading={isLoadingCollaborators}
           collaborators={collaborators || []}
           totalPages={totalPages}
           onPageChange={handlePageChange}
