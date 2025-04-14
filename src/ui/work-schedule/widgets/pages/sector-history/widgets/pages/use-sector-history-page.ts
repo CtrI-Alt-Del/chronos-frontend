@@ -54,7 +54,7 @@ export function useSectorHistoryPage() {
   ) {
     setIsAdjustingTimePunchLog(true)
 
-    const response = await workScheduleService.adjustTimePunchLog(
+    const response = await workScheduleService.adjustTimePunch(
       timePunchLogId,
       timeLog,
       timePunchPeriod,

@@ -16,15 +16,10 @@ import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
 import { useTimePunchDialog } from './use-time-punch-dialog'
 import { TimeLog } from './time-log'
 import { TimeLogInput } from './time-log-input'
-import { Time } from '../time'
 
 type TimePunchDialogProps = {
   timePunch: TimePunchDto
-  onTimeLogChange: (
-    timePunchId: string,
-    timeLog: string,
-    timePunchPeriod: TimePunchPeriod,
-  ) => void
+  onTimeLogChange: (timePunchId: string, time: string, period: TimePunchPeriod) => void
 }
 
 export const TimePunchDialog = ({ timePunch, onTimeLogChange }: TimePunchDialogProps) => {
@@ -108,7 +103,7 @@ export const TimePunchDialog = ({ timePunch, onTimeLogChange }: TimePunchDialogP
                   <TimeLogInput
                     defaultValue={timePunch.secondClockOut}
                     onChange={(timeLog) =>
-                      handleTimeLogChange(timeLog, 'second_clock_in')
+                      handleTimeLogChange(timeLog, 'second_clock_out')
                     }
                   />
                 </TableCell>
