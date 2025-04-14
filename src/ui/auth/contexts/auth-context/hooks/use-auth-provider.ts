@@ -77,7 +77,7 @@ export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
   }
 
   return {
-    jwt,
+    jwt: jwt ?? null,
     account,
     isAuthenticated,
     isLoading,
