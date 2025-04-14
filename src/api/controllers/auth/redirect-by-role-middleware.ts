@@ -1,9 +1,9 @@
-import type { IController, IHttp } from "@/@core/global/interfaces"
-import { ROUTES } from "@/constants/routes"
+import type { Controller, Http } from '@/@core/global/interfaces/rest'
+import { ROUTES } from '@/constants/routes'
 
-export const RedirectByRoleMiddleware = (): IController => {
+export const RedirectByRoleMiddleware = (): Controller => {
   return {
-    async handle(http: IHttp) {
+    async handle(http: Http) {
       const currentRoute = http.getCurrentRoute()
 
       if (currentRoute === '/') {
