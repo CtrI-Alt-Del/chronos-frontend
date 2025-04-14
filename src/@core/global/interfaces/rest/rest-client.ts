@@ -1,6 +1,6 @@
-import type { ApiResponse } from '../responses/api-response'
+import type { ApiResponse } from '../../responses/api-response'
 
-export interface IApiClient {
+export interface RestClient {
   get<ResponseBody>(url: string, body?: unknown): Promise<ApiResponse<ResponseBody>>
   patch<ResponseBody>(url: string, body?: unknown): Promise<ApiResponse<ResponseBody>>
   post<ResponseBody>(url: string, body?: unknown): Promise<ApiResponse<ResponseBody>>

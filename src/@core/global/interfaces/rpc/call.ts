@@ -1,6 +1,6 @@
 import type { AccountDto } from '@/@core/auth/dtos'
 
-export interface IActionServer<Request = void> {
+export interface Call<Request = void> {
   getRequest(): Request
   redirect(route: string): never
   notFound(): never

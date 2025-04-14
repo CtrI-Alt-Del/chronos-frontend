@@ -1,5 +1,5 @@
 import type { AccountDto } from '@/@core/auth/dtos'
-import type { ApiResponse } from '../responses'
+import type { ApiResponse } from '../../responses'
 
 export type HttpSchema = {
   body?: unknown
@@ -7,7 +7,7 @@ export type HttpSchema = {
   queryParams?: unknown
 }
 
-export interface IHttp<Schema extends HttpSchema = HttpSchema, Response = unknown> {
+export interface Http<Schema extends HttpSchema = HttpSchema, Response = unknown> {
   getCurrentRoute(): string
   redirect(route: string): ApiResponse
   getBody(): Schema['body']

@@ -1,7 +1,6 @@
 import type { PaginationResponse } from '@/@core/global/responses/pagination-response'
 import type { ApiResponse } from '@/@core/global/responses'
 import type {
-  CollaboratorScheduleDto,
   DayOffScheduleDto,
   TimePunchDto,
   WeekdayScheduleDto,
@@ -9,7 +8,7 @@ import type {
 } from '../dtos'
 import type { TimePunchPeriod } from '../types'
 
-export interface IWorkScheduleService {
+export interface WorkScheduleService {
   createDayOffSchedule(
     dayOffScheduleDto: DayOffScheduleDto,
     collaboratorId: string,
@@ -28,14 +27,7 @@ export interface IWorkScheduleService {
     page: number,
     collaboratorId?: string,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
-  updateDayOffSchedule(
-    collaboratorId: string,
-    dayOffSchedule: DayOffScheduleDto,
-  ): Promise<ApiResponse<void>>
-  updateWeekSchedule(
-    collaboratorId: string,
-    weekSchedule: WeekdayScheduleDto[],
-  ): Promise<ApiResponse<void>>
+  updateDayOffSchedule(dayOffSchedule: DayOffScheduleDto): Promise<ApiResponse<void>>
   updateTimePunchSchedule(timePunch: TimePunchDto): Promise<ApiResponse<void>>
   adjustTimePunchLog(
     timePunchScheduleId: string,
