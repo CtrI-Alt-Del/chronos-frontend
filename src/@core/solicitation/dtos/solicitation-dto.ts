@@ -2,11 +2,11 @@ import type { ResponsibleAggregateDto } from '@/@core/global/dtos/ResponsibleAgg
 
 export type SolicitationDto = {
   id?: string
-  description: string
-  date: Date
-  status: string
-  feedbackMessage: string
-  senderResponsible: ResponsibleAggregateDto
+  description?: string
+  date?: Date
+  status?: string
+  feedbackMessage?: string
+  senderResponsible?: ResponsibleAggregateDto
   replierResponsible?: ResponsibleAggregateDto
-  type: "WORK_SCHEDULE" | "TIME_PUNCH"
+  type?: "DAY_OFF_SCHEDULE" | "TIME_PUNCH"
 }

@@ -16,6 +16,12 @@ import {
   disableCollaborator,
   enableCollaborator,
 } from './collaboration-actions'
+import { createDayOffScheduleAdjustmentSolicitation, resolveSolicitation } from './solicitation-actions'
+
+const solicitationActions = {
+  createDayOffScheduleAdjustmentSolicitation,
+  resolveSolicitation
+}
 
 const authActions = {
   allowPageForRoles,
@@ -47,4 +53,4 @@ const collaborationActions = {
   enableCollaborator,
 }
 
-export { authActions, cookieActions, workScheduleActions, collaborationActions }
+export { authActions, cookieActions, workScheduleActions, collaborationActions,solicitationActions }
