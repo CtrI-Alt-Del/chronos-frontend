@@ -24,6 +24,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
     isFormSubmitting,
     collaboratorSector,
     collaboratorRole,
+    collaboratorWorkload,
     registerField,
     handleFormSubmit,
   } = useCollaboratorTab(collaborator)
@@ -128,7 +129,6 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
               isInvalid={Boolean(formErrors.role)}
               startContent={<Icon name='role' className='text-slate-700' size={20} />}
               errorMessage={formErrors?.role?.message}
-              selectedKeys={collaboratorRole ? [collaboratorRole] : undefined}
               {...registerField('role')}
             >
               <SelectItem key='MANAGER'>Gerente</SelectItem>
@@ -147,12 +147,11 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
             isInvalid={Boolean(formErrors.workload)}
             startContent={<Icon name='workload' className='text-slate-700' size={20} />}
             errorMessage={formErrors?.workload?.message}
-            selectedKeys={collaboratorRole ? [collaboratorRole] : undefined}
             {...registerField('workload')}
           >
-            <SelectItem key={8}>8 horas</SelectItem>
-            <SelectItem key={6}>6 horas</SelectItem>
-            <SelectItem key={4}>4 horas</SelectItem>
+            <SelectItem key='8'>8 horas</SelectItem>
+            <SelectItem key='6'>6 horas</SelectItem>
+            <SelectItem key='4'>4 horas</SelectItem>
           </Select>
         </div>
 

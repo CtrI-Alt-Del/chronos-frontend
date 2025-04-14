@@ -1,6 +1,5 @@
 'use client'
 
-import { useRef } from 'react'
 import { Button } from '@heroui/button'
 
 import { Icon } from '@/ui/global/widgets/components/Icon'

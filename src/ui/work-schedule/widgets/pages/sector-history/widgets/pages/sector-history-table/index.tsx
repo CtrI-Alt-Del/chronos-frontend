@@ -12,7 +12,7 @@ import { Pagination, Spinner } from '@heroui/react'
 
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
-import { TimePunchLogDialog } from '@/ui/work-schedule/widgets/components/time-punch-log-dialog'
+import { TimePunchDialog } from '@/ui/work-schedule/widgets/components/time-punch-dialog'
 import { useSectorHistoryTable } from './use-sector-history-table'
 
 type SectorHistoryTableProps = {
@@ -86,9 +86,8 @@ export const SectorHistoryTable = ({
               <span className='truncate'>{row.collaborator.name}</span>
             </TableCell>
             <TableCell>
-              <TimePunchLogDialog
-                timePunchLog={row.timePunchLog}
-                timePunchSchedule={row.timePunchSchedule}
+              <TimePunchDialog
+                timePunch={row.timePunch}
                 onTimeLogChange={onTimeLogChange}
               />
             </TableCell>
