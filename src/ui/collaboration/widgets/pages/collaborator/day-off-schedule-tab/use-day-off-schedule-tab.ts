@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 import { ROUTES } from '@/constants'
 import { useApi, useNavigation } from '@/ui/global/hooks'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
-import { useUpdateDaysOffScheduleAction } from './use-update-days-off-schedule-action'
+import { useUpdateDayOffScheduleAction } from './use-update-day-off-schedule-action'
 import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import { useToast } from '@/ui/global/hooks/use-toast'
@@ -35,7 +35,7 @@ export function useDayOffScheduleTab(
   const { showSuccess, showError } = useToast()
   const { goTo } = useNavigation()
   const { isUpdating, updateDaysOffSchedule } =
-    useUpdateDaysOffScheduleAction(collaboratorId)
+    useUpdateDayOffScheduleAction(collaboratorId)
   const { useCollaboratorSlice, useDayOffScheduleSlice } = useCollaboratorStore()
   const { collaborator } = useCollaboratorSlice()
   const { setDayOffSchedule } = useDayOffScheduleSlice()

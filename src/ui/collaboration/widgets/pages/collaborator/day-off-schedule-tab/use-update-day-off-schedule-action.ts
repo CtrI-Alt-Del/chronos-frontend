@@ -3,7 +3,7 @@ import { workScheduleActions } from '@/server/next-safe-action'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { useAction } from 'next-safe-action/hooks'
 
-export function useUpdateDaysOffScheduleAction(collaboratorId?: string) {
+export function useUpdateDayOffScheduleAction(collaboratorId?: string) {
   const { showError, showSuccess } = useToast()
   const { executeAsync, isPending } = useAction(
     workScheduleActions.updateDayOffSchedule,

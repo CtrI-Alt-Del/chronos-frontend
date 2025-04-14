@@ -12,7 +12,7 @@ export const UpdateDayOffAction = (service: WorkScheduleService): Action<Request
   return {
     async handle(call: Call<Request>) {
       const { collaboratorId, dayOffSchedule } = call.getRequest()
-      const response = await service.updateDayOffSchedule(dayOffSchedule)
+      const response = await service.updateDayOffSchedule(collaboratorId, dayOffSchedule)
       if (response.isFailure) response.throwError()
       call.resetCache(CACHE.workSchedule.dayOffSchedule.key(collaboratorId))
     },

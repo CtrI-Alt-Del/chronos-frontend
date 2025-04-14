@@ -13,33 +13,27 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
       )
     },
 
-    async createDayOffSchedule(
-      dayOffSchedule: DayOffScheduleDto,
-      collaboratorId: string,
-    ) {
+    async createDayOffSchedule(collaboratorId, dayOffSchedule) {
       return await restClient.post(
         `${MODULE}/day-off-schedules/${collaboratorId}`,
         dayOffSchedule,
       )
     },
 
-    async getWeekSchedule(collaboratorId) {
-      return await restClient.get(`${MODULE}/week-schedules/${collaboratorId}`)
-    },
-
     async getDayOffSchedule(collaboratorId) {
       return await restClient.get(`${MODULE}/day-off-schedules/${collaboratorId}`)
     },
 
-    async updateDayOffSchedule(dayOffSchedule) {
+    async updateDayOffSchedule(collaboratorId, dayOffSchedule) {
       return await restClient.put(
-        `${MODULE}/day-off-schedules/${dayOffSchedule.id}`,
+        `${MODULE}/day-off-schedules/${collaboratorId}`,
         dayOffSchedule,
       )
     },
 
-    async getSectorHistory(date, page = 1) {
+    async getCollaborationSectorHistory(date, collaboratorName = '', page = 1) {
       restClient.setParam('date', date)
+      restClient.setParam('collaboratorName', collaboratorName)
       restClient.setParam('page', String(page))
       return await restClient.get(`${MODULE}/workday-logs/history`)
     },
