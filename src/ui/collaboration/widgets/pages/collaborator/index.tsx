@@ -29,7 +29,7 @@ export const CollaboratorPage = ({
   return (
     <div className='w-full max-w-4xl mx-auto justify-between mt-3 md:-translate-x-6'>
       <Tabs
-        aria-label='Options'
+        aria-label='Opções'
         selectedKey={activeTab}
         onSelectionChange={(key) => handleTabChange(key as TabKey)}
         classNames={{
@@ -69,6 +69,19 @@ export const CollaboratorPage = ({
             collaboratorId={collaborator?.id}
           />
         </Tab>
+        {collaborator && (
+          <Tab
+            key='time-card-tab'
+            title={
+              <div className='flex items-center space-x-2 text-sm'>
+                {md && <Icon name='time-card' />}
+                <span>Espelho ponto</span>
+              </div>
+            }
+          >
+            Espelho ponto
+          </Tab>
+        )}
       </Tabs>
     </div>
   )

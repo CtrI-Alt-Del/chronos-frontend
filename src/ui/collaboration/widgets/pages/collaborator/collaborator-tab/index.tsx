@@ -57,6 +57,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
               <Icon name='collaborator' className='text-slate-700' size={20} />
             }
             errorMessage={formErrors?.name?.message}
+            classNames={{ inputWrapper: 'bg-slate-100' }}
             {...registerField('name')}
           />
 
@@ -66,6 +67,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
             isInvalid={Boolean(formErrors.cpf)}
             startContent={<Icon name='cpf' className='text-slate-700' size={20} />}
             errorMessage={formErrors?.cpf?.message}
+            classNames={{ inputWrapper: 'bg-slate-100' }}
             {...registerField('cpf')}
           />
         </div>
@@ -77,6 +79,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
             isInvalid={Boolean(formErrors.email)}
             startContent={<Icon name='email' className='text-slate-700' size={20} />}
             errorMessage={formErrors?.email?.message}
+            classNames={{ inputWrapper: 'bg-slate-100' }}
             {...registerField('email')}
           />
 
@@ -88,6 +91,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
               isInvalid={Boolean(formErrors.password)}
               startContent={<Icon name='lock' className='text-slate-700' size={20} />}
               errorMessage={formErrors?.password?.message}
+              classNames={{ inputWrapper: 'bg-slate-100' }}
               {...registerField('password')}
             />
           )}
@@ -96,7 +100,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
             <Select
               variant='flat'
               classNames={{
-                trigger: 'bg-gray-100 text-slate-700',
+                trigger: 'bg-slate-100 text-slate-700',
                 label: 'text-slate-900',
               }}
               label='Cargo'
@@ -116,7 +120,7 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
             <Select
               variant='flat'
               classNames={{
-                trigger: 'text-slate-700',
+                trigger: 'bg-slate-100 text-slate-700',
                 label: 'text-slate-900',
               }}
               label='Cargo'
@@ -132,28 +136,46 @@ export const CollaboratorTab = ({ collaborator }: CollaboratorTabProps) => {
             </Select>
           )}
 
-          {isAdmin && (
-            <Select
-              variant='flat'
-              labelPlacement='outside'
-              classNames={{
-                trigger: 'bg-gray-200 text-slate-700',
-                label: 'text-slate-900',
-              }}
-              startContent={<Icon name='sector' className='text-slate-700' size={20} />}
-              isDisabled={isFormReadOnly}
-              isInvalid={Boolean(formErrors.role)}
-              label='Setor'
-              selectedKeys={collaboratorSector ? [collaboratorSector] : undefined}
-              {...registerField('sector')}
-            >
-              <SelectItem key='PRODUCTION'>Produção</SelectItem>
-              <SelectItem key='COMERCIAL'>Comercial</SelectItem>
-              <SelectItem key='ADMINISTRATIVE'>Administrativo</SelectItem>
-              <SelectItem key='HUMAN_RESOURCES'>RH</SelectItem>
-            </Select>
-          )}
+          <Select
+            variant='flat'
+            classNames={{
+              trigger: 'bg-slate-100 text-slate-700',
+              label: 'text-slate-900',
+            }}
+            label='Carga horária'
+            isDisabled={isFormReadOnly}
+            isInvalid={Boolean(formErrors.workload)}
+            startContent={<Icon name='workload' className='text-slate-700' size={20} />}
+            errorMessage={formErrors?.workload?.message}
+            selectedKeys={collaboratorRole ? [collaboratorRole] : undefined}
+            {...registerField('workload')}
+          >
+            <SelectItem key={8}>8 horas</SelectItem>
+            <SelectItem key={6}>6 horas</SelectItem>
+            <SelectItem key={4}>4 horas</SelectItem>
+          </Select>
         </div>
+
+        {isAdmin && (
+          <Select
+            variant='flat'
+            classNames={{
+              trigger: 'bg-slate-100 text-slate-700',
+              label: 'text-slate-900',
+            }}
+            startContent={<Icon name='sector' className='text-slate-700' size={20} />}
+            isDisabled={isFormReadOnly}
+            isInvalid={Boolean(formErrors.sector)}
+            label='Setor'
+            selectedKeys={collaboratorSector ? [collaboratorSector] : undefined}
+            {...registerField('sector')}
+          >
+            <SelectItem key='PRODUCTION'>Produção</SelectItem>
+            <SelectItem key='COMERCIAL'>Comercial</SelectItem>
+            <SelectItem key='ADMINISTRATIVE'>Administrativo</SelectItem>
+            <SelectItem key='HUMAN_RESOURCES'>RH</SelectItem>
+          </Select>
+        )}
 
         <Divider className='my-6' />
 
