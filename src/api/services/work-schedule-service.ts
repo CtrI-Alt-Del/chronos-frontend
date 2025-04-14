@@ -1,5 +1,4 @@
 import type { RestClient } from '@/@core/global/interfaces/rest/rest-client'
-import type { WorkdayLogDto, DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import type { WorkScheduleService as IWorkScheduleService } from '@/@core/work-schedule/interfaces'
 import { DatetimeProvider } from '@/providers'
 
@@ -8,9 +7,7 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
 
   return {
     async getTodayWorkdayLog(collaboratorId) {
-      return await restClient.get<WorkdayLogDto>(
-        `${MODULE}/workday-logs/${collaboratorId}/today`,
-      )
+      return await restClient.get(`${MODULE}/workday-logs/${collaboratorId}/today`)
     },
 
     async createDayOffSchedule(collaboratorId, dayOffSchedule) {
@@ -49,14 +46,11 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
       return await restClient.put(`${MODULE}/time-punches/${timePunch.id}`, timePunch)
     },
 
-    async adjustTimePunchLog(timePunchScheduleId, timeLog, timePunchPeriod) {
-      return await restClient.patch(
-        `${MODULE}/time-punches/${timePunchScheduleId}/adjust`,
-        {
-          time: timeLog,
-          period: timePunchPeriod,
-        },
-      )
+    async adjustTimePunch(timePunchId, time, period) {
+      return await restClient.patch(`${MODULE}/time-punches/${timePunchId}/adjust`, {
+        time,
+        period,
+      })
     },
 
     async punchTime(timePunchLogId, time) {

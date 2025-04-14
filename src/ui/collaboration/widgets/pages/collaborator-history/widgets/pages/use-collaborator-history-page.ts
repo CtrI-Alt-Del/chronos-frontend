@@ -17,7 +17,6 @@ export function useCollaboratorHistoryPage() {
     minusDays(getCurrentDate(), 7),
   )
   const [endDate, setEndDate] = useQueryParamDate('endDate', getCurrentDate())
-  const [collboratorName, setCollboratorName] = useQueryParamString('name')
   const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
   const { account } = useAuthContext()
   const { workScheduleService } = useApi()
@@ -60,7 +59,7 @@ export function useCollaboratorHistoryPage() {
   ) {
     setIsAdjustingTimePunchLog(true)
 
-    const response = await workScheduleService.adjustTimePunchLog(
+    const response = await workScheduleService.adjustTimePunch(
       timePunchLogId,
       timeLog,
       timePunchPeriod,
