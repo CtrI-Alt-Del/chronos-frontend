@@ -17,12 +17,6 @@ export const CACHE = {
     collaboratorHistory: {
       key: '/workSchedule/collaborator-history',
     },
-    schedules: {
-      key: '/workSchedule/schedules',
-    },
-    weekSchedule: {
-      key: (collaboratorId: string) => `/workSchedule/week-schedule/${collaboratorId}`,
-    },
     dayOffSchedule: {
       key: (collaboratorId: string) => `/workSchedule/day-off-schedule/${collaboratorId}`,
     },
