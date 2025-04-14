@@ -3,11 +3,12 @@ import { collaborationActions, workScheduleActions } from '@/server/next-safe-ac
 import { CollaboratorPage } from '@/ui/collaboration/widgets/pages/collaborator'
 
 export default async function Page({ params }: NextParams<'collaboratorId'>) {
+  const { collaboratorId } = await params
   const collaboratoResponse = await collaborationActions.getCollaborator({
-    collaboratorId: params.collaboratorId,
+    collaboratorId,
   })
   const dayOffScheduleResponse = await workScheduleActions.getDayOffSchedule({
-    collaboratorId: params.collaboratorId,
+    collaboratorId,
   })
   if (!collaboratoResponse?.data?.collaborator) return
   if (!dayOffScheduleResponse?.data?.dayOffSchedule) return
