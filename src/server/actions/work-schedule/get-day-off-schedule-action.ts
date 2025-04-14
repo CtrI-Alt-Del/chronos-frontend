@@ -1,6 +1,6 @@
-import type { IAction, IActionServer } from '@/@core/global/interfaces'
+import type { Action, Call } from '@/@core/global/interfaces/rpc'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
-import type { IWorkScheduleService } from '@/@core/work-schedule/interfaces'
+import type { WorkScheduleService } from '@/@core/work-schedule/interfaces'
 
 type Request = {
   collaboratorId: string
@@ -11,11 +11,11 @@ type Response = {
 }
 
 export const GetDayOffScheduleAction = (
-  service: IWorkScheduleService,
-): IAction<Request, Response> => {
+  service: WorkScheduleService,
+): Action<Request, Response> => {
   return {
-    async handle(actionServer: IActionServer<Request>) {
-      const { collaboratorId } = actionServer.getRequest()
+    async handle(call: Call<Request>) {
+      const { collaboratorId } = call.getRequest()
       const response = await service.getDayOffSchedule(collaboratorId)
       if (response.isFailure) response.throwError()
 

@@ -1,21 +1,20 @@
 import { CACHE } from '@/@core/global/constants'
-import type { IAction } from '@/@core/global/interfaces/action'
-import type { IActionServer } from '@/@core/global/interfaces/action-server'
+import type { Action, Call } from '@/@core/global/interfaces/rpc'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
-import type { IWorkScheduleService } from '@/@core/work-schedule/interfaces'
+import type { WorkScheduleService } from '@/@core/work-schedule/interfaces'
 
 type Request = {
   collaboratorId: string
   dayOffSchedule: DayOffScheduleDto
 }
 
-export const UpdateDayOffAction = (service: IWorkScheduleService): IAction<Request> => {
+export const UpdateDayOffAction = (service: WorkScheduleService): Action<Request> => {
   return {
-    async handle(actionServer: IActionServer<Request>) {
-      const { collaboratorId, dayOffSchedule } = actionServer.getRequest()
-      const response = await service.updateDayOffSchedule(collaboratorId, dayOffSchedule)
+    async handle(call: Call<Request>) {
+      const { collaboratorId, dayOffSchedule } = call.getRequest()
+      const response = await service.updateDayOffSchedule(dayOffSchedule)
       if (response.isFailure) response.throwError()
-      actionServer.resetCache(CACHE.workSchedule.dayOffSchedule.key(collaboratorId))
+      call.resetCache(CACHE.workSchedule.dayOffSchedule.key(collaboratorId))
     },
   }
 }

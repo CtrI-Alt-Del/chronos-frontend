@@ -4,8 +4,13 @@ import { z } from 'zod'
 
 import { authActionClient } from './clients/auth-action-client'
 import { NextActionServer } from '../next/next-server-action'
-import { AllowPageByRolesAction, UpdatePasswordAction } from '../actions/auth'
-import { NextServerApiClient } from '@/api/next/clients/next-server-api-client'
+import {
+  AllowPageByRolesAction,
+  DisableCollaboratorAccountAction,
+  EnableCollaboratorAccountAction,
+  UpdateCollaboratorPasswordAction,
+} from '../actions/auth'
+import { NextServerRestClient } from '@/api/next/clients/next-server-api-client'
 import { AuthService } from '@/api/services/auth-service'
 
 export const allowPageByRoles = authActionClient
@@ -19,7 +24,7 @@ export const allowPageByRoles = authActionClient
     return action.handle(actionServer)
   })
 
-export const updatePassword = authActionClient
+export const updateCollaboratorPassword = authActionClient
   .schema(
     z.object({
       collaboratorId: z.string(),
@@ -30,8 +35,40 @@ export const updatePassword = authActionClient
     const actionServer = NextActionServer({
       request: clientInput,
     })
-    const apiClient = await NextServerApiClient({ isCacheEnabled: false })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = AuthService(apiClient)
-    const action = UpdatePasswordAction(service)
+    const action = UpdateCollaboratorPasswordAction(service)
+    return action.handle(actionServer)
+  })
+
+export const enableCollaboratorAccount = authActionClient
+  .schema(
+    z.object({
+      collaboratorId: z.string(),
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: true })
+    const service = AuthService(apiClient)
+    const action = EnableCollaboratorAccountAction(service)
+    return action.handle(actionServer)
+  })
+
+export const disableCollaboratorAccount = authActionClient
+  .schema(
+    z.object({
+      collaboratorId: z.string(),
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: true })
+    const service = AuthService(apiClient)
+    const action = DisableCollaboratorAccountAction(service)
     return action.handle(actionServer)
   })
