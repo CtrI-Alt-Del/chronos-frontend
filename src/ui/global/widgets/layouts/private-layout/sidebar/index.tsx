@@ -84,12 +84,6 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               />
             )}
 
-            {/*<NavbarLink
-              href={ROUTES.workSchedule.timeCard}
-              icon='mirror'
-              title='Espelho ponto'
-            />*/}
-
             {(isAdmin || isManager) && (
               <NavbarLink
                 href={ROUTES.collaboration.collaborators}
