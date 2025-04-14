@@ -1,18 +1,15 @@
-import type { IApiClient } from '@/@core/global/interfaces'
-import { ApiResponse, PaginationResponse } from '@/@core/global/responses'
-import { addUrlParams } from '../utils'
-import { handleApiError } from '../utils'
+import { ApiResponse } from '@/@core/global/responses'
+import type { RestClient } from '@/@core/global/interfaces/rest'
 import type { CacheConfig } from '../types'
-import { safeParseJson } from '../utils'
-import { HTTP_HEADERS } from '@/@core/global/constants/http-headers'
+import { addUrlParams, handleApiError, safeParseJson } from '../utils'
 
-export const NextApiClient = (
+export const NextRestClient = (
   {
     isCacheEnabled = true,
     refetchInterval = 60 * 60 * 24, // 1 day
     cacheKey,
   }: CacheConfig = {} as CacheConfig,
-): IApiClient => {
+): RestClient => {
   let baseUrl: string
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -38,24 +35,11 @@ export const NextApiClient = (
         method: 'GET',
       })
       params = {}
-      const data = await response.json()
+      const data = await safeParseJson(response)
 
       if (!response.ok) {
         return handleApiError<ResponseBody>(data, response.status)
       }
-
-      console.log(data)
-      // const isPagination = response.headers.get(HTTP_HEADERS.pagination) != null
-      // if (isPagination) {
-      //   return new ApiResponse({
-      //     body: new PaginationResponse({
-      //       items: data,
-      //       itemsCount: Number(response.headers.get(HTTP_HEADERS.itemsCount)),
-      //       pagesCount: Number(response.headers.get(HTTP_HEADERS.pagesCount)),
-      //     }) as ResponseBody,
-      //     statusCode: response.status,
-      //   })
-      // }
 
       return new ApiResponse<ResponseBody>({
         body: data,

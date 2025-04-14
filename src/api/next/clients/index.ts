@@ -1,2 +1,1 @@
-
-export {NextApiClient} from "./next-api-client"
+export { NextRestClient } from './next-rest-client'

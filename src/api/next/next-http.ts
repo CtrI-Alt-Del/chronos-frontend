@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode'
 import type { ZodSchema } from 'zod'
 
 import type { NextParams } from './types'
-import type { HttpSchema, IHttp } from '@/@core/global/interfaces/http'
+import type { HttpSchema, Http } from '@/@core/global/interfaces/rest/http'
 import { AppError } from '@/@core/global/errors'
 import { COOKIES } from '@/@core/global/constants/cookies'
 import type { AccountDto } from '@/@core/auth/dtos'
@@ -31,7 +31,7 @@ export const NextHttp = async <NextSchema extends HttpSchema>({
   request,
   schema,
   params,
-}: NextHttpParams = {}): Promise<IHttp<NextSchema, NextResponse<unknown>>> => {
+}: NextHttpParams = {}): Promise<Http<NextSchema, NextResponse<unknown>>> => {
   let httpSchema: NextSchema
   const cookies: Cookie[] = []
 
