@@ -65,7 +65,7 @@ export const getDayOffSchedule = authActionClient
       request: clientInput,
     })
     const apiClient = await NextServerApiClient({
-      cacheKey: CACHE.workSchedule.dayOffSchedule.key(clientInput.collaboratorId),
+      isCacheEnabled: false
     })
     const service = WorkScheduleService(apiClient)
     const action = GetDayOffScheduleAction(service)

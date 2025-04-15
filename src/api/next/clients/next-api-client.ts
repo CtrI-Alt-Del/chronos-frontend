@@ -44,8 +44,7 @@ export const NextApiClient = (
         return handleApiError<ResponseBody>(data, response.status)
       }
 
-      console.log(data)
-      // const isPagination = response.headers.get(HTTP_HEADERS.pagination) != null
+     // const isPagination = response.headers.get(HTTP_HEADERS.pagination) != null
       // if (isPagination) {
       //   return new ApiResponse({
       //     body: new PaginationResponse({

@@ -33,11 +33,13 @@ export const DayOffScheduleTab = ({
     handleDaysOffCountChange,
     handleDaysOffSchedule,
     handleDayButtonClick,
+    handleCreateDayOffScheduleSolicitationButtonClick,
+    isCreateDayOffSolicitationButtonDisabled,
   } = useDayOffScheduleTab(dayOffSchedule, collaboratorId)
 
   return (
     <div>
-      {!isEmployee && (
+      {!isEmployee ? (
         <Button
           color='primary'
           size='md'
@@ -47,6 +49,19 @@ export const DayOffScheduleTab = ({
           className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
         >
           Salvar jornada
+        </Button>
+      ) : (
+        <Button
+          color='primary'
+          size='md'
+          onPress={handleCreateDayOffScheduleSolicitationButtonClick}
+          isDisabled={isCreateDayOffSolicitationButtonDisabled}
+          isLoading={isLoading}
+          className={cn(
+            'my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36',
+          )}
+        >
+          Criar solicitacao de troca de jornada
         </Button>
       )}
       <div className='flex flex-col mb-4 md:flex-row'>
@@ -58,7 +73,6 @@ export const DayOffScheduleTab = ({
             type='number'
             label='Dias de Trabalho'
             value={workdaysCount.toString()}
-            isReadOnly={isEmployee}
             onChange={(e) => handleWorkdaysCountChange(Number(e.target.value))}
           />
           <span className='self-center'>x</span>
@@ -69,11 +83,10 @@ export const DayOffScheduleTab = ({
             type='number'
             label='Dias de Folga'
             value={daysOffCount.toString()}
-            isReadOnly={isEmployee}
             onChange={(e) => handleDaysOffCountChange(Number(e.target.value))}
           />
         </div>
-        {!isEmployee && (
+        {true && (
           <Button
             type='button'
             color='primary'
@@ -126,8 +139,9 @@ export const DayOffScheduleTab = ({
                 (!isCalendarEnabled || isLoading) && 'pointer-events-none',
                 daysOff.includes(day) ? 'bg-red-300' : 'bg-auto',
               )}
-              onPress={() => handleDayButtonClick(day)}
-              isDisabled={isEmployee}
+              onPress={() => {
+                handleDayButtonClick(day)
+              }}
             >
               {day.toString()}
             </Button>
