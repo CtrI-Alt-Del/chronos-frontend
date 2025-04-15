@@ -35,7 +35,7 @@ export const getCollaborator = authActionClient
       request: clientInput,
     })
     const apiClient = await NextServerApiClient({
-      isCacheEnabled: true,
+      isCacheEnabled: false,
       cacheKey: CACHE.collaboration.collaborator.key(clientInput.collaboratorId),
     })
     const service = CollaborationService(apiClient)
