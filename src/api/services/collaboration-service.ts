@@ -34,13 +34,5 @@ export const CollaborationService = (apiClient: IApiClient): ICollaborationServi
         `${MODULE}/collaborators`,
       )
     },
-
-    async enableCollaborator(collaboratorId) {
-      return await apiClient.patch(`${MODULE}/collaborators/${collaboratorId}/enable`)
-    },
-
-    async disableCollaborator(collaboratorId) {
-      return await apiClient.patch(`${MODULE}/collaborators/${collaboratorId}/disable`)
-    },
   }
 }

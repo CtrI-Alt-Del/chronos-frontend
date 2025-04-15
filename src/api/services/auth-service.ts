@@ -12,5 +12,11 @@ export const AuthService = (apiClient: IApiClient): IAuthService => {
         password,
       })
     },
+    async enable(accountId) {
+        return await apiClient.patch(`/auth/accounts/${accountId}/enable`)
+    },
+    async disable(accountId) {
+        return await apiClient.patch(`/auth/accounts/${accountId}/disable`)
+    }
   }
 }
