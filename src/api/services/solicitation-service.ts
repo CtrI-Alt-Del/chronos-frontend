@@ -8,11 +8,13 @@ export const SolicitationService = (restClient: RestClient): ISolicitationServic
     async listSolicitations() {
       return await restClient.get(`${MODULE}/solicitations`)
     },
+
     async createDayOffScheduleAdjustmentSolicitation(
       solicitation: DayOffScheduleAdjustmentSolicitationDto,
     ) {
       return await restClient.post(`${MODULE}/day-off-schedule-adjustment`, solicitation)
     },
+
     async resolveSolicitation(
       solicitationId: string,
       action: 'APPROVED' | 'DENIED',
@@ -24,6 +26,7 @@ export const SolicitationService = (restClient: RestClient): ISolicitationServic
         solicitationType,
       })
     },
+
     createTimePunchLogAdjustmentSolicitation(solicitation) {
       return restClient.post(`${MODULE}/time-punch-adjustment`, solicitation)
     },
