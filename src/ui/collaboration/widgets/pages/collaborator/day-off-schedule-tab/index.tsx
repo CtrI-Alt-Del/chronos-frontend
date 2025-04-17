@@ -28,13 +28,13 @@ export const DayOffScheduleTab = ({
     monthDays,
     weekdays,
     daysOff,
+    isCreateDayOffSolicitationButtonDisabled,
     handleSaveButtonClick,
     handleWorkdaysCountChange,
     handleDaysOffCountChange,
     handleDaysOffSchedule,
     handleDayButtonClick,
     handleCreateDayOffScheduleSolicitationButtonClick,
-    isCreateDayOffSolicitationButtonDisabled,
   } = useDayOffScheduleTab(dayOffSchedule, collaboratorId)
 
   return (
@@ -57,9 +57,7 @@ export const DayOffScheduleTab = ({
           onPress={handleCreateDayOffScheduleSolicitationButtonClick}
           isDisabled={isCreateDayOffSolicitationButtonDisabled}
           isLoading={isLoading}
-          className={cn(
-            'my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36',
-          )}
+          className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
         >
           Criar solicitacao de troca de jornada
         </Button>

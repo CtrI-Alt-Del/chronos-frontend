@@ -4,7 +4,7 @@ import type { CollaboratorStoreState } from './types'
 
 export function useCollaboratorStore() {
   return {
-    getCollaboratorSlice() {
+    useCollaboratorSlice() {
       const collaborator = useZustandCollaboratorStore(
         (store) => store.state.collaborator,
       )
@@ -18,7 +18,7 @@ export function useCollaboratorStore() {
       }
     },
 
-    getDayOffScheduleSlice() {
+    useDayOffScheduleSlice() {
       const dayOffSchedule = useZustandCollaboratorStore(
         (store) => store.state.dayOffSchedule,
       )
@@ -32,21 +32,7 @@ export function useCollaboratorStore() {
       }
     },
 
-    getWeekScheduleSlice() {
-      const weekSchedule = useZustandCollaboratorStore(
-        (store) => store.state.weekSchedule,
-      )
-      const setWeekSchedule = useZustandCollaboratorStore(
-        (store) => store.actions.setWeekSchedule,
-      )
-
-      return {
-        weekSchedule,
-        setWeekSchedule,
-      }
-    },
-
-    getTabSlice() {
+    useTabSlice() {
       const tab = useZustandCollaboratorStore((store) => store.state.tab)
       const setTab = useZustandCollaboratorStore((store) => store.actions.setTab)
 

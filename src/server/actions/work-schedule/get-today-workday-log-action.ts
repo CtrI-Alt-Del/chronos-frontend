@@ -1,17 +1,16 @@
-import type { IAction } from '@/@core/global/interfaces/action'
-import type { IActionServer } from '@/@core/global/interfaces/action-server'
+import type { Action, Call } from '@/@core/global/interfaces/rpc'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
-import type { IWorkScheduleService } from '@/@core/work-schedule/interfaces'
+import type { WorkScheduleService } from '@/@core/work-schedule/interfaces'
 
 type Response = {
   workdayLog: WorkdayLogDto
 }
 
 export const GetTodayWorkdayLogAction = (
-  service: IWorkScheduleService,
-): IAction<void, Response> => {
+  service: WorkScheduleService,
+): Action<void, Response> => {
   return {
-    async handle(actionServer: IActionServer) {
+    async handle(actionServer: Call) {
       const account = await actionServer.getAccount()
       const response = await service.getTodayWorkdayLog(account.collaboratorId)
       if (response.isFailure) response.throwError()

@@ -2,7 +2,7 @@ import { notFound, redirect } from 'next/navigation'
 import { cookies as NextCookies } from 'next/headers'
 import { revalidateTag } from 'next/cache'
 
-import type { IActionServer } from '@/@core/global/interfaces/action-server'
+import type { CallServer } from '@/@core/global/interfaces/rpc/call'
 import type { AccountDto } from '@/@core/auth/dtos'
 import { AppError } from '@/@core/global/errors'
 
@@ -14,7 +14,7 @@ type NextActionServerParams<Request> = {
 export const NextActionServer = <Request = unknown>({
   request,
   account,
-}: NextActionServerParams<Request> = {}): IActionServer<Request> => {
+}: NextActionServerParams<Request> = {}): CallServer<Request> => {
   return {
     getRequest() {
       if (!request) throw new AppError('Action server request undefined')

@@ -8,6 +8,7 @@ export function handleApiError<Body>(error: object, statusCode: number) {
     return new ApiResponse({
       errorMessage: String(error.message),
       statusCode,
+      body: null,
     }) as ApiResponse<Body>
   }
 
@@ -16,5 +17,6 @@ export function handleApiError<Body>(error: object, statusCode: number) {
   return new ApiResponse({
     errorMessage: 'Unknown api error',
     statusCode,
+    body: null,
   }) as ApiResponse<Body>
 }

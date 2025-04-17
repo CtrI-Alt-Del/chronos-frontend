@@ -9,7 +9,7 @@ export function useAuthContext(): AuthContextValue {
   if (!context) {
     throw new AppError(
       'AuthContext',
-      'useAuthContext must be used within an AuthContextProvider',
+      'useAuthContext must be used inside AuthContextProvider',
     )
   }
 

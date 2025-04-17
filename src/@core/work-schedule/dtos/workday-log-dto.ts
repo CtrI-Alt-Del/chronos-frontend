@@ -5,8 +5,7 @@ export type WorkdayLogDto = {
   collaborator: any
   id?: string
   date: Date
-  timePunchSchedule: TimePunchDto
-  timePunchLog: TimePunchDto
+  timePunch: TimePunchDto
   status: string
   responsible: {
     id: string

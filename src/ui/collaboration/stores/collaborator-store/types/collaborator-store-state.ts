@@ -6,5 +6,4 @@ export type CollaboratorStoreState = {
   tab: Tab
   collaborator: CollaboratorDto | null
   dayOffSchedule: DayOffScheduleDto | null
-  weekSchedule: WeekdayScheduleDto[]
 }

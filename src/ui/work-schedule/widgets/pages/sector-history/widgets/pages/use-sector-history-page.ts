@@ -13,14 +13,15 @@ import { useToast } from '@/ui/global/hooks/use-toast'
 export function useSectorHistoryPage() {
   const { getCurrentDate, formatIsoDate } = useDatetime()
   const [date, setDate] = useQueryParamDate('date', getCurrentDate())
-  const [collboratorName, setCollboratorName] = useQueryParamString('name')
+  const [collboratorName, setCollboratorName] = useQueryParamString('collaboratorName')
   const { workScheduleService } = useApi()
   const { showError, showSuccess } = useToast()
   const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
 
   async function fetchSectorHistory(page: number) {
-    const response = await workScheduleService.reportSectorHistory(
+    const response = await workScheduleService.getCollaborationSectorHistory(
       formatIsoDate(date),
+      collboratorName,
       page,
     )
     return response.body
@@ -53,7 +54,7 @@ export function useSectorHistoryPage() {
   ) {
     setIsAdjustingTimePunchLog(true)
 
-    const response = await workScheduleService.adjustTimePunchLog(
+    const response = await workScheduleService.adjustTimePunch(
       timePunchLogId,
       timeLog,
       timePunchPeriod,
