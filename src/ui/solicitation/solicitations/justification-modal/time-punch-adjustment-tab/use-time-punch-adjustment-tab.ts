@@ -1,4 +1,4 @@
-import { useApi } from '@/ui/global/hooks'
+import { useRest } from '@/ui/global/hooks'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format, parse } from 'date-fns'
@@ -40,7 +40,7 @@ export function useTimePunchAdjustmentTab({
     useForm<RegisterTimePunchAdjustmentFormData>({
       resolver: zodResolver(timePunchAdjustmentRequestSchema),
     })
-  const { solicitationService } = useApi()
+  const { solicitationService } = useRest()
   const { showSuccess, showError } = useToast()
   async function handleFormSubmit(formData: RegisterTimePunchAdjustmentFormData) {
     const parsedTime = parse(formData.time, 'HH:mm', new Date())

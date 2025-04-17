@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+
 import {
   Table,
   TableHeader,
@@ -11,6 +11,7 @@ import {
 import Link from 'next/link'
 import { Pagination } from '@heroui/pagination'
 import { Spinner } from '@heroui/spinner'
+import { Button } from '@heroui/button'
 
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import { ROUTES } from '@/constants'
@@ -18,17 +19,16 @@ import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
 import { Icon } from '@/ui/global/widgets/components/Icon'
 import { IconButton } from '@/ui/global/widgets/components/icon-button'
 import { Tag } from '@/ui/global/widgets/components/tag'
-import { Button } from '@heroui/button'
 
 type CollaboratorTableProps = {
   page: number
   isLoading: boolean
   collaborators: CollaboratorDto[]
   totalPages: number
+  isAlteringCollaboratorStatus: boolean
   onPageChange: (page: number) => void
   handleDisableEmployee: (collaboratorId: string) => void
   handleEnableEmployee: (collaboratorId: string) => void
-  isAlteringCollaboratorStatus: boolean
 }
 
 export const CollaboratorTable = ({

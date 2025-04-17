@@ -1,12 +1,12 @@
 'use client'
 
 import { CACHE } from '@/@core/global/constants'
-import { useApi } from '@/ui/global/hooks'
+import { useRest } from '@/ui/global/hooks'
 import { useCache } from '@/ui/global/hooks/use-cache'
 import { useEffect } from 'react'
 
 export function useSchedulesPage() {
-  const api = useApi()
+  const api = useRest()
 
   async function fetchSchedules() {
     const response = await api.workScheduleService.listWorkSchedules()

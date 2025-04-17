@@ -4,10 +4,9 @@ import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import { CACHE } from '@/@core/global/constants'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
-import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
 import { useQueryParamDate } from '@/ui/global/hooks/use-query-param-date'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
-import { useApi } from '@/ui/global/hooks/use-api'
+import { useRest } from '@/ui/global/hooks/use-rest'
 import { useToast } from '@/ui/global/hooks/use-toast'
 
 export function useCollaboratorHistoryPage() {
@@ -19,7 +18,7 @@ export function useCollaboratorHistoryPage() {
   const [endDate, setEndDate] = useQueryParamDate('endDate', getCurrentDate())
   const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
   const { account } = useAuthContext()
-  const { workScheduleService } = useApi()
+  const { workScheduleService } = useRest()
   const { showError, showSuccess } = useToast()
 
   async function fetchCollaboratorHistory(page: number) {

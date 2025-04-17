@@ -1,13 +1,13 @@
 import { CACHE } from '@/@core/global/constants'
 import type { SolicitationDto } from '@/@core/solicitation/dtos'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
-import { useApi, useCache } from '@/ui/global/hooks'
+import { useRest, useCache } from '@/ui/global/hooks'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { useState } from 'react'
 import { useResolveSolicitationAction } from './use-resolve-solicitation-action'
 
 export function useSolicitationPage() {
-  const { solicitationService } = useApi()
+  const { solicitationService } = useRest()
   const { showError, showSuccess } = useToast()
   const { isResolvingSolicitation, resolveSolicitation } = useResolveSolicitationAction()
   async function fetchSolicitations() {

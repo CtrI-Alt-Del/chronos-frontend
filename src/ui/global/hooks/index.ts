@@ -1,3 +1,3 @@
 export { useCache } from './use-cache'
-export { useApi } from './use-api'
+export { useRest } from './use-rest'
 export { useNavigation } from './use-navigation'

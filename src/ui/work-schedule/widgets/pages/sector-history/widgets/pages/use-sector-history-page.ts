@@ -7,14 +7,14 @@ import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
 import { useQueryParamDate } from '@/ui/global/hooks/use-query-param-date'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
-import { useApi } from '@/ui/global/hooks/use-api'
+import { useRest } from '@/ui/global/hooks/use-rest'
 import { useToast } from '@/ui/global/hooks/use-toast'
 
 export function useSectorHistoryPage() {
   const { getCurrentDate, formatIsoDate } = useDatetime()
   const [date, setDate] = useQueryParamDate('date', getCurrentDate())
   const [collboratorName, setCollboratorName] = useQueryParamString('collaboratorName')
-  const { workScheduleService } = useApi()
+  const { workScheduleService } = useRest()
   const { showError, showSuccess } = useToast()
   const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
 
