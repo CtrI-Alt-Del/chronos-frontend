@@ -13,12 +13,12 @@ import { Pagination } from '@heroui/pagination'
 import { Spinner } from '@heroui/spinner'
 
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
-import { IconButton } from '@/ui/global/widgets/components/icon-button'
+import { ROUTES } from '@/constants'
 import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
+import { Icon } from '@/ui/global/widgets/components/Icon'
+import { IconButton } from '@/ui/global/widgets/components/icon-button'
 import { Tag } from '@/ui/global/widgets/components/tag'
 import { Button } from '@heroui/button'
-import { Icon } from '@/ui/global/widgets/components/Icon'
-import { ROUTES } from '@/constants'
 
 type CollaboratorTableProps = {
   page: number

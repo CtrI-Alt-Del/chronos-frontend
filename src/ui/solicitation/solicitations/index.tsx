@@ -2,7 +2,7 @@
 
 import { SolicitationAccordion } from './solicitation-accordion'
 import { useSolicitationPage } from './use-solicitation-page'
-import { JustificationModal } from '@/ui/global/widgets/components/justification-modal'
+import { JustificationModal } from './justification-modal' 
 
 type SolcitationPageProps = {
   userRole: string

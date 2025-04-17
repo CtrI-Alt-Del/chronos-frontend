@@ -1,12 +1,12 @@
 import type { ApiResponse } from '@/@core/global/responses'
 import type { SolicitationDto } from '../dtos/solicitation-dto'
-import type { WorkScheduleAdjustmentSolicitationDto } from '../dtos/work-schedule-adjustment-solicitation-dto'
 import type { TimePunchLogAdjustmentSolicitationDto } from '../dtos/time-punch-log-adjustment-solicitation-dto'
+import type { DayOffScheduleAdjustmentSolicitationDto } from '../dtos'
 
 export interface SolicitationService {
   listSolicitations(): Promise<ApiResponse<SolicitationDto[]>>
-  createWorkScheduleAdjustmentSolicitation(
-    solicitation: WorkScheduleAdjustmentSolicitationDto,
+  createDayOffScheduleAdjustmentSolicitation(
+    solicitation: DayOffScheduleAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
   createTimePunchLogAdjustmentSolicitation(
     solicitation: TimePunchLogAdjustmentSolicitationDto,
@@ -14,5 +14,6 @@ export interface SolicitationService {
   resolveSolicitation(
     solicitationId: string,
     action: 'APPROVED' | 'DENIED',
+    solicitationType: 'DAY_OFF_SCHEDULE' | 'TIME_PUNCH',
   ): Promise<ApiResponse<void>>
 }

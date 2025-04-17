@@ -1,6 +1,11 @@
 import type { NextParams } from '@/api/next/types'
-import { collaborationActions, workScheduleActions } from '@/server/next-safe-action'
+import {
+  authActions,
+  collaborationActions,
+  workScheduleActions,
+} from '@/server/next-safe-action'
 import { CollaboratorPage } from '@/ui/collaboration/widgets/pages/collaborator'
+import { notFound, redirect } from 'next/navigation'
 
 export default async function Page({ params }: NextParams<'collaboratorId'>) {
   const { collaboratorId } = await params
