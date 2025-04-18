@@ -3,16 +3,14 @@ import { Time } from '../../../components/time'
 type TimePunchStepperProps = {
   currentStep: number
   isClosed: boolean
-  timesSchedule: string[]
-  timesLog: string[]
+  times: string[]
   periods: string[]
 }
 
 export const TimePunchStepper = ({
   currentStep,
   isClosed,
-  timesSchedule,
-  timesLog,
+  times,
   periods,
 }: TimePunchStepperProps) => {
   return (
@@ -49,11 +47,7 @@ export const TimePunchStepper = ({
               }
             `}
           />
-
-          <Time className='my-3 text-sm font-bold text-black'>
-            {timesSchedule[index]}
-          </Time>
-          <Time>{timesLog[index]}</Time>
+          <Time className='mt-6'>{times[index]}</Time>
         </div>
       ))}
     </div>

@@ -18,15 +18,12 @@ export const TimePunchPage = ({ workdayLog, collaborationName }: TimePunchPagePr
     currentTime,
     completeDate,
     currentPeriod,
-    currentTimeSchedule,
     periods,
     step,
-    timesLog,
+    times,
     isClosed,
-    timesSchedule,
     isPuchingTime,
-    handlePunchRegister,
-    handleTimePunchLogConfirm,
+    handleTimePunchConfirm,
   } = useTimePunchPage(workdayLog)
 
   return (
@@ -48,8 +45,7 @@ export const TimePunchPage = ({ workdayLog, collaborationName }: TimePunchPagePr
           currentStep={step}
           periods={periods}
           isClosed={isClosed}
-          timesSchedule={timesSchedule}
-          timesLog={timesLog}
+          times={times}
         />
 
         <div className='mt-8'>
@@ -69,16 +65,13 @@ export const TimePunchPage = ({ workdayLog, collaborationName }: TimePunchPagePr
                 </p>
               </Button>
             }
-            onConfirm={handleTimePunchLogConfirm}
+            onConfirm={handleTimePunchConfirm}
           >
             <div className='mx-auto w-max'>
-              <p className='text-lg'>
-                <strong className='font-normal'>{currentPeriod}</strong>:{' '}
-                <time className='ml-1 border-b border-slate-900'>
-                  {currentTimeSchedule}
-                </time>
-              </p>
-              <p className='text-lg mt-3 mb-3'>
+              <strong className='block w-full text-xl font-normal text-center'>
+                {currentPeriod}
+              </strong>
+              <p className='text-lg mt-6 mb-3'>
                 <strong className='font-semibold'>Seu horário:</strong>
                 <time className='ml-3 mx-auto w-max text-3xl font-bold border-b border-slate-900'>
                   {currentTime}

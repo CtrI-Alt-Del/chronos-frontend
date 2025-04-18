@@ -20,61 +20,40 @@ export function useTimePunchPage(workdayLog: WorkdayLogDto) {
   }, [])
 
   useEffect(() => {
-    if (workdayLog.timePunchLog.firstClockIn) {
+    if (workdayLog.timePunch.firstClockIn) {
       setStep(1)
     }
-    if (workdayLog.timePunchLog.firstClockOut) {
+    if (workdayLog.timePunch.firstClockOut) {
       setStep(2)
     }
-    if (workdayLog.timePunchLog.secondClockIn) {
+    if (workdayLog.timePunch.secondClockIn) {
       setStep(3)
     }
-    if (workdayLog.timePunchLog.secondClockOut) {
+    if (workdayLog.timePunch.secondClockOut) {
       setStep(4)
     }
   }, [workdayLog])
 
-  function handlePunchRegister() {
-    const newStep = step + 1
-    if (newStep > 4) {
-      setStep(1)
-    } else {
-      setStep(newStep)
-    }
+  async function handleTimePunchConfirm() {
+    if (workdayLog.timePunch.id) await punchTime(workdayLog.timePunch.id, currentTime)
   }
 
-  async function handleTimePunchLogConfirm() {
-    await punchTime(workdayLog.timePunchLog.id, currentTime)
-  }
-
-  const timesSchedule = [
-    workdayLog.timePunchSchedule.firstClockIn,
-    workdayLog.timePunchSchedule.firstClockOut,
-    workdayLog.timePunchSchedule.secondClockIn,
-    workdayLog.timePunchSchedule.secondClockOut,
-  ].map(datetimeProvider.formatTime)
-
-  const timesLog = [
-    workdayLog.timePunchLog.firstClockIn,
-    workdayLog.timePunchLog.firstClockOut,
-    workdayLog.timePunchLog.secondClockIn,
-    workdayLog.timePunchLog.secondClockOut,
-  ]
-    .filter(Boolean)
-    .map(datetimeProvider.formatTime)
+  const times = [
+    workdayLog.timePunch.firstClockIn,
+    workdayLog.timePunch.firstClockOut,
+    workdayLog.timePunch.secondClockIn,
+    workdayLog.timePunch.secondClockOut,
+  ].map((time) => (time ? datetimeProvider.formatTime(time) : ''))
 
   return {
     currentTime: datetimeProvider.formatTime(currentTime),
     completeDate: datetimeProvider.formatCompleteDate(currentTime),
     step,
     isClosed: step === 4,
-    timesSchedule,
-    timesLog,
+    times,
     currentPeriod: PERIODS[step],
-    currentTimeSchedule: timesSchedule[step],
     periods: PERIODS,
     isPuchingTime,
-    handlePunchRegister,
-    handleTimePunchLogConfirm,
+    handleTimePunchConfirm,
   }
 }
