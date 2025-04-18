@@ -1,7 +1,7 @@
 import type { RestClient } from '@/@core/global/interfaces/rest'
 import type { IJustificationTypeService } from '@/@core/solicitation/interfaces'
 
-export const JustificaionTypeService = (
+export const JustificationTypeService = (
   restClient: RestClient,
 ): IJustificationTypeService => {
   const MODULE = 'solicitation'

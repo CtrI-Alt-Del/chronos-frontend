@@ -5,7 +5,7 @@ import type {
   TimePunchLogAdjustmentSolicitationDto,
 } from '../dtos'
 
-export interface SolicitationService {
+export interface ISolicitationService {
   listSolicitations(): Promise<ApiResponse<SolicitationDto[]>>
   createDayOffScheduleAdjustmentSolicitation(
     solicitation: DayOffScheduleAdjustmentSolicitationDto,
