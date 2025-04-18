@@ -11,7 +11,17 @@ export const HourBankService = (restClient: RestClient): IHourBankService => {
       return await restClient.post(`${MODULE}/hour-bank/${collaboratorId}/transactions`)
     },
 
-    async listHourBankTransactions(collaboratorId: string) {
+    async listHourBankTransactions(
+      collaboratorId: string,
+      startDate: string,
+      endDate: string,
+      operation: string,
+      page: number,
+    ) {
+      restClient.setParam('startDate', startDate)
+      restClient.setParam('endDate', endDate)
+      restClient.setParam('operation', operation)
+      restClient.setParam('page', String(page))
       return await restClient.get<PaginationResponse<HourBankTransactionDto>>(
         `${MODULE}/hour-bank/${collaboratorId}/transactions`,
       )
