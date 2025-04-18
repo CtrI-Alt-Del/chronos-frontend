@@ -4,10 +4,9 @@ import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import { CACHE } from '@/@core/global/constants'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
-import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
 import { useQueryParamDate } from '@/ui/global/hooks/use-query-param-date'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
-import { useApi } from '@/ui/global/hooks/use-api'
+import { useRest } from '@/ui/global/hooks/use-rest'
 import { useToast } from '@/ui/global/hooks/use-toast'
 
 export function useCollaboratorHistoryPage() {
@@ -17,14 +16,13 @@ export function useCollaboratorHistoryPage() {
     minusDays(getCurrentDate(), 7),
   )
   const [endDate, setEndDate] = useQueryParamDate('endDate', getCurrentDate())
-  const [collboratorName, setCollboratorName] = useQueryParamString('name')
   const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
   const { account } = useAuthContext()
-  const { workScheduleService } = useApi()
+  const { workScheduleService } = useRest()
   const { showError, showSuccess } = useToast()
 
   async function fetchCollaboratorHistory(page: number) {
-    const response = await workScheduleService.reportCollaboratorHistory(
+    const response = await workScheduleService.getCollaboratorHistory(
       String(account?.collaboratorId),
       formatIsoDate(startDate),
       formatIsoDate(endDate),
@@ -60,7 +58,7 @@ export function useCollaboratorHistoryPage() {
   ) {
     setIsAdjustingTimePunchLog(true)
 
-    const response = await workScheduleService.adjustTimePunchLog(
+    const response = await workScheduleService.adjustTimePunch(
       timePunchLogId,
       timeLog,
       timePunchPeriod,

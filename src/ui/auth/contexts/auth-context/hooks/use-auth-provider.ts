@@ -4,14 +4,14 @@ import { jwtDecode } from 'jwt-decode'
 import { ROUTES } from '@/constants/routes'
 import type { Jwt } from '@/server/auth/types/jwt'
 import type { AccountDto } from '@/@core/auth/dtos'
-import type { IAuthService } from '@/@core/global/interfaces/auth-service'
+import type { AuthService } from '@/@core/auth/interfaces/auth-service'
 import { COOKIES } from '@/@core/global/constants/cookies'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { useNavigation } from '@/ui/global/hooks'
 import { useCookieActions } from '@/ui/global/hooks/use-cookie-actions'
 
 type UseAuthProviderProps = {
-  authService: IAuthService
+  authService: AuthService
   jwt?: string | null
 }
 
@@ -77,10 +77,13 @@ export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
   }
 
   return {
-    jwt,
+    jwt: jwt ?? null,
     account,
     isAuthenticated,
     isLoading,
+    isAdmin: account?.role.toLowerCase() === 'admin',
+    isManager: account?.role.toLowerCase() === 'manager',
+    isEmployee: account?.role.toLowerCase() === 'employee',
     login,
     logout,
   }

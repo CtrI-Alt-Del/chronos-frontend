@@ -1,1 +1,1 @@
-export type { IWorkScheduleService } from './work-schedule-service'
+export type { WorkScheduleService } from './work-schedule-service'

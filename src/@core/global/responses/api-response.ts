@@ -32,7 +32,7 @@ export class ApiResponse<Body = unknown> {
   }
 
   get isSuccess() {
-    return this.statusCode <= HTTP_STATUS_CODE.badRequest
+    return this.statusCode < HTTP_STATUS_CODE.redirect
   }
 
   get isFailure() {

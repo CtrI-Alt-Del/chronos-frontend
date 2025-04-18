@@ -4,8 +4,7 @@ import { useDatetime } from '@/ui/global/hooks/use-datetime'
 type Row = {
   id: string
   date: string
-  timePunchLog: TimePunchDto
-  timePunchSchedule: TimePunchDto
+  timePunch: TimePunchDto
   collaborator: {
     name: string
   }
@@ -17,8 +16,7 @@ export function useSectorHistoryTable(workdayLogs: WorkdayLogDto[]) {
   const rows: Row[] = workdayLogs.map((workdayLog) => ({
     id: String(workdayLog.id),
     date: formatDate(workdayLog.date),
-    timePunchLog: workdayLog.timePunchLog,
-    timePunchSchedule: workdayLog.timePunchSchedule,
+    timePunch: workdayLog.timePunch,
     collaborator: {
       name: workdayLog.responsible.dto?.name || 'N/A',
     },

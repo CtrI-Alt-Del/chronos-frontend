@@ -3,24 +3,17 @@ import { useEffect } from 'react'
 import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store'
 import type { Tab } from '@/ui/collaboration/stores/collaborator-store/types/tab'
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
-import type { DayOffScheduleDto, WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
+import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 
 export function useCollaboratorPage(
   currentCollaborator?: CollaboratorDto,
-  currentWeekSchedule?: WeekdayScheduleDto[],
   currentDayOffSchedule?: DayOffScheduleDto,
 ) {
-  const {
-    getCollaboratorSlice,
-    getWeekScheduleSlice,
-    getDayOffScheduleSlice,
-    getTabSlice,
-    resetStore,
-  } = useCollaboratorStore()
-  const { tab, setTab } = getTabSlice()
-  const { collaborator, setCollaborator } = getCollaboratorSlice()
-  const { weekSchedule, setWeekSchedule } = getWeekScheduleSlice()
-  const { dayOffSchedule, setDayOffSchedule } = getDayOffScheduleSlice()
+  const { useCollaboratorSlice, useDayOffScheduleSlice, useTabSlice, resetStore } =
+    useCollaboratorStore()
+  const { tab, setTab } = useTabSlice()
+  const { collaborator, setCollaborator } = useCollaboratorSlice()
+  const { dayOffSchedule, setDayOffSchedule } = useDayOffScheduleSlice()
 
   function handleTabChange(tab: Tab) {
     setTab(tab)
@@ -31,12 +24,6 @@ export function useCollaboratorPage(
       setCollaborator(currentCollaborator)
     }
   }, [currentCollaborator, collaborator, setCollaborator])
-
-  useEffect(() => {
-    if (currentWeekSchedule && !weekSchedule.length) {
-      setWeekSchedule(currentWeekSchedule)
-    }
-  }, [currentWeekSchedule, weekSchedule, setWeekSchedule])
 
   useEffect(() => {
     if (currentDayOffSchedule && !dayOffSchedule) {
@@ -52,8 +39,7 @@ export function useCollaboratorPage(
 
   return {
     activeTab: tab,
-    isWeekScheduleTabDisabled: collaborator === null,
-    isDayOffScheduleTabDisabled: weekSchedule.length === 0,
+    isDayOffScheduleTabDisabled: collaborator === null,
     handleTabChange,
   }
 }

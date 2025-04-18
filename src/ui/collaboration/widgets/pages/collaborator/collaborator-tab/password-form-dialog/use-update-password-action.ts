@@ -4,7 +4,7 @@ import { useAction } from 'next-safe-action/hooks'
 
 export function useUpdatePasswordAction(collaboratorId: string) {
   const toast = useToast()
-  const { executeAsync, isPending } = useAction(authActions.updatePassword, {
+  const { executeAsync, isPending } = useAction(authActions.updateCollaboratorPassword, {
     onSuccess: () => {
       toast.showSuccess('Senha atualizada com sucesso!')
     },
@@ -15,7 +15,7 @@ export function useUpdatePasswordAction(collaboratorId: string) {
   }
 
   return {
-    updatePassword,
     isUpdating: isPending,
+    updatePassword,
   }
 }

@@ -22,6 +22,7 @@ export const ROUTES = {
     timeCard: '/work-schedule/time-card',
     hoursBank: '/work-schedule/hours-bank',
   },
+  hourBank: (collaboratorId: string) => `/hour-bank/${collaboratorId}`,
   solicitation: {
     solicitations: '/solicitation/solicitations',
   },

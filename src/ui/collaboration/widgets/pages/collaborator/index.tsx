@@ -3,38 +3,33 @@
 import { Tabs, Tab } from '@heroui/react'
 
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
-import type { DayOffScheduleDto, WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
+import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import { Icon } from '@/ui/global/widgets/components/Icon'
+import { useBreakpoint } from '@/ui/global/hooks/use-breakpoint'
 import type { Tab as TabKey } from '@/ui/collaboration/stores/collaborator-store/types'
 import { CollaboratorTab } from './collaborator-tab'
-import { WeekScheduleTab } from './week-schedule-tab'
 import { DayOffScheduleTab } from './day-off-schedule-tab'
 import { useCollaboratorPage } from './use-collaborator-page'
-import { useBreakpoint } from '@/ui/global/hooks/use-breakpoint'
 
 type CollaboratorPageProps = {
   collaborator?: CollaboratorDto
-  weekSchedule?: WeekdayScheduleDto[]
   dayOffSchedule?: DayOffScheduleDto
 }
 
 export const CollaboratorPage = ({
   collaborator,
-  weekSchedule,
   dayOffSchedule,
 }: CollaboratorPageProps) => {
-  const {
-    activeTab,
-    isWeekScheduleTabDisabled,
-    isDayOffScheduleTabDisabled,
-    handleTabChange,
-  } = useCollaboratorPage(collaborator, weekSchedule, dayOffSchedule)
+  const { activeTab, isDayOffScheduleTabDisabled, handleTabChange } = useCollaboratorPage(
+    collaborator,
+    dayOffSchedule,
+  )
   const { md } = useBreakpoint()
 
   return (
     <div className='w-full max-w-4xl mx-auto justify-between mt-3 md:-translate-x-6'>
       <Tabs
-        aria-label='Options'
+        aria-label='Opções'
         selectedKey={activeTab}
         onSelectionChange={(key) => handleTabChange(key as TabKey)}
         classNames={{
@@ -60,27 +55,12 @@ export const CollaboratorPage = ({
           <CollaboratorTab collaborator={collaborator} />
         </Tab>
         <Tab
-          key='week-schedule-tab'
-          isDisabled={isWeekScheduleTabDisabled}
-          title={
-            <div className='flex items-center space-x-2 text-sm'>
-              {md && <Icon name='week-schedule' />}
-              <span>Escala de horário</span>
-            </div>
-          }
-        >
-          <WeekScheduleTab
-            weekSchedule={weekSchedule}
-            collaboratorId={collaborator?.id}
-          />
-        </Tab>
-        <Tab
           key='day-off-schedule-tab'
           isDisabled={isDayOffScheduleTabDisabled}
           title={
             <div className='flex items-center space-x-2 text-sm'>
               {md && <Icon name='day-off-schedule' />}
-              <span>Escala de folga</span>
+              <span>Escala de folgas</span>
             </div>
           }
         >
@@ -89,6 +69,19 @@ export const CollaboratorPage = ({
             collaboratorId={collaborator?.id}
           />
         </Tab>
+        {collaborator && (
+          <Tab
+            key='time-card-tab'
+            title={
+              <div className='flex items-center space-x-2 text-sm'>
+                {md && <Icon name='time-card' />}
+                <span>Espelho ponto</span>
+              </div>
+            }
+          >
+            Espelho ponto
+          </Tab>
+        )}
       </Tabs>
     </div>
   )

@@ -1,6 +1,6 @@
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
-import type { IAction, IActionServer } from '@/@core/global/interfaces'
-import type { ICollaborationService } from '@/@core/collaboration/interfaces'
+import type { CollaborationService } from '@/@core/collaboration/interfaces'
+import type { Action, Call } from '@/@core/global/interfaces/rpc'
 
 type Request = {
   collaboratorId: string
@@ -11,11 +11,11 @@ type Response = {
 }
 
 export const GetCollaboratorAction = (
-  service: ICollaborationService,
-): IAction<Request, Response> => {
+  service: CollaborationService,
+): Action<Request, Response> => {
   return {
-    async handle(actionServer: IActionServer<Request>) {
-      const { collaboratorId } = actionServer.getRequest()
+    async handle(call: Call<Request>) {
+      const { collaboratorId } = call.getRequest()
       const response = await service.getCollaborator(collaboratorId)
       if (response.isFailure) response.throwError()
 

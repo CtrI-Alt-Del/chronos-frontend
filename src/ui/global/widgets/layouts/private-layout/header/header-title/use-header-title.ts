@@ -23,8 +23,8 @@ export function useHeaderTitle() {
 
     if (currentRoute === ROUTES.solicitation.solicitations) {
       return account?.role === 'MANAGER' || account?.role === 'ADMIN'
-        ? 'Solicitações'
-        : 'Solicitações do Setor'
+        ? 'Solicitações do Setor'
+        : 'Minhas Solicitações '
     }
 
     if (currentRoute.startsWith('/work-schedule/schedules/')) {

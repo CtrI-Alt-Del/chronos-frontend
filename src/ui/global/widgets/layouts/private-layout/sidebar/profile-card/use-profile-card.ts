@@ -12,8 +12,7 @@ export function useProfileCard() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       const collaborator = await getProfile()
-      if (collaborator)
-        setProfile(collaborator)
+      if (collaborator) setProfile(collaborator)
     }
     fetchUserProfile()
   }, [])

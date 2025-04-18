@@ -1,17 +1,16 @@
-import type { IAction, IActionServer } from '@/@core/global/interfaces'
+import type { Action, Call } from '@/@core/global/interfaces/rpc'
 import type { Role } from '@/@core/global/types'
-import { ROUTES } from '@/constants'
 
 type Request = Role[]
 
-export const AllowPageForRolesAction = (): IAction<Request> => {
+export const AllowPageForRolesAction = (): Action<Request> => {
   return {
-    async handle(actionServer: IActionServer<Request>) {
-      const roles = actionServer.getRequest()
-      const account = await actionServer.getAccount()
-      
+    async handle(call: Call<Request>) {
+      const roles = call.getRequest()
+      const account = await call.getAccount()
+
       if (!roles.includes(account.role as Role)) {
-        actionServer.notFound()
+        call.notFound()
       }
     },
   }

@@ -12,16 +12,13 @@ import { useUpdateCollaboratorAction } from './use-update-collaborator-action'
 export type CollaboratorFormData = z.infer<typeof collaboratorSchema>
 
 export function useCollaboratorTab(currentCollaborator?: CollaboratorDto) {
-  const { account } = useAuthContext()
-  const { getCollaboratorSlice, getTabSlice } = useCollaboratorStore()
-  const { collaborator, setCollaborator } = getCollaboratorSlice()
-  const { setTab } = getTabSlice()
+  const { account, isAdmin, isManager } = useAuthContext()
+  const { useCollaboratorSlice, useTabSlice } = useCollaboratorStore()
+  const { collaborator, setCollaborator } = useCollaboratorSlice()
+  const { setTab } = useTabSlice()
   const { isUpdating, updateCollaborator } = useUpdateCollaboratorAction(
     currentCollaborator?.id,
   )
-  const isAdmin = account?.role.toLowerCase() === 'admin'
-  const isManager = account?.role.toLowerCase() === 'manager'
-
   const defaultValues = useMemo(() => {
     if (collaborator) {
       return collaborator
@@ -29,7 +26,7 @@ export function useCollaboratorTab(currentCollaborator?: CollaboratorDto) {
 
     if (isManager && !currentCollaborator)
       return {
-        sector: account?.sector,
+        sector: account?.collaborationSector,
         isActive: true,
       }
 
@@ -63,7 +60,7 @@ export function useCollaboratorTab(currentCollaborator?: CollaboratorDto) {
       return
     }
     setCollaborator(data)
-    setTab('week-schedule-tab')
+    setTab('day-off-schedule-tab')
   }
 
   return {
@@ -75,6 +72,9 @@ export function useCollaboratorTab(currentCollaborator?: CollaboratorDto) {
     isFormDirty: isDirty,
     collaboratorRole: collaborator ? collaborator.role : currentCollaborator?.role,
     collaboratorSector: collaborator ? collaborator.sector : currentCollaborator?.sector,
+    collaboratorWorkload: collaborator
+      ? collaborator.workload
+      : currentCollaborator?.workload,
     registerField: register,
     handleFormSubmit: handleSubmit(handleFormSubmit),
   }
