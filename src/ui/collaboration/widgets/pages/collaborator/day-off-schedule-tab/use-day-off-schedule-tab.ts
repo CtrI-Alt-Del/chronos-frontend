@@ -1,14 +1,14 @@
 import { useMemo, useState } from 'react'
 
-import { ROUTES } from '@/constants'
-import { useApi, useNavigation } from '@/ui/global/hooks'
-import { useDatetime } from '@/ui/global/hooks/use-datetime'
-import { useUpdateDayOffScheduleAction } from './use-update-day-off-schedule-action'
-import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
+import { ROUTES } from '@/constants'
+import { useRest, useNavigation } from '@/ui/global/hooks'
+import { useDatetime } from '@/ui/global/hooks/use-datetime'
+import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 import { useCreateDayOffScheduleSolicitationAction } from './use-create-day-off-schedule-solicitation-action'
+import { useUpdateDayOffScheduleAction } from './use-update-day-off-schedule-action'
 
 const WEEKDAYS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
 
@@ -32,7 +32,7 @@ export function useDayOffScheduleTab(
   const [isCalendarEnabled, setIsCalendarEnabled] = useState(Boolean(dayOffSchedule))
   const [isCreating, setIsCreating] = useState(false)
   const [isSchedulingDaysOff, setIsSchedulingDaysOff] = useState(false)
-  const { workScheduleService, collaborationService } = useApi()
+  const { workScheduleService, collaborationService } = useRest()
   const { showSuccess, showError } = useToast()
   const { goTo } = useNavigation()
   const { isUpdating, updateDaysOffSchedule } =

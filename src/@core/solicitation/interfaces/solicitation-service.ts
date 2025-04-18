@@ -1,7 +1,9 @@
 import type { ApiResponse } from '@/@core/global/responses'
 import type { SolicitationDto } from '../dtos/solicitation-dto'
-import type { TimePunchLogAdjustmentSolicitationDto } from '../dtos/time-punch-log-adjustment-solicitation-dto'
-import type { DayOffScheduleAdjustmentSolicitationDto } from '../dtos'
+import type {
+  DayOffScheduleAdjustmentSolicitationDto,
+  TimePunchLogAdjustmentSolicitationDto,
+} from '../dtos'
 
 export interface SolicitationService {
   listSolicitations(): Promise<ApiResponse<SolicitationDto[]>>

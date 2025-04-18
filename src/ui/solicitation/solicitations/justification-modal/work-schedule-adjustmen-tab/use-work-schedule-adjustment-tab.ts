@@ -1,6 +1,6 @@
 import { ResponsibleDto } from '@/@core/global/dtos/ResponsibleDto'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
-import { useApi } from '@/ui/global/hooks'
+import { useRest } from '@/ui/global/hooks'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -24,7 +24,7 @@ export function useWorkScheduleAdjustmentTab({
     useForm<RegisterWorkScheduleAdjustmentFormData>({
       resolver: zodResolver(workScheduleAdjustmentFormSchema),
     })
-  const { solicitationService,collaborationService } = useApi()
+  const { solicitationService, collaborationService } = useRest()
   const { showSuccess, showError } = useToast()
   async function handleFormSubmit(formData: RegisterWorkScheduleAdjustmentFormData) {
     const response =

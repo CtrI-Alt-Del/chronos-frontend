@@ -4,10 +4,10 @@ import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
 import { CACHE } from '@/@core/global/constants'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import { useApi } from '@/ui/global/hooks/use-api'
+import { useRest } from '@/ui/global/hooks/use-rest'
 
 export function useCollaboratorsPage() {
-  const { authService, collaborationService } = useApi()
+  const { authService, collaborationService } = useRest()
   const [isAlteringCollaboratorStatus, setIsAlteringCollaboratorStatus] =
     useState<boolean>(false)
   const [status, setStatus] = useQueryParamString('active', 'true')
