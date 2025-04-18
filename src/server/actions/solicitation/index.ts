@@ -1,2 +1,5 @@
-export {CreateDayOffScheduleAdjustmentSolicitation} from "./create-day-off-schedule-adjustment-solicitation"
-export {ResolveSolicitation} from "./resolve-solicitation"
+export {CreateDayOffScheduleAdjustmentSolicitationAction} from "./create-day-off-schedule-adjustment-solicitation"
+export {CreateJustificationTypeAction} from "./create-justification-type"
+export {UpdateJustificationTypeAction} from "./update-justification-type"
+export {DeleteJustificationTypeAction} from "./delete-justification-type"
+export {ResolveSolicitationAction} from "./resolve-solicitation"
