@@ -7,7 +7,7 @@ import { useToast } from '@/ui/global/hooks/use-toast'
 import { useRest } from '@/ui/global/hooks/use-rest'
 
 export function useCollaboratorsPage() {
-  const { collaborationService,authService } = useApi()
+  const { collaborationService,authService } = useRest()
   const [isAlteringCollaboratorStatus, setIsAlteringCollaboratorStatus] =
     useState<boolean>(false)
   const [status, setStatus] = useQueryParamString('active', 'true')
@@ -47,7 +47,7 @@ export function useCollaboratorsPage() {
 
   async function handleDisableEmployee(collaboratorId: string) {
     setIsAlteringCollaboratorStatus(true)
-    const response = await authService.disable(collaboratorId)
+    const response = await authService.disableCollaboratorAccount(collaboratorId)
     if (response.isFailure) {
       showError(response.errorMessage)
     }
@@ -60,7 +60,7 @@ export function useCollaboratorsPage() {
   }
   async function handleEnableEmployee(collaboratorId: string) {
     setIsAlteringCollaboratorStatus(true)
-    const response = await authService.enable(collaboratorId)
+    const response = await authService.enableCollaboratorAccount(collaboratorId)
     if (response.isFailure) {
       showError(response.errorMessage)
       setIsAlteringCollaboratorStatus(false)
