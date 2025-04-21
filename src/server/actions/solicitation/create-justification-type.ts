@@ -1,9 +1,9 @@
 import type { Action } from "@/@core/global/interfaces/rpc";
 import type { JustificationTypeDto } from "@/@core/solicitation/dtos";
-import type { IJustificationTypeService } from "@/@core/solicitation/interfaces";
+import type { ISolicitationService } from "@/@core/solicitation/interfaces";
 
 type Request = JustificationTypeDto 
-export const CreateJustificationTypeAction = (service: IJustificationTypeService): Action<Request> => {
+export const CreateJustificationTypeAction = (service: ISolicitationService): Action<Request> => {
   return {
     async handle(call) {
       const justificationType = call.getRequest()

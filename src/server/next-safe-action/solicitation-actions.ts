@@ -3,7 +3,7 @@
 import { NextServerRestClient } from '@/api/next/clients/next-server-api-client'
 import { NextActionServer } from '../next/next-server-action'
 import { authActionClient } from './clients/auth-action-client'
-import { JustificationTypeService, SolicitationService } from '@/api/services'
+import {  SolicitationService } from '@/api/services'
 import {
     CreateDayOffScheduleAdjustmentSolicitationAction,
   CreateJustificationTypeAction,
@@ -52,7 +52,7 @@ export const createJustificationType = authActionClient
       account: ctx.account,
     })
     const apiClient = await NextServerRestClient({ isCacheEnabled: true })
-    const service = JustificationTypeService(apiClient)
+    const service = SolicitationService(apiClient)
     const action = CreateJustificationTypeAction(service)
     return action.handle(actionServer)
   })
@@ -69,7 +69,7 @@ export const deleteJustificaionType = authActionClient
       account: ctx.account,
     })
     const apiClient = await NextServerRestClient({ isCacheEnabled: true })
-    const service = JustificationTypeService(apiClient)
+    const service = SolicitationService(apiClient)
     const action = DeleteJustificationTypeAction(service)
     return action.handle(actionServer)
   })
@@ -87,7 +87,7 @@ export const updateJustificationType = authActionClient
       account: ctx.account,
     })
     const apiClient = await NextServerRestClient({ isCacheEnabled: true })
-    const service = JustificationTypeService(apiClient)
+    const service = SolicitationService(apiClient)
     const action = UpdateJustificationTypeAction(service)
     return action.handle(actionServer)
   })
