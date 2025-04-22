@@ -8,7 +8,6 @@ import { NextServerRestClient } from '@/api/next/clients/next-server-api-client'
 import { NextActionServer } from '@/server/next/next-server-action'
 import {
   daysOffScheduleSchema,
-  weekScheduleSchema,
 } from '@/validation/schemas/work-schedule'
 import { authActionClient } from './clients/auth-action-client'
 import {
@@ -70,7 +69,7 @@ const punchTime = authActionClient
   .schema(
     z.object({
       timePunchLogId: z.string(),
-      time: z.date(),
+      time: z.string(),
     }),
   )
   .action(async ({ clientInput, ctx }) => {

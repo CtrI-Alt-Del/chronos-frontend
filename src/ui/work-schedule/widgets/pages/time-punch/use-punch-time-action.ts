@@ -4,7 +4,7 @@ import { useAction } from 'next-safe-action/hooks'
 export function usePunchTimeAction() {
   const { executeAsync, isPending } = useAction(workScheduleActions.punchTime, {})
 
-  async function punchTime(timePunchLogId: string, time: Date) {
+  async function punchTime(timePunchLogId: string, time: string) {
     await executeAsync({ timePunchLogId, time })
   }
 

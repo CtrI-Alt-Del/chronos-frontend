@@ -1,6 +1,6 @@
 import { AppError } from '@/@core/global/errors'
 import { createSafeActionClient, DEFAULT_SERVER_ERROR_MESSAGE } from 'next-safe-action'
-import { notFound, redirect } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 export const actionClient = createSafeActionClient({
   handleServerError(error) {
@@ -10,7 +10,7 @@ export const actionClient = createSafeActionClient({
       return error.message
     }
     console.error('Action error:', error)
-
+    
     if (error.message === 'NEXT_NOT_FOUND') {
       redirect('/not-found')
     }

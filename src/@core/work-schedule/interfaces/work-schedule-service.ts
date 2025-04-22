@@ -25,10 +25,9 @@ export interface WorkScheduleService {
     collaboratorId: string,
     dayOffSchedule: DayOffScheduleDto,
   ): Promise<ApiResponse<void>>
-  updateTimePunchSchedule(timePunch: TimePunchDto): Promise<ApiResponse<void>>
   adjustTimePunch(
-    timePunchScheduleId: string,
-    timeLog: string,
+    workdayLogId: string,
+    time: string,
     timePunchPeriod: TimePunchPeriod,
   ): Promise<ApiResponse<void>>
   punchTime(timePunchLogId: string, time: Date): Promise<ApiResponse<void>>
