@@ -12,7 +12,7 @@ import { Pagination, Spinner } from '@heroui/react'
 
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
-import { TimePunchLogDialog } from '@/ui/work-schedule/widgets/components/time-punch-log-dialog'
+import { TimePunchDialog } from '@/ui/work-schedule/widgets/components/time-punch-dialog'
 import { useCollaboratorHistoryTable } from './use-collaborator-history-table'
 
 type CollaboratorHistoryTableProps = {
@@ -75,9 +75,8 @@ export const CollaboratorHistoryTable = ({
           <TableRow key={row.id} className={isLoading ? 'opacity-25' : 'opacity-100'}>
             <TableCell>{row.date}</TableCell>
             <TableCell>
-              <TimePunchLogDialog
-                timePunchLog={row.timePunchLog}
-                timePunchSchedule={row.timePunchSchedule}
+              <TimePunchDialog
+                timePunch={row.timePunch}
                 onTimeLogChange={onTimeLogChange}
               />
             </TableCell>

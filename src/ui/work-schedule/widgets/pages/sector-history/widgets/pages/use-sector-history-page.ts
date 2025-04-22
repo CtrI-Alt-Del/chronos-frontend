@@ -7,20 +7,21 @@ import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
 import { useQueryParamDate } from '@/ui/global/hooks/use-query-param-date'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
-import { useApi } from '@/ui/global/hooks/use-api'
+import { useRest } from '@/ui/global/hooks/use-rest'
 import { useToast } from '@/ui/global/hooks/use-toast'
 
 export function useSectorHistoryPage() {
   const { getCurrentDate, formatIsoDate } = useDatetime()
   const [date, setDate] = useQueryParamDate('date', getCurrentDate())
-  const [collboratorName, setCollboratorName] = useQueryParamString('name')
-  const { workScheduleService } = useApi()
+  const [collboratorName, setCollboratorName] = useQueryParamString('collaboratorName')
+  const { workScheduleService } = useRest()
   const { showError, showSuccess } = useToast()
   const [isAdjustingTimePunchLog, setIsAdjustingTimePunchLog] = useState(false)
 
   async function fetchSectorHistory(page: number) {
-    const response = await workScheduleService.reportSectorHistory(
+    const response = await workScheduleService.getCollaborationSectorHistory(
       formatIsoDate(date),
+      collboratorName,
       page,
     )
     return response.body
@@ -53,7 +54,7 @@ export function useSectorHistoryPage() {
   ) {
     setIsAdjustingTimePunchLog(true)
 
-    const response = await workScheduleService.adjustTimePunchLog(
+    const response = await workScheduleService.adjustTimePunch(
       timePunchLogId,
       timeLog,
       timePunchPeriod,

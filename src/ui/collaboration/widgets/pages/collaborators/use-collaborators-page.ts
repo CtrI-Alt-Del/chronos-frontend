@@ -4,22 +4,23 @@ import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
 import { CACHE } from '@/@core/global/constants'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import { useApi } from '@/ui/global/hooks/use-api'
+import { useRest } from '@/ui/global/hooks/use-rest'
 
 export function useCollaboratorsPage() {
-  const { collaborationService } = useApi()
+  const { collaborationService,authService } = useRest()
   const [isAlteringCollaboratorStatus, setIsAlteringCollaboratorStatus] =
     useState<boolean>(false)
-  const [statusSearchValue, setStatusSearchValue] = useQueryParamString('active')
+  const [status, setStatus] = useQueryParamString('active', 'true')
   const { showError, showSuccess } = useToast()
 
-  function handleStatusSearchValueChange(value: string) {
-    setStatusSearchValue(value)
+  function handleStatusChange(value: string) {
+    setStatus(value)
   }
+
   async function fetchCollaborators(page: number) {
     const response = await collaborationService.listCollaborators({
       page,
-      status: statusSearchValue,
+      status: status,
     })
     return response.body
   }
@@ -27,12 +28,12 @@ export function useCollaboratorsPage() {
     data: collaborators,
     isFetching,
     page,
-    itemsCount,
+    pagesCount,
     setPage,
     refetch,
   } = usePaginatedCache({
     fetcher: fetchCollaborators,
-    dependencies: [statusSearchValue],
+    dependencies: [status],
     key: CACHE.collaboration.collaborators.key,
   })
 
@@ -46,39 +47,42 @@ export function useCollaboratorsPage() {
 
   async function handleDisableEmployee(collaboratorId: string) {
     setIsAlteringCollaboratorStatus(true)
-    const response = await collaborationService.disableCollaborator(collaboratorId)
+    const response = await authService.disableCollaboratorAccount(collaboratorId)
     if (response.isFailure) {
       showError(response.errorMessage)
-      setIsAlteringCollaboratorStatus(false)
-      return
     }
-    showSuccess('Colaborador desativado com sucesso')
-    refetch()
+    if (response.isSuccess) {
+      showSuccess('Colaborador desativado com sucesso')
+      refetch()
+    }
+
     setIsAlteringCollaboratorStatus(false)
   }
   async function handleEnableEmployee(collaboratorId: string) {
     setIsAlteringCollaboratorStatus(true)
-    const response = await collaborationService.enableCollaborator(collaboratorId)
+    const response = await authService.enableCollaboratorAccount(collaboratorId)
     if (response.isFailure) {
       showError(response.errorMessage)
       setIsAlteringCollaboratorStatus(false)
-      return
     }
-    showSuccess('Colaborador ativado com sucesso')
-    refetch()
+    if (response.isSuccess) {
+      showSuccess('Colaborador ativado com sucesso')
+      refetch()
+    }
+
     setIsAlteringCollaboratorStatus(false)
   }
   return {
     isAlteringCollaboratorStatus,
     page,
-    totalPages: Math.ceil(itemsCount / 10),
+    totalPages: pagesCount,
     collaborators,
-    isFetching,
-    statusSearchValue,
+    isLoadingCollaborators: isFetching || isAlteringCollaboratorStatus,
+    status,
     handlePageChange,
     handleRegisterCollaborator,
     handleDisableEmployee,
     handleEnableEmployee,
-    handleStatusSearchValueChange,
+    handleStatusChange,
   }
 }

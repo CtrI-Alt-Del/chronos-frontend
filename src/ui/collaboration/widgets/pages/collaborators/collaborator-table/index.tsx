@@ -1,32 +1,34 @@
 'use client'
+
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+} from '@heroui/table'
+import Link from 'next/link'
+import { Pagination } from '@heroui/pagination'
+import { Spinner } from '@heroui/spinner'
+import { Button } from '@heroui/button'
+
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import { ROUTES } from '@/constants'
 import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
 import { Icon } from '@/ui/global/widgets/components/Icon'
 import { IconButton } from '@/ui/global/widgets/components/icon-button'
 import { Tag } from '@/ui/global/widgets/components/tag'
-import { Button } from '@heroui/button'
-import { Pagination } from '@heroui/pagination'
-import { Spinner } from '@heroui/spinner'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableColumn,
-    TableHeader,
-    TableRow,
-} from '@heroui/table'
-import Link from 'next/link'
 
 type CollaboratorTableProps = {
   page: number
   isLoading: boolean
   collaborators: CollaboratorDto[]
   totalPages: number
+  isAlteringCollaboratorStatus: boolean
   onPageChange: (page: number) => void
   handleDisableEmployee: (collaboratorId: string) => void
   handleEnableEmployee: (collaboratorId: string) => void
-  isAlteringCollaboratorStatus: boolean
 }
 
 export const CollaboratorTable = ({
@@ -147,7 +149,7 @@ export const CollaboratorTable = ({
                     }
                     onCancel={() => {}}
                     title='ALERTA'
-                    onConfirm={() => handleDisableEmployee(item.id as string)}
+                    onConfirm={() => handleDisableEmployee(String(item.id))}
                   >
                     Voce tem certeza que deseja desativar esse colaborador?
                   </AlertDialog>
@@ -162,7 +164,7 @@ export const CollaboratorTable = ({
                     }
                     onCancel={() => {}}
                     title='ALERTA'
-                    onConfirm={() => handleEnableEmployee(item.id as string)}
+                    onConfirm={() => handleEnableEmployee(String(item.id))}
                   >
                     Voce tem certeza que deseja ativar esse colaborador?
                   </AlertDialog>

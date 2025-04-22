@@ -5,6 +5,7 @@ export const collaboratorSchema = z.object({
   email: z.string().email({ message: 'Email inválido' }),
   cpf: z.string().min(11, { message: 'CPF deve ter 11 dígitos' }),
   role: z.string().min(1, { message: 'Cargo é obrigatório' }),
+  workload: z.coerce.number({ required_error: 'Carga horária é obrigatória' }),
   sector: z.string().min(1, { message: 'Setor é obrigatório' }),
   isActive: z.boolean().default(true),
   password: z

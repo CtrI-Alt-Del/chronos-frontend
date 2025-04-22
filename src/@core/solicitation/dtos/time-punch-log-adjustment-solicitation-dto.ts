@@ -1,5 +1,4 @@
-import type { ResponsibleAggregateDto } from '@/@core/global/dtos/ResponsibleAggregateDto'
-import { SolicitationDto } from './solicitation-dto'
+import type { SolicitationDto } from './solicitation-dto'
 
 export type TimePunchLogAdjustmentSolicitationDto = SolicitationDto & {
   time: string
@@ -7,4 +6,3 @@ export type TimePunchLogAdjustmentSolicitationDto = SolicitationDto & {
   workdayLogDate: Date
   reason: string
 }
-

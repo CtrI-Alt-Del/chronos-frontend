@@ -5,6 +5,7 @@ export type CollaboratorDto = {
   password?: string
   cpf: string
   isActive: boolean
+  workload: number
   role: string
   sector: string
 }

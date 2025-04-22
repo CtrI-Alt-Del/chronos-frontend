@@ -1,13 +1,13 @@
 import { COOKIES } from '@/@core/global/constants/cookies'
-import type { IController } from '@/@core/global/interfaces/controller'
-import type { IHttp } from '@/@core/global/interfaces/http'
+import type { Controller } from '@/@core/global/interfaces/rest'
+import type { Http } from '@/@core/global/interfaces/rest/http'
 import { ROUTES } from '@/constants/routes'
 
 const PUBLIC_ROUTES = [ROUTES.auth.login]
 
-export const VerifyJwtMiddleware = (): IController => {
+export const VerifyJwtMiddleware = (): Controller => {
   return {
-    async handle(http: IHttp) {
+    async handle(http: Http) {
       const currentRoute = http.getCurrentRoute()
       const isAuthenticated = await http.hasCookie(COOKIES.jwt.key)
       const isPublicRoute = PUBLIC_ROUTES.map(String).includes(currentRoute)

@@ -1,17 +1,23 @@
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
-import type { IAction, IActionServer } from '@/@core/global/interfaces'
-import type { ICollaborationService } from '@/@core/collaboration/interfaces'
+import type { Action, Call } from '@/@core/global/interfaces/rpc'
+import type { CollaborationService } from '@/@core/collaboration/interfaces'
 
 type Response = {
-  collaborator: CollaboratorDto
+  collaborator: CollaboratorDto | null
 }
 
 export const GetCollaboratorProfileAction = (
-  service: ICollaborationService,
-): IAction<void, Response> => {
+  service: CollaborationService,
+): Action<void, Response> => {
   return {
-    async handle(actionServer: IActionServer<Request>) {
+    async handle(actionServer: Call<Request>) {
       const account = await actionServer.getAccount()
+      if (!account.collaboratorId) {
+        return {
+          collaborator: null,
+        }
+      }
+
       const response = await service.getCollaborator(account.collaboratorId)
       if (response.isFailure) response.throwError()
 

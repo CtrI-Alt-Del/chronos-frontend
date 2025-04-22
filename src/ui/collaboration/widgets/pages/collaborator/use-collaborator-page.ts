@@ -3,26 +3,17 @@ import { useEffect } from 'react'
 import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store'
 import type { Tab } from '@/ui/collaboration/stores/collaborator-store/types/tab'
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
-import type { DayOffScheduleDto, WeekdayScheduleDto } from '@/@core/work-schedule/dtos'
-import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
+import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 
 export function useCollaboratorPage(
   currentCollaborator?: CollaboratorDto,
-  currentWeekSchedule?: WeekdayScheduleDto[],
   currentDayOffSchedule?: DayOffScheduleDto,
 ) {
-  const {
-    getCollaboratorSlice,
-    getWeekScheduleSlice,
-    getDayOffScheduleSlice,
-    getTabSlice,
-    resetStore,
-  } = useCollaboratorStore()
-  const { tab, setTab } = getTabSlice()
-  const { collaborator, setCollaborator } = getCollaboratorSlice()
-  const [activeTab] = useQueryParamString('tab')
-  const { weekSchedule, setWeekSchedule } = getWeekScheduleSlice()
-  const { dayOffSchedule, setDayOffSchedule } = getDayOffScheduleSlice()
+  const { useCollaboratorSlice, useDayOffScheduleSlice, useTabSlice, resetStore } =
+    useCollaboratorStore()
+  const { tab, setTab } = useTabSlice()
+  const { collaborator, setCollaborator } = useCollaboratorSlice()
+  const { dayOffSchedule, setDayOffSchedule } = useDayOffScheduleSlice()
 
   function handleTabChange(tab: Tab) {
     setTab(tab)
@@ -35,24 +26,10 @@ export function useCollaboratorPage(
   }, [currentCollaborator, collaborator, setCollaborator])
 
   useEffect(() => {
-    if (currentWeekSchedule && !weekSchedule.length) {
-      setWeekSchedule(currentWeekSchedule)
-    }
-  }, [currentWeekSchedule, weekSchedule, setWeekSchedule])
-
-  useEffect(() => {
     if (currentDayOffSchedule && !dayOffSchedule) {
       setDayOffSchedule(currentDayOffSchedule)
     }
   }, [currentDayOffSchedule, dayOffSchedule, setDayOffSchedule])
-  useEffect(() => {
-    const mappedTab =
-      activeTab === 'day-off-schedule-tab' ? 'day-off-schedule-tab' : 'collaborator-tab'
-
-    if (mappedTab !== tab) {
-      setTab(mappedTab as Tab)
-    }
-  }, [activeTab,setTab])
 
   useEffect(() => {
     return () => {
@@ -62,8 +39,7 @@ export function useCollaboratorPage(
 
   return {
     activeTab: tab,
-    isWeekScheduleTabDisabled: collaborator === null,
-    isDayOffScheduleTabDisabled: false,
+    isDayOffScheduleTabDisabled: collaborator === null,
     handleTabChange,
   }
 }

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 
-import { useApi } from '@/ui/global/hooks'
+import { useRest } from '@/ui/global/hooks'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { useFormContext } from 'react-hook-form'
 import type { WorkScheduleForm } from '../use-schedule-page'
@@ -30,7 +30,7 @@ export function useDaysOffSchedule(
   const [isCalendarEnabled, setIsCalendarEnabled] = useState(Boolean(defaultDaysOff))
   const [isLoading, setIsLoading] = useState(false)
   const [daysOff, setDaysOff] = useState<Set<string>>(new Set(defaultDaysOff))
-  const { workScheduleService } = useApi()
+  const { workScheduleService } = useRest()
   const { editDaysOffSchedule, isEditing } = useEditDaysOffScheduleAction(workScheduleId)
 
   function handleDaysOffCountChange(value: number) {

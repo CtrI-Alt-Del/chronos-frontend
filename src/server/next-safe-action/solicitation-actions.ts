@@ -1,18 +1,22 @@
 'use server'
-import { NextServerApiClient } from '@/api/next/clients/next-server-api-client'
+
+import { NextServerRestClient } from '@/api/next/clients/next-server-api-client'
 import { NextActionServer } from '../next/next-server-action'
 import { authActionClient } from './clients/auth-action-client'
-import { SolicitationService } from '@/api/services'
+import {  SolicitationService } from '@/api/services'
 import {
-  CreateDayOffScheduleAdjustmentSolicitation,
-  ResolveSolicitation,
+    CreateDayOffScheduleAdjustmentSolicitationAction,
+  CreateJustificationTypeAction,
+  DeleteJustificationTypeAction,
+  ResolveSolicitationAction,
+  UpdateJustificationTypeAction,
 } from '../actions/solicitation'
 import {
   dayOffScheduleAdjustmentSolicitationSchema,
-  solicitationSchema,
+  justificationTypeSchema,
 } from '@/validation/schemas/solicitation'
-import { a } from 'next-safe-action/dist/index.types-Cct3QIs2.mjs'
 import { resolveSolicitationSchema } from '@/validation/schemas/solicitation/resolve-solicitation-schema'
+import { z } from 'zod'
 
 export const createDayOffScheduleAdjustmentSolicitation = authActionClient
   .schema(dayOffScheduleAdjustmentSolicitationSchema)
@@ -21,11 +25,12 @@ export const createDayOffScheduleAdjustmentSolicitation = authActionClient
       request: clientInput,
       account: ctx.account,
     })
-    const apiClient = await NextServerApiClient({ isCacheEnabled: false })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = SolicitationService(apiClient)
-    const action = CreateDayOffScheduleAdjustmentSolicitation(service)
+    const action = CreateDayOffScheduleAdjustmentSolicitationAction(service)
     return action.handle(actionServer)
   })
+
 export const resolveSolicitation = authActionClient
   .schema(resolveSolicitationSchema)
   .action(async ({ ctx, clientInput }) => {
@@ -33,8 +38,56 @@ export const resolveSolicitation = authActionClient
       request: clientInput,
       account: ctx.account,
     })
-    const apiClient = await NextServerApiClient({ isCacheEnabled: false })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = SolicitationService(apiClient)
-    const action = ResolveSolicitation(service)
+    const action = ResolveSolicitationAction(service)
+    return action.handle(actionServer)
+  })
+
+export const createJustificationType = authActionClient
+  .schema(justificationTypeSchema)
+  .action(async ({ ctx, clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+      account: ctx.account,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: true })
+    const service = SolicitationService(apiClient)
+    const action = CreateJustificationTypeAction(service)
+    return action.handle(actionServer)
+  })
+
+export const deleteJustificaionType = authActionClient
+  .schema(
+    z.object({
+      justificationTypeId: z.string().uuid(),
+    }),
+  )
+  .action(async ({ ctx, clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+      account: ctx.account,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: true })
+    const service = SolicitationService(apiClient)
+    const action = DeleteJustificationTypeAction(service)
+    return action.handle(actionServer)
+  })
+
+export const updateJustificationType = authActionClient
+  .schema(
+    z.object({
+      justificationTypeId: z.string().uuid(),
+      justificationType: justificationTypeSchema,
+    }),
+  )
+  .action(async ({ ctx, clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+      account: ctx.account,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: true })
+    const service = SolicitationService(apiClient)
+    const action = UpdateJustificationTypeAction(service)
     return action.handle(actionServer)
   })

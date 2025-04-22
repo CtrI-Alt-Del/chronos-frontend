@@ -1,89 +1,69 @@
-import type { IApiClient } from '@/@core/global/interfaces/api-client'
-import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
-import type { IWorkScheduleService } from '@/@core/work-schedule/interfaces'
+import type { RestClient } from '@/@core/global/interfaces/rest/rest-client'
+import type { WorkScheduleService as IWorkScheduleService } from '@/@core/work-schedule/interfaces'
 import { DatetimeProvider } from '@/providers'
 
-export const WorkScheduleService = (apiClient: IApiClient): IWorkScheduleService => {
+export const WorkScheduleService = (restClient: RestClient): IWorkScheduleService => {
   const MODULE = '/work-schedule'
 
   return {
     async getTodayWorkdayLog(collaboratorId) {
-      return await apiClient.get<WorkdayLogDto>(
-        `${MODULE}/workday-logs/${collaboratorId}/today`,
-      )
+      return await restClient.get(`${MODULE}/workday-logs/${collaboratorId}/today`)
     },
 
-    async createCollaboratorSchedule(collaboratorSchedule) {
-      return await apiClient.post(
-        `${MODULE}/collaborator-schedules/${collaboratorSchedule.collaboratorId}`,
-        collaboratorSchedule,
-      )
-    },
-
-    async getWeekSchedule(collaboratorId) {
-      return await apiClient.get(`${MODULE}/week-schedules/${collaboratorId}`)
-    },
-
-    async getDayOffSchedule(collaboratorId) {
-      return await apiClient.get(`${MODULE}/day-off-schedules/${collaboratorId}`)
-    },
-
-    async reportSectorHistory(date, page = 1) {
-      apiClient.setParam('date', date)
-      apiClient.setParam('page', String(page))
-      return await apiClient.get(`${MODULE}/workday-logs/history`)
-    },
-
-    async reportCollaboratorHistory(collaboratorId, startDate, endDate, page = 1) {
-      apiClient.setParam('startDate', startDate)
-      apiClient.setParam('endDate', endDate)
-      apiClient.setParam('page', String(page))
-      return await apiClient.get(`${MODULE}/workday-logs/history/${collaboratorId}`)
-    },
-
-    async createWorkSchedule(workSchedule) {
-      return await apiClient.post(`${MODULE}/schedules`, workSchedule)
-    },
-
-    async updateDayOffSchedule(collaboratorId, dayOffSchedule) {
-      return await apiClient.put(
+    async createDayOffSchedule(collaboratorId, dayOffSchedule) {
+      return await restClient.post(
         `${MODULE}/day-off-schedules/${collaboratorId}`,
         dayOffSchedule,
       )
     },
 
-    async updateWeekSchedule(collaboratorId, weekSchedule) {
-      return await apiClient.put(
-        `${MODULE}/week-schedules/${collaboratorId}`,
-        weekSchedule,
+    async getDayOffSchedule(collaboratorId) {
+      return await restClient.get(`${MODULE}/day-off-schedules/${collaboratorId}`)
+    },
+
+    async updateDayOffSchedule(collaboratorId, dayOffSchedule) {
+      return await restClient.put(
+        `${MODULE}/day-off-schedules/${collaboratorId}`,
+        dayOffSchedule,
       )
+    },
+
+    async getCollaborationSectorHistory(date, collaboratorName = '', page = 1) {
+      restClient.setParam('date', date)
+      restClient.setParam('collaboratorName', collaboratorName)
+      restClient.setParam('page', String(page))
+      return await restClient.get(`${MODULE}/workday-logs/history`)
+    },
+
+    async getCollaboratorHistory(collaboratorId, startDate, endDate, page = 1) {
+      restClient.setParam('startDate', startDate)
+      restClient.setParam('endDate', endDate)
+      restClient.setParam('page', String(page))
+      return await restClient.get(`${MODULE}/workday-logs/history/${collaboratorId}`)
     },
 
     async updateTimePunchSchedule(timePunch) {
-      return await apiClient.put(`${MODULE}/time-punches/${timePunch.id}`, timePunch)
+      return await restClient.put(`${MODULE}/time-punches/${timePunch.id}`, timePunch)
     },
 
-    async adjustTimePunchLog(timePunchScheduleId, timeLog, timePunchPeriod) {
-      return await apiClient.patch(
-        `${MODULE}/time-punches/${timePunchScheduleId}/adjust`,
-        {
-          time: timeLog,
-          period: timePunchPeriod,
-        },
-      )
+    async adjustTimePunch(timePunchId, time, period) {
+      return await restClient.patch(`${MODULE}/time-punches/${timePunchId}/adjust`, {
+        time,
+        period,
+      })
     },
 
     async punchTime(timePunchLogId, time) {
       const datetimeProvider = DatetimeProvider()
-      return await apiClient.patch(`${MODULE}/time-punches/${timePunchLogId}`, {
+      return await restClient.patch(`${MODULE}/time-punches/${timePunchLogId}`, {
         time: datetimeProvider.formatTime(time),
       })
     },
 
     async scheduleDaysOff(workdaysCount, daysOffCount) {
-      apiClient.setParam('workdaysCount', String(workdaysCount))
-      apiClient.setParam('daysOffCount', String(daysOffCount))
-      return await apiClient.get(`${MODULE}/day-off-schedules`)
+      restClient.setParam('workdaysCount', String(workdaysCount))
+      restClient.setParam('daysOffCount', String(daysOffCount))
+      return await restClient.get(`${MODULE}/day-off-schedules`)
     },
   }
 }
