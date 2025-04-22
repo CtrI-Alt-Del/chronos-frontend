@@ -18,12 +18,18 @@ import {
 } from './collaboration-actions'
 import {
   createDayOffScheduleAdjustmentSolicitation,
+  createJustificationType,
+  deleteJustificaionType,
   resolveSolicitation,
+  updateJustificationType,
 } from './solicitation-actions'
 
 const solicitationActions = {
   createDayOffScheduleAdjustmentSolicitation,
   resolveSolicitation,
+  createJustificationType,
+  deleteJustificaionType,
+  updateJustificationType,
 }
 
 const authActions = {

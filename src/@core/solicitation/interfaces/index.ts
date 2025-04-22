@@ -1,1 +1,1 @@
-export type { SolicitationService } from './solicitation-service'
+export type { ISolicitationService } from './solicitation-service'
