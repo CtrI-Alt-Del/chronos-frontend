@@ -88,6 +88,7 @@ export const SectorHistoryTable = ({
             <TableCell>
               <TimePunchDialog
                 timePunch={row.timePunch}
+                workdayLogId={row.id}
                 onTimeLogChange={onTimeLogChange}
               />
             </TableCell>

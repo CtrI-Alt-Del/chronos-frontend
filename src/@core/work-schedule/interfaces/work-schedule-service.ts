@@ -1,7 +1,8 @@
 import type { PaginationResponse } from '@/@core/global/responses/pagination-response'
 import type { ApiResponse } from '@/@core/global/responses'
-import type { DayOffScheduleDto, TimePunchDto, WorkdayLogDto } from '../dtos'
+import type { DayOffScheduleDto, WorkdayLogDto } from '../dtos'
 import type { TimePunchPeriod } from '../types'
+import type { TimeCardDto } from '../dtos/time-card-dto'
 
 export interface WorkScheduleService {
   createDayOffSchedule(
@@ -21,6 +22,11 @@ export interface WorkScheduleService {
     collaboratorName?: string,
     page?: number,
   ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
+  getTimeCard(
+    collaboratorId: string,
+    month: number,
+    year: number,
+  ): Promise<ApiResponse<TimeCardDto>>
   updateDayOffSchedule(
     collaboratorId: string,
     dayOffSchedule: DayOffScheduleDto,

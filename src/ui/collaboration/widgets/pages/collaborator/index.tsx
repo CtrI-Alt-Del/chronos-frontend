@@ -4,12 +4,14 @@ import { Tabs, Tab } from '@heroui/react'
 
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
+import type { TimeCardDto } from '@/@core/work-schedule/dtos/time-card-dto'
 import { Icon } from '@/ui/global/widgets/components/Icon'
 import { useBreakpoint } from '@/ui/global/hooks/use-breakpoint'
 import type { Tab as TabKey } from '@/ui/collaboration/stores/collaborator-store/types'
 import { CollaboratorTab } from './collaborator-tab'
 import { DayOffScheduleTab } from './day-off-schedule-tab'
 import { useCollaboratorPage } from './use-collaborator-page'
+import { TimeCardTab } from './use-time-card-tab'
 
 type CollaboratorPageProps = {
   collaborator?: CollaboratorDto
@@ -69,7 +71,7 @@ export const CollaboratorPage = ({
             collaboratorId={collaborator?.id}
           />
         </Tab>
-        {collaborator && (
+        {collaborator?.id && (
           <Tab
             key='time-card-tab'
             title={
@@ -79,7 +81,7 @@ export const CollaboratorPage = ({
               </div>
             }
           >
-            Espelho ponto
+            <TimeCardTab collaboratorId={collaborator.id} />
           </Tab>
         )}
       </Tabs>

@@ -10,8 +10,8 @@ import { Button } from '@heroui/button'
 import { useRef } from 'react'
 
 import type { TimePunchDto } from '@/@core/work-schedule/dtos'
-import { Dialog } from '@/ui/global/widgets/components/dialog'
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
+import { Dialog } from '@/ui/global/widgets/components/dialog'
 import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
 import { useTimePunchDialog } from './use-time-punch-dialog'
 import { TimeLog } from './time-log'
@@ -19,15 +19,20 @@ import { TimeLogInput } from './time-log-input'
 
 type TimePunchDialogProps = {
   timePunch: TimePunchDto
-  onTimeLogChange: (timePunchId: string, time: string, period: TimePunchPeriod) => void
+  workdayLogId?: string
+  onTimeLogChange?: (timePunchId: string, time: string, period: TimePunchPeriod) => void
 }
 
-export const TimePunchDialog = ({ timePunch, onTimeLogChange }: TimePunchDialogProps) => {
+export const TimePunchDialog = ({
+  timePunch,
+  workdayLogId,
+  onTimeLogChange,
+}: TimePunchDialogProps) => {
   const dialogRef = useRef<DialogRef>(null)
   const { handleTimeLogChange } = useTimePunchDialog(
     dialogRef,
     onTimeLogChange,
-    timePunch.id,
+    workdayLogId,
   )
 
   return (

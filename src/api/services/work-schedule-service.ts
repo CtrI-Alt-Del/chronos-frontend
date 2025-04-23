@@ -1,6 +1,5 @@
 import type { RestClient } from '@/@core/global/interfaces/rest/rest-client'
 import type { WorkScheduleService as IWorkScheduleService } from '@/@core/work-schedule/interfaces'
-import { DatetimeProvider } from '@/providers'
 
 export const WorkScheduleService = (restClient: RestClient): IWorkScheduleService => {
   const MODULE = '/work-schedule'
@@ -8,6 +7,12 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
   return {
     async getTodayWorkdayLog(collaboratorId) {
       return await restClient.get(`${MODULE}/workday-logs/${collaboratorId}/today`)
+    },
+
+    async getTimeCard(collaboratorId: string, month: number, year: number) {
+      restClient.setParam('month', String(month))
+      restClient.setParam('year', String(year))
+      return await restClient.get(`${MODULE}/time-card/${collaboratorId}`)
     },
 
     async createDayOffSchedule(collaboratorId, dayOffSchedule) {
@@ -50,7 +55,6 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
     },
 
     async punchTime(workdayLogId, time) {
-      console.log('punchTime', time)
       return await restClient.patch(`${MODULE}/workday-logs/${workdayLogId}/time-punch`, {
         time,
       })

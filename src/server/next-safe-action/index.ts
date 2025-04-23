@@ -8,6 +8,7 @@ import { getCookie, deleteCookie, hasCookie, setCookie } from './cookie-actions'
 import {
   getTodayWorkdayLog,
   getDayOffSchedule,
+  getTimeCard,
   updateDayOffSchedule,
   punchTime,
 } from './work-schedule-actions'
@@ -43,6 +44,7 @@ const cookieActions = {
 const workScheduleActions = {
   getTodayWorkdayLog,
   getDayOffSchedule,
+  getTimeCard,
   updateDayOffSchedule,
   punchTime,
 }
