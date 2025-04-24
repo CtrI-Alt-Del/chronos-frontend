@@ -1,4 +1,4 @@
-export type HourBankBalance = {
+export type HourBankBalanceDto = {
   value: string
   isNegative: boolean
 }
