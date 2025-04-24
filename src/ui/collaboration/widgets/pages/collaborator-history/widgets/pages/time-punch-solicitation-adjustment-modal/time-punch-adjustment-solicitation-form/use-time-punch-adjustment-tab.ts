@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { format, parse } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useCreateTimePunchAdjustmentSolicitationAction } from '../use-create-time-punch-adjustment-solicitation-action'
 export const timePunchAdjustmentRequestSchema = z
   .object({
     description: z.string().optional(),
@@ -24,49 +25,26 @@ export const timePunchAdjustmentRequestSchema = z
       path: ['description'],
     },
   )
-type useRegisterTimePunchAdjustmentForm = {
-  onSubmit: VoidFunction
-  workdayLogId: string
-}
 type RegisterTimePunchAdjustmentFormData = z.infer<
   typeof timePunchAdjustmentRequestSchema
 >
 
-export function useTimePunchAdjustmentTab({
-  onSubmit,
-  workdayLogId,
-}: useRegisterTimePunchAdjustmentForm) {
+export function useTimePunchAdjustmentTab(onSubmit: VoidFunction) {
+  const {isCreatingSolicitation,createTimePunchAdjustmentSolicitation} = useCreateTimePunchAdjustmentSolicitationAction()
   const { formState, register, handleSubmit, control } =
     useForm<RegisterTimePunchAdjustmentFormData>({
       resolver: zodResolver(timePunchAdjustmentRequestSchema),
     })
-  const { solicitationService } = useRest()
-  const { showSuccess, showError } = useToast()
   async function handleFormSubmit(formData: RegisterTimePunchAdjustmentFormData) {
     const parsedTime = parse(formData.time, 'HH:mm', new Date())
     const formattedTime = format(parsedTime, 'HH:mm:ss')
     const parsedDate = parse(formData.workdayLogDate, 'yyyy-MM-dd', new Date())
     const formattedDate = format(parsedDate, 'yyyy-MM-dd')
-    const dataToBeSent = {
-      ...formData,
-      time: formattedTime,
-      workdayLogDate: parsedDate,
-    }
-    const response =
-      await solicitationService.createTimePunchLogAdjustmentSolicitation(dataToBeSent)
-    if (response.isFailure) {
-      showError(response.errorMessage)
-      return
-    }
-
-    if (response.isSuccess) {
-      showSuccess('Solicitação de alteração de ponto criada com sucesso!')
-      onSubmit()
-    }
+    createTimePunchAdjustmentSolicitation(formattedTime,formData.period,parsedDate,formData.reason)
   }
   return {
     errors: formState.errors,
-    isSubmitting: formState.isSubmitting,
+    isSubmitting: isCreatingSolicitation,
     control,
     register,
     handleSubmit: handleSubmit(handleFormSubmit),

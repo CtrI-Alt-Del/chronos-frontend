@@ -1,8 +1,10 @@
 'use client'
 
-import { SolicitationAccordion } from './solicitation-accordion'
 import { useSolicitationPage } from './use-solicitation-page'
-import { JustificationModal } from './justification-modal' 
+import { Tab, Tabs } from '@heroui/react'
+import { DayOffScheduleSolicitationAccordion } from './day-off-schedule-solicitations-accordion'
+import { TimePunchAdjustmentSolicitationAccordion } from './time-punch-adjustment-solicitations-accordion'
+import { DayOffSolicitationAccordion } from './day-off-solicitations-accordion'
 
 type SolcitationPageProps = {
   userRole: string
@@ -10,7 +12,9 @@ type SolcitationPageProps = {
 }
 export const SolicitationsPage = ({ userRole, workdayLogId }: SolcitationPageProps) => {
   const {
-    solicitations,
+    dayOffSolicitations,
+    dayOffScheduleSolicitations,
+    timePunchAdjustmentSolicitations,
     isLoading,
     isResolvingSolicitation,
     refetch,
@@ -19,20 +23,72 @@ export const SolicitationsPage = ({ userRole, workdayLogId }: SolcitationPagePro
   } = useSolicitationPage()
   return (
     <div>
-      <div className='flex px-4 md:px-10 pt-8 pb-2 justify-between md:flex items-end gap-4'>
-        <div className='flex'>
-          <JustificationModal onSubmit={refetch} workdayLogId={workdayLogId} />
-        </div>
-      </div>
       <div className='px-10 py-4'>
-        <SolicitationAccordion
-          isResolvingSolicitation={isResolvingSolicitation}
-          solicitations={solicitations}
-          isLoading={isLoading}
-          userRole={userRole}
-          handleApprove={handleApproveSolicitation}
-          handleDeny={handleDenySolicitation}
-        />
+        <Tabs
+          aria-label='Opcoes'
+          color='primary'
+          classNames={{
+            base: 'block',
+            tabList: 'w-full mx-auto relative rounded-none p-0 border-b border-divider',
+            cursor: 'w-full bg-[#22d3ee]',
+            tab: 'w-full px-0 h-12',
+            tabContent: 'group-data-[selected=true]:text-[#06b6d4]',
+            panel: 'pt-3',
+          }}
+          variant='underlined'
+        >
+          <Tab
+            key='time-punch-solicitation-tab'
+            title={
+              <div className='flex items-center space-x-2 text-sm'>
+                <span>Solicitações de Troca de Ponto</span>
+              </div>
+            }
+          >
+            <TimePunchAdjustmentSolicitationAccordion
+              isResolvingSolicitation={isResolvingSolicitation}
+              solicitations={timePunchAdjustmentSolicitations}
+              isLoading={isLoading}
+              userRole={userRole}
+              handleApprove={handleApproveSolicitation}
+              handleDeny={handleDenySolicitation}
+            />
+          </Tab>
+          <Tab
+            key='day-off-schedule-tab'
+            title={
+              <div className='flex items-center space-x-2 text-sm'>
+                <span>Solicitacoes de Troca de Escala</span>
+              </div>
+            }
+          >
+            <DayOffScheduleSolicitationAccordion
+              isResolvingSolicitation={isResolvingSolicitation}
+              solicitations={dayOffScheduleSolicitations}
+              isLoading={isLoading}
+              userRole={userRole}
+              handleApprove={handleApproveSolicitation}
+              handleDeny={handleDenySolicitation}
+            />
+          </Tab>
+          <Tab
+            key='day-off-solicitation-tab'
+            title={
+              <div className='flex items-center space-x-2 text-sm'>
+                <span>Solicitacoes de Folga</span>
+              </div>
+            }
+          >
+            <DayOffSolicitationAccordion
+              isResolvingSolicitation={isResolvingSolicitation}
+              solicitations={dayOffSolicitations}
+              isLoading={isLoading}
+              userRole={userRole}
+              handleApprove={handleApproveSolicitation}
+              handleDeny={handleDenySolicitation}
+            />
+          </Tab>
+        </Tabs>
       </div>
     </div>
   )

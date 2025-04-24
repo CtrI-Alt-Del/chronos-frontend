@@ -19,6 +19,7 @@ import {
 import {
   createDayOffScheduleAdjustmentSolicitation,
   createJustificationType,
+  createTimePunchAdjustmentSolicitation,
   deleteJustificaionType,
   resolveSolicitation,
   updateJustificationType,
@@ -34,6 +35,7 @@ const solicitationActions = {
   createJustificationType,
   deleteJustificaionType,
   updateJustificationType,
+  createTimePunchAdjustmentSolicitation,
 }
 
 const authActions = {
