@@ -3,6 +3,7 @@
 import { useCollaboratorHistoryPage } from './use-collaborator-history-page'
 import { CollaboratorHistoryTable } from './collaborator-history-table'
 import { DateRangeInput } from '@/ui/global/widgets/components/date-range-input'
+import { TimePunchAdjustmentModal } from './time-punch-solicitation-adjustment-modal' 
 
 export const CollaboratorHistoryPage = () => {
   const {
@@ -29,6 +30,7 @@ export const CollaboratorHistoryPage = () => {
             onEndDateChange={handleEndDateChange}
           />
         </div>
+      <TimePunchAdjustmentModal   />
       </div>
       <CollaboratorHistoryTable
         workdayLogs={workdayLogs}
