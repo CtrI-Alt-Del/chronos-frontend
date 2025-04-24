@@ -5,18 +5,16 @@ import { Button, DateInput, Form } from '@heroui/react'
 import { Controller } from 'react-hook-form'
 
 type TimePunchAdjustmentTabProps = {
-  workdayLogId: string
   onSubmit: VoidFunction
   onCancel: VoidFunction
 }
 
 export const TimePunchAdjustmentTab = ({
-  workdayLogId,
   onSubmit,
   onCancel,
 }: TimePunchAdjustmentTabProps) => {
   const { errors, isSubmitting, control, register, handleSubmit } =
-    useTimePunchAdjustmentTab({ workdayLogId, onSubmit })
+    useTimePunchAdjustmentTab(onSubmit)
 
   return (
     <Form

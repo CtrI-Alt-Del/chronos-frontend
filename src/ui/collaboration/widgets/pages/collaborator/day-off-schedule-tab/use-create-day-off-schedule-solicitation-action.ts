@@ -25,7 +25,7 @@ export function useCreateDayOffScheduleSolicitationAction() {
   ) {
     await executeAsync({
       description: description,
-      dayOffScheduleDto: dayOffSchedule,
+      dayOffSchedule,
     })
   }
   return { createDayOffScheduleSolicitation, isCreatingSolicitation: isPending }

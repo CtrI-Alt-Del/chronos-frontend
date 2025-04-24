@@ -1,5 +1,10 @@
 import { CACHE } from '@/@core/global/constants'
-import type { SolicitationDto } from '@/@core/solicitation/dtos'
+import type {
+  DayOffScheduleAdjustmentSolicitationDto,
+  DayOffSolicitationDto,
+  SolicitationDto,
+  TimePunchLogAdjustmentSolicitationDto,
+} from '@/@core/solicitation/dtos'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 import { useRest, useCache } from '@/ui/global/hooks'
 import { useToast } from '@/ui/global/hooks/use-toast'
@@ -25,9 +30,20 @@ export function useSolicitationPage() {
   async function handleApproveSolicitation(solicitation: SolicitationDto) {
     resolveSolicitation(solicitation, 'APPROVED')
   }
+  const timePunchAdjustmentSolicitations = data?.filter(
+    (solicitation) => solicitation.type === 'TIME_PUNCH',
+  ) as TimePunchLogAdjustmentSolicitationDto[]
+  const dayOffScheduleSolicitations = data?.filter(
+    (solicitation) => solicitation.type === 'DAY_OFF_SCHEDULE',
+  ) as DayOffScheduleAdjustmentSolicitationDto[]
+  const dayOffSolicitations = data?.filter(
+    (solicitation) => solicitation.type === 'DAY_OFF',
+  ) as DayOffSolicitationDto[]
 
   return {
-    solicitations: data,
+    timePunchAdjustmentSolicitations,
+    dayOffScheduleSolicitations,
+    dayOffSolicitations,
     isResolvingSolicitation,
     refetch,
     isLoading: isFetching,

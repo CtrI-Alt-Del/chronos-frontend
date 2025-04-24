@@ -1,3 +1,4 @@
+import { CACHE } from '@/@core/global/constants'
 import type { Action,Call } from '@/@core/global/interfaces/rpc' 
 import type { SolicitationDto } from '@/@core/solicitation/dtos'
 import type { ISolicitationService } from '@/@core/solicitation/interfaces'
@@ -20,6 +21,7 @@ export const ResolveSolicitationAction = (service: ISolicitationService): Action
         solicitation.type
       )
       if (response.isFailure) response.throwError()
+      actionServer.resetCache(CACHE.solicitation.solicitations.key)
       if (response.isSuccess && solicitation.type == 'DAY_OFF_SCHEDULE') {
         actionServer.redirect(
           `/collaboration/collaborators/${solicitation.collaboratorId}?tab=day-off-schedule-tab`,
