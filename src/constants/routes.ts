@@ -25,6 +25,7 @@ export const ROUTES = {
   hourBank: (collaboratorId: string) => `/hour-bank/${collaboratorId}`,
   solicitation: {
     solicitations: '/solicitation/solicitations',
+    justificationTypes: '/solicitation/justification-types',
   },
   report: '/relatorio',
 } as const
