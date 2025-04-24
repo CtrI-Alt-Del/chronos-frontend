@@ -20,10 +20,12 @@ export const ROUTES = {
     collaboratorHistory: '/work-schedule/collaborator-history',
     timePunch: '/work-schedule/time-punch',
     timeCard: '/work-schedule/time-card',
+    hoursBank: '/work-schedule/hours-bank',
   },
   hourBank: (collaboratorId: string) => `/hour-bank/${collaboratorId}`,
   solicitation: {
     solicitations: '/solicitation/solicitations',
+    justificationTypes: '/solicitation/justification-types',
   },
   report: '/relatorio',
 } as const

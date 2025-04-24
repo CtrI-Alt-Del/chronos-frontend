@@ -15,6 +15,19 @@ export function QuickActions() {
           href="#"
           className='flex gap-4 items-center p-4 bg-white rounded-lg border border-[#D5E7FF] hover:shadow-md hover:border-blue-300 hover:bg-blue-50 transition-all duration-300'
         >
+          <div className='p-3 rounded-lg bg-[#194448]'>
+            <Palmtree className='w-6 h-6 text-[#33D097]' />
+          </div>
+          <div>
+            <h3 className='font-medium'>Solicitar Férias</h3>
+            <p className='text-sm text-gray-500'>Planeje seu descanso</p>
+          </div>
+        </Link>
+        
+        <Link
+          href="#"
+          className='flex gap-4 items-center p-4 bg-white rounded-lg border border-[#D5E7FF] hover:shadow-md hover:border-blue-300 hover:bg-blue-50 transition-all duration-300'
+        >
           <div className='p-3 rounded-lg bg-[#9B7B29]'>
             <Clock className='w-6 h-6 text-[#FFC300]' />
           </div>
