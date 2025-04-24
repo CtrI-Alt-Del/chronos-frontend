@@ -7,7 +7,7 @@ export function useResolveSolicitationAction() {
   const { showError, showSuccess } = useToast()
   const { executeAsync, isPending } = useAction(solicitationActions.resolveSolicitation, {
     onSuccess() {
-      showSuccess('Solicitacao aceita com sucesso')
+      showSuccess('Solicitacao resolvida com sucesso')
     },
     onError(error) {
       if (error.error.serverError) {
