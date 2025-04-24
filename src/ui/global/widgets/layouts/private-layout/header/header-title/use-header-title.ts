@@ -18,6 +18,7 @@ export function useHeaderTitle() {
       [ROUTES.workSchedule.sectorHistory]: 'Histórico de colaboradores',
       [ROUTES.workSchedule.collaboratorHistory]: 'Meu histórico',
       [ROUTES.collaboration.createCollaborator]: 'Cadastrar colaborador',
+      [ROUTES.workSchedule.hoursBank]: 'Banco de horas',
     }
 
     if (currentRoute === ROUTES.solicitation.solicitations) {

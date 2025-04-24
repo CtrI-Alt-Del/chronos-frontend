@@ -18,6 +18,7 @@ type SidebarProps = {
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const {
+    collaboratorId,
     isAdmin,
     isManager,
     isEmployee,
@@ -68,6 +69,14 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               />
             )}
 
+            {(isManager || isEmployee) && (
+              <NavbarLink
+                href={ROUTES.hourBank(collaboratorId)}
+                icon='clock'
+                title='Banco de horas'
+              />
+            )}
+
             {isManager && (
               <NavbarLink
                 href={`${ROUTES.workSchedule.sectorHistory}?${queryDate}`}
@@ -106,7 +115,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           variant='bordered'
           startContent={<Icon name='logout' size={16} />}
           className='mb-12'
-          onClick={handleLogoutButtonClick}
+          onPress={handleLogoutButtonClick}
         >
           Sair
         </Button>
