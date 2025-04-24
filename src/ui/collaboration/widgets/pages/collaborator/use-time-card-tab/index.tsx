@@ -10,6 +10,7 @@ import { Input, Spinner } from '@heroui/react'
 
 import { TimePunchDialog } from '@/ui/work-schedule/widgets/components/time-punch-dialog'
 import { useTimeCardTab } from './use-time-card-tab'
+import { Time } from '@/ui/work-schedule/widgets/components/time'
 
 const WORKDAY_STATUS: Record<string, string> = {
   NORMAL_DAY: 'dia normal',
@@ -59,6 +60,9 @@ export const TimeCardTab = ({ collaboratorId }: TimeCardTabProps) => {
           <TableColumn key='undertime' className='uppercase'>
             Horas faltantes
           </TableColumn>
+          <TableColumn key='worked-time' className='uppercase'>
+            Horas trabalhadas
+          </TableColumn>
           <TableColumn key='hour-bank-credit' className='uppercase'>
             Crédito de banco de horas
           </TableColumn>
@@ -81,12 +85,24 @@ export const TimeCardTab = ({ collaboratorId }: TimeCardTabProps) => {
               <TableCell key='time-punch'>
                 <TimePunchDialog timePunch={row.timePunch} />
               </TableCell>
-              <TableCell key='overtime'>{row.overtime}</TableCell>
-              <TableCell key='latetime'>{row.latetime}</TableCell>
-              <TableCell key='undertime'>{row.undertime}</TableCell>
-              <TableCell key='worked-time'>{row.workedTime}</TableCell>
-              <TableCell key='hour-bank-credit'>{row.hourBankCredit}</TableCell>
-              <TableCell key='hour-bank-debit'>{row.hourBankDebit}</TableCell>
+              <TableCell key='overtime'>
+                <Time>{row.overtime}</Time>
+              </TableCell>
+              <TableCell key='latetime'>
+                <Time>{row.latetime}</Time>
+              </TableCell>
+              <TableCell key='undertime'>
+                <Time>{row.undertime}</Time>
+              </TableCell>
+              <TableCell key='worked-time'>
+                <Time>{row.workedTime}</Time>
+              </TableCell>
+              <TableCell key='hour-bank-credit'>
+                <Time>{row.hourBankCredit}</Time>
+              </TableCell>
+              <TableCell key='hour-bank-debit'>
+                <Time>{row.hourBankDebit}</Time>
+              </TableCell>
               <TableCell key='work-status'>{WORKDAY_STATUS[row.workStatus]}</TableCell>
             </TableRow>
           )}
