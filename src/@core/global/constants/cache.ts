@@ -1,3 +1,5 @@
+import { tr } from 'date-fns/locale'
+
 export const CACHE = {
   collaboration: {
     collaborator: {
@@ -29,7 +31,12 @@ export const CACHE = {
       key: 'solicitation/solicitations',
     },
     justificationType: {
-      key: 'solicitation/justification-type',
+      key: 'solcitation/justification-type',
+    },
+  },
+  hourBank: {
+    transactions: {
+      key: (collaboratorId: string) => `/hour-bank/transactions/${collaboratorId}`,
     },
   },
 } as const

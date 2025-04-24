@@ -21,6 +21,8 @@ export function BalanceSummary({
         <div className='flex flex-col items-center'>
           <p className='text-6xl font-semibold text-blue-primary'>
             {currentBalance}
+            {balanceResponse.data.hourBankBalance.value}
+            {balanceResponse.data.hourBankBalance.isNegative}
           </p>
           <p className='mt-2 text-gray-500'>Horas acumuladas</p>
         </div>
@@ -37,4 +39,5 @@ export function BalanceSummary({
       </div>
     </div>
   )
-} 
+
+

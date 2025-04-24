@@ -25,6 +25,10 @@ import {
   resolveSolicitation,
   updateJustificationType,
 } from './solicitation-actions'
+import {
+  getHourBankBalance,
+  createHourBankTransactionAdjustment,
+} from './hour-bank-actions'
 
 const solicitationActions = {
   createDayOffScheduleAdjustmentSolicitation,
@@ -63,10 +67,16 @@ const collaborationActions = {
   updateCollaborator,
 }
 
+const hourBankActions = {
+  getHourBankBalance,
+  createHourBankTransactionAdjustment,
+}
+
 export {
   authActions,
   cookieActions,
   workScheduleActions,
   collaborationActions,
   solicitationActions,
+  hourBankActions,
 }

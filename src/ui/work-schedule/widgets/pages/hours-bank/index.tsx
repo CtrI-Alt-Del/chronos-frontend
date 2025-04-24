@@ -18,13 +18,10 @@ export function HoursBankPage({ collaboratorId, collaboratorName }: HoursBankPag
     hoursWorkedToday,
     totalHoursWorked,
     recentEntries,
-  } = useHoursBankPage(collaboratorId, new Date(), new Date())
-  const today = new Date()
-
+  } = useHoursBankPage(collaboratorId, new Date(), new Date()
   return (
     <div className='flex flex-col gap-4 py-4'>
-      <DateDisplay date={today} />
-      
+      <DateDisplay date={today} />      
       <div className='flex gap-6'>
         <section className='flex-1'>
           <BalanceSummary 
@@ -32,6 +29,9 @@ export function HoursBankPage({ collaboratorId, collaboratorName }: HoursBankPag
             hoursWorkedToday={hoursWorkedToday}
             totalHoursWorked={totalHoursWorked}
           />
+
+      <div className='flex gap-6'>
+        <section className='flex-1'>
           <div className='flex flex-col mt-8'>
             <QuickActions />
           </div>
@@ -40,9 +40,11 @@ export function HoursBankPage({ collaboratorId, collaboratorName }: HoursBankPag
         <section className='w-96'>
           <RecentHistory entries={recentEntries} />
         </section>
+        <section className='w-96'><Transactions colaboratorId={collaboratorId} /></section>
       </div>
     </div>
   )
 }
 
 export default HoursBankPage
+

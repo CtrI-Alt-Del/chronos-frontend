@@ -20,6 +20,8 @@ const collaboratorSchema = z.object({
   isActive: z.boolean(),
   role: z.string(),
   sector: z.string(),
+  workload: z.number(),
+  password: z.string().optional(),
 })
 
 export const getCollaborator = authActionClient
@@ -33,7 +35,7 @@ export const getCollaborator = authActionClient
       request: clientInput,
     })
     const apiClient = await NextServerRestClient({
-      isCacheEnabled: false,
+      isCacheEnabled: true,
       cacheKey: CACHE.collaboration.collaborator.key(clientInput.collaboratorId),
     })
     const service = CollaborationService(apiClient)

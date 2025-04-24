@@ -2,7 +2,7 @@ import type { ApiResponse, PaginationResponse } from '../../global/responses'
 import type { HourBankBalance, HourBankTransactionDto } from '../dtos'
 
 export interface HourBankService {
-  createHourBankTansactionAdjustment(collaboratorId: string): Promise<ApiResponse<void>>
+  createHourBankTransactionAdjustment(collaboratorId: string): Promise<ApiResponse<void>>
   listHourBankTransactions(
     collaboratorId: string,
     startDate: string,
@@ -12,5 +12,5 @@ export interface HourBankService {
   ): Promise<ApiResponse<PaginationResponse<HourBankTransactionDto>>>
   calculateHourBankBalance(
     collaboratorId: string,
-  ): Promise<ApiResponse<PaginationResponse<HourBankBalance>>>
+  ): Promise<ApiResponse<HourBankBalance>>
 }
