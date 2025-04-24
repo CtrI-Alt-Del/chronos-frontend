@@ -107,6 +107,14 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                 title='Solicitações'
               />
             )}
+
+            {(isAdmin || isManager) && (
+              <NavbarLink
+                href={ROUTES.solicitation.justificationTypes}
+                icon='report'
+                title='Tipos de Justificativas'
+              />
+            )}
           </NavbarContent>
         </NavbarContent>
 
