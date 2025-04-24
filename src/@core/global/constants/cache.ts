@@ -28,8 +28,8 @@ export const CACHE = {
     solicitations: {
       key: 'solicitation/solicitations',
     },
-    justificationType:{
-      key: "solcitation/justification-type"
-    }
+    justificationType: {
+      key: 'solicitation/justification-type',
+    },
   },
 } as const
