@@ -21,6 +21,7 @@ import {
   createJustificationType,
   createTimePunchAdjustmentSolicitation,
   deleteJustificaionType,
+  listJustificationTypes,
   resolveSolicitation,
   updateJustificationType,
 } from './solicitation-actions'
@@ -31,6 +32,7 @@ const solicitationActions = {
   createJustificationType,
   deleteJustificaionType,
   updateJustificationType,
+  listJustificationTypes,
   createTimePunchAdjustmentSolicitation,
 }
 
