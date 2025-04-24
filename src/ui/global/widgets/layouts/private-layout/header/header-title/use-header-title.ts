@@ -19,6 +19,7 @@ export function useHeaderTitle() {
       [ROUTES.workSchedule.collaboratorHistory]: 'Meu histórico',
       [ROUTES.collaboration.createCollaborator]: 'Cadastrar colaborador',
       [ROUTES.workSchedule.hoursBank]: 'Banco de horas',
+      [ROUTES.solicitation.justificationTypes]: 'Tipos de Justificativas',
     }
 
     if (currentRoute === ROUTES.solicitation.solicitations) {
