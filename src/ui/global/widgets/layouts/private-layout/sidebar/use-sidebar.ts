@@ -3,7 +3,7 @@ import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import type { KeyboardEvent } from 'react'
 
 export function useSidebar(onClose: VoidFunction) {
-  const { isAdmin, isManager, isEmployee } = useAuthContext()
+  const { account, isAdmin, isManager, isEmployee } = useAuthContext()
   const { formatIsoDate, getCurrentDate, minusDays } = useDatetime()
   const { logout } = useAuthContext()
   const date = getCurrentDate()
@@ -22,6 +22,7 @@ export function useSidebar(onClose: VoidFunction) {
     isAdmin,
     isManager,
     isEmployee,
+    collaboratorId: String(account?.collaboratorId),
     handleExpandButtonClick,
     handleLogoutButtonClick,
   }
