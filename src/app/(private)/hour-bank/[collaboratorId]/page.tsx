@@ -1,6 +1,6 @@
 import type { NextParams } from '@/api/next/types'
 import { hourBankActions } from '@/server/next-safe-action'
-import HourBankPage from '@/ui/work-schedule/widgets/pages/hours-bank'
+import { HourBankPage } from '@/ui/hour-bank/widgets/pages/hour-bank'
 
 export default async function Page({ params }: NextParams<'collaboratorId'>) {
   const { collaboratorId } = await params
@@ -11,6 +11,9 @@ export default async function Page({ params }: NextParams<'collaboratorId'>) {
   if (!response?.data?.hourBankBalance) return
 
   const hourBankBalance = response.data.hourBankBalance
-
-  return <HourBankPage collaboratorId={collaboratorId} />
+  return (
+    <HourBankPage
+      hourBankBalance={hourBankBalance}
+      collaboratorId={collaboratorId} />
+  )
 }

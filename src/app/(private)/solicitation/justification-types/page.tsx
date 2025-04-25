@@ -7,7 +7,6 @@ const Page = async () => {
   const result = await solicitationActions.listJustificationTypes()
   if (!result?.data) return
 
-  console.log("GABRIELAAAAAAAAA", { justificationTypes: result.data })
 
   return <JustificationTypesPage justificationTypes={result.data} />
 }
