@@ -4,7 +4,7 @@ import { SolicitationsPage } from '@/ui/solicitation/solicitations'
 const Page = async () => {
   const collaborationResponse = await collaborationActions.getCollaboratorProfile()
   const workScheduleResponse = await workScheduleActions.getTodayWorkdayLog()
-  if (!collaborationResponse?.data) return
+  if (!collaborationResponse?.data?.collaborator) return
   if (!workScheduleResponse?.data) return
 
   return (

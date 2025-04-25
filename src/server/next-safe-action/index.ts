@@ -10,6 +10,7 @@ import {
   getDayOffSchedule,
   updateDayOffSchedule,
   punchTime,
+  getWorkTime,
 } from './work-schedule-actions'
 import {
   getCollaborator,
@@ -57,6 +58,7 @@ const cookieActions = {
 }
 
 const workScheduleActions = {
+  getWorkTime,
   getTodayWorkdayLog,
   getDayOffSchedule,
   updateDayOffSchedule,
