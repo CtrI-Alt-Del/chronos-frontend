@@ -8,11 +8,11 @@ type Row = {
   collaborator: {
     name: string
   }
+  status?: string
 }
 
 export function useSectorHistoryTable(workdayLogs: WorkdayLogDto[]) {
   const { formatDate } = useDatetime()
-
   const rows: Row[] = workdayLogs.map((workdayLog) => ({
     id: String(workdayLog.id),
     date: formatDate(workdayLog.date),
@@ -20,6 +20,7 @@ export function useSectorHistoryTable(workdayLogs: WorkdayLogDto[]) {
     collaborator: {
       name: workdayLog.responsible.dto?.name || 'N/A',
     },
+    status: workdayLog.status,
   }))
 
   return {
