@@ -26,6 +26,9 @@ import {
   Briefcase,
   Building,
   type LucideProps,
+  Clock,
+  Album,
+  Upload,
 } from 'lucide-react'
 
 export const ICONS: Record<
@@ -56,4 +59,7 @@ export const ICONS: Record<
   'arrow-down': ChevronDown,
   'time-card': FlipVertical,
   'day-off-schedule': CalendarDays,
+  'timer': Clock,
+  "album": Album,
+  "upload": Upload,
 }
