@@ -28,6 +28,16 @@ type CollaboratorHistoryTableProps = {
   ) => void
 }
 
+const getStatusLabel = (status?: string) => {
+  switch (status) {
+    case 'day_off':
+      return <div className='bg-blue-300 text-white p-1 rounded-md text-center'>FOLGA</div>
+    case 'absence':
+      return <div className='bg-red-600 text-white p-1 rounded-md text-center'>FALTA</div>
+    default:
+      return null
+  }
+}
 export const CollaboratorHistoryTable = ({
   workdayLogs,
   isLoading,
@@ -63,6 +73,9 @@ export const CollaboratorHistoryTable = ({
         <TableColumn key='time-punch' className='uppercase'>
           Registros de Ponto
         </TableColumn>
+        <TableColumn key='status' className='uppercase flex items-center justify-center'>
+          Status
+        </TableColumn>
       </TableHeader>
       <TableBody
         items={rows}
@@ -79,6 +92,9 @@ export const CollaboratorHistoryTable = ({
                 timePunch={row.timePunch}
                 onTimeLogChange={onTimeLogChange}
               />
+            </TableCell>
+            <TableCell>
+              {getStatusLabel(row.status)}
             </TableCell>
           </TableRow>
         )}
