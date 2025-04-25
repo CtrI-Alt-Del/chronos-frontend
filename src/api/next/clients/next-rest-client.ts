@@ -16,6 +16,22 @@ export const NextRestClient = (
     'ngrok-skip-browser-warning': 'true',
   }
 
+  const multiPartRequestHeaders: Record<string, string> = {
+    'ngrok-skip-browser-warning': 'true',
+  }
+
+  const multiPartRequestInit: RequestInit = {
+    cache: !isCacheEnabled ? 'no-store' : undefined,
+    headers: multiPartRequestHeaders,
+
+    next: isCacheEnabled
+      ? {
+          revalidate: refetchInterval,
+          tags: cacheKey ? [cacheKey] : [],
+        }
+      : undefined,
+  }
+
   const requestInit: RequestInit = {
     cache: !isCacheEnabled ? 'no-store' : undefined,
     headers,
@@ -124,7 +140,13 @@ export const NextRestClient = (
     },
 
     async multipart<ResponseBody>(url: string, body: FormData) {
+      const authorizationHeader = headers['Authorization']
+
+      if (authorizationHeader) {
+        multiPartRequestHeaders['Authorization'] = authorizationHeader
+      }
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
+        ...multiPartRequestInit,
         method: 'POST',
         body: body,
       })
