@@ -8,7 +8,7 @@ type Request = {
   id?:string
   status: "DENIED" | "APPROVED"
   feedbackMessage?: string
-  type: "DAY_OFF_SCHEDULE" | "TIME_PUNCH"
+  type: "DAY_OFF_SCHEDULE" | "TIME_PUNCH" | "DAY_OFF"
   collaboratorId: string
 }
 export const ResolveSolicitationAction = (service: ISolicitationService): Action<Request> => {
