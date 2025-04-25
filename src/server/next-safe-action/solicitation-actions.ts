@@ -13,6 +13,7 @@ import {
   UpdateJustificationTypeAction,
 } from '../actions/solicitation'
 import {
+  createDayOffSolicitationSchema,
   dayOffScheduleAdjustmentSolicitationSchema,
   justificationTypeSchema,
 } from '@/validation/schemas/solicitation'
@@ -21,6 +22,7 @@ import { z } from 'zod'
 import { timePunchAdjustmentSolicitationSchema } from '@/validation/schemas/solicitation/time-punch-adjustment-solicitation-schema'
 import { CreateTimePunchAdjustmentSolicitationAction } from '../actions/solicitation/create-time-punch-adjustment-solicitation'
 import { CACHE } from '@/@core/global/constants'
+import { CreateDayOffSolicitationAction } from '../actions/solicitation/create-day-off-solicitation'
 
 export const createDayOffScheduleAdjustmentSolicitation = authActionClient
   .schema(dayOffScheduleAdjustmentSolicitationSchema)
@@ -116,5 +118,18 @@ export const createTimePunchAdjustmentSolicitation = authActionClient
     const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = SolicitationService(apiClient)
     const action = CreateTimePunchAdjustmentSolicitationAction(service)
+    return action.handle(actionServer)
+  })
+
+export const createDayOffSolicitation = authActionClient
+  .schema(createDayOffSolicitationSchema)
+  .action(async ({ ctx, clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+      account: ctx.account,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
+    const service = SolicitationService(apiClient)
+    const action = CreateDayOffSolicitationAction(service)
     return action.handle(actionServer)
   })

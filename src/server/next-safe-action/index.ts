@@ -18,6 +18,7 @@ import {
 } from './collaboration-actions'
 import {
   createDayOffScheduleAdjustmentSolicitation,
+  createDayOffSolicitation,
   createJustificationType,
   createTimePunchAdjustmentSolicitation,
   deleteJustificaionType,
@@ -38,6 +39,7 @@ const solicitationActions = {
   updateJustificationType,
   listJustificationTypes,
   createTimePunchAdjustmentSolicitation,
+  createDayOffSolicitation,
 }
 
 const authActions = {

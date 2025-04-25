@@ -10,6 +10,19 @@ export const SolicitationService = (restClient: RestClient): ISolicitationServic
       return await restClient.get(`${SOLICITATIONS_ROUTE}`)
     },
 
+    async createDayOffSolicitation(dayOff:string,justificationTypeId:string,description:string,justificationTypeName:string,justificationTypeShouldHaveAttachment:string,attachment?:File) {
+      const formData = new FormData()
+      formData.append('dayOff', dayOff)
+      formData.append('justificationTypeId', justificationTypeId)
+      formData.append('description', description)
+      formData.append('justificationTypeName', justificationTypeName)
+      formData.append('justificationTypeShouldHaveAttachment', justificationTypeShouldHaveAttachment)
+      if (attachment != null) {
+        formData.append('attachment', attachment)
+      }
+      return await restClient.multipart(`${SOLICITATIONS_ROUTE}/day-off`, formData)
+    },
+
     async createDayOffScheduleAdjustmentSolicitation(
       solicitation: DayOffScheduleAdjustmentSolicitationDto,
     ) {
@@ -19,7 +32,7 @@ export const SolicitationService = (restClient: RestClient): ISolicitationServic
     async resolveSolicitation(
       solicitationId: string,
       action: 'APPROVED' | 'DENIED',
-      solicitationType: 'DAY_OFF_SCHEDULE' | 'TIME_PUNCH',
+      solicitationType: 'DAY_OFF_SCHEDULE' | 'TIME_PUNCH' | 'DAY_OFF',
     ) {
       const status = action
       return await restClient.patch(`${SOLICITATIONS_ROUTE}/resolve/${solicitationId}`, {

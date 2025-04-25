@@ -1,5 +1,8 @@
 export type IconName =
+  | 'upload'
+  | 'album'
   | 'users'
+  | 'timer'
   | 'activity'
   | 'eye'
   | 'trash'
