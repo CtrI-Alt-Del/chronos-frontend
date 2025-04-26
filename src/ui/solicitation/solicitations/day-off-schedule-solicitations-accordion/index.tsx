@@ -12,6 +12,7 @@ import { Avatar } from '@heroui/avatar'
 import { Button } from '@heroui/button'
 import { Spinner } from '@heroui/spinner'
 import { ChevronDown } from 'lucide-react'
+import { RenderManagerActions  } from '../manager-actions'
 
 type SolicitationAccordionProps = {
   solicitations: DayOffScheduleAdjustmentSolicitationDto[] | null
@@ -53,37 +54,6 @@ export const DayOffScheduleSolicitationAccordion = ({
     APPROVED: { label: 'Aprovado', color: 'bg-green-500 text-green-500' },
     DENIED: { label: 'Negado', color: 'bg-red-500 text-red-500' },
   }
-
-  const renderManagerActions = (solicitation: SolicitationDto) => (
-    <div className='flex flex-col md:flex-row gap-2 mt-2 w-full md:w-fit'>
-      <AlertDialog
-        isLoading={isResolvingSolicitation}
-        trigger={
-          <Button color='success' className='text-white' size='sm'>
-            Aprovar
-          </Button>
-        }
-        onCancel={() => {}}
-        title='ALERTA'
-        onConfirm={() => handleApprove(solicitation)}
-      >
-        Você tem certeza que deseja aprovar essa solicitação?
-      </AlertDialog>
-      <AlertDialog
-        isLoading={isResolvingSolicitation}
-        trigger={
-          <Button color='danger' size='sm'>
-            Negar
-          </Button>
-        }
-        onCancel={() => {}}
-        title='ALERTA'
-        onConfirm={() => handleDeny(solicitation)}
-      >
-        Você tem certeza que deseja negar essa solicitação?
-      </AlertDialog>
-    </div>
-  )
 
   return (
     <Accordion className='border border-gray-border rounded-lg px-4'>
@@ -140,7 +110,8 @@ export const DayOffScheduleSolicitationAccordion = ({
               <div>{solicitation.feedbackMessage}</div>
               {userRole === 'MANAGER' &&
                 solicitation.status === 'PENDING' &&
-                renderManagerActions(solicitation)}
+                <RenderManagerActions solicitation={solicitation} handleDeny={handleDeny} handleApprove={handleApprove} />
+              }
             </div>
           </AccordionItem>
         )

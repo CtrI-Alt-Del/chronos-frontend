@@ -1,4 +1,5 @@
 export type IconName =
+  | "file"
   | "hourglass"
   | 'upload'
   | 'album'

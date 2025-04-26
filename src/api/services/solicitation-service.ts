@@ -6,6 +6,10 @@ export const SolicitationService = (restClient: RestClient): ISolicitationServic
   const SOLICITATIONS_ROUTE = '/solicitation/solicitations'
   const JUSTIFICATION_TYPE_ROUTE = '/solicitation/justification-type'
   return {
+    async getJustificationAttachmentUrl(key:string){
+      return await restClient.get(`${SOLICITATIONS_ROUTE}/attachments/${key}`)
+    },
+
     async listSolicitations() {
       return await restClient.get(`${SOLICITATIONS_ROUTE}`)
     },

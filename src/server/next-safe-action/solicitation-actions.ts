@@ -8,6 +8,7 @@ import {
   CreateDayOffScheduleAdjustmentSolicitationAction,
   CreateJustificationTypeAction,
   DeleteJustificationTypeAction,
+  GetAttachmentUrlAction,
   ListJustificationTypesAction,
   ResolveSolicitationAction,
   UpdateJustificationTypeAction,
@@ -131,5 +132,21 @@ export const createDayOffSolicitation = authActionClient
     const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = SolicitationService(apiClient)
     const action = CreateDayOffSolicitationAction(service)
+    return action.handle(actionServer)
+  })
+export const getAttachmentUrl = authActionClient
+  .schema(
+    z.object({
+      attachmentKey: z.string(),
+    }),
+  )
+  .action(async ({ ctx, clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+      account: ctx.account,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
+    const service = SolicitationService(apiClient)
+    const action = GetAttachmentUrlAction(service)
     return action.handle(actionServer)
   })

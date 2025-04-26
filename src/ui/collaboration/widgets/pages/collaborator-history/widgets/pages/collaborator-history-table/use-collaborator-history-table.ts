@@ -5,6 +5,7 @@ type Row = {
   id: string
   date: string
   timePunch: TimePunchDto
+  status?: string
 }
 
 export function useCollaboratorHistoryTable(workdayLogs: WorkdayLogDto[]) {
@@ -14,6 +15,7 @@ export function useCollaboratorHistoryTable(workdayLogs: WorkdayLogDto[]) {
     id: String(workdayLog.id),
     date: formatDate(workdayLog.date),
     timePunch: workdayLog.timePunch,
+    status: workdayLog.status,
   }))
 
   return {

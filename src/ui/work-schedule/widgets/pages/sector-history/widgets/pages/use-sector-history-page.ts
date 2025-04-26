@@ -71,6 +71,7 @@ export function useSectorHistoryPage() {
     setIsAdjustingTimePunchLog(false)
   }
 
+  console.log(data)
   return {
     workdayLogs: data,
     collboratorName,

@@ -1,7 +1,8 @@
 import { AttachmentDto } from "./attachment-dto"
+import { JustificationTypeDto } from "./justification-type"
 
 export type JustificationDto = {
   description: string 
-  justificationType: JustificationDto
+  justificationType: JustificationTypeDto
   attachment?: AttachmentDto
 }

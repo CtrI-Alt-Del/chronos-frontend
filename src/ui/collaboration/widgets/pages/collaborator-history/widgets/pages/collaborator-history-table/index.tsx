@@ -14,6 +14,7 @@ import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
 import { TimePunchDialog } from '@/ui/work-schedule/widgets/components/time-punch-dialog'
 import { useCollaboratorHistoryTable } from './use-collaborator-history-table'
+import { AttachmentUploadModal } from '../attachment-upload-modal'
 
 type CollaboratorHistoryTableProps = {
   workdayLogs: WorkdayLogDto[]
@@ -28,6 +29,16 @@ type CollaboratorHistoryTableProps = {
   ) => void
 }
 
+const getStatusLabel = (status?: string) => {
+  switch (status) {
+    case 'day_off':
+      return <div className='p-1 w-24 text-sm text-center text-white bg-blue-300 rounded-md'>FOLGA</div>
+    case 'absence':
+      return <div className='p-1 w-24 text-sm text-center text-white bg-red-600 rounded-md'>FALTA</div>
+    default:
+      return null
+  }
+}
 export const CollaboratorHistoryTable = ({
   workdayLogs,
   isLoading,
@@ -37,7 +48,6 @@ export const CollaboratorHistoryTable = ({
   onTimeLogChange,
 }: CollaboratorHistoryTableProps) => {
   const { rows } = useCollaboratorHistoryTable(workdayLogs)
-
   return (
     <Table
       className='w-screen md:w-auto'
@@ -63,6 +73,9 @@ export const CollaboratorHistoryTable = ({
         <TableColumn key='time-punch' className='uppercase'>
           Registros de Ponto
         </TableColumn>
+        <TableColumn key='status' className='flex justify-center items-center uppercase'>
+          Status
+        </TableColumn>
       </TableHeader>
       <TableBody
         items={rows}
@@ -79,6 +92,14 @@ export const CollaboratorHistoryTable = ({
                 timePunch={row.timePunch}
                 onTimeLogChange={onTimeLogChange}
               />
+            </TableCell>
+            <TableCell>
+              <div className="flex justify-center items-center space-x-3">
+                {getStatusLabel(row.status)}
+                {row.status === 'absence' && (
+                  <AttachmentUploadModal workdayLogId={row.id} />
+                )}
+              </div>
             </TableCell>
           </TableRow>
         )}

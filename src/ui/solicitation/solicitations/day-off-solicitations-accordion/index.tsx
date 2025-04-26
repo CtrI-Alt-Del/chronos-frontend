@@ -11,7 +11,9 @@ import { Accordion, AccordionItem } from '@heroui/accordion'
 import { Avatar } from '@heroui/avatar'
 import { Button } from '@heroui/button'
 import { Spinner } from '@heroui/spinner'
-import { ChevronDown } from 'lucide-react'
+import { RenderManagerActions } from '../manager-actions'
+import { AttachmentDialog } from '@/ui/global/widgets/components/attachment-dialog'
+import { IconButton } from '@/ui/global/widgets/components/icon-button'
 
 type SolicitationAccordionProps = {
   solicitations: DayOffSolicitationDto[] | null
@@ -31,7 +33,6 @@ export const DayOffSolicitationAccordion = ({
   handleApprove,
 }: SolicitationAccordionProps) => {
   const { formatDate } = useDatetime()
-
   if (isLoading) {
     return (
       <div className='flex items-center justify-center h-64'>
@@ -54,37 +55,6 @@ export const DayOffSolicitationAccordion = ({
     DENIED: { label: 'Negado', color: 'bg-red-500 text-red-500' },
   }
 
-  const renderManagerActions = (solicitation: SolicitationDto) => (
-    <div className='flex flex-col md:flex-row gap-2 mt-2 w-full md:w-fit'>
-      <AlertDialog
-        isLoading={isResolvingSolicitation}
-        trigger={
-          <Button color='success' className='text-white' size='sm'>
-            Aprovar
-          </Button>
-        }
-        onCancel={() => {}}
-        title='ALERTA'
-        onConfirm={() => handleApprove(solicitation)}
-      >
-        Você tem certeza que deseja aprovar essa solicitação?
-      </AlertDialog>
-      <AlertDialog
-        isLoading={isResolvingSolicitation}
-        trigger={
-          <Button color='danger' size='sm'>
-            Negar
-          </Button>
-        }
-        onCancel={() => {}}
-        title='ALERTA'
-        onConfirm={() => handleDeny(solicitation)}
-      >
-        Você tem certeza que deseja negar essa solicitação?
-      </AlertDialog>
-    </div>
-  )
-
   return (
     <Accordion className='border border-gray-border rounded-lg px-4'>
       {solicitations.map((solicitation) => {
@@ -98,7 +68,7 @@ export const DayOffSolicitationAccordion = ({
             key={solicitation.id}
             hideIndicator={userRole === 'EMPLOYEE'}
             aria-label={`Accordion ${solicitation.id}`}
-            indicator={<ChevronDown className='w-4 h-4' />}
+            indicator={<Icon name='arrow-down' className='w-4 h-4' />}
             title={
               <div className='flex flex-col md:flex-row items-center justify-between w-full text-sm lg:text-base'>
                 <div className='flex items-center gap-2'>
@@ -131,16 +101,31 @@ export const DayOffSolicitationAccordion = ({
                   <span className='text-slate-800'>
                     {solicitation.senderResponsible?.dto.name}
                   </span>
+                  <span className='text-slate-800'>
+                    {solicitation.justification.justificationType.name}
+                  </span>
+                  <AttachmentDialog
+                    attachmentKey={solicitation.justification.attachment?.key}
+                    trigger={
+                      <IconButton
+                        name='file'
+                        className=' text-slate-800 bg-transparent duration-1000 hover:bg-primary hover:text-white border-zinc-400 '
+                      />
+                    }
+                  />
                 </div>
-                <span>{`Pedido de folga para o dia ${solicitation.dayOff}`}</span>
               </div>
             }
           >
             <div className='flex justify-between flex-col md:flex-row items-center'>
-              <div>{solicitation.feedbackMessage}</div>
-              {userRole === 'MANAGER' &&
-                solicitation.status === 'PENDING' &&
-                renderManagerActions(solicitation)}
+              <div>{solicitation.justification.description}</div>
+              {userRole === 'MANAGER' && solicitation.status === 'PENDING' && (
+                <RenderManagerActions
+                  solicitation={solicitation}
+                  handleDeny={handleDeny}
+                  handleApprove={handleApprove}
+                />
+              )}
             </div>
           </AccordionItem>
         )

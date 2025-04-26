@@ -8,7 +8,7 @@ import {
   TableRow,
   TableCell,
 } from '@heroui/table'
-import { Pagination, Spinner } from '@heroui/react'
+import { Chip, Pagination, Spinner } from '@heroui/react'
 
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
@@ -27,7 +27,16 @@ type SectorHistoryTableProps = {
     timePunchPeriod: TimePunchPeriod,
   ) => void
 }
-
+const getStatusLabel = (status?: string) => {
+  switch (status) {
+    case 'day_off':
+      return <div className='bg-blue-300 text-white p-1 rounded-md text-center'>FOLGA</div>
+    case 'absence':
+      return <div className='bg-red-600 text-white p-1 rounded-md text-center'>FALTA</div>
+    default:
+      return null
+  }
+}
 export const SectorHistoryTable = ({
   workdayLogs,
   isLoading,
@@ -64,12 +73,15 @@ export const SectorHistoryTable = ({
           Colaborador
         </TableColumn>
         <TableColumn key='first-entry' className='uppercase'>
-          <div className='flex items-center gap-16'>
+          <div className='flex items-center gap-16 '>
             <span>Entrada 1</span>
             <span>Saída 1</span>
             <span>Entrada 2</span>
             <span>Saída 2</span>
           </div>
+        </TableColumn>
+        <TableColumn key='status' className='uppercase flex justify-center items-center'>
+            <span>Status</span>
         </TableColumn>
       </TableHeader>
       <TableBody
@@ -90,6 +102,9 @@ export const SectorHistoryTable = ({
                 timePunch={row.timePunch}
                 onTimeLogChange={onTimeLogChange}
               />
+            </TableCell>
+            <TableCell>
+              <div className=''>{getStatusLabel(row.status)}</div>
             </TableCell>
           </TableRow>
         )}
