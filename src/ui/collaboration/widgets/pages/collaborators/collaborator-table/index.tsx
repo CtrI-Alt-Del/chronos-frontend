@@ -167,7 +167,7 @@ export const CollaboratorTable = ({
                   <AlertDialog
                     trigger={
                       <IconButton
-                        name='activity'
+                        name='file'
                         className='h-10 text-gray-700 bg-transparent duration-1000 hover:bg-primary hover:text-white border-zinc-400 min-w-10'
                         size={20}
                       />

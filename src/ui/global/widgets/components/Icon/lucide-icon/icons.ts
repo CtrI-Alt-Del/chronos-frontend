@@ -30,6 +30,8 @@ import {
   Album,
   Upload,
   Hourglass,
+  Icon,
+  File,
 } from 'lucide-react'
 
 export const ICONS: Record<
@@ -63,5 +65,6 @@ export const ICONS: Record<
   'timer': Clock,
   "album": Album,
   "upload": Upload,
-  hourglass: Hourglass
+  hourglass: Hourglass,
+  file: File
 }

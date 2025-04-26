@@ -23,6 +23,7 @@ import {
   createJustificationType,
   createTimePunchAdjustmentSolicitation,
   deleteJustificaionType,
+  getAttachmentUrl,
   listJustificationTypes,
   resolveSolicitation,
   updateJustificationType,
@@ -41,6 +42,7 @@ const solicitationActions = {
   listJustificationTypes,
   createTimePunchAdjustmentSolicitation,
   createDayOffSolicitation,
+  getAttachmentUrl,
 }
 
 const authActions = {
