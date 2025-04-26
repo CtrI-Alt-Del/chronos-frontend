@@ -1,6 +1,5 @@
 import { hourBankActions } from '@/server/next-safe-action'
-import { useHourBankSummary } from './use-hour-bank-summary'
-import { HourBankBalanceDto } from '@/@core/hour-bank/dtos/hour-bank-balance-dto'
+import type { HourBankBalanceDto } from '@/@core/hour-bank/dtos/hour-bank-balance-dto'
 
 type BalanceSummaryProps = {
   hourBankBalance: HourBankBalanceDto
@@ -9,7 +8,6 @@ type BalanceSummaryProps = {
 }
 
 export const BalanceSummary = ({ hourBankBalance,hoursWorkedToday,totalHoursWorked }: BalanceSummaryProps) => {
-
   return (
     <div className='flex flex-col p-10 rounded-2xl border border-gray-border'>
       <h2 className='text-3xl font-semibold'>Saldo de horas</h2>
@@ -18,9 +16,8 @@ export const BalanceSummary = ({ hourBankBalance,hoursWorkedToday,totalHoursWork
       </p>
       <div className='flex flex-col items-start mt-16'>
         <div className='flex flex-col items-center'>
-          <p className='text-6xl font-semibold text-blue-primary'>
-            {hourBankBalance.value}
-            {hourBankBalance.isNegative}
+          <p className={`text-6xl font-semibold ${hourBankBalance.isNegative ? 'text-red-500' : 'text-blue-primary'}`}>
+            {hourBankBalance.isNegative ? '-' : ''}{hourBankBalance.value}
           </p>
           <p className='mt-2 text-gray-500'>Horas acumuladas</p>
         </div>
