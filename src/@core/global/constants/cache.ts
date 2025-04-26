@@ -13,6 +13,9 @@ export const CACHE = {
     todayWordayLog: {
       key: (collaboratorId: string) => `/workSchedule/worday-log/today/${collaboratorId}`,
     },
+    workTime: {
+      key: (collaboratorId: string) => `/workSchedule/work-time/${collaboratorId}`,
+    },
     sectorHistory: {
       key: '/workSchedule/sector-history',
     },

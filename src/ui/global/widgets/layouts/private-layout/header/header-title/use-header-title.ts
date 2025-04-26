@@ -27,7 +27,9 @@ export function useHeaderTitle() {
         ? 'Solicitações do Setor'
         : 'Minhas Solicitações '
     }
-
+    if(currentRoute.startsWith("/hour-bank/")){
+      return "Banco de horas"
+    }
     if (currentRoute.startsWith('/work-schedule/schedules/')) {
       return 'Escala'
     }

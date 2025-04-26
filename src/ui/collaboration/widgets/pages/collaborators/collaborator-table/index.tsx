@@ -130,6 +130,16 @@ export const CollaboratorTable = ({
               <TableCell key={'actions'}>
                 <Button
                   as={Link}
+                  href={ROUTES.hourBank(item.id as string)}
+                  isIconOnly
+                  variant='light'
+                  className='text-slate-600'
+                >
+                  <Icon name='hourglass' size={20} />
+                </Button>
+
+                <Button
+                  as={Link}
                   href={ROUTES.collaboration.collaborator(String(item.id))}
                   isIconOnly
                   variant='light'

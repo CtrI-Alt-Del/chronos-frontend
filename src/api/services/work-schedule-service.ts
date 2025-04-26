@@ -6,6 +6,10 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
   const MODULE = '/work-schedule'
 
   return {
+    async getWorkTime(collaboratorId) {
+      return await restClient.get(`${MODULE}/workday-logs/work-time/${collaboratorId}`)
+    },
+
     async getTodayWorkdayLog(collaboratorId) {
       return await restClient.get(`${MODULE}/workday-logs/${collaboratorId}/today`)
     },

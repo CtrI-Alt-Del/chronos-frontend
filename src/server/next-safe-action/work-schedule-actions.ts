@@ -17,6 +17,7 @@ import {
   PunchTimeAction,
   UpdateDayOffAction,
 } from '../actions/work-schedule'
+import { GetWorkTimeAction } from '../actions/work-schedule/get-work-time-action'
 
 const getTodayWorkdayLog = authActionClient.action(async ({ clientInput, ctx }) => {
   const actionServer = NextActionServer({
@@ -83,5 +84,21 @@ const punchTime = authActionClient
     const action = PunchTimeAction(service)
     return action.handle(actionServer)
   })
+
+export const getWorkTime = authActionClient.schema(
+  z.object({
+    collaboratorId: z.string(),
+  })
+).action(async ({ clientInput }) => {
+  const actionServer = NextActionServer({
+    request: clientInput,
+  })
+  const apiClient = await NextServerRestClient({
+    cacheKey: CACHE.workSchedule.workTime.key(clientInput.collaboratorId),
+  })
+  const service = WorkScheduleService(apiClient)
+  const action = GetWorkTimeAction(service)
+  return action.handle(actionServer)
+})
 
 export { getTodayWorkdayLog, punchTime }
