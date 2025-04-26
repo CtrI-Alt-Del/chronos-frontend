@@ -11,6 +11,9 @@ export interface ISolicitationService {
   createDayOffScheduleAdjustmentSolicitation(
     solicitation: DayOffScheduleAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
+  getJustificationAttachmentUrl(key:string): Promise<ApiResponse<{
+    url: string
+  }>>
   createDayOffSolicitation(
       dayOff: string ,
       justificationTypeId: string,
