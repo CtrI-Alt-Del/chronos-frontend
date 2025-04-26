@@ -14,6 +14,7 @@ export function useTimeInput(value?: string | null, onChange?: (time: string) =>
     date.setMinutes(time.minute)
 
     const formattedTime = formatTime(date)
+    console.log({ formattedTime })
     onChange(formattedTime)
     setTime(time)
   }

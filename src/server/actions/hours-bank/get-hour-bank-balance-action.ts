@@ -16,7 +16,7 @@ export const GetHourBankBalanceAction = (
   return {
     async handle(call: Call<Request>) {
       const { collaboratorId } = call.getRequest()
-      const response = await service.calculateHourBankBalance(collaboratorId)
+      const response = await service.getHourBankBalance(collaboratorId)
       if (response.isFailure) response.throwError()
 
       return {

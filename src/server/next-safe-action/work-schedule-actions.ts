@@ -79,26 +79,28 @@ const punchTime = authActionClient
       request: clientInput,
       account: ctx.account,
     })
-    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
+    const apiClient = await NextServerRestClient({
+      cacheKey: CACHE.workSchedule.todayWordayLog.key(ctx.account.id),
+    })
     const service = WorkScheduleService(apiClient)
     const action = PunchTimeAction(service)
     return action.handle(actionServer)
   })
 
-export const getWorkTime = authActionClient.schema(
-  z.object({
-    collaboratorId: z.string(),
+export const getWorkTime = authActionClient
+  .schema(
+    z.object({
+      collaboratorId: z.string(),
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextActionServer({
+      request: clientInput,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
+    const service = WorkScheduleService(apiClient)
+    const action = GetWorkTimeAction(service)
+    return action.handle(actionServer)
   })
-).action(async ({ clientInput }) => {
-  const actionServer = NextActionServer({
-    request: clientInput,
-  })
-  const apiClient = await NextServerRestClient({
-    cacheKey: CACHE.workSchedule.workTime.key(clientInput.collaboratorId),
-  })
-  const service = WorkScheduleService(apiClient)
-  const action = GetWorkTimeAction(service)
-  return action.handle(actionServer)
-})
 
 export { getTodayWorkdayLog, punchTime }

@@ -7,8 +7,8 @@ import type { AccountDto } from '@/@core/auth/dtos'
 import type { AuthService } from '@/@core/auth/interfaces/auth-service'
 import { COOKIES } from '@/@core/global/constants/cookies'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import { useNavigation } from '@/ui/global/hooks'
 import { useCookieActions } from '@/ui/global/hooks/use-cookie-actions'
+import { useNavigation } from '@/ui/global/hooks/use-navigation'
 
 type UseAuthProviderProps = {
   authService: AuthService

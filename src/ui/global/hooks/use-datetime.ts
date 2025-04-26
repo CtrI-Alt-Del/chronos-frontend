@@ -26,9 +26,13 @@ export function useDatetime() {
     return formatInTimeZone(date, TIME_ZONE, 'yyyy-MM-dd')
   }
 
-  function formatDate(date: Date | string): string {
+  const formatDate = useCallback((date: Date | string): string => {
     return formatInTimeZone(date, TIME_ZONE, 'dd/MM/yyyy')
-  }
+  }, [])
+
+  const formatDateTime = useCallback((date: Date | string): string => {
+    return formatInTimeZone(date, TIME_ZONE, 'dd/MM/yyyy HH:mm')
+  }, [])
 
   function formatTime(date: Date | string): string {
     if (typeof date === 'string') {
@@ -99,6 +103,7 @@ export function useDatetime() {
     formatTime,
     formatIsoDate,
     formatDate,
+    formatDateTime,
     minusDays,
     plusDays,
     inZonedTime,

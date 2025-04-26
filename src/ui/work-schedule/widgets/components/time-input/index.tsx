@@ -10,6 +10,7 @@ import { Icon } from '@/ui/global/widgets/components/Icon'
 type TimeInputProps = {
   ref?: RefObject<HTMLInputElement>
   value?: string | null
+  label?: string
   isDisabled?: boolean
   hasIcon?: boolean
   isReadOnly?: boolean
@@ -19,6 +20,7 @@ type TimeInputProps = {
 export const TimeInput = ({
   ref,
   value,
+  label,
   isDisabled = false,
   hasIcon = false,
   isReadOnly = false,
@@ -29,6 +31,7 @@ export const TimeInput = ({
   return (
     <Input
       inputRef={ref}
+      label={label}
       defaultValue={time}
       value={time}
       isDisabled={isDisabled}

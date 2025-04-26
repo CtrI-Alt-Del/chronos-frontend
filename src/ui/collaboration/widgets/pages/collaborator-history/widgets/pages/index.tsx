@@ -3,7 +3,7 @@
 import { useCollaboratorHistoryPage } from './use-collaborator-history-page'
 import { CollaboratorHistoryTable } from './collaborator-history-table'
 import { DateRangeInput } from '@/ui/global/widgets/components/date-range-input'
-import { TimePunchAdjustmentModal } from './time-punch-solicitation-adjustment-modal' 
+import { TimePunchAdjustmentModal } from './time-punch-solicitation-adjustment-modal'
 
 export const CollaboratorHistoryPage = () => {
   const {
@@ -24,13 +24,13 @@ export const CollaboratorHistoryPage = () => {
       <div className='flex justify-between items-center py-4'>
         <div className='flex items-center gap-2 w-full'>
           <DateRangeInput
-            defualtStartDate={startDate}
-            defualtEndDate={endDate}
+            defeaultStartDate={startDate}
+            defeaultEndDate={endDate}
             onStartDateChange={handleStartDateChange}
             onEndDateChange={handleEndDateChange}
           />
         </div>
-      <TimePunchAdjustmentModal   />
+        <TimePunchAdjustmentModal />
       </div>
       <CollaboratorHistoryTable
         workdayLogs={workdayLogs}

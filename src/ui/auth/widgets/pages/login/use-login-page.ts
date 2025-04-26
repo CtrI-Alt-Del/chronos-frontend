@@ -3,12 +3,7 @@ import { z } from 'zod'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-
-export const stringSchema = z
-  .string({ message: 'texto inválido' })
-  .min(1, 'texto inválido')
-
-const emailSchema = stringSchema.email({ message: 'E-mail inválido' })
+import { emailSchema, stringSchema } from '@/validation/schemas/global'
 
 export const passwordSchema = stringSchema.min(6, 'Pelo menos 6 caracteres')
 

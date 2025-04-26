@@ -19,7 +19,7 @@ type AuthContextProviderProps = {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
-function AuthContextProvider({ children, jwt }: AuthContextProviderProps) {
+const AuthContextProvider = ({ children, jwt }: AuthContextProviderProps) => {
   if (jwt) apiClient.setHeader('Authorization', `Bearer ${jwt}`)
   const authService = AuthService(apiClient)
   const value = useAuthProvider({ authService, jwt })

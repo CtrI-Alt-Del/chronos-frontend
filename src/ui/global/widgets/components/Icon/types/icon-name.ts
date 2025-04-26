@@ -1,6 +1,6 @@
 export type IconName =
-  | "file"
-  | "hourglass"
+  | 'file'
+  | 'hourglass'
   | 'upload'
   | 'album'
   | 'users'
@@ -9,9 +9,12 @@ export type IconName =
   | 'eye'
   | 'trash'
   | 'plus'
+  | 'minus'
+  | 'adjustment'
   | 'arrow-down'
   | 'menu'
   | 'star'
+  | 'calendar'
   | 'time-card'
   | 'edit'
   | 'confirm'

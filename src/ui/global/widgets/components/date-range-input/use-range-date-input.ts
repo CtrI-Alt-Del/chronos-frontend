@@ -4,31 +4,30 @@ import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import type { RangeValue } from '@heroui/react'
 
 type DateRangeInputProps = {
-  defualtStartDate: Date
-  defualtEndDate: Date
+  defeaultStartDate: Date
+  defeaultEndDate: Date
   onStartDateChange: (date: Date) => void
   onEndDateChange: (date: Date) => void
 }
 
 export function useDateRangeInput({
-  defualtEndDate,
-  defualtStartDate,
+  defeaultEndDate,
+  defeaultStartDate,
   onEndDateChange,
   onStartDateChange,
 }: DateRangeInputProps) {
-  const { inZonedTime, formatIsoDate } = useDatetime()
+  const { inZonedTime, plusDays, formatIsoDate } = useDatetime()
 
   function handleValueChange(value: RangeValue<CalendarDate> | null) {
     if (value) {
-      console.log({ value })
-      onStartDateChange(inZonedTime(value.start.toString()))
-      onEndDateChange(inZonedTime(value.end.toString()))
+      onStartDateChange(plusDays(new Date(value.start.toString()), 1))
+      onEndDateChange(plusDays(new Date(value.end.toString()), 1))
     }
   }
 
   return {
-    startDate: parseDate(formatIsoDate(defualtStartDate)),
-    endDate: parseDate(formatIsoDate(defualtEndDate)),
+    startDate: parseDate(formatIsoDate(defeaultStartDate)),
+    endDate: parseDate(formatIsoDate(defeaultEndDate)),
     handleValueChange,
   }
 }

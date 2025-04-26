@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import type { IconName } from '@/ui/global/widgets/components/Icon/types/icon-name'
 import { Icon } from '@/ui/global/widgets/components/Icon'
-import { useNavigation } from '@/ui/global/hooks'
+import { useNavigation } from '@/ui/global/hooks/use-navigation'
 
 type NavbarLinkProps = {
   href: string

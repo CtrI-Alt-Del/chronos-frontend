@@ -1,5 +1,5 @@
 export type HourBankTransactionDto = {
-  date: string
+  dateTime: string
   type: string
   time: string
   reason: string

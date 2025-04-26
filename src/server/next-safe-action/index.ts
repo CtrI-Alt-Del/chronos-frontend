@@ -29,6 +29,7 @@ import {
   updateJustificationType,
 } from './solicitation-actions'
 import {
+  listHourBankTransactions,
   getHourBankBalance,
   createHourBankTransactionAdjustment,
 } from './hour-bank-actions'
@@ -74,6 +75,7 @@ const collaborationActions = {
 }
 
 const hourBankActions = {
+  listHourBankTransactions,
   getHourBankBalance,
   createHourBankTransactionAdjustment,
 }

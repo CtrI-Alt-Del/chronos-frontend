@@ -38,8 +38,6 @@ export const CACHE = {
     },
   },
   hourBank: {
-    transactions: {
-      key: (collaboratorId: string) => `/hour-bank/transactions/${collaboratorId}`,
-    },
+    key: (collaboratorId: string) => `/hour-bank/transactions/${collaboratorId}`,
   },
 } as const
