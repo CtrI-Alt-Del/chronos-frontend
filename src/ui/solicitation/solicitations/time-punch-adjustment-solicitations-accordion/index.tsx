@@ -12,7 +12,12 @@ import { Accordion, AccordionItem } from '@heroui/accordion'
 import { Avatar } from '@heroui/avatar'
 import { Button } from '@heroui/button'
 import { Spinner } from '@heroui/spinner'
-import { ChevronDown } from 'lucide-react'
+
+const STATUSES: Record<string, { label: string; color: string }> = {
+  PENDING: { label: 'Pendente', color: 'bg-yellow-500 text-yellow-500' },
+  APPROVED: { label: 'Aprovado', color: 'bg-green-500 text-green-500' },
+  DENIED: { label: 'Negado', color: 'bg-red-500 text-red-500' },
+}
 
 type SolicitationAccordionProps = {
   solicitations: TimePunchLogAdjustmentSolicitationDto[] | null
@@ -49,12 +54,6 @@ export const TimePunchAdjustmentSolicitationAccordion = ({
     )
   }
 
-  const statusMapping: Record<string, { label: string; color: string }> = {
-    PENDING: { label: 'Pendente', color: 'bg-yellow-500 text-yellow-500' },
-    APPROVED: { label: 'Aprovado', color: 'bg-green-500 text-green-500' },
-    DENIED: { label: 'Negado', color: 'bg-red-500 text-red-500' },
-  }
-
   const renderManagerActions = (solicitation: SolicitationDto) => (
     <div className='flex flex-col md:flex-row gap-2 mt-2 w-full md:w-fit'>
       <AlertDialog
@@ -89,7 +88,7 @@ export const TimePunchAdjustmentSolicitationAccordion = ({
   return (
     <Accordion className='border border-gray-border rounded-lg px-4'>
       {solicitations.map((solicitation) => {
-        const statusInfo = statusMapping[solicitation.status] || {
+        const statusInfo = STATUSES[solicitation.status] ?? {
           label: solicitation.status,
           color: 'bg-gray-500 text-gray-500',
         }
@@ -114,7 +113,7 @@ export const TimePunchAdjustmentSolicitationAccordion = ({
         return (
           <AccordionItem
             key={solicitation.id}
-            hideIndicator={userRole === "EMPLOYEE"}
+            hideIndicator={userRole === 'EMPLOYEE'}
             aria-label={`Accordion ${solicitation.id}`}
             indicator={<Icon name='arrow-down' className='w-4 h-4' />}
             title={

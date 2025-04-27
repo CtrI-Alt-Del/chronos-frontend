@@ -47,8 +47,19 @@ export const SolicitationService = (restClient: RestClient): ISolicitationServic
       )
     },
 
-    async createPaidOvertimeSolicitation(solicitation) {
-      return await restClient.post(`${SOLICITATIONS_ROUTE}/paid-overtime`, solicitation)
+    async createPaidOvertimeSolicitation() {
+      return await restClient.post(`${SOLICITATIONS_ROUTE}/paid-overtime`)
+    },
+
+    async approvePaidOvertimeSolicitation(feedbackMessage: string) {
+      return await restClient.put(`${SOLICITATIONS_ROUTE}/paid-overtime/approve`, {
+        feedbackMessage,
+      })
+    },
+
+    async listPaidOvertimeSolicitations(page: number) {
+      restClient.setParam('page', String(page))
+      return await restClient.get(`${SOLICITATIONS_ROUTE}/paid-overtime`)
     },
 
     async resolveSolicitation(

@@ -1,12 +1,14 @@
-import { SolicitationDto } from "@/@core/solicitation/dtos";
-import { AlertDialog } from "@/ui/global/widgets/components/alert-dialog";
-import { Button } from "@heroui/button";
-type renderManagerActionsProps = {
-  solicitation: SolicitationDto
-  handleDeny: (solicitation: SolicitationDto) => void 
-  handleApprove: (solicitation: SolicitationDto) => void
+import { Button } from '@heroui/button'
+
+import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
+
+type Props = {
+  onApprove: VoidFunction
+  onDeny: VoidFunction
 }
-export const RenderManagerActions = ({solicitation,handleDeny,handleApprove}:renderManagerActionsProps) => (
+
+export const SolicitationActionsView = ({ onApprove, onDeny }: Props) => {
+  return (
     <div className='flex flex-col md:flex-row gap-2 mt-2 w-full md:w-fit'>
       <AlertDialog
         trigger={
@@ -16,7 +18,7 @@ export const RenderManagerActions = ({solicitation,handleDeny,handleApprove}:ren
         }
         onCancel={() => {}}
         title='ALERTA'
-        onConfirm={() => handleApprove(solicitation)}
+        onConfirm={onApprove}
       >
         Você tem certeza que deseja aprovar essa solicitação?
       </AlertDialog>
@@ -28,9 +30,10 @@ export const RenderManagerActions = ({solicitation,handleDeny,handleApprove}:ren
         }
         onCancel={() => {}}
         title='ALERTA'
-        onConfirm={() => handleDeny(solicitation)}
+        onConfirm={onDeny}
       >
         Você tem certeza que deseja negar essa solicitação?
       </AlertDialog>
     </div>
   )
+}

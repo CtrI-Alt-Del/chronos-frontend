@@ -12,7 +12,7 @@ import { Avatar } from '@heroui/avatar'
 import { Button } from '@heroui/button'
 import { Spinner } from '@heroui/spinner'
 import { ChevronDown } from 'lucide-react'
-import { RenderManagerActions  } from '../manager-actions'
+import { SolicitationActions } from '../solicitation-actions'
 
 type SolicitationAccordionProps = {
   solicitations: DayOffScheduleAdjustmentSolicitationDto[] | null
@@ -27,7 +27,6 @@ export const DayOffScheduleSolicitationAccordion = ({
   userRole,
   solicitations,
   isLoading,
-  isResolvingSolicitation,
   handleDeny,
   handleApprove,
 }: SolicitationAccordionProps) => {
@@ -107,11 +106,14 @@ export const DayOffScheduleSolicitationAccordion = ({
             }
           >
             <div className='flex justify-between flex-col md:flex-row items-center'>
-              <div>{solicitation.feedbackMessage}</div>
-              {userRole === 'MANAGER' &&
-                solicitation.status === 'PENDING' &&
-                <RenderManagerActions solicitation={solicitation} handleDeny={handleDeny} handleApprove={handleApprove} />
-              }
+              {/* <div>{solicitation.feedbackMessage}</div>
+              {userRole === 'MANAGER' && solicitation.status === 'PENDING' && (
+                <RenderManagerActions
+                  solicitation={solicitation}
+                  handleDeny={handleDeny}
+                  handleApprove={handleApprove}
+                />
+              )} */}
             </div>
           </AccordionItem>
         )

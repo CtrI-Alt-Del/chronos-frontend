@@ -1,17 +1,13 @@
 'use client'
-import type {
-  DayOffSolicitationDto,
-  SolicitationDto,
-  TimePunchLogAdjustmentSolicitationDto,
-} from '@/@core/solicitation/dtos'
+
+import type { DayOffSolicitationDto, SolicitationDto } from '@/@core/solicitation/dtos'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
 import { Icon } from '@/ui/global/widgets/components/Icon'
 import { Accordion, AccordionItem } from '@heroui/accordion'
 import { Avatar } from '@heroui/avatar'
-import { Button } from '@heroui/button'
 import { Spinner } from '@heroui/spinner'
-import { RenderManagerActions } from '../manager-actions'
+import { SolicitationActions } from '../solicitation-actions'
 import { AttachmentDialog } from '@/ui/global/widgets/components/attachment-dialog'
 import { IconButton } from '@/ui/global/widgets/components/icon-button'
 
@@ -119,13 +115,13 @@ export const DayOffSolicitationAccordion = ({
           >
             <div className='flex justify-between flex-col md:flex-row items-center'>
               <div>{solicitation.justification.description}</div>
-              {userRole === 'MANAGER' && solicitation.status === 'PENDING' && (
-                <RenderManagerActions
+              {/* {userRole === 'MANAGER' && solicitation.status === 'PENDING' && (
+                <SolicitationActions
                   solicitation={solicitation}
                   handleDeny={handleDeny}
                   handleApprove={handleApprove}
                 />
-              )}
+              )} */}
             </div>
           </AccordionItem>
         )

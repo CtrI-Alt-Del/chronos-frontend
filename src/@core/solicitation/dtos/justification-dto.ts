@@ -1,8 +1,8 @@
-import { AttachmentDto } from "./attachment-dto"
-import { JustificationTypeDto } from "./justification-type"
+import type { AttachmentDto } from './attachment-dto'
+import type { JustificationTypeDto } from './justification-type'
 
 export type JustificationDto = {
-  description: string 
+  description: string
   justificationType: JustificationTypeDto
   attachment?: AttachmentDto
 }
