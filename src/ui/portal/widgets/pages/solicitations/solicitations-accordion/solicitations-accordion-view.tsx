@@ -7,29 +7,29 @@ import { Avatar } from '@heroui/avatar'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { Icon } from '@/ui/global/widgets/components/Icon'
 import { Justification } from './justification'
-import { SolicitationTitle } from './solicitations-status-badge'
+import { SolicitationTitle } from './solicitation-title'
 import { SolicitationActions } from '../solicitation-actions'
 import { Spinner } from '@/ui/global/widgets/components/spinner'
 import Link from 'next/link'
 import { ROUTES } from '@/constants'
 
-type Props = {
-  solicitations: SolicitationDto[]
+type Props<Solicitation> = {
+  solicitations: Solicitation[]
   isViewerManager: boolean
   isLoading: boolean
-  children: (solicitation: SolicitationDto) => ReactNode
+  children: (solicitation: Solicitation) => ReactNode
   onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
 }
 
-export const SolicitationsAccordionView = ({
+export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>({
   children,
   isViewerManager,
   solicitations,
   isLoading,
   onSolicitationApprove,
   onSolicitationDeny,
-}: Props) => {
+}: Props<Solicitation>) => {
   const { formatDate } = useDatetime()
 
   if (isLoading) {

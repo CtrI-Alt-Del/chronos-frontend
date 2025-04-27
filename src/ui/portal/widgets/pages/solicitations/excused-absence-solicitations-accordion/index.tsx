@@ -1,20 +1,20 @@
 'use client'
 
 import { useRest } from '@/ui/global/hooks/use-rest'
-import { DayOffSolicitationsAccordionView } from './day-off-solicitations-accordion-view'
-import { useDayOffSolicitationsAccordion } from './use-day-off-solicitations-accordion'
+import { ExcusedAbsenceSolicitationsAccordionView } from './excused-absence-solicitations-accordion-view'
+import { useExcusedAbsenceSolicitationsAccordion } from './use-excused-absence-solicitations-accordion'
 
-export const DayOffSolicitationsAccordion = () => {
+export const ExcusedAbsenceSolicitationsAccordion = () => {
   const { portalService } = useRest()
   const {
     solicitations,
     isFetchingSolicitations,
     handleSolicitationApprove,
     handleSolicitationDeny,
-  } = useDayOffSolicitationsAccordion(portalService)
+  } = useExcusedAbsenceSolicitationsAccordion(portalService)
 
   return (
-    <DayOffSolicitationsAccordionView
+    <ExcusedAbsenceSolicitationsAccordionView
       solicitations={solicitations}
       isLoading={isFetchingSolicitations}
       onSolicitationApprove={handleSolicitationApprove}

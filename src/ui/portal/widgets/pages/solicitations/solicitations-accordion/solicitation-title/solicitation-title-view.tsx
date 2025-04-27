@@ -5,6 +5,7 @@ const TITLES: Record<string, string> = {
   time_punch: 'Registro de ponto',
   day_off_schedule: 'Escala de folga',
   day_off: 'Pedido de folga',
+  excused_absence: 'Abono de falta',
   paid_overtime: 'Hora extra remunerada',
 }
 

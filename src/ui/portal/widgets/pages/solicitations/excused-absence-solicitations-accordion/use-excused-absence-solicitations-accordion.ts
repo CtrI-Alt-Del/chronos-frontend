@@ -3,11 +3,11 @@ import type { PortalService } from '@/@core/portal/interfaces'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
 
-export function usePaidOvertimeSolicitationsAccordion(portalService: PortalService) {
+export function useExcusedAbsenceSolicitationsAccordion(portalService: PortalService) {
   const { showError, showSuccess } = useToast()
 
   async function fetchSolicitations(page: number) {
-    const response = await portalService.listPaidOvertimeSolicitations(page)
+    const response = await portalService.listExcusedAbsenceSolicitations(page)
     if (response.isFailure) {
       response.throwError()
     }
@@ -18,7 +18,7 @@ export function usePaidOvertimeSolicitationsAccordion(portalService: PortalServi
     solicitationId: string,
     feedbackMessage?: string,
   ) {
-    const response = await portalService.approvePaidOvertimeSolicitation(
+    const response = await portalService.approveExcusedAbsenceSolicitation(
       solicitationId,
       feedbackMessage,
     )
@@ -47,7 +47,7 @@ export function usePaidOvertimeSolicitationsAccordion(portalService: PortalServi
 
   const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
     fetcher: fetchSolicitations,
-    key: CACHE.portal.paidOvertimeSolicitations.key,
+    key: CACHE.portal.excusedabsenceSolicitations.key,
     isInfinity: true,
     dependencies: [],
   })

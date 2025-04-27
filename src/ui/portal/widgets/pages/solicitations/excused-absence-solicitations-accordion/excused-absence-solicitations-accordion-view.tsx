@@ -1,15 +1,16 @@
-import type { DayOffSolicitationDto } from '@/@core/portal/dtos'
-import { SolicitationsAccordion } from '../solicitations-accordion'
 import { Input } from '@heroui/input'
 
+import type { ExcusedAbsenceSolicitationDto } from '@/@core/portal/dtos'
+import { SolicitationsAccordion } from '../solicitations-accordion'
+
 type Props = {
-  solicitations: DayOffSolicitationDto[]
+  solicitations: ExcusedAbsenceSolicitationDto[]
   isLoading: boolean
   onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
 }
 
-export const DayOffSolicitationsAccordionView = ({
+export const ExcusedAbsenceSolicitationsAccordionView = ({
   solicitations,
   isLoading,
   onSolicitationApprove,
@@ -26,8 +27,8 @@ export const DayOffSolicitationsAccordionView = ({
         <div className='mt-6'>
           <Input
             type='date'
-            label='Dia de folga solicitada'
-            defaultValue={solicitation.dayOff}
+            label='Dia da falta'
+            defaultValue={solicitation.absenceDate}
             readOnly
           />
         </div>

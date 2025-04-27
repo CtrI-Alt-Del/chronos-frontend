@@ -28,8 +28,14 @@ export const CACHE = {
     },
   },
   portal: {
-    solicitations: {
-      key: 'portal/solicitations',
+    paidOvertimeSolicitations: {
+      key: 'portal/paid-overtime-solicitations',
+    },
+    excusedabsenceSolicitations: {
+      key: 'portal/excuse-absence-solicitations',
+    },
+    dayOffSolicitations: {
+      key: 'portal/day-off-solicitations',
     },
     justificationType: {
       key: 'portal/justification-type',

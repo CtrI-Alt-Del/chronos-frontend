@@ -1,5 +1,7 @@
 import { Tabs } from '@/ui/global/widgets/components/tabs'
 import { PaidOvertimeSolicitationsAccordion } from './paid-overtime-solicitations-accordion'
+import { ExcusedAbsenceSolicitationsAccordion } from './excused-absence-solicitations-accordion'
+import { DayOffSolicitationsAccordion } from './day-off-solicitations-accordion'
 
 export const SolicitationsPageView = () => {
   return (
@@ -10,12 +12,15 @@ export const SolicitationsPageView = () => {
             key='excused-absence'
             title={<Tabs.Title>Abono de falta</Tabs.Title>}
           >
-            <PaidOvertimeSolicitationsAccordion />
+            <ExcusedAbsenceSolicitationsAccordion />
           </Tabs.Item>
           <Tabs.Item key='day-off' title={<Tabs.Title>Folga</Tabs.Title>}>
-            <PaidOvertimeSolicitationsAccordion />
+            <DayOffSolicitationsAccordion />
           </Tabs.Item>
-          <Tabs.Item key='paid-overtime' title={<Tabs.Title>Hora extra</Tabs.Title>}>
+          <Tabs.Item
+            key='paid-overtime'
+            title={<Tabs.Title>Hora extra remunerada</Tabs.Title>}
+          >
             <PaidOvertimeSolicitationsAccordion />
           </Tabs.Item>
         </Tabs.Container>
