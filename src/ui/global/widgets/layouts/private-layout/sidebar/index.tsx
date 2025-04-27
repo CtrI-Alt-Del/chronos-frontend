@@ -103,7 +103,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
             {(isManager || isEmployee) && (
               <NavbarLink
-                href={ROUTES.solicitation.solicitations}
+                href={ROUTES.portal.solicitations}
                 icon='report'
                 title='Solicitações'
               />
@@ -111,7 +111,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
             {(isAdmin || isManager) && (
               <NavbarLink
-                href={ROUTES.solicitation.justificationTypes}
+                href={ROUTES.portal.justificationTypes}
                 icon='report'
                 title='Tipos de Justificativas'
               />

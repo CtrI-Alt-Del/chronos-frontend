@@ -1,12 +1,12 @@
 import type { Action } from '@/@core/global/interfaces/rpc'
-import type { DayOffScheduleAdjustmentSolicitationDto } from '@/@core/solicitation/dtos'
-import type { SolicitationService } from '@/@core/solicitation/interfaces'
+import type { DayOffScheduleAdjustmentSolicitationDto } from '@/@core/portal/dtos'
+import type { PortalService } from '@/@core/portal/interfaces'
 import type { Call } from '@/@core/global/interfaces/rpc'
 import { ROUTES } from '@/constants'
 type Request = DayOffScheduleAdjustmentSolicitationDto
 
 export const CreateDayOffScheduleAdjustmentSolicitationAction = (
-  service: SolicitationService,
+  service: PortalService,
 ): Action<Request> => {
   return {
     async handle(call: Call<Request>) {
@@ -14,7 +14,7 @@ export const CreateDayOffScheduleAdjustmentSolicitationAction = (
       const response =
         await service.createDayOffScheduleAdjustmentSolicitation(solicitation)
       if (response.isFailure) response.throwError()
-      call.redirect(ROUTES.solicitation.solicitations)
+      call.redirect(ROUTES.portal.solicitations)
     },
   }
 }

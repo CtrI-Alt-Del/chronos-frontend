@@ -1,11 +1,11 @@
 import { CACHE } from '@/@core/global/constants'
 import type { Action } from '@/@core/global/interfaces/rpc'
-import type { JustificationTypeDto } from '@/@core/solicitation/dtos'
-import type { SolicitationService } from '@/@core/solicitation/interfaces'
+import type { JustificationTypeDto } from '@/@core/portal/dtos'
+import type { PortalService } from '@/@core/portal/interfaces'
 
 type Request = JustificationTypeDto
 export const CreateJustificationTypeAction = (
-  service: SolicitationService,
+  service: PortalService,
 ): Action<Request> => {
   return {
     async handle(call) {

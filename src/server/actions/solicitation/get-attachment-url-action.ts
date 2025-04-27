@@ -1,5 +1,5 @@
 import type { Action } from '@/@core/global/interfaces/rpc'
-import type { SolicitationService } from '@/@core/solicitation/interfaces'
+import type { PortalService } from '@/@core/portal/interfaces'
 
 type RequestBody = {
   attachmentKey: string
@@ -8,7 +8,7 @@ type ResponseBody = {
   url: string
 }
 export const GetAttachmentUrlAction = (
-  service: SolicitationService,
+  service: PortalService,
 ): Action<RequestBody, ResponseBody> => {
   return {
     async handle(call) {

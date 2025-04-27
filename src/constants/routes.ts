@@ -23,9 +23,9 @@ export const ROUTES = {
     hoursBank: '/work-schedule/hours-bank',
   },
   hourBank: (collaboratorId?: string) => `/hour-bank/${collaboratorId}`,
-  solicitation: {
-    solicitations: '/solicitation/solicitations',
-    justificationTypes: '/solicitation/justification-types',
+  portal: {
+    solicitations: '/portal/solicitations',
+    justificationTypes: '/portal/justification-types',
   },
   report: '/relatorio',
 } as const

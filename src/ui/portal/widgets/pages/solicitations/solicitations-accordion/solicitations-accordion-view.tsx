@@ -1,0 +1,109 @@
+import type { ReactNode } from 'react'
+import type { SolicitationDto } from '@/@core/portal/dtos'
+import { Accordion, AccordionItem } from '@heroui/accordion'
+import { Textarea } from '@heroui/input'
+import { Avatar } from '@heroui/avatar'
+
+import { useDatetime } from '@/ui/global/hooks/use-datetime'
+import { Icon } from '@/ui/global/widgets/components/Icon'
+import { Justification } from './justification'
+import { SolicitationStatusBadge } from './solicitations-status-badge'
+import { SolicitationActions } from '../solicitation-actions'
+import { Spinner } from '@/ui/global/widgets/components/spinner'
+
+type Props = {
+  solicitations: SolicitationDto[]
+  isViewerManager: boolean
+  isLoading: boolean
+  children: (solicitation: SolicitationDto) => ReactNode
+  onSolicitationApprove: (feedbackMessage?: string) => void
+  onSolicitationDeny: (feedbackMessage?: string) => void
+}
+
+export const SolicitationsAccordionView = ({
+  children,
+  isViewerManager,
+  solicitations,
+  isLoading,
+  onSolicitationApprove,
+  onSolicitationDeny,
+}: Props) => {
+  const { formatDate } = useDatetime()
+
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center h-64'>
+        <Spinner />
+      </div>
+    )
+  }
+
+  if (!solicitations || solicitations.length === 0) {
+    return (
+      <div className='flex items-center justify-center h-64'>
+        <span className='text-gray-500'>Nenhuma solicitação encontrada</span>
+      </div>
+    )
+  }
+
+  return (
+    <Accordion className='border border-gray-border rounded-lg px-4'>
+      {solicitations.map((solicitation) => (
+        <AccordionItem
+          key={solicitation.id}
+          hideIndicator={isViewerManager}
+          aria-label={`Accordion ${solicitation.id}`}
+          indicator={<Icon name='arrow-down' className='w-4 h-4' />}
+          title={<SolicitationStatusBadge status={solicitation.status} />}
+          subtitle={
+            <div className='flex flex-col md:flex-row items-center gap-6 mt-2 pl-6'>
+              {solicitation.date && (
+                <span className='text-slate-800 text-sm'>
+                  {formatDate(solicitation.date)}
+                </span>
+              )}
+              <div className='flex items-center gap-2'>
+                <Avatar
+                  color='primary'
+                  isBordered
+                  className='size-3 rounded-full'
+                  radius='sm'
+                />
+                <span className='text-slate-800'>
+                  {solicitation.senderResponsible?.entity?.name}
+                </span>
+              </div>
+            </div>
+          }
+        >
+          <div className='pl-5'>
+            {solicitation.justification && (
+              <Justification justification={solicitation.justification} />
+            )}
+            <div>
+              {solicitation.description && (
+                <Textarea
+                  label='Observação'
+                  defaultValue={solicitation.description}
+                  isReadOnly
+                />
+              )}
+              {solicitation.feedbackMessage && (
+                <Textarea
+                  label='Mensagem de feedback'
+                  defaultValue={solicitation.feedbackMessage}
+                  isReadOnly
+                />
+              )}
+            </div>
+            {children(solicitation)}
+            <SolicitationActions
+              onApprove={onSolicitationApprove}
+              onDeny={onSolicitationDeny}
+            />
+          </div>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  )
+}

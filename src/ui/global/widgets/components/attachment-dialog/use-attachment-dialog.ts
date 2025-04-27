@@ -2,13 +2,12 @@ import { useCache } from '@/ui/global/hooks/use-cache'
 import { useRest } from '@/ui/global/hooks/use-rest'
 
 export function useAttachmentDialog(attachmentKey?: string) {
-  const { solicitationService } = useRest()
+  const { PortalService } = useRest()
   async function fetcher() {
     if (!attachmentKey) {
       return null
     }
-    const response =
-      await solicitationService.getJustificationAttachmentUrl(attachmentKey)
+    const response = await PortalService.getJustificationAttachmentUrl(attachmentKey)
     return response.body
   }
   const { data, isFetching } = useCache({

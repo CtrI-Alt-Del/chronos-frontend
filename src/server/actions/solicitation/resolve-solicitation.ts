@@ -1,7 +1,7 @@
 import { CACHE } from '@/@core/global/constants'
 import type { Action, Call } from '@/@core/global/interfaces/rpc'
-import type { SolicitationDto } from '@/@core/solicitation/dtos'
-import type { SolicitationService } from '@/@core/solicitation/interfaces'
+import type { SolicitationDto } from '@/@core/portal/dtos'
+import type { PortalService } from '@/@core/portal/interfaces'
 
 type Request = {
   id?: string
@@ -10,9 +10,7 @@ type Request = {
   type: 'DAY_OFF_SCHEDULE' | 'TIME_PUNCH' | 'DAY_OFF'
   collaboratorId: string
 }
-export const ResolveSolicitationAction = (
-  service: SolicitationService,
-): Action<Request> => {
+export const ResolveSolicitationAction = (service: PortalService): Action<Request> => {
   return {
     async handle(actionServer: Call<Request>) {
       const solicitation = actionServer.getRequest()

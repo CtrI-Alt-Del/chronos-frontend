@@ -28,14 +28,14 @@ import {
   listJustificationTypes,
   resolveSolicitation,
   updateJustificationType,
-} from './solicitation-actions'
+} from './portal-actions'
 import {
   listHourBankTransactions,
   getHourBankBalance,
   createHourBankTransactionAdjustment,
 } from './hour-bank-actions'
 
-const solicitationActions = {
+const portalActions = {
   createDayOffScheduleAdjustmentSolicitation,
   resolveSolicitation,
   createJustificationType,
@@ -87,6 +87,6 @@ export {
   cookieActions,
   workScheduleActions,
   collaborationActions,
-  solicitationActions,
+  portalActions,
   hourBankActions,
 }

@@ -19,16 +19,16 @@ export function useHeaderTitle() {
       [ROUTES.workSchedule.collaboratorHistory]: 'Meu histórico',
       [ROUTES.collaboration.createCollaborator]: 'Cadastrar colaborador',
       [ROUTES.workSchedule.hoursBank]: 'Banco de horas',
-      [ROUTES.solicitation.justificationTypes]: 'Tipos de Justificativas',
+      [ROUTES.portal.justificationTypes]: 'Tipos de Justificativas',
     }
 
-    if (currentRoute === ROUTES.solicitation.solicitations) {
+    if (currentRoute === ROUTES.portal.solicitations) {
       return account?.role === 'MANAGER' || account?.role === 'ADMIN'
         ? 'Solicitações do Setor'
         : 'Minhas Solicitações '
     }
-    if(currentRoute.startsWith("/hour-bank/")){
-      return "Banco de horas"
+    if (currentRoute.startsWith('/hour-bank/')) {
+      return 'Banco de horas'
     }
     if (currentRoute.startsWith('/work-schedule/schedules/')) {
       return 'Escala'
