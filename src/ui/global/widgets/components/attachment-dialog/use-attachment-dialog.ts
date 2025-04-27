@@ -1,22 +1,19 @@
-import { useCache, useRest } from "@/ui/global/hooks";
-import { useRef } from "react";
+import { useCache } from '@/ui/global/hooks/use-cache'
+import { useRest } from '@/ui/global/hooks/use-rest'
 
-export function useAttachmentDialog(attachmentKey?:string){
-  const {solicitationService} = useRest()
-  async function fetcher(){
+export function useAttachmentDialog(attachmentKey?: string) {
+  const { solicitationService } = useRest()
+  async function fetcher() {
     if (!attachmentKey) {
       return null
     }
-    const response = await solicitationService.getJustificationAttachmentUrl(attachmentKey)
-    if (response.isFailure) {
-      console.error(response.errorMessage)
-    }
-    console.log(response.body)
+    const response =
+      await solicitationService.getJustificationAttachmentUrl(attachmentKey)
     return response.body
   }
-  const {data,isFetching} = useCache({
+  const { data, isFetching } = useCache({
     fetcher: fetcher,
-    key: attachmentKey ?? "",
+    key: attachmentKey ?? '',
   })
   const attachmentUrl = data?.url ?? null
   return {

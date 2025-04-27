@@ -59,6 +59,7 @@ export const TransactionAdjustmentDialogView = ({
             type='button'
             color='primary'
             isLoading={isLoading}
+            isDisabled={isLoading || !time}
             onPress={() => {
               closeDialog()
               onButtonConfirmClick()

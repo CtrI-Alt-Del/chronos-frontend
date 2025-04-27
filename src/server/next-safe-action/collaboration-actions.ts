@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 import { NextServerRestClient } from '@/api/next/clients/next-server-api-client'
 import { CollaborationService } from '@/api/services'
-import { NextActionServer } from '@/server/next/next-server-action'
+import { NextCall } from '@/server/next/next-server-action'
 import { authActionClient } from './clients/auth-action-client'
 import {
   GetCollaboratorAction,
@@ -31,7 +31,7 @@ export const getCollaborator = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const apiClient = await NextServerRestClient({
@@ -45,7 +45,7 @@ export const getCollaborator = authActionClient
 
 export const getCollaboratorProfile = authActionClient.action(
   async ({ ctx, clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
       account: ctx.account,
     })
@@ -64,7 +64,7 @@ export const updateCollaborator = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const apiClient = await NextServerRestClient({ isCacheEnabled: true })

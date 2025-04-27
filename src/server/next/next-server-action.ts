@@ -6,15 +6,15 @@ import type { Call } from '@/@core/global/interfaces/rpc/call'
 import type { AccountDto } from '@/@core/auth/dtos'
 import { AppError } from '@/@core/global/errors'
 
-type NextActionServerParams<Request> = {
+type Params<Request> = {
   request?: Request
   account?: AccountDto
 }
 
-export const NextActionServer = <Request = unknown>({
+export const NextCall = <Request = unknown>({
   request,
   account,
-}: NextActionServerParams<Request> = {}): Call<Request> => {
+}: Params<Request> = {}): Call<Request> => {
   return {
     getRequest() {
       if (!request) throw new AppError('Action server request undefined')

@@ -1,12 +1,12 @@
 import { CACHE } from '@/@core/global/constants'
 import type { Action } from '@/@core/global/interfaces/rpc'
-import type { ISolicitationService } from '@/@core/solicitation/interfaces'
+import type { SolicitationService } from '@/@core/solicitation/interfaces'
 
 type Request = {
   justificationTypeId: string
 }
 export const DeleteJustificationTypeAction = (
-  service: ISolicitationService,
+  service: SolicitationService,
 ): Action<Request> => {
   return {
     async handle(call) {

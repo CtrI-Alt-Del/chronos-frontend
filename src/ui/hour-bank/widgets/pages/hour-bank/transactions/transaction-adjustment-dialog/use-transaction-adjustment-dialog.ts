@@ -20,6 +20,7 @@ export function useTransactionAdjustmentDialog(
   }
 
   async function handleConfirmButtonClick() {
+    if (!time) return
     await createTransactionAdjustment(collaboratorId, time, operation)
     setTime('')
   }

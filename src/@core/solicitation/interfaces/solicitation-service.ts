@@ -3,29 +3,32 @@ import type { SolicitationDto } from '../dtos/solicitation-dto'
 import type {
   DayOffScheduleAdjustmentSolicitationDto,
   JustificationTypeDto,
+  PaidOvertimeSolicitationDto,
   TimePunchLogAdjustmentSolicitationDto,
 } from '../dtos'
 
-export interface ISolicitationService {
+export interface SolicitationService {
   listSolicitations(): Promise<ApiResponse<SolicitationDto[]>>
   createDayOffScheduleAdjustmentSolicitation(
     solicitation: DayOffScheduleAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
-  getJustificationAttachmentUrl(key:string): Promise<ApiResponse<{
-    url: string
-  }>>
+  getJustificationAttachmentUrl(key: string): Promise<
+    ApiResponse<{
+      url: string
+    }>
+  >
   createDayOffSolicitation(
-      dayOff: string ,
-      justificationTypeId: string,
-      description: string,
-      justificationTypeName: string ,
-      justificationTypeShouldHaveAttachment: string,
-      attachment?: File
-    
-  ):Promise<ApiResponse<void>>
+    dayOff: string,
+    justificationTypeId: string,
+    description: string,
+    justificationTypeName: string,
+    justificationTypeShouldHaveAttachment: string,
+    attachment?: File,
+  ): Promise<ApiResponse<void>>
   createTimePunchLogAdjustmentSolicitation(
     solicitation: TimePunchLogAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
+  createPaidOvertimeSolicitation(): Promise<ApiResponse<void>>
   resolveSolicitation(
     solicitationId: string,
     action: 'APPROVED' | 'DENIED',

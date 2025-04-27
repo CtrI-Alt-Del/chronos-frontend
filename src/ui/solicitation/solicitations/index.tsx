@@ -1,7 +1,8 @@
 'use client'
 
-import { useSolicitationPage } from './use-solicitation-page'
 import { Tab, Tabs } from '@heroui/react'
+
+import { useSolicitationPage } from './use-solicitation-page'
 import { DayOffScheduleSolicitationAccordion } from './day-off-schedule-solicitations-accordion'
 import { TimePunchAdjustmentSolicitationAccordion } from './time-punch-adjustment-solicitations-accordion'
 import { DayOffSolicitationAccordion } from './day-off-solicitations-accordion'
@@ -21,6 +22,7 @@ export const SolicitationsPage = ({ userRole, workdayLogId }: SolcitationPagePro
     handleApproveSolicitation,
     handleDenySolicitation,
   } = useSolicitationPage()
+
   return (
     <div>
       <div className='px-10 py-4'>

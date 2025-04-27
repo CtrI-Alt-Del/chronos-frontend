@@ -3,7 +3,7 @@
 import { z } from 'zod'
 
 import { authActionClient } from './clients/auth-action-client'
-import { NextActionServer } from '../next/next-server-action'
+import { NextCall } from '../next/next-server-action'
 import {
   AllowPageForRolesAction,
   DisableCollaboratorAccountAction,
@@ -16,7 +16,7 @@ import { AuthService } from '@/api/services/auth-service'
 export const allowPageForRoles = authActionClient
   .schema(z.array(z.enum(['admin', 'manager', 'employee'])))
   .action(async ({ clientInput, ctx }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
       account: ctx.account,
     })
@@ -32,7 +32,7 @@ export const updateCollaboratorPassword = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const apiClient = await NextServerRestClient({ isCacheEnabled: false })
@@ -48,7 +48,7 @@ export const enableCollaboratorAccount = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const apiClient = await NextServerRestClient({ isCacheEnabled: true })
@@ -64,7 +64,7 @@ export const disableCollaboratorAccount = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const apiClient = await NextServerRestClient({ isCacheEnabled: true })

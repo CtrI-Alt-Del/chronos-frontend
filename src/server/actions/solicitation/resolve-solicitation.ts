@@ -1,24 +1,25 @@
 import { CACHE } from '@/@core/global/constants'
-import type { Action,Call } from '@/@core/global/interfaces/rpc' 
+import type { Action, Call } from '@/@core/global/interfaces/rpc'
 import type { SolicitationDto } from '@/@core/solicitation/dtos'
-import type { ISolicitationService } from '@/@core/solicitation/interfaces'
-
+import type { SolicitationService } from '@/@core/solicitation/interfaces'
 
 type Request = {
-  id?:string
-  status: "DENIED" | "APPROVED"
+  id?: string
+  status: 'DENIED' | 'APPROVED'
   feedbackMessage?: string
-  type: "DAY_OFF_SCHEDULE" | "TIME_PUNCH" | "DAY_OFF"
+  type: 'DAY_OFF_SCHEDULE' | 'TIME_PUNCH' | 'DAY_OFF'
   collaboratorId: string
 }
-export const ResolveSolicitationAction = (service: ISolicitationService): Action<Request> => {
+export const ResolveSolicitationAction = (
+  service: SolicitationService,
+): Action<Request> => {
   return {
     async handle(actionServer: Call<Request>) {
       const solicitation = actionServer.getRequest()
       const response = await service.resolveSolicitation(
         solicitation.id as string,
         solicitation.status,
-        solicitation.type
+        solicitation.type,
       )
       if (response.isFailure) response.throwError()
       actionServer.resetCache(CACHE.solicitation.solicitations.key)

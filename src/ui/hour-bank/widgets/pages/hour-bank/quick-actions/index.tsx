@@ -1,4 +1,4 @@
-import { collaborationActions } from '@/server/next-safe-action'
+import { collaborationActions, hourBankActions } from '@/server/next-safe-action'
 import { QuickActionsView } from './quick-actions-view'
 
 type QuickActionsProps = {

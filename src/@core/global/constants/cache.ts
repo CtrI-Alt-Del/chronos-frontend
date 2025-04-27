@@ -1,5 +1,3 @@
-import { tr } from 'date-fns/locale'
-
 export const CACHE = {
   collaboration: {
     collaborator: {

@@ -20,8 +20,9 @@ import {
 import {
   createDayOffScheduleAdjustmentSolicitation,
   createDayOffSolicitation,
-  createJustificationType,
+  createPaidOvertimeSolicitation,
   createTimePunchAdjustmentSolicitation,
+  createJustificationType,
   deleteJustificaionType,
   getAttachmentUrl,
   listJustificationTypes,
@@ -38,6 +39,7 @@ const solicitationActions = {
   createDayOffScheduleAdjustmentSolicitation,
   resolveSolicitation,
   createJustificationType,
+  createPaidOvertimeSolicitation,
   deleteJustificaionType,
   updateJustificationType,
   listJustificationTypes,

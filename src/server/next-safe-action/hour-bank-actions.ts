@@ -3,7 +3,7 @@
 import { z } from 'zod'
 
 import { NextServerRestClient } from '@/api/next/clients/next-server-api-client'
-import { NextActionServer } from '@/server/next/next-server-action'
+import { NextCall } from '@/server/next/next-server-action'
 import { authActionClient } from './clients/auth-action-client'
 import { CACHE } from '@/@core/global/constants'
 import { HourBankService } from '@/api/services'
@@ -20,7 +20,7 @@ export const listHourBankTransactions = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const restClient = await NextServerRestClient({
@@ -38,7 +38,7 @@ export const getHourBankBalance = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const restClient = await NextServerRestClient({
@@ -58,7 +58,7 @@ export const createHourBankTransactionAdjustment = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const restClient = await NextServerRestClient({

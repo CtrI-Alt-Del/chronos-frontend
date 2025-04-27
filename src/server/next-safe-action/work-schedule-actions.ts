@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { CACHE } from '@/@core/global/constants'
 import { WorkScheduleService } from '@/api/services/work-schedule-service'
 import { NextServerRestClient } from '@/api/next/clients/next-server-api-client'
-import { NextActionServer } from '@/server/next/next-server-action'
+import { NextCall } from '@/server/next/next-server-action'
 import {
   daysOffScheduleSchema,
   weekScheduleSchema,
@@ -20,7 +20,7 @@ import {
 import { GetWorkTimeAction } from '../actions/work-schedule/get-work-time-action'
 
 const getTodayWorkdayLog = authActionClient.action(async ({ clientInput, ctx }) => {
-  const actionServer = NextActionServer({
+  const actionServer = NextCall({
     request: clientInput,
     account: ctx.account,
   })
@@ -39,7 +39,7 @@ export const getDayOffSchedule = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const apiClient = await NextServerRestClient({
@@ -58,7 +58,7 @@ export const updateDayOffSchedule = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const apiClient = await NextServerRestClient()
@@ -75,7 +75,7 @@ const punchTime = authActionClient
     }),
   )
   .action(async ({ clientInput, ctx }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
       account: ctx.account,
     })
@@ -94,7 +94,7 @@ export const getWorkTime = authActionClient
     }),
   )
   .action(async ({ clientInput }) => {
-    const actionServer = NextActionServer({
+    const actionServer = NextCall({
       request: clientInput,
     })
     const apiClient = await NextServerRestClient({ isCacheEnabled: false })
