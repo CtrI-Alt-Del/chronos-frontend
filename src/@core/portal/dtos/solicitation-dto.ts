@@ -4,6 +4,7 @@ import type { ResponsibleDto } from '@/@core/global/dtos/ResponsibleDto'
 
 export type SolicitationDto = {
   id?: string
+  type: string
   description?: string
   date?: Date
   status: string
@@ -11,5 +12,4 @@ export type SolicitationDto = {
   justification?: JustificationDto
   senderResponsible?: AggregateDto<ResponsibleDto>
   replierResponsible?: AggregateDto<ResponsibleDto>
-  type?: 'DAY_OFF_SCHEDULE' | 'TIME_PUNCH' | 'DAY_OFF'
 }

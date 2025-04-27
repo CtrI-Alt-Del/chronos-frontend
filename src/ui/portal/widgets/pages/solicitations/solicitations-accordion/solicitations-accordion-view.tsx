@@ -7,7 +7,7 @@ import { Avatar } from '@heroui/avatar'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { Icon } from '@/ui/global/widgets/components/Icon'
 import { Justification } from './justification'
-import { SolicitationStatusBadge } from './solicitations-status-badge'
+import { SolicitationTitle } from './solicitations-status-badge'
 import { SolicitationActions } from '../solicitation-actions'
 import { Spinner } from '@/ui/global/widgets/components/spinner'
 
@@ -51,10 +51,14 @@ export const SolicitationsAccordionView = ({
       {solicitations.map((solicitation) => (
         <AccordionItem
           key={solicitation.id}
-          hideIndicator={isViewerManager}
           aria-label={`Accordion ${solicitation.id}`}
           indicator={<Icon name='arrow-down' className='w-4 h-4' />}
-          title={<SolicitationStatusBadge status={solicitation.status} />}
+          title={
+            <SolicitationTitle
+              solicitationType={solicitation.type}
+              solicitationStatus={solicitation.status}
+            />
+          }
           subtitle={
             <div className='flex flex-col md:flex-row items-center gap-6 mt-2 pl-6'>
               {solicitation.date && (
@@ -70,7 +74,8 @@ export const SolicitationsAccordionView = ({
                   radius='sm'
                 />
                 <span className='text-slate-800'>
-                  {solicitation.senderResponsible?.entity?.name}
+                  {solicitation.senderResponsible?.entity?.name} |{' '}
+                  {solicitation.senderResponsible?.entity?.email}
                 </span>
               </div>
             </div>
@@ -89,18 +94,37 @@ export const SolicitationsAccordionView = ({
                 />
               )}
               {solicitation.feedbackMessage && (
-                <Textarea
-                  label='Mensagem de feedback'
-                  defaultValue={solicitation.feedbackMessage}
-                  isReadOnly
-                />
+                <div>
+                  <Textarea
+                    label='Mensagem de feedback'
+                    defaultValue={solicitation.feedbackMessage}
+                    isReadOnly
+                  />
+                  <div className='flex items-center gap-2 text-sm text-slate-700 mt-3'>
+                    Gerente responsável:
+                    <Avatar
+                      color='primary'
+                      isBordered
+                      className='size-3 rounded-full'
+                      radius='sm'
+                    />
+                    <span>
+                      {solicitation.replierResponsible?.entity?.name} |{' '}
+                      {solicitation.replierResponsible?.entity?.email}
+                    </span>
+                  </div>
+                </div>
               )}
             </div>
             {children(solicitation)}
-            <SolicitationActions
-              onApprove={onSolicitationApprove}
-              onDeny={onSolicitationDeny}
-            />
+            {isViewerManager && (
+              <div className='mt-6'>
+                <SolicitationActions
+                  onApprove={onSolicitationApprove}
+                  onDeny={onSolicitationDeny}
+                />
+              </div>
+            )}
           </div>
         </AccordionItem>
       ))}

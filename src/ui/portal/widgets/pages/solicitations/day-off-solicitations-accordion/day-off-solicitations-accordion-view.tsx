@@ -8,7 +8,7 @@ type Props = {
   onSolicitationApprove: (feedbackMessage?: string) => void
 }
 
-export const PaidOvertimeSolicitationsAccordionView = ({
+export const DayOffSolicitationsAccordionView = ({
   solicitations,
   isLoading,
   onSolicitationApprove,
@@ -21,14 +21,7 @@ export const PaidOvertimeSolicitationsAccordionView = ({
       onSolicitationApprove={onSolicitationApprove}
       onSolicitationDeny={onSolicitationDeny}
     >
-      {() => (
-        <div className='mt-6'>
-          <p className='text-md text-slate-500'>
-            ☝🏻Débito de <strong className='text-primary'>2 horas</strong> no banco de
-            horas se aprovada.
-          </p>
-        </div>
-      )}
+      {() => <div className='mt-6'></div>}
     </SolicitationsAccordion>
   )
 }

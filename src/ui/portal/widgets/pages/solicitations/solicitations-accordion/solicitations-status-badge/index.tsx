@@ -1,3 +1,3 @@
-import { SolicitationStatusBadgeView } from './solicitation-status-badge-view'
+import { SolicitationTitleView } from './solicitation-status-badge-view'
 
-export const SolicitationStatusBadge = SolicitationStatusBadgeView
+export const SolicitationTitle = SolicitationTitleView
