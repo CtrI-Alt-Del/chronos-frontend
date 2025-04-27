@@ -4,7 +4,7 @@ import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
 
 export function usePaidOvertimeSolicitationsAccordion(portalService: PortalService) {
-  const { showError } = useToast()
+  const { showError, showSuccess } = useToast()
 
   async function fetchSolicitations(page: number) {
     const response = await portalService.listPaidOvertimeSolicitations(page)
@@ -14,27 +14,38 @@ export function usePaidOvertimeSolicitationsAccordion(portalService: PortalServi
     return response.body
   }
 
-  async function handleSolicitationApprove(feedbackMessage?: string) {
-    const response = await portalService.approvePaidOvertimeSolicitation(feedbackMessage)
+  async function handleSolicitationApprove(
+    solicitationId: string,
+    feedbackMessage?: string,
+  ) {
+    const response = await portalService.approvePaidOvertimeSolicitation(
+      solicitationId,
+      feedbackMessage,
+    )
     if (response.isFailure) {
       showError(response.errorMessage)
     }
     if (response.isSuccess) {
       refetch()
+      showSuccess('Solicitação aprovada com sucesso')
     }
   }
 
-  async function handleSolicitationDeny(feedbackMessage?: string) {
-    const response = await portalService.denySolicitation(feedbackMessage)
+  async function handleSolicitationDeny(
+    solicitationId: string,
+    feedbackMessage?: string,
+  ) {
+    const response = await portalService.denySolicitation(solicitationId, feedbackMessage)
     if (response.isFailure) {
       showError(response.errorMessage)
     }
     if (response.isSuccess) {
       refetch()
+      showSuccess('Solicitação negada com sucesso')
     }
   }
 
-  const { data, isFetching, refetch } = usePaginatedCache({
+  const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
     fetcher: fetchSolicitations,
     key: CACHE.portal.solicitations.key,
     isInfinity: true,
@@ -43,7 +54,7 @@ export function usePaidOvertimeSolicitationsAccordion(portalService: PortalServi
 
   return {
     solicitations: data ?? [],
-    isFetchingSolicitations: isFetching,
+    isFetchingSolicitations: isFetching || isRefetching,
     handleSolicitationApprove,
     handleSolicitationDeny,
   }

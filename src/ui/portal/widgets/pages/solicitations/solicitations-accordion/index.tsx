@@ -10,8 +10,8 @@ type Props = {
   solicitations: SolicitationDto[]
   isLoading: boolean
   children: (solicitation: SolicitationDto) => ReactNode
-  onSolicitationApprove: (feedbackMessage?: string) => void
-  onSolicitationDeny: (feedbackMessage?: string) => void
+  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
 }
 
 export const SolicitationsAccordion = (props: Props) => {

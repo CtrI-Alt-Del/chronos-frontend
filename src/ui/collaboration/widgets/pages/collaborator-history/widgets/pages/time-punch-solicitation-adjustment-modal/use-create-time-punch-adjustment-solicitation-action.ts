@@ -5,7 +5,7 @@ import { useAction } from 'next-safe-action/hooks'
 export function useCreateTimePunchAdjustmentSolicitationAction() {
   const { showError, showSuccess } = useToast()
   const { executeAsync, isPending } = useAction(
-    solicitationActions.createTimePunchAdjustmentSolicitation,
+    portalActions.createTimePunchAdjustmentSolicitation,
     {
       onSuccess() {
         showSuccess('Solicitação de ajuste de ponto criada com sucesso')

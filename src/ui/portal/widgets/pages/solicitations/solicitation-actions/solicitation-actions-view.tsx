@@ -5,11 +5,16 @@ import { Dialog } from '@/ui/global/widgets/components/dialog'
 import { Button } from '@heroui/button'
 
 type Props = {
+  isLoading: boolean
   onApproveSubmit: (event: FormEvent<HTMLFormElement>) => void
   onDenySubmit: (event: FormEvent<HTMLFormElement>) => void
 }
 
-export const SolicitationActionsView = ({ onApproveSubmit, onDenySubmit }: Props) => {
+export const SolicitationActionsView = ({
+  isLoading,
+  onApproveSubmit,
+  onDenySubmit,
+}: Props) => {
   return (
     <div className='flex flex-col md:flex-row gap-2 mt-2 w-full md:w-fit'>
       <Dialog
@@ -21,10 +26,20 @@ export const SolicitationActionsView = ({ onApproveSubmit, onDenySubmit }: Props
         }
       >
         {(closeDialog) => (
-          <form onSubmit={onApproveSubmit}>
+          <form onSubmit={onApproveSubmit} className='pb-3'>
             <Textarea label='Mensagem de feedback' name='feedback-message' />
-            <Button type='submit'>Aprovar negação</Button>
-            <Button onPress={closeDialog}>Cancelar</Button>
+            <div className='flex items-center gap-2 mt-6'>
+              <Button
+                type='submit'
+                color='primary'
+                isLoading={isLoading}
+                isDisabled={isLoading}
+                onPress={closeDialog}
+              >
+                Confirmar aprovação
+              </Button>
+              <Button onPress={closeDialog}>Cancelar</Button>
+            </div>
           </form>
         )}
       </Dialog>
@@ -38,10 +53,20 @@ export const SolicitationActionsView = ({ onApproveSubmit, onDenySubmit }: Props
         }
       >
         {(closeDialog) => (
-          <form onSubmit={onDenySubmit}>
+          <form onSubmit={onDenySubmit} className='pb-3'>
             <Textarea label='Mensagem de feedback' name='feedback-message' />
-            <Button type='submit'>Confirmar negação</Button>
-            <Button onPress={closeDialog}>Cancelar</Button>
+            <div className='flex items-center gap-2 mt-6'>
+              <Button
+                type='submit'
+                color='primary'
+                isLoading={isLoading}
+                isDisabled={isLoading}
+                onPress={closeDialog}
+              >
+                Confirmar negação
+              </Button>
+              <Button onPress={closeDialog}>Cancelar</Button>
+            </div>
           </form>
         )}
       </Dialog>

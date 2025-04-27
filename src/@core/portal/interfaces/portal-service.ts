@@ -1,44 +1,56 @@
 import type { ApiResponse, PaginationResponse } from '@/@core/global/responses'
-import type { SolicitationDto } from '../dtos/solicitation-dto'
 import type {
   DayOffScheduleAdjustmentSolicitationDto,
+  DayOffSolicitationDto,
+  ExcusedAbsenceSolicitationDto,
   JustificationTypeDto,
   PaidOvertimeSolicitationDto,
   TimePunchLogAdjustmentSolicitationDto,
 } from '../dtos'
 
 export interface PortalService {
-  listSolicitations(): Promise<ApiResponse<SolicitationDto[]>>
   createDayOffScheduleAdjustmentSolicitation(
     solicitation: DayOffScheduleAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
-  getJustificationAttachmentUrl(key: string): Promise<
-    ApiResponse<{
-      url: string
-    }>
-  >
-  createDayOffSolicitation(
-    dayOff: string,
-    justificationTypeId: string,
-    description: string,
-    justificationTypeName: string,
-    justificationTypeShouldHaveAttachment: string,
-    attachment?: File,
-  ): Promise<ApiResponse<void>>
+  // getJustificationAttachmentUrl(key: string): Promise<
+  //   ApiResponse<{
+  //     url: string
+  //   }>
+  // >
   createTimePunchLogAdjustmentSolicitation(
     solicitation: TimePunchLogAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
-  createPaidOvertimeSolicitation(): Promise<ApiResponse<void>>
-  approvePaidOvertimeSolicitation(feedbackMessage?: string): Promise<ApiResponse<void>>
-  denySolicitation(feedbackMessage?: string): Promise<ApiResponse<void>>
-  resolveSolicitation(
+  createDayOffSolicitation(
+    dayOff: string,
+    observation?: string,
+  ): Promise<ApiResponse<void>>
+  approveDayOffSolicitation(
     solicitationId: string,
-    action: 'APPROVED' | 'DENIED',
-    solicitationType: 'DAY_OFF_SCHEDULE' | 'TIME_PUNCH' | 'DAY_OFF',
+    feedbackMessage?: string,
+  ): Promise<ApiResponse<void>>
+  listDayOffSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<DayOffSolicitationDto>>>
+  createPaidOvertimeSolicitation(): Promise<ApiResponse<void>>
+  approvePaidOvertimeSolicitation(
+    solicitationId: string,
+    feedbackMessage?: string,
   ): Promise<ApiResponse<void>>
   listPaidOvertimeSolicitations(
     page: number,
   ): Promise<ApiResponse<PaginationResponse<PaidOvertimeSolicitationDto>>>
+  createExcusedAbsenceSolicitation(): Promise<ApiResponse<void>>
+  approveExcusedAbsenceSolicitation(
+    solicitationId: string,
+    feedbackMessage?: string,
+  ): Promise<ApiResponse<void>>
+  listExcusedAbsenceSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<ExcusedAbsenceSolicitationDto>>>
+  denySolicitation(
+    solicitationId: string,
+    feedbackMessage?: string,
+  ): Promise<ApiResponse<void>>
   listJustificationTypes(): Promise<ApiResponse<JustificationTypeDto[]>>
   createJustificationType(
     justificationType: JustificationTypeDto,

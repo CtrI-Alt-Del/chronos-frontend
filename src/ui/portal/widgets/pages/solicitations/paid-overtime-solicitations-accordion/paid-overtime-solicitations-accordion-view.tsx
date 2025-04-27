@@ -4,8 +4,8 @@ import { SolicitationsAccordion } from '../solicitations-accordion'
 type Props = {
   solicitations: PaidOvertimeSolicitationDto[]
   isLoading: boolean
-  onSolicitationDeny: (feedbackMessage?: string) => void
-  onSolicitationApprove: (feedbackMessage?: string) => void
+  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
 }
 
 export const PaidOvertimeSolicitationsAccordionView = ({

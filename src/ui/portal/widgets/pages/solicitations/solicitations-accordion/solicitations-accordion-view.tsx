@@ -10,14 +10,16 @@ import { Justification } from './justification'
 import { SolicitationTitle } from './solicitations-status-badge'
 import { SolicitationActions } from '../solicitation-actions'
 import { Spinner } from '@/ui/global/widgets/components/spinner'
+import Link from 'next/link'
+import { ROUTES } from '@/constants'
 
 type Props = {
   solicitations: SolicitationDto[]
   isViewerManager: boolean
   isLoading: boolean
   children: (solicitation: SolicitationDto) => ReactNode
-  onSolicitationApprove: (feedbackMessage?: string) => void
-  onSolicitationDeny: (feedbackMessage?: string) => void
+  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
 }
 
 export const SolicitationsAccordionView = ({
@@ -66,7 +68,12 @@ export const SolicitationsAccordionView = ({
                   {formatDate(solicitation.date)}
                 </span>
               )}
-              <div className='flex items-center gap-2'>
+              <Link
+                href={ROUTES.collaboration.collaborator(
+                  solicitation.senderResponsible.id,
+                )}
+                className='flex items-center gap-2'
+              >
                 <Avatar
                   color='primary'
                   isBordered
@@ -77,11 +84,11 @@ export const SolicitationsAccordionView = ({
                   {solicitation.senderResponsible?.entity?.name} |{' '}
                   {solicitation.senderResponsible?.entity?.email}
                 </span>
-              </div>
+              </Link>
             </div>
           }
         >
-          <div className='pl-5'>
+          <div className='pl-5 pb-3'>
             {solicitation.justification && (
               <Justification justification={solicitation.justification} />
             )}
@@ -120,8 +127,13 @@ export const SolicitationsAccordionView = ({
             {isViewerManager && (
               <div className='mt-6'>
                 <SolicitationActions
-                  onApprove={onSolicitationApprove}
-                  onDeny={onSolicitationDeny}
+                  isLoading={isLoading}
+                  onApprove={(feedbackMessage) =>
+                    onSolicitationApprove(String(solicitation.id), feedbackMessage)
+                  }
+                  onDeny={(feedbackMessage) =>
+                    onSolicitationDeny(String(solicitation.id), feedbackMessage)
+                  }
                 />
               </div>
             )}

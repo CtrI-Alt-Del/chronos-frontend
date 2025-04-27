@@ -1,8 +1,7 @@
-import type { JustificationDto } from "./justification-dto"
-import type { SolicitationDto } from "./solicitation-dto"
-import type { DayOffScheduleDto } from "@/@core/work-schedule/dtos"
+import type { JustificationDto } from './justification-dto'
+import type { SolicitationDto } from './solicitation-dto'
 
 export type DayOffSolicitationDto = SolicitationDto & {
-  dayOff: string 
+  dayOff: string
   justification: JustificationDto
 }

@@ -6,10 +6,10 @@ export type SolicitationDto = {
   id?: string
   type: string
   description?: string
-  date?: Date
+  date: Date
   status: string
   feedbackMessage?: string
   justification?: JustificationDto
-  senderResponsible?: AggregateDto<ResponsibleDto>
+  senderResponsible: AggregateDto<ResponsibleDto>
   replierResponsible?: AggregateDto<ResponsibleDto>
 }

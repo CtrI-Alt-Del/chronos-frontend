@@ -7,7 +7,7 @@ import { useAction } from 'next-safe-action/hooks'
 export function useCreatePaidOvertimeSolicitationAction() {
   const toast = useToast()
   const { executeAsync, isPending } = useAction(
-    solicitationActions.createPaidOvertimeSolicitation,
+    portalActions.createPaidOvertimeSolicitation,
     {
       onError(data) {
         if (data.error.serverError) toast.showError(data.error.serverError)

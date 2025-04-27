@@ -11,7 +11,7 @@ export function useJustificationTypesActions() {
   const { showError, showSuccess } = useToast()
 
   const { executeAsync: executeCreateJustificationType, isPending: isCreating } =
-    useAction(solicitationActions.createJustificationType, {
+    useAction(portalActions.createJustificationType, {
       onSuccess() {
         showSuccess('Justificativa criada com sucesso')
       },
@@ -22,7 +22,7 @@ export function useJustificationTypesActions() {
       },
     })
   const { executeAsync: executeUpdateJustificationType, isPending: isUpdating } =
-    useAction(solicitationActions.updateJustificationType, {
+    useAction(portalActions.updateJustificationType, {
       onSuccess() {
         showSuccess('Justificativa atualizada com sucesso')
       },
@@ -33,7 +33,7 @@ export function useJustificationTypesActions() {
       },
     })
   const { executeAsync: executeDeleteJustificationType, isPending: isDeleting } =
-    useAction(solicitationActions.deleteJustificaionType, {
+    useAction(portalActions.deleteJustificaionType, {
       onSuccess() {
         showSuccess('Justificativa deletada com sucesso')
       },
