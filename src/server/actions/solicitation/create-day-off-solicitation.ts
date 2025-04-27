@@ -1,5 +1,5 @@
 import type { Action } from '@/@core/global/interfaces/rpc'
-import type { SolicitationService } from '@/@core/solicitation/interfaces'
+import type { PortalService } from '@/@core/portal/interfaces'
 import { ROUTES } from '@/constants'
 import type { Call } from '@/@core/global/interfaces/rpc'
 type RequestBody = {
@@ -13,7 +13,7 @@ type RequestBody = {
   file?: File
 }
 export const CreateDayOffSolicitationAction = (
-  service: SolicitationService,
+  service: PortalService,
 ): Action<RequestBody> => {
   return {
     async handle(call: Call<RequestBody>) {

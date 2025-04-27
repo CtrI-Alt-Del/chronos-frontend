@@ -6,7 +6,7 @@ import { useAction } from 'next-safe-action/hooks'
 export function useCreateDayOffScheduleSolicitationAction() {
   const { showError, showSuccess } = useToast()
   const { executeAsync, isPending } = useAction(
-    solicitationActions.createDayOffScheduleAdjustmentSolicitation,
+    portalActions.createDayOffScheduleAdjustmentSolicitation,
     {
       onSuccess() {
         showSuccess('Solicitação de ajuste de escala de folgas criada com sucesso')

@@ -1,10 +1,8 @@
 import type { Action } from '@/@core/global/interfaces/rpc'
-import type { SolicitationService } from '@/@core/solicitation/interfaces'
+import type { PortalService } from '@/@core/portal/interfaces'
 import { ROUTES } from '@/constants'
 
-export const CreatePaidOvertimeSolicitationAction = (
-  service: SolicitationService,
-): Action => {
+export const CreatePaidOvertimeSolicitationAction = (service: PortalService): Action => {
   return {
     async handle(call) {
       const response = await service.createPaidOvertimeSolicitation()

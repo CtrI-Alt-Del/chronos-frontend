@@ -27,12 +27,12 @@ export const CACHE = {
       key: (scheduleId: string) => `/workSchedule/schedules/${scheduleId}`,
     },
   },
-  solicitation: {
+  portal: {
     solicitations: {
-      key: 'solicitation/solicitations',
+      key: 'portal/solicitations',
     },
     justificationType: {
-      key: 'solcitation/justification-type',
+      key: 'portal/justification-type',
     },
   },
   hourBank: {

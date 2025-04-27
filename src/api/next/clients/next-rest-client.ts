@@ -101,6 +101,7 @@ export const NextRestClient = (
     },
 
     async put<ResponseBody>(url: string, body: unknown) {
+      console.log(`${baseUrl}${addUrlParams(url, params)}`)
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
         ...requestInit,
         method: 'PUT',
@@ -140,10 +141,10 @@ export const NextRestClient = (
     },
 
     async multipart<ResponseBody>(url: string, body: FormData) {
-      const authorizationHeader = headers['Authorization']
+      const authorizationHeader = headers.Authorization
 
       if (authorizationHeader) {
-        multiPartRequestHeaders['Authorization'] = authorizationHeader
+        multiPartRequestHeaders.Authorization = authorizationHeader
       }
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
         ...multiPartRequestInit,

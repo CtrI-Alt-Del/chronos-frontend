@@ -10,7 +10,7 @@ import { useJustificationDialog } from './use-justification-dialog'
 import { ImageInput } from '../image-input'
 import type { ImageInputRef } from '../image-input/types/image-input-ref'
 import { FileInput } from '../file-input'
-import type { JustificationTypeDto } from '@/@core/solicitation/dtos'
+import type { JustificationTypeDto } from '@/@core/portal/dtos'
 
 type JusitificationModalProps = {
   onFileInputChange: (file: File | null) => void

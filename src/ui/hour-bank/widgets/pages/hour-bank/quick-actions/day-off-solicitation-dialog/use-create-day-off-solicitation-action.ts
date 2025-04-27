@@ -1,14 +1,14 @@
-import { solicitationActions } from "@/server/next-safe-action";
-import { useToast } from "@/ui/global/hooks/use-toast";
-import { useAction } from "next-safe-action/hooks";
+import { solicitationActions } from '@/server/next-safe-action'
+import { useToast } from '@/ui/global/hooks/use-toast'
+import { useAction } from 'next-safe-action/hooks'
 
-export function useCreateDayOffSolicitationAction(){
-  const {showError,showSuccess} = useToast()
-  const {executeAsync,isExecuting} = useAction(
-    solicitationActions.createDayOffSolicitation,
+export function useCreateDayOffSolicitationAction() {
+  const { showError, showSuccess } = useToast()
+  const { executeAsync, isExecuting } = useAction(
+    portalActions.createDayOffSolicitation,
     {
       onSuccess() {
-        showSuccess("Solicitação de folga criada com sucesso")
+        showSuccess('Solicitação de folga criada com sucesso')
       },
       onError(error) {
         if (error.error.serverError) {
@@ -25,13 +25,13 @@ export function useCreateDayOffSolicitationAction(){
       needsAttachment: string
     },
     description: string,
-    file?: File
+    file?: File,
   ) {
     await executeAsync({
       dayOff,
       justificationType,
       description,
-      file
+      file,
     })
   }
   return {

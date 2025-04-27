@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { z } from 'zod'
-import type { JustificationTypeDto } from '@/@core/solicitation/dtos'
+import type { JustificationTypeDto } from '@/@core/portal/dtos'
 import { createDayOffSolicitationSchema } from '@/validation/schemas/solicitation'
 import { useCreateDayOffSolicitationAction } from './use-create-day-off-solicitation-action'
 

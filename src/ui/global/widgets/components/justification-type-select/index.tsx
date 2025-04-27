@@ -1,7 +1,7 @@
 import { Select, SelectItem } from '@heroui/select'
 import { useJustificationTypeSelect } from './use-justification-type-select'
 import { Icon } from '../Icon'
-import type { JustificationTypeDto } from '@/@core/solicitation/dtos'
+import type { JustificationTypeDto } from '@/@core/portal/dtos'
 
 type JustificationTypeSelectProps = {
   onSelect: (justificationType: JustificationTypeDto) => void
