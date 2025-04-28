@@ -22,6 +22,10 @@ export function useDatetime() {
     })
   }
 
+  function formatDateWithWeekday(date: Date): string {
+    return formatInTimeZone(date, TIME_ZONE, 'dd/MM/yyyy')
+  }
+
   function formatIsoDate(date: Date | string): string {
     return formatInTimeZone(date, TIME_ZONE, 'yyyy-MM-dd')
   }

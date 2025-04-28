@@ -5,7 +5,7 @@ import type { WorkScheduleService } from '@/@core/work-schedule/interfaces'
 
 type Request = {
   timePunchLogId: string
-  time: Date
+  time: string
 }
 
 export const PunchTimeAction = (service: WorkScheduleService): Action<Request> => {

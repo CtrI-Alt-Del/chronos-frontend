@@ -34,6 +34,7 @@ export const HourBankService = (restClient: RestClient): IHourBankService => {
       if (page) restClient.setParam('page', String(page))
       return await restClient.get<PaginationResponse<HourBankTransactionDto>>(
         `${MODULE}/${collaboratorId}/transactions`,
+        `${MODULE}/${collaboratorId}/transactions`,
       )
     },
 

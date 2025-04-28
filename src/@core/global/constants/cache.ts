@@ -23,8 +23,8 @@ export const CACHE = {
     dayOffSchedule: {
       key: (collaboratorId: string) => `/workSchedule/day-off-schedule/${collaboratorId}`,
     },
-    schedule: {
-      key: (scheduleId: string) => `/workSchedule/schedules/${scheduleId}`,
+    timeCard: {
+      key: (collaboratorId: string) => `/workSchedule/time-card/${collaboratorId}`,
     },
   },
   portal: {

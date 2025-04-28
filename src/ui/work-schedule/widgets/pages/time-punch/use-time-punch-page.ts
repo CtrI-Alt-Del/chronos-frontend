@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
-import { DatetimeProvider } from '@/providers'
 import { usePunchTimeAction } from './use-punch-time-action'
+import { useDatetime } from '@/ui/global/hooks/use-datetime'
 
 const PERIODS = ['Entrada 1', 'Saída 1', 'Entrada 2', 'Saída 2']
-const datetimeProvider = DatetimeProvider()
 
 export function useTimePunchPage(workdayLog: WorkdayLogDto) {
   const [step, setStep] = useState(0)
   const [currentTime, setCurrentTime] = useState(new Date())
+  const { formatTime, formatCompleteDate } = useDatetime()
   const { isPuchingTime, punchTime } = usePunchTimeAction()
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export function useTimePunchPage(workdayLog: WorkdayLogDto) {
   }, [workdayLog])
 
   async function handleTimePunchConfirm() {
-    if (workdayLog.id) await punchTime(workdayLog.id, currentTime)
+    if (workdayLog.id) await punchTime(workdayLog.id, formatTime(currentTime))
   }
 
   const times = [
@@ -43,11 +43,11 @@ export function useTimePunchPage(workdayLog: WorkdayLogDto) {
     workdayLog.timePunch.firstClockOut,
     workdayLog.timePunch.secondClockIn,
     workdayLog.timePunch.secondClockOut,
-  ].map((time) => (time ? datetimeProvider.formatTime(time) : ''))
+  ].map((time) => (time ? formatTime(time) : ''))
 
   return {
-    currentTime: datetimeProvider.formatTime(currentTime),
-    completeDate: datetimeProvider.formatCompleteDate(currentTime),
+    currentTime: formatTime(currentTime),
+    completeDate: formatCompleteDate(currentTime),
     step,
     isClosed: step === 4,
     times,

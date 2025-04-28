@@ -11,6 +11,7 @@ import { authActionClient } from './clients/auth-action-client'
 import {
   GetDayOffScheduleAction,
   GetTodayWorkdayLogAction,
+  GetTimeCardAction,
   PunchTimeAction,
   UpdateDayOffAction,
 } from '../actions/work-schedule'
@@ -29,6 +30,24 @@ const getTodayWorkdayLog = authActionClient.action(async ({ clientInput, ctx }) 
   const action = GetTodayWorkdayLogAction(service)
   return action.handle(actionServer)
 })
+
+export const getTimeCard = authActionClient
+  .schema(
+    z.object({
+      collaboratorId: z.string(),
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextCall({
+      request: clientInput,
+    })
+    const apiClient = await NextServerRestClient({
+      cacheKey: CACHE.workSchedule.timeCard.key(clientInput.collaboratorId),
+    })
+    const service = WorkScheduleService(apiClient)
+    const action = GetTimeCardAction(service)
+    return action.handle(actionServer)
+  })
 
 export const getDayOffSchedule = authActionClient
   .schema(
@@ -69,7 +88,7 @@ const punchTime = authActionClient
   .schema(
     z.object({
       timePunchLogId: z.string(),
-      time: z.date(),
+      time: z.string(),
     }),
   )
   .action(async ({ clientInput, ctx }) => {
