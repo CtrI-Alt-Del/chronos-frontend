@@ -47,19 +47,22 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
     },
 
     async updateTimePunchSchedule(timePunch) {
-      return await restClient.put(`${MODULE}/time-punches/${timePunch.id}`, timePunch)
+      return await restClient.put(`${MODULE}/workday-logs/${timePunch.id}`, timePunch)
     },
 
-    async adjustTimePunch(timePunchId, time, period) {
-      return await restClient.patch(`${MODULE}/time-punches/${timePunchId}/adjust`, {
-        time,
-        period,
-      })
+    async adjustTimePunch(workdayLogId, time, period) {
+      return await restClient.patch(
+        `${MODULE}/workday-logs/${workdayLogId}/adjust-time-punch`,
+        {
+          time,
+          period,
+        },
+      )
     },
 
-    async punchTime(timePunchLogId, time) {
+    async punchTime(workdayLogId, time) {
       const datetimeProvider = DatetimeProvider()
-      return await restClient.patch(`${MODULE}/time-punches/${timePunchLogId}`, {
+      return await restClient.patch(`${MODULE}/workday-logs/${workdayLogId}/punch-time`, {
         time: datetimeProvider.formatTime(time),
       })
     },
