@@ -14,7 +14,7 @@ export const CreateTimePunchAdjustmentSolicitationAction = (
       const response =
         await service.createTimePunchLogAdjustmentSolicitation(solicitation)
       if (response.isFailure) response.throwError()
-      call.redirect(ROUTES.solicitation.solicitations)
+      call.redirect(ROUTES.portal.solicitations)
     },
   }
 }

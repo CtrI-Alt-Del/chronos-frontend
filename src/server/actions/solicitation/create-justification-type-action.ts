@@ -12,7 +12,7 @@ export const CreateJustificationTypeAction = (
       const justificationType = call.getRequest()
       const response = await service.createJustificationType(justificationType)
       if (response.isFailure) response.throwError()
-      call.resetCache(CACHE.solicitation.justificationType.key)
+      call.resetCache(CACHE.portal.justificationType.key)
     },
   }
 }

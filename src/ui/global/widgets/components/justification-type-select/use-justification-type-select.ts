@@ -3,10 +3,10 @@ import { useCache } from '@/ui/global/hooks/use-cache'
 import { useRest } from '@/ui/global/hooks/use-rest'
 
 export function useJustificationTypeSelect() {
-  const { PortalService } = useRest()
+  const { portalService } = useRest()
 
   async function fetcher() {
-    const response = await PortalService.listJustificationTypes()
+    const response = await portalService.listJustificationTypes()
     if (response.isFailure) {
       console.error(response.errorMessage)
     }
@@ -15,7 +15,7 @@ export function useJustificationTypeSelect() {
 
   const { data, isFetching } = useCache({
     fetcher: fetcher,
-    key: CACHE.solicitation.justificationType.key,
+    key: CACHE.portal.justificationType.key,
   })
 
   return {

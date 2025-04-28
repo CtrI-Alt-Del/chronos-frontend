@@ -18,7 +18,7 @@ export function useSectorHistoryTable(workdayLogs: WorkdayLogDto[]) {
     date: formatDate(workdayLog.date),
     timePunch: workdayLog.timePunch,
     collaborator: {
-      name: workdayLog.responsible.dto?.name || 'N/A',
+      name: workdayLog.responsible.entity?.name || 'N/A',
     },
     status: workdayLog.status,
   }))

@@ -13,7 +13,7 @@ export const DeleteJustificationTypeAction = (
       const { justificationTypeId } = call.getRequest()
       const response = await service.deleteJustificationType(justificationTypeId)
       if (response.isFailure) response.throwError()
-      call.resetCache(CACHE.solicitation.justificationType.key)
+      call.resetCache(CACHE.portal.justificationType.key)
     },
   }
 }

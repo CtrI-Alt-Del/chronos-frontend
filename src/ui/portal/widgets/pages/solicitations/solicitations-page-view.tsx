@@ -3,7 +3,11 @@ import { PaidOvertimeSolicitationsAccordion } from './paid-overtime-solicitation
 import { ExcusedAbsenceSolicitationsAccordion } from './excused-absence-solicitations-accordion'
 import { DayOffSolicitationsAccordion } from './day-off-solicitations-accordion'
 
-export const SolicitationsPageView = () => {
+type Props = {
+  activeTab: string
+}
+
+export const SolicitationsPageView = ({ activeTab }: Props) => {
   return (
     <div>
       <div className='px-10 py-4'>

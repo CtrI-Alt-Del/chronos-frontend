@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import { CACHE } from '@/@core/global/constants'
-import { PaginationResponse } from '@/@core/global/responses'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
 import { useQueryParamDate } from '@/ui/global/hooks/use-query-param-date'
@@ -48,14 +47,14 @@ export function useSectorHistoryPage() {
   }
 
   async function handleTimeLogChange(
-    timePunchLogId: string,
+    workdayLogId: string,
     timeLog: string,
     timePunchPeriod: TimePunchPeriod,
   ) {
     setIsAdjustingTimePunchLog(true)
 
     const response = await workScheduleService.adjustTimePunch(
-      timePunchLogId,
+      workdayLogId,
       timeLog,
       timePunchPeriod,
     )
@@ -71,7 +70,6 @@ export function useSectorHistoryPage() {
     setIsAdjustingTimePunchLog(false)
   }
 
-  console.log(data)
   return {
     workdayLogs: data,
     collboratorName,

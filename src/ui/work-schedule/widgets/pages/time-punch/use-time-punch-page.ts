@@ -35,7 +35,7 @@ export function useTimePunchPage(workdayLog: WorkdayLogDto) {
   }, [workdayLog])
 
   async function handleTimePunchConfirm() {
-    if (workdayLog.timePunch.id) await punchTime(workdayLog.timePunch.id, currentTime)
+    if (workdayLog.id) await punchTime(workdayLog.id, currentTime)
   }
 
   const times = [
