@@ -45,6 +45,12 @@ const getStatusLabel = (status?: string) => {
           FALTA
         </div>
       )
+    case "normal_day":
+    return (
+      <div className='p-1 w-24 text-sm text-center text-white bg-green-600 rounded-md'>
+        DIA NORMAL
+      </div>
+    )
     default:
       return null
   }
@@ -120,7 +126,7 @@ export const CollaboratorHistoryTable = ({
                 </div>
               </TableCell>
               <TableCell>
-                {row.status==="absence" && (
+                {row.status==="normal_day" && (
                     <Button
                       type='button'
                       size='sm'

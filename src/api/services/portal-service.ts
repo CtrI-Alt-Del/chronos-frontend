@@ -22,7 +22,7 @@ export const PortalService = (restClient: RestClient): IPortalService => {
     },
     async getJustificationAttachmentUrl(key) {
       return await restClient.get(
-        `${SOLICITATIONS_ROUTE}/justification-attachment/${key}`,
+        `${SOLICITATIONS_ROUTE}/attachments/${key}`,
       )
     },
 

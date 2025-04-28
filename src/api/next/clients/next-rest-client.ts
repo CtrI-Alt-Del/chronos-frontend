@@ -149,7 +149,6 @@ export const NextRestClient = (
         method: 'POST',
         body: body,
       })
-      console.log("response",response)
       params = {}
       const data = await safeParseJson(response)
 
