@@ -8,17 +8,30 @@ type Props = {
 
 export const JustificationView = ({ justification }: Props) => {
   return (
-    <div>
-      <span className='text-slate-800'>{justification.justificationType.name}</span>
-      <AttachmentDialog
-        attachmentKey={justification.attachment?.key}
-        trigger={
-          <IconButton
-            name='file'
-            className=' text-slate-800 bg-transparent duration-1000 hover:bg-primary hover:text-white border-zinc-400 '
+    <div className="flex flex-col gap-2 p-3 rounded-lg border border-zinc-300 bg-white shadow-sm">
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-semibold text-slate-700">
+          {justification.justificationType.name}
+        </span>
+
+        {justification.attachment?.key && (
+          <AttachmentDialog
+            attachmentKey={justification.attachment.key}
+            trigger={
+              <IconButton
+                name="file"
+                className="text-slate-600 hover:text-primary hover:bg-primary/10 transition-colors border border-zinc-300"
+              />
+            }
           />
-        }
-      />
+        )}
+      </div>
+
+      {justification.description && (
+        <p className="text-sm text-slate-600 whitespace-pre-line">
+          {justification.description}
+        </p>
+      )}
     </div>
   )
 }

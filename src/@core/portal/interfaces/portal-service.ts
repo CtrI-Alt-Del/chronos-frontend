@@ -12,6 +12,14 @@ export interface PortalService {
   createDayOffScheduleAdjustmentSolicitation(
     solicitation: DayOffScheduleAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
+  attachJustificationToSolicitation(
+    solicitationId:string,
+    justificationTypeId:string,
+    justificationTypeName:string,
+    justificationTypeShouldHaveAttachment:string,
+    description:string,
+    attachment?: File
+  ):Promise<ApiResponse<void>>
   getJustificationAttachmentUrl(key: string): Promise<
     ApiResponse<{
       url: string
@@ -39,7 +47,7 @@ export interface PortalService {
   listPaidOvertimeSolicitations(
     page: number,
   ): Promise<ApiResponse<PaginationResponse<PaidOvertimeSolicitationDto>>>
-  createExcusedAbsenceSolicitation(): Promise<ApiResponse<void>>
+  createExcusedAbsenceSolicitation(absenceDate: string): Promise<ApiResponse<ExcusedAbsenceSolicitationDto>>
   approveExcusedAbsenceSolicitation(
     solicitationId: string,
     feedbackMessage?: string,

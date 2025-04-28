@@ -139,7 +139,7 @@ export const NextRestClient = (
     },
 
     async multipart<ResponseBody>(url: string, body: FormData) {
-      const authorizationHeader = headers.Authorization
+      const authorizationHeader = headers['Authorization']
 
       if (authorizationHeader) {
         multiPartRequestHeaders.Authorization = authorizationHeader

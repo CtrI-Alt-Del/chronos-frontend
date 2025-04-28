@@ -26,6 +26,8 @@ import {
 import { resolveSolicitationSchema } from '@/validation/schemas/solicitation/resolve-solicitation-schema'
 import { timePunchAdjustmentSolicitationSchema } from '@/validation/schemas/solicitation/time-punch-adjustment-solicitation-schema'
 import { CreateDayOffSolicitationAction } from '../actions/solicitation/create-day-off-solicitation'
+import { CreateExcusedAbsenceSolicitation } from '../actions/solicitation/create-excused-absence-solicitation'
+import { AttachJustificationToSolicitationAction } from '../actions/solicitation/attach-justification-to-solicitation-action'
 
 export const createDayOffScheduleAdjustmentSolicitation = authActionClient
   .schema(dayOffScheduleAdjustmentSolicitationSchema)
@@ -159,5 +161,38 @@ export const getAttachmentUrl = authActionClient
     const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = PortalService(apiClient)
     const action = GetAttachmentUrlAction(service)
+    return action.handle(call)
+  })
+export const createExcusedAbsenceSolicitation = authActionClient
+  .schema(z.object({ absenceDate: z.string() }))
+  .action(async ({ ctx, clientInput }) => {
+    const call = NextCall({
+      request: clientInput,
+      account: ctx.account,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
+    const service = PortalService(apiClient)
+    const action = CreateExcusedAbsenceSolicitation(service)
+    return action.handle(call)
+  })
+export const attachJustificationToSolicitation = authActionClient
+  .schema(
+    z.object({
+      solicitationId: z.string().uuid(),
+      justificationTypeId: z.string().uuid(),
+      justificationTypeName: z.string(),
+      justificationTypeShouldHaveAttachment: z.string(),
+      description: z.string(),
+      attachment: z.instanceof(File).optional(),
+    }),
+  )
+  .action(async ({ ctx, clientInput }) => {
+    const call = NextCall({
+      request: clientInput,
+      account: ctx.account,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
+    const service = PortalService(apiClient)
+    const action = AttachJustificationToSolicitationAction(service)
     return action.handle(call)
   })

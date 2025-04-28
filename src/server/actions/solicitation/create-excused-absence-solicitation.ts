@@ -1,19 +1,22 @@
+
 import type { Action } from '@/@core/global/interfaces/rpc'
 import type { PortalService } from '@/@core/portal/interfaces'
 import { ROUTES } from '@/constants'
 import type { Call } from '@/@core/global/interfaces/rpc'
+import type { ExcusedAbsenceSolicitationDto } from '@/@core/portal/dtos'
 type RequestBody = {
-  dayOff: string
+  absenceDate: string
 }
-export const CreateDayOffSolicitationAction = (
+type ResponseBody = ExcusedAbsenceSolicitationDto
+export const CreateExcusedAbsenceSolicitation= (
   service: PortalService,
-): Action<RequestBody> => {
+): Action<RequestBody,ResponseBody> => {
   return {
     async handle(call: Call<RequestBody>) {
       const solicitation = call.getRequest()
-      const response = await service.createDayOffSolicitation(solicitation.dayOff)
+      const response = await service.createExcusedAbsenceSolicitation(solicitation.absenceDate)
       if (response.isFailure) response.throwError()
-      call.redirect(ROUTES.portal.solicitations)
+      return response.body
     },
   }
 }

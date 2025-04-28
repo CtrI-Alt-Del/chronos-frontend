@@ -29,6 +29,8 @@ import {
   listJustificationTypes,
   resolveSolicitation,
   updateJustificationType,
+  createExcusedAbsenceSolicitation,
+  attachJustificationToSolicitation,
 } from './portal-actions'
 import {
   listHourBankTransactions,
@@ -37,6 +39,8 @@ import {
 } from './hour-bank-actions'
 
 const portalActions = {
+  createExcusedAbsenceSolicitation,
+  attachJustificationToSolicitation,
   createDayOffScheduleAdjustmentSolicitation,
   resolveSolicitation,
   createJustificationType,
