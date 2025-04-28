@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 
 type useJustificationDialogProps = {
   onJustificationTypeChange: (type: JustificationTypeDto) => void
-  onFileInputChange: (file: File | null) => void
+  onFileInputChange: (file: File ) => void
 }
 export function useJustificationDialog({
   onFileInputChange,
@@ -22,8 +22,8 @@ export function useJustificationDialog({
 
   const handleFileChange = (fileTarget: File) => {
     const file = fileTarget
-    setSelectedFile(file ? file.name : null)
-    onFileInputChange(file ? file : null)
+    setSelectedFile(file)
+    onFileInputChange(file)
   }
   return {
     today: new Date(),

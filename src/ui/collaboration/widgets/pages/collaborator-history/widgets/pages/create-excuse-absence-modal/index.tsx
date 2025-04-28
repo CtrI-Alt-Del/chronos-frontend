@@ -1,67 +1,48 @@
 import { Button } from '@heroui/button'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@heroui/modal'
-import { useRef, useState } from 'react'
+import { RefObject, useRef, useState } from 'react'
 import { Dialog } from '@/ui/global/widgets/components/dialog'
 import { FileInput } from '@/ui/global/widgets/components/file-input'
-import { useAttachmentUploadModal } from './use-attachment-upload-modal'
+import { useCreateExcuseAbsenceSolicitationModal } from './use-attachment-upload-modal'
+import { JustificationModal } from '@/ui/global/widgets/components/justification-modal'
+import { DialogRef } from '@/ui/global/widgets/components/dialog/types'
 
 type AttachmentUploadModalProps = {
-  workdayLogId: string
+  workDayLogDate: string
+  ref: RefObject<DialogRef>
 }
 
-export const AttachmentUploadModal = ({ workdayLogId }: AttachmentUploadModalProps) => {
-  const { 
-    handleFileChange, 
-    handleSubmit, 
-    isLoading, 
-    selectedFile 
-  } = useAttachmentUploadModal(workdayLogId)
-  
+export const CreateExcuseAbsenceSolicitationModal = ({
+  workDayLogDate,
+  ref,
+}: AttachmentUploadModalProps) => {
+  const { handleFileChange, handleSubmit, isLoading,handleJustificationTypeChange,handleDescriptionChange } =
+    useCreateExcuseAbsenceSolicitationModal(workDayLogDate)
+
   return (
     <Dialog
-      trigger={
-        <Button 
-          size="sm" 
-          color='secondary' 
-          className="text-sm text-white font-medium whitespace-nowrap p-1 rounded-md min-w-[120px]"
-        >
-          Enviar Atestado
-        </Button>
-      }
+      ref={ref}
+      trigger={null}
       size='md'
-      title='Upload de Atestado'
+      title=''
     >
       {(onClose) => (
         <>
-          <ModalHeader className='flex justify-center items-center w-full text-xl'>
-            Enviar Atestado
+          <ModalHeader className='flex justify-center items-center w-full text-lg'>
+            {`Pedir abono de falta para ${workDayLogDate}`}
           </ModalHeader>
           <ModalBody>
-            <div className="py-4 space-y-6">
-              <FileInput 
-                onChange={handleFileChange} 
-                accept=".pdf,.jpg,.jpeg,.png"
-              />
-            </div>
+            <JustificationModal
+              onFileInputChange={handleFileChange}
+              onDescriptionChange={handleDescriptionChange}
+              onJustificationTypeChange={handleJustificationTypeChange}
+            />
           </ModalBody>
           <ModalFooter>
-            <Button 
-              color="default" 
-              variant="flat" 
-              onPress={onClose}
-            >
+            <Button color='default' variant='flat' onPress={onClose}>
               Cancelar
             </Button>
-            <Button 
-              color="primary" 
-              isLoading={isLoading}
-              isDisabled={!selectedFile}
-              onPress={() => {
-                handleSubmit()
-                  .then(() => onClose())
-                  .catch(() => {})
-              }}
-            >
+            <Button color='primary' isLoading={isLoading} onPress={handleSubmit}>
               Enviar
             </Button>
           </ModalFooter>
@@ -69,4 +50,4 @@ export const AttachmentUploadModal = ({ workdayLogId }: AttachmentUploadModalPro
       )}
     </Dialog>
   )
-} 
+}

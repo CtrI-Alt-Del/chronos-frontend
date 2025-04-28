@@ -2,7 +2,7 @@
 
 import { useCallback, useState, useMemo } from 'react'
 import { useAction } from 'next-safe-action/hooks'
-import { solicitationActions } from '@/server/next-safe-action'
+import { portalActions } from '@/server/next-safe-action'
 import type { JustificationTypeDto } from '@/@core/portal/dtos'
 import { useToast } from '@/ui/global/hooks/use-toast'
 

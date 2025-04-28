@@ -7,6 +7,19 @@ export const PortalService = (restClient: RestClient): IPortalService => {
   const JUSTIFICATION_TYPE_ROUTE = '/solicitation/justification-type'
 
   return {
+    async attachJustificationToSolicitation(solicitationId, justificationTypeId, justificationTypeName, justificationTypeShouldHaveAttachment, description, attachment) {
+      const formData = new FormData()
+      formData.append("solicitationId", solicitationId)
+      formData.append('justificationTypeId', justificationTypeId)
+      formData.append('justificationTypeName', justificationTypeName)
+      formData.append('justificationTypeShouldHaveAttachment', justificationTypeShouldHaveAttachment)
+      formData.append('description', description)
+      if(attachment != undefined){ formData.append('attachment', attachment) }
+
+      return await restClient.multipart(
+        `/solicitation/justification/attach`,
+        formData)
+    },
     async getJustificationAttachmentUrl(key) {
       return await restClient.get(
         `${SOLICITATIONS_ROUTE}/justification-attachment/${key}`,
@@ -62,7 +75,9 @@ export const PortalService = (restClient: RestClient): IPortalService => {
     },
 
     async createExcusedAbsenceSolicitation(absenceDate) {
-      return await restClient.post(`${SOLICITATIONS_ROUTE}/excused-absence`,absenceDate)
+      return await restClient.post(`${SOLICITATIONS_ROUTE}/excused-absence`,{
+        absenceDate: absenceDate,
+      })
     },
 
     async listExcusedAbsenceSolicitations(page) {

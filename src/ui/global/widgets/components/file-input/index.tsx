@@ -34,6 +34,7 @@ export const FileInput = ({ label = 'Escolher Arquivo', name, accept, onChange }
       />
 
       <Button
+        type='button'
         startContent={
           fileName ? null : <Icon name="upload" className="w-6 h-6 text-gray-500" />
         }

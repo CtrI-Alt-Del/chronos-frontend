@@ -1,5 +1,5 @@
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
-import { solicitationActions } from '@/server/next-safe-action'
+import { portalActions } from '@/server/next-safe-action'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { useAction } from 'next-safe-action/hooks'
 
