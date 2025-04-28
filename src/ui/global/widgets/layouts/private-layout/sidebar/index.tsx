@@ -22,8 +22,6 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     isAdmin,
     isManager,
     isEmployee,
-    queryDate,
-    queryDateRange,
     handleExpandButtonClick,
     handleLogoutButtonClick,
   } = useSidebar(onClose)
@@ -79,7 +77,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
             {isManager && (
               <NavbarLink
-                href={`${ROUTES.workSchedule.sectorHistory}?${queryDate}`}
+                href={ROUTES.workSchedule.sectorHistory}
                 icon='history'
                 title='Histórico de pontos'
               />
@@ -87,7 +85,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
             {(isManager || isEmployee) && (
               <NavbarLink
-                href={`${ROUTES.workSchedule.collaboratorHistory}?${queryDateRange}`}
+                href={ROUTES.workSchedule.collaboratorHistory}
                 icon='history'
                 title='Meu histórico de pontos'
               />

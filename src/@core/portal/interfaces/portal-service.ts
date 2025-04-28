@@ -12,11 +12,11 @@ export interface PortalService {
   createDayOffScheduleAdjustmentSolicitation(
     solicitation: DayOffScheduleAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
-  // getJustificationAttachmentUrl(key: string): Promise<
-  //   ApiResponse<{
-  //     url: string
-  //   }>
-  // >
+  getJustificationAttachmentUrl(key: string): Promise<
+    ApiResponse<{
+      url: string
+    }>
+  >
   createTimePunchLogAdjustmentSolicitation(
     solicitation: TimePunchLogAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>

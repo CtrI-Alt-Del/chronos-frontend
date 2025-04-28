@@ -30,7 +30,9 @@ type SectorHistoryTableProps = {
 const getStatusLabel = (status?: string) => {
   switch (status) {
     case 'day_off':
-      return <div className='bg-blue-300 text-white p-1 rounded-md text-center'>FOLGA</div>
+      return (
+        <div className='bg-blue-300 text-white p-1 rounded-md text-center'>FOLGA</div>
+      )
     case 'absence':
       return <div className='bg-red-600 text-white p-1 rounded-md text-center'>FALTA</div>
     default:
@@ -81,7 +83,7 @@ export const SectorHistoryTable = ({
           </div>
         </TableColumn>
         <TableColumn key='status' className='uppercase flex justify-center items-center'>
-            <span>Status</span>
+          <span>Status</span>
         </TableColumn>
       </TableHeader>
       <TableBody

@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import { CACHE } from '@/@core/global/constants'
-import { PaginationResponse } from '@/@core/global/responses'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
 import { useQueryParamDate } from '@/ui/global/hooks/use-query-param-date'

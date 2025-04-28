@@ -17,8 +17,6 @@ export function useSidebar(onClose: VoidFunction) {
   }
 
   return {
-    queryDate: `date=${formatIsoDate(date)}`,
-    queryDateRange: `startDate=${formatIsoDate(minusDays(date, 7))}&endDate=${formatIsoDate(date)}`,
     isAdmin,
     isManager,
     isEmployee,

@@ -60,7 +60,7 @@ export const TransactionsView = ({
           variant='flat'
           label='Tipo de operação'
           defaultSelectedKeys={[operation]}
-          onChange={(event) => onOperationChange(event.currentTarget.value)}
+          onChange={(event) => onOperationChange(event.target.value)}
           startContent={<Icon name='workload' className='text-slate-700' size={16} />}
         >
           <SelectItem key='all'>Crédito e Débito</SelectItem>

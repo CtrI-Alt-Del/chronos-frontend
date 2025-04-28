@@ -18,7 +18,7 @@ export const UpdateJustificationTypeAction = (
         justificationTypeId,
       )
       if (response.isFailure) response.throwError()
-      call.resetCache(CACHE.solicitation.justificationType.key)
+      call.resetCache(CACHE.portal.justificationType.key)
     },
   }
 }

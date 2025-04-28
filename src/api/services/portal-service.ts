@@ -7,6 +7,12 @@ export const PortalService = (restClient: RestClient): IPortalService => {
   const JUSTIFICATION_TYPE_ROUTE = '/solicitation/justification-type'
 
   return {
+    async getJustificationAttachmentUrl(key) {
+      return await restClient.get(
+        `${SOLICITATIONS_ROUTE}/justification-attachment/${key}`,
+      )
+    },
+
     async createDayOffScheduleAdjustmentSolicitation(
       solicitation: DayOffScheduleAdjustmentSolicitationDto,
     ) {
