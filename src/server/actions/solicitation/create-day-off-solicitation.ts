@@ -17,17 +17,17 @@ export const CreateDayOffSolicitationAction = (
 ): Action<RequestBody> => {
   return {
     async handle(call: Call<RequestBody>) {
-      const solicitation = call.getRequest()
-      const response = await service.createDayOffSolicitation(
-        solicitation.dayOff,
-        solicitation.justificationType.id,
-        solicitation.description,
-        solicitation.justificationType.name,
-        solicitation.justificationType.needsAttachment,
-        solicitation.file,
-      )
-      if (response.isFailure) response.throwError()
-      call.redirect(ROUTES.solicitation.solicitations)
+      // const solicitation = call.getRequest()
+      // const response = await service.createDayOffSolicitation(
+      //   solicitation.dayOff,
+      //   solicitation.justificationType.id,
+      //   solicitation.description,
+      //   solicitation.justificationType.name,
+      //   solicitation.justificationType.needsAttachment,
+      //   solicitation.file,
+      // )
+      // if (response.isFailure) response.throwError()
+      // call.redirect(ROUTES.solicitation.solicitations)
     },
   }
 }
