@@ -7,7 +7,7 @@ export const CreatePaidOvertimeSolicitationAction = (service: PortalService): Ac
     async handle(call) {
       const response = await service.createPaidOvertimeSolicitation()
       if (response.isFailure) response.throwError()
-      call.redirect(ROUTES.portal.solicitations)
+      call.redirect(`${ROUTES.portal.solicitations}?tab=paid-overtime`)
     },
   }
 }
