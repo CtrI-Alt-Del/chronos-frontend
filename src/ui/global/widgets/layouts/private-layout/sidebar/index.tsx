@@ -110,7 +110,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             {(isAdmin || isManager) && (
               <NavbarLink
                 href={ROUTES.portal.justificationTypes}
-                icon='report'
+                icon='justication-type'
                 title='Tipos de Justificativas'
               />
             )}

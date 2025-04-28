@@ -2,14 +2,12 @@
 
 import { useCallback, useState, useMemo } from 'react'
 import { useAction } from 'next-safe-action/hooks'
-import { solicitationActions } from '@/server/next-safe-action'
+import { portalActions } from '@/server/next-safe-action'
 import type { JustificationTypeDto } from '@/@core/portal/dtos'
 import { useToast } from '@/ui/global/hooks/use-toast'
 
 export function useJustificationTypesActions() {
-  const [error, setError] = useState<string | null>(null)
   const { showError, showSuccess } = useToast()
-
   const { executeAsync: executeCreateJustificationType, isPending: isCreating } =
     useAction(portalActions.createJustificationType, {
       onSuccess() {
@@ -43,7 +41,6 @@ export function useJustificationTypesActions() {
         }
       },
     })
-  const isLoading = isCreating || isUpdating || isDeleting
 
   const createJustificationType = useCallback(
     async (data: JustificationTypeDto) => {
@@ -71,24 +68,8 @@ export function useJustificationTypesActions() {
     [executeDeleteJustificationType],
   )
 
-  const handleCreateJustificationType = async (data: JustificationTypeDto) => {
-    await createJustificationType(data)
-  }
-
-  const handleUpdateJustificationType = async (
-    id: string,
-    data: JustificationTypeDto,
-  ) => {
-    await updateJustificationType(id, data)
-  }
-
-  const handleDeleteJustificationType = async (id: string) => {
-    await deleteJustificationType(id)
-  }
-
   return {
-    isLoading,
-    error,
+    isLoading: isCreating || isUpdating || isDeleting,
     createJustificationType,
     updateJustificationType,
     deleteJustificationType,

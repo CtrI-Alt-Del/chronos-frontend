@@ -10,4 +10,5 @@ export interface Call<Request = void> {
   hasCookie(key: string): Promise<boolean>
   getAccount(): Promise<AccountDto>
   resetCache(cacheKey: string): void
+  resetRouteCache(route: string): void
 }

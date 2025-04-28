@@ -1,12 +1,10 @@
-import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
-import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import type { KeyboardEvent } from 'react'
+
+import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 
 export function useSidebar(onClose: VoidFunction) {
   const { account, isAdmin, isManager, isEmployee } = useAuthContext()
-  const { formatIsoDate, getCurrentDate, minusDays } = useDatetime()
   const { logout } = useAuthContext()
-  const date = getCurrentDate()
 
   function handleExpandButtonClick(event: KeyboardEvent) {
     if (event.key === 'Enter') onClose()

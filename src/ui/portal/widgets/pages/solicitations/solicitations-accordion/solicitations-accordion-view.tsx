@@ -4,7 +4,7 @@ import { Accordion, AccordionItem } from '@heroui/accordion'
 import { Textarea } from '@heroui/input'
 import { Avatar } from '@heroui/avatar'
 import { Skeleton } from '@heroui/skeleton'
-import { useEffect, useState } from 'react' 
+import { useEffect, useState } from 'react'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { Icon } from '@/ui/global/widgets/components/Icon'
 import { Justification } from './justification'
@@ -31,35 +31,24 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
   onSolicitationDeny,
 }: Props<Solicitation>) => {
   const { formatDate } = useDatetime()
-  const [showSkeleton, setShowSkeleton] = useState(true)
 
-  useEffect(() => {
-    if (!isLoading) {
-      const timer = setTimeout(() => {
-        setShowSkeleton(false)
-      }, 800) // 2 segundos de delay após o carregamento
-      return () => clearTimeout(timer)
-    } else {
-      setShowSkeleton(true)
-    }
-  }, [isLoading])
-
-  if (showSkeleton) {
+  if (isLoading) {
     return (
       <div className='border border-gray-border rounded-lg px-4'>
         {[...Array(5)].map((_, index) => (
-          <div key={index} className='py-4 border-b border-gray-border last:border-b-0'>  
+          <div
+            key={String(index)}
+            className='py-4 border-b border-gray-border last:border-b-0'
+          >
             <div className='mt-4 pl-6 space-y-2'>
               <div className='flex items-center gap-2'>
                 <Skeleton className='h-4 w-4 rounded-full' />
                 <Skeleton className='h-4 w-48 rounded' />
                 <Skeleton className='ml-auto mr-10 h-6 w-32 rounded-full' />
               </div>
-              
             </div>
-            
+
             <div className='mt-4 pl-5 space-y-4'>
-              
               {isViewerManager && (
                 <div className='ml-7 flex gap-4'>
                   <Skeleton className='h-5 w-32 rounded' />

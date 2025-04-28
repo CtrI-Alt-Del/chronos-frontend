@@ -6,10 +6,7 @@ import { CACHE } from '@/@core/global/constants'
 import { WorkScheduleService } from '@/api/services/work-schedule-service'
 import { NextServerRestClient } from '@/api/next/clients/next-server-api-client'
 import { NextCall } from '@/server/next/next-server-action'
-import {
-  daysOffScheduleSchema,
-  weekScheduleSchema,
-} from '@/validation/schemas/work-schedule'
+import { daysOffScheduleSchema } from '@/validation/schemas/work-schedule'
 import { authActionClient } from './clients/auth-action-client'
 import {
   GetDayOffScheduleAction,
@@ -26,6 +23,7 @@ const getTodayWorkdayLog = authActionClient.action(async ({ clientInput, ctx }) 
   })
   const apiClient = await NextServerRestClient({
     cacheKey: CACHE.workSchedule.todayWordayLog.key(ctx.account.id),
+    isCacheEnabled: false,
   })
   const service = WorkScheduleService(apiClient)
   const action = GetTodayWorkdayLogAction(service)
