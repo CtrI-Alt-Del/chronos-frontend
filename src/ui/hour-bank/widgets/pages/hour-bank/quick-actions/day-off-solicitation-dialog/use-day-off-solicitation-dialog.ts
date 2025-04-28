@@ -21,34 +21,8 @@ export function useDayOffSolicitationDialog() {
     resolver: zodResolver(createDayOffSolicitationSchema),
     mode: 'onSubmit',
   })
-
-  const dayOff = watch('dayOff')
-  const justificationType = watch('justificationType')
-  const description = watch('description')
-  const attachment = watch('file')
-
-  function handleJustificationTypeChange(type: JustificationTypeDto) {
-    setValue('justificationType', {
-      id: type.id as string,
-      name: type.name,
-      needsAttachment: String(type.shouldHaveAttachment),
-    })
-  }
-  function handleDescriptionChange(description: string) {
-    setValue('description', description)
-  }
-
-  function handleAttachmentChange(file: File | null) {
-    setValue('file', file)
-  }
-
   function onSubmit(data: DayOffFormData) {
-    createDayOffSolicitation(
-      data.dayOff,
-      data.justificationType,
-      data.description,
-      data.file ?? undefined,
-    )
+    createDayOffSolicitation(data.dayOff)
   }
 
   return {
@@ -56,9 +30,5 @@ export function useDayOffSolicitationDialog() {
     handleSubmit: handleSubmit(onSubmit),
     errors,
     isSubmitting: isSubmitting || isCreatingSolicitation,
-    handleJustificationTypeChange,
-    handleAttachmentChange,
-    handleDescriptionChange,
-    watch,
   }
 }

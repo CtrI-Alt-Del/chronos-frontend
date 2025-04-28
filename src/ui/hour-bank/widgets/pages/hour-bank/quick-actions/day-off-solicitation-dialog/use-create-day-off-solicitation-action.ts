@@ -1,4 +1,4 @@
-import { solicitationActions } from '@/server/next-safe-action'
+import { portalActions } from '@/server/next-safe-action'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { useAction } from 'next-safe-action/hooks'
 
@@ -17,21 +17,9 @@ export function useCreateDayOffSolicitationAction() {
       },
     },
   )
-  async function createDayOffSolicitation(
-    dayOff: string,
-    justificationType: {
-      id: string
-      name: string
-      needsAttachment: string
-    },
-    description: string,
-    file?: File,
-  ) {
+  async function createDayOffSolicitation(dayOff: string) {
     await executeAsync({
       dayOff,
-      justificationType,
-      description,
-      file,
     })
   }
   return {

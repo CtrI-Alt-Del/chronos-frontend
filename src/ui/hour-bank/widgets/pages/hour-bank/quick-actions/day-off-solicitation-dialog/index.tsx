@@ -13,9 +13,6 @@ export const DayOffSolicitationDialog = () => {
     isSubmitting,
     register,
     handleSubmit,
-    handleJustificationTypeChange,
-    handleAttachmentChange,
-    handleDescriptionChange,
   } = useDayOffSolicitationDialog()
   return (
     <Dialog
@@ -42,33 +39,6 @@ export const DayOffSolicitationDialog = () => {
             isInvalid={Boolean(errors.dayOff)}
             errorMessage={errors.dayOff?.message}
           />
-          <JustificationModal
-            onDescriptionChange={handleDescriptionChange}
-            onJustificationTypeChange={handleJustificationTypeChange}
-            onFileInputChange={handleAttachmentChange}
-          />
-          {errors.justificationType && (
-            <span className='text-red-500 text-sm'>
-              {errors.justificationType.message === 'Required'
-                ? 'Tipo de Justificativa e obrigatorio!'
-                : errors.justificationType.message}
-            </span>
-          )}
-          {errors.description && (
-            <span className='text-red-500 text-sm'>
-              {errors.description.message === 'Required'
-                ? 'Descricao e obrigatorio!'
-                : errors.description.message}
-            </span>
-          )}
-          {errors.file && (
-            <span className='text-red-500 text-sm'>
-              {errors.file.message === 'Required'
-                ? 'Anexo e obrigatorio!'
-                : errors.file.message}
-            </span>
-          )}
-
           <div className='flex justify-center items-center gap-4 mt-4'>
             <Button
               className='w-40'

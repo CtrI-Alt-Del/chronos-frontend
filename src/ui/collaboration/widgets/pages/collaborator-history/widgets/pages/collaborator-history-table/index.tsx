@@ -96,7 +96,7 @@ export const CollaboratorHistoryTable = ({
             <TableCell>
               <div className="flex justify-center items-center space-x-3">
                 {getStatusLabel(row.status)}
-                {row.status === 'absence' && (
+                {row.status === 'day_off' && (
                   <AttachmentUploadModal workdayLogId={row.id} />
                 )}
               </div>

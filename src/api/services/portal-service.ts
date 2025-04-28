@@ -55,8 +55,8 @@ export const PortalService = (restClient: RestClient): IPortalService => {
       )
     },
 
-    async createExcusedAbsenceSolicitation() {
-      return await restClient.post(`${SOLICITATIONS_ROUTE}/excused-absence`)
+    async createExcusedAbsenceSolicitation(absenceDate) {
+      return await restClient.post(`${SOLICITATIONS_ROUTE}/excused-absence`,absenceDate)
     },
 
     async listExcusedAbsenceSolicitations(page) {
