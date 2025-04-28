@@ -1,5 +1,6 @@
-import type { ResponsibleDto } from '../../global/dtos/ResponsibleDto'
 import type { TimePunchDto } from './time-punch-dto'
+import type { AggregateDto } from '@/@core/global/dtos/AggregateDto'
+import type { ResponsibleDto } from '@/@core/global/dtos/ResponsibleDto'
 
 export type WorkdayLogDto = {
   collaborator: any
@@ -7,8 +8,5 @@ export type WorkdayLogDto = {
   date: Date
   timePunch: TimePunchDto
   status: string
-  responsible: {
-    id: string
-    dto?: ResponsibleDto
-  }
+  responsible: AggregateDto<ResponsibleDto>
 }
