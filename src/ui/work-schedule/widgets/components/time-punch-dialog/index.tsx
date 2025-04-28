@@ -19,16 +19,12 @@ import { TimeLogInput } from './time-log-input'
 
 type TimePunchDialogProps = {
   timePunch: TimePunchDto
-  onTimeLogChange: (timePunchId: string, time: string, period: TimePunchPeriod) => void
+  onTimeLogChange: (time: string, period: TimePunchPeriod) => void
 }
 
 export const TimePunchDialog = ({ timePunch, onTimeLogChange }: TimePunchDialogProps) => {
   const dialogRef = useRef<DialogRef>(null)
-  const { handleTimeLogChange } = useTimePunchDialog(
-    dialogRef,
-    onTimeLogChange,
-    timePunch.id,
-  )
+  const { handleTimeLogChange } = useTimePunchDialog(dialogRef, onTimeLogChange)
 
   return (
     <Dialog
