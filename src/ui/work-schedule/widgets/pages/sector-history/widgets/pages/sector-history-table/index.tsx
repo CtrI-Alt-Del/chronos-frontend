@@ -8,7 +8,7 @@ import {
   TableRow,
   TableCell,
 } from '@heroui/table'
-import { Chip, Pagination, Spinner } from '@heroui/react'
+import { Pagination, Spinner } from '@heroui/react'
 
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
@@ -102,7 +102,9 @@ export const SectorHistoryTable = ({
             <TableCell>
               <TimePunchDialog
                 timePunch={row.timePunch}
-                onTimeLogChange={onTimeLogChange}
+                onTimeLogChange={(timeLog, timePunchPeriod) =>
+                  onTimeLogChange(row.id, timeLog, timePunchPeriod)
+                }
               />
             </TableCell>
             <TableCell>
