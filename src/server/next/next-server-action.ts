@@ -1,6 +1,6 @@
 import { notFound, redirect } from 'next/navigation'
 import { cookies as NextCookies } from 'next/headers'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 import type { Call } from '@/@core/global/interfaces/rpc/call'
 import type { AccountDto } from '@/@core/auth/dtos'
@@ -31,6 +31,10 @@ export const NextCall = <Request = unknown>({
 
     async resetCache(cacheKey) {
       revalidateTag(cacheKey)
+    },
+
+    async resetRouteCache(route: string) {
+      revalidatePath(route, 'page')
     },
 
     async setCookie(key: string, value: string, expirationInSeconds?: number) {

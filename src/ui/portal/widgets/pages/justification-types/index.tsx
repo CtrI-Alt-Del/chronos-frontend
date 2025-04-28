@@ -1,12 +1,13 @@
 'use client'
 
 import { Button } from '@heroui/button'
-import { Spinner } from '@heroui/spinner'
+
 import { Icon } from '@/ui/global/widgets/components/Icon'
+import type { JustificationTypeDto } from '@/@core/portal/dtos'
 import { JustificationTypeDialog } from './justification-type-dialog/justification-type-dialog'
 import { JustificationTypeCard } from './justification-type-card/justification-type-card'
 import { useJustificationTypesPage } from './use-justification-types-page'
-import type { JustificationTypeDto } from '@/@core/portal/dtos'
+import { Spinner } from '@/ui/global/widgets/components/spinner'
 
 export const JustificationTypesPage = ({
   justificationTypes,
@@ -27,26 +28,34 @@ export const JustificationTypesPage = ({
               Adicionar Justificativa
             </Button>
           }
-          handleCreateJustificationType={handleCreateJustificationType}
+          onCreateJustificationType={handleCreateJustificationType}
         />
       </div>
 
-      {justificationTypes.length === 0 ? (
-        <div className='py-8 text-center text-gray-500'>
-          Nenhum tipo de justificativa encontrado.
+      {isLoading ? (
+        <div className='grid place-content-center w-full h-full'>
+          <Spinner />
         </div>
       ) : (
-        <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-          {justificationTypes.map((item) => (
-            <JustificationTypeCard
-              key={item.id}
-              justificationType={item}
-              onUpdate={handleUpdateJustificationType}
-              onDelete={handleDeleteJustificationType}
-              isLoading={isLoading}
-            />
-          ))}
-        </div>
+        <>
+          {justificationTypes.length === 0 ? (
+            <div className='py-8 text-center text-gray-500'>
+              Nenhum tipo de justificativa encontrado.
+            </div>
+          ) : (
+            <div className='grid gap-6 grid-cols-4'>
+              {justificationTypes.map((item) => (
+                <JustificationTypeCard
+                  key={item.id}
+                  isLoading={isLoading}
+                  justificationType={item}
+                  onUpdate={handleUpdateJustificationType}
+                  onDelete={handleDeleteJustificationType}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   )

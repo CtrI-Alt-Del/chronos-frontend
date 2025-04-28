@@ -24,12 +24,10 @@ export const NextRestClient = (
     cache: !isCacheEnabled ? 'no-store' : undefined,
     headers: multiPartRequestHeaders,
 
-    next: isCacheEnabled
-      ? {
-          revalidate: refetchInterval,
-          tags: cacheKey ? [cacheKey] : [],
-        }
-      : undefined,
+    next: {
+      revalidate: isCacheEnabled ? refetchInterval : undefined,
+      tags: cacheKey ? [cacheKey] : [],
+    },
   }
 
   const requestInit: RequestInit = {

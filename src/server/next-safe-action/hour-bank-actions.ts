@@ -25,6 +25,7 @@ export const listHourBankTransactions = authActionClient
     })
     const restClient = await NextServerRestClient({
       cacheKey: CACHE.hourBank.key(clientInput.collaboratorId),
+      isCacheEnabled: false,
     })
     const service = HourBankService(restClient)
     const action = ListHourBankTransactionsAction(service)
@@ -43,6 +44,7 @@ export const getHourBankBalance = authActionClient
     })
     const restClient = await NextServerRestClient({
       cacheKey: CACHE.hourBank.key(clientInput.collaboratorId),
+      isCacheEnabled: false,
     })
     const service = HourBankService(restClient)
     const action = GetHourBankBalanceAction(service)
@@ -63,6 +65,7 @@ export const createHourBankTransactionAdjustment = authActionClient
     })
     const restClient = await NextServerRestClient({
       cacheKey: CACHE.hourBank.key(clientInput.collaboratorId),
+      isCacheEnabled: false,
     })
     const service = HourBankService(restClient)
     const action = CreateHourBankTransactionAdjustmentAction(service)

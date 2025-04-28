@@ -11,6 +11,7 @@ export type IconName =
   | 'plus'
   | 'minus'
   | 'adjustment'
+  | 'justication-type'
   | 'arrow-down'
   | 'menu'
   | 'star'

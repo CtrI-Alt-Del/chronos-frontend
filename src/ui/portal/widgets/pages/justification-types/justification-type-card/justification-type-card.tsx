@@ -8,9 +8,9 @@ import type { JustificationTypeDto } from '@/@core/portal/dtos'
 
 type JustificationTypeCardProps = {
   justificationType: JustificationTypeDto
+  isLoading: boolean
   onUpdate: (id: string, data: JustificationTypeDto) => void
   onDelete: (id: string) => void
-  isLoading: boolean
 }
 
 export const JustificationTypeCard = ({
@@ -54,7 +54,7 @@ export const JustificationTypeCard = ({
               <span>Editar</span>
             </Button>
           }
-          handleCreateJustificationType={(data) => onUpdate(id || '', data)}
+          onCreateJustificationType={(data) => onUpdate(String(id), data)}
         />
         <AlertDialog
           trigger={
@@ -69,7 +69,7 @@ export const JustificationTypeCard = ({
             </Button>
           }
           title='Excluir Justificativa'
-          onConfirm={() => onDelete(id || '')}
+          onConfirm={() => onDelete(String(id))}
           isLoading={isLoading}
         >
           <p>

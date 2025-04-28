@@ -6,30 +6,25 @@ import { useJustificationTypesActions } from './use-justification-types-actions'
 export function useJustificationTypesPage() {
   const {
     isLoading,
-    error,
     createJustificationType,
     updateJustificationType,
     deleteJustificationType,
   } = useJustificationTypesActions()
 
-  const handleCreateJustificationType = async (data: JustificationTypeDto) => {
-    await createJustificationType(data)
+  async function handleCreateJustificationType(dto: JustificationTypeDto) {
+    await createJustificationType(dto)
   }
 
-  const handleUpdateJustificationType = async (
-    id: string,
-    data: JustificationTypeDto,
-  ) => {
-    await updateJustificationType(id, data)
+  async function handleUpdateJustificationType(id: string, dto: JustificationTypeDto) {
+    await updateJustificationType(id, dto)
   }
 
-  const handleDeleteJustificationType = async (id: string) => {
+  async function handleDeleteJustificationType(id: string) {
     await deleteJustificationType(id)
   }
 
   return {
     isLoading,
-    error,
     handleCreateJustificationType,
     handleUpdateJustificationType,
     handleDeleteJustificationType,
