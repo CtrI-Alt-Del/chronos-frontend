@@ -45,14 +45,24 @@ const getStatusLabel = (status?: string) => {
           FALTA
         </div>
       )
-    case "normal_day":
-    return (
-      <div className='p-1 w-24 text-sm text-center text-white bg-green-600 rounded-md'>
-        DIA NORMAL
-      </div>
-    )
+    case 'normal_day':
+      return (
+        <div className='p-1 w-24 text-sm text-center text-white bg-green-600 rounded-md'>
+          DIA NORMAL
+        </div>
+      )
+    case "excused_absence":
+      return (
+        <div className='p-1 w-32 text-sm text-center text-white bg-yellow-400 rounded-md'>
+          FALTA ABONADA
+        </div>
+      )
     default:
-      return null
+      return (
+        <div className='p-1 w-24 text-sm text-center text-white bg-gray-400 rounded-md'>
+          {status}
+        </div>
+      )
   }
 }
 export const CollaboratorHistoryTable = ({
@@ -126,18 +136,18 @@ export const CollaboratorHistoryTable = ({
                 </div>
               </TableCell>
               <TableCell>
-                {row.status==="normal_day" && (
-                    <Button
-                      type='button'
-                      size='sm'
-                      color='secondary'
-                      className='text-sm text-white font-medium whitespace-nowrap p-1 rounded-md min-w-[120px]'
-                      onClick={() =>
-                        handleCreateExcuseAbsenceSolicitationButtonClick(row.date)
-                      }
-                    >
-                      Pedir abono
-                    </Button>
+                {row.status === 'normal_day' && (
+                  <Button
+                    type='button'
+                    size='sm'
+                    color='secondary'
+                    className='text-sm text-white font-medium whitespace-nowrap p-1 rounded-md min-w-[120px]'
+                    onClick={() =>
+                      handleCreateExcuseAbsenceSolicitationButtonClick(row.date)
+                    }
+                  >
+                    Pedir abono
+                  </Button>
                 )}
               </TableCell>
             </TableRow>

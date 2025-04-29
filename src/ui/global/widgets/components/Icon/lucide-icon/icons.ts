@@ -35,6 +35,7 @@ import {
   Calendar,
   Hourglass,
   File,
+  FileClock,
 } from 'lucide-react'
 
 export const ICONS: Record<
@@ -74,4 +75,5 @@ export const ICONS: Record<
   'arrow-down': ChevronDown,
   'time-card': FlipVertical,
   'day-off-schedule': CalendarDays,
+  'file-clock': FileClock,
 }

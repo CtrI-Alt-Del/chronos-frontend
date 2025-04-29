@@ -30,7 +30,9 @@ export interface PortalService {
   ): Promise<ApiResponse<void>>
   createDayOffSolicitation(
     dayOff: string,
+    workload: number,
     observation?: string,
+    
   ): Promise<ApiResponse<void>>
   approveDayOffSolicitation(
     solicitationId: string,

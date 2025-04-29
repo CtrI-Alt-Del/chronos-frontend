@@ -39,6 +39,7 @@ export const PortalService = (restClient: RestClient): IPortalService => {
       return await restClient.post(`${SOLICITATIONS_ROUTE}/day-off`, {
         dayOff,
         description: observation,
+        workload: 8,
       })
     },
 

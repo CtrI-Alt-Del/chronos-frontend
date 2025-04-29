@@ -7,13 +7,17 @@ import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
 import { useDayOffSolicitationDialog } from './use-day-off-solicitation-dialog'
 
-export const DayOffSolicitationDialog = () => {
+type DayOffSolicitationDialogProps = {
+  workload: number
+}
+
+export const DayOffSolicitationDialog = ({workload}:DayOffSolicitationDialogProps) => {
   const {
     errors,
     isSubmitting,
     register,
     handleSubmit,
-  } = useDayOffSolicitationDialog()
+  } = useDayOffSolicitationDialog(workload)
   return (
     <Dialog
       title='Solicitacao de Ferias'

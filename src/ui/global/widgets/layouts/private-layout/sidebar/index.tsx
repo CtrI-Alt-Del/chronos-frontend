@@ -78,7 +78,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             {isManager && (
               <NavbarLink
                 href={ROUTES.workSchedule.sectorHistory}
-                icon='history'
+                icon='file-clock'
                 title='Histórico de pontos'
               />
             )}

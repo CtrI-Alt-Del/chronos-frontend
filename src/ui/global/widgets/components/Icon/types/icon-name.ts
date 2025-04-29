@@ -1,4 +1,5 @@
 export type IconName =
+  |"file-clock"
   | 'file'
   | 'hourglass'
   | 'upload'

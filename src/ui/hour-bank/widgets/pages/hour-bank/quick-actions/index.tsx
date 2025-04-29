@@ -11,5 +11,5 @@ export const QuickActions = async ({ collaboratorId }: QuickActionsProps) => {
   const collaborator = response.data?.collaborator
   const isCollaboratorItself = collaborator.id === collaboratorId
 
-  return <QuickActionsView isCollaboratorItself={isCollaboratorItself} />
+  return <QuickActionsView isCollaboratorItself={isCollaboratorItself} workload={collaborator.workload} />
 }

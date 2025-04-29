@@ -76,6 +76,7 @@ export function useCollaboratorHistoryPage() {
     setIsAdjustingTimePunchLog(false)
   }
 
+  console.log(data)
   return {
     workdayLogs: data ?? [],
     startDate,
