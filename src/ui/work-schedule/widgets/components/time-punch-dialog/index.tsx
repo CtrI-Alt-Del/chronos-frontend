@@ -19,7 +19,7 @@ import { TimeLogInput } from './time-log-input'
 
 type TimePunchDialogProps = {
   timePunch: TimePunchDto
-  onTimeLogChange: (time: string, period: TimePunchPeriod) => void
+  onTimeLogChange?: (time: string, period: TimePunchPeriod) => void
 }
 
 export const TimePunchDialog = ({ timePunch, onTimeLogChange }: TimePunchDialogProps) => {

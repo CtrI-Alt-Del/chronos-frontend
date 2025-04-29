@@ -5,10 +5,10 @@ import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
 
 export function useTimePunchDialog(
   dialogRef: RefObject<DialogRef>,
-  onTimeLogChange: (time: string, period: TimePunchPeriod) => void,
+  onTimeLogChange?: (time: string, period: TimePunchPeriod) => void,
 ) {
   function handleTimeLogChange(timeLog: string, timePunchPeriod: TimePunchPeriod) {
-    onTimeLogChange(timeLog, timePunchPeriod)
+    if (onTimeLogChange) onTimeLogChange(timeLog, timePunchPeriod)
     dialogRef.current?.close()
   }
 

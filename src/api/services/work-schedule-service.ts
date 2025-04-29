@@ -19,6 +19,10 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
       return await restClient.get(`${MODULE}/time-card/${collaboratorId}`)
     },
 
+    getTimeCardPdfDowloadUrl(collaboratorId: string, month: number, year: number) {
+      return `http://localhost:8080/work-schedule/time-card/${collaboratorId}/pdf?month=${month}&year=${year}`
+    },
+
     async createDayOffSchedule(collaboratorId, dayOffSchedule) {
       return await restClient.post(
         `${MODULE}/day-off-schedules/${collaboratorId}`,

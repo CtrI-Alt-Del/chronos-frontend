@@ -6,18 +6,21 @@ import {
   TableHeader,
   TableRow,
 } from '@heroui/table'
-import { Input, Spinner } from '@heroui/react'
+import { Button, Input, Spinner } from '@heroui/react'
 
 import { TimePunchDialog } from '@/ui/work-schedule/widgets/components/time-punch-dialog'
 import { useTimeCardTab } from './use-time-card-tab'
 import { Time } from '@/ui/work-schedule/widgets/components/time'
+import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
+import Link from 'next/link'
+import { useRest } from '@/ui/global/hooks/use-rest'
 
 const WORKDAY_STATUS: Record<string, string> = {
-  NORMAL_DAY: 'dia normal',
-  ABSENCE: 'falta',
-  DAY_OFF: 'folga',
-  HOLIDAY: 'feriado',
-  WORK_LEAVE: 'afastamento',
+  normal_day: 'dia normal',
+  absence: 'falta',
+  day_off: 'folga',
+  holiday: 'feriado',
+  work_leave: 'afastamento',
 }
 
 type TimeCardTabProps = {
@@ -29,20 +32,34 @@ export const TimeCardTab = ({ collaboratorId }: TimeCardTabProps) => {
     collaboratorId,
     new Date(),
   )
+  const { workScheduleService } = useRest()
+  const { isManager } = useAuthContext()
+  const timeCardPdfUrl = workScheduleService.getTimeCardPdfDowloadUrl(
+    collaboratorId,
+    month,
+    year,
+  )
 
   return (
     <div>
-      <Input
-        type='month'
-        label='Mês'
-        placeholder=''
-        defaultValue={`${year}-${String(month).padStart(2, '0')}`}
-        onChange={(event) => {
-          const [year, month] = event.target.value.split('-').map(Number)
-          handleDateInputChange(year, month)
-        }}
-        className='w-max'
-      />
+      <div className='flex items-center gap-2'>
+        <Input
+          type='month'
+          label='Mês'
+          placeholder=''
+          defaultValue={`${year}-${String(month).padStart(2, '0')}`}
+          onChange={(event) => {
+            const [year, month] = event.target.value.split('-').map(Number)
+            handleDateInputChange(month, year)
+          }}
+          className='w-max'
+        />
+        {isManager && (
+          <Button as={Link} href={timeCardPdfUrl} download color='danger'>
+            Gerar PDF
+          </Button>
+        )}
+      </div>
       <Table className='mt-3'>
         <TableHeader>
           <TableColumn key='date' className='uppercase'>
@@ -50,6 +67,12 @@ export const TimeCardTab = ({ collaboratorId }: TimeCardTabProps) => {
           </TableColumn>
           <TableColumn key='time-punch' className='uppercase'>
             Pontos
+          </TableColumn>
+          <TableColumn key='workload' className='uppercase'>
+            Carga horária
+          </TableColumn>
+          <TableColumn key='worked-time' className='uppercase'>
+            Horas trabalhadas
           </TableColumn>
           <TableColumn key='overtime' className='uppercase'>
             Horas extras
@@ -59,9 +82,6 @@ export const TimeCardTab = ({ collaboratorId }: TimeCardTabProps) => {
           </TableColumn>
           <TableColumn key='undertime' className='uppercase'>
             Horas faltantes
-          </TableColumn>
-          <TableColumn key='worked-time' className='uppercase'>
-            Horas trabalhadas
           </TableColumn>
           <TableColumn key='hour-bank-credit' className='uppercase'>
             Crédito de banco de horas
@@ -85,6 +105,9 @@ export const TimeCardTab = ({ collaboratorId }: TimeCardTabProps) => {
               <TableCell key='time-punch'>
                 <TimePunchDialog timePunch={row.timePunch} />
               </TableCell>
+              <TableCell key='workload'>
+                <Time>{row.workload}</Time>
+              </TableCell>
               <TableCell key='overtime'>
                 <Time>{row.overtime}</Time>
               </TableCell>
@@ -103,7 +126,9 @@ export const TimeCardTab = ({ collaboratorId }: TimeCardTabProps) => {
               <TableCell key='hour-bank-debit'>
                 <Time>{row.hourBankDebit}</Time>
               </TableCell>
-              <TableCell key='work-status'>{WORKDAY_STATUS[row.workStatus]}</TableCell>
+              <TableCell key='work-status'>
+                <span className='truncate'>{WORKDAY_STATUS[row.workdayStatus]}</span>
+              </TableCell>
             </TableRow>
           )}
         </TableBody>
