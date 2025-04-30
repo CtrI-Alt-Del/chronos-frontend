@@ -12,9 +12,12 @@ export const CreateDayOffSolicitationAction = (
   return {
     async handle(call: Call<RequestBody>) {
       const solicitation = call.getRequest()
-      const response = await service.createDayOffSolicitation(solicitation.dayOff,solicitation.workload as number)
+      const response = await service.createDayOffSolicitation(
+        solicitation.dayOff,
+        solicitation.workload as number,
+      )
       if (response.isFailure) response.throwError()
-      call.redirect(ROUTES.portal.solicitations)
+      call.redirect(`${ROUTES.portal.solicitations}?tab=day-off`)
     },
   }
 }

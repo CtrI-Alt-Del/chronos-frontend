@@ -41,7 +41,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       <NavbarRoot
         classNames={{
           base: cn(
-            'fixed top-0 left-0 flex flex-col p-0 h-full w-64 border-r border-gray-border bg-white z-50 transition-transform duration-300',
+            'fixed top-0 left-0 bottom-0 flex flex-col p-0 h-full w-64 border-r border-gray-border bg-white z-50 transition-transform duration-300',
             'md:relative md:translate-x-0',
             isOpen ? 'translate-x-0' : '-translate-x-full',
           ),

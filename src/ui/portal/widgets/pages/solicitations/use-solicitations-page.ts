@@ -9,5 +9,6 @@ export function useSolicitationsPage() {
 
   return {
     activeTab,
+    handleTabChange,
   }
 }

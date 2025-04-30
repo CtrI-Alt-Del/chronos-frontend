@@ -87,7 +87,7 @@ export const updateDayOffSchedule = authActionClient
 const punchTime = authActionClient
   .schema(
     z.object({
-      timePunchLogId: z.string(),
+      workdayLogId: z.string(),
       time: z.string(),
     }),
   )

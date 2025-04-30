@@ -5,13 +5,17 @@ import { DayOffSolicitationsAccordion } from './day-off-solicitations-accordion'
 
 type Props = {
   activeTab: string
+  onTabChange: (tab: string) => void
 }
 
-export const SolicitationsPageView = ({ activeTab }: Props) => {
+export const SolicitationsPageView = ({ activeTab, onTabChange }: Props) => {
   return (
     <div>
       <div className='px-10 py-4'>
-        <Tabs.Container>
+        <Tabs.Container
+          selectedKey={activeTab}
+          onSelectionChange={(key) => onTabChange(String(key))}
+        >
           <Tabs.Item
             key='excused-absence'
             title={<Tabs.Title>Abono de falta</Tabs.Title>}

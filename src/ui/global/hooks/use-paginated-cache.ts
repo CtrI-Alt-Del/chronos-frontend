@@ -89,6 +89,8 @@ export function usePaginatedCache<CacheItem>({
     setPageQueryParam(size + 1)
   }
 
+  console.log('size', size)
+
   const items = useMemo(() => {
     if (data) return isInfinity ? data.flat() : data.at(-1) ?? []
     return []

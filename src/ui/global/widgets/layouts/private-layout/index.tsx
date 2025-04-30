@@ -18,7 +18,7 @@ export function PrivateLayout({ children }: PrivateLayoutProps) {
 
       <main className='flex flex-col flex-1'>
         <Header onMenuClick={handleMenuClick} />
-        <div className='flex-1 md:px-6 pb-12'>{children}</div>
+        <div className='h-screen overflow-y-auto flex-1 md:px-6 pb-12'>{children}</div>
       </main>
     </div>
   )

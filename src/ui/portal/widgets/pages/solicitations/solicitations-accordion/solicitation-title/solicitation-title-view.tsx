@@ -23,8 +23,8 @@ const CHIP_COLORS: Record<string, 'success' | 'warning' | 'danger'> = {
 
 const LABELS: Record<string, string> = {
   pending: 'Pendente',
-  approved: 'Aprovado',
-  denied: 'Negado',
+  approved: 'Aprovada',
+  denied: 'Negada',
 }
 
 type Props = {

@@ -57,7 +57,7 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
 
     async adjustTimePunch(workdayLogId, time, period) {
       return await restClient.patch(
-        `${MODULE}/workday-logs/${workdayLogId}/adjust-time-punch`,
+        `${MODULE}/workday-logs/${workdayLogId}/time-punch/adjustment`,
         {
           time,
           period,
@@ -66,7 +66,7 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
     },
 
     async punchTime(workdayLogId, time) {
-      return await restClient.patch(`${MODULE}/workday-logs/${workdayLogId}/punch-time`, {
+      return await restClient.patch(`${MODULE}/workday-logs/${workdayLogId}/time-punch`, {
         time,
       })
     },

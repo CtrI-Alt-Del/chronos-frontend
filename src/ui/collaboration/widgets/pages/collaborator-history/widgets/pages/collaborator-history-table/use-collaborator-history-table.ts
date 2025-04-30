@@ -1,7 +1,7 @@
 import type { TimePunchDto, WorkdayLogDto } from '@/@core/work-schedule/dtos'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
-import { DialogRef } from '@/ui/global/widgets/components/dialog/types'
-import { RefObject, useState } from 'react'
+import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
+import { type RefObject, useState } from 'react'
 
 type Row = {
   id: string
@@ -10,9 +10,12 @@ type Row = {
   status?: string
 }
 
-export function useCollaboratorHistoryTable(workdayLogs: WorkdayLogDto[],dialogRef: RefObject<DialogRef>) {
+export function useCollaboratorHistoryTable(
+  workdayLogs: WorkdayLogDto[],
+  dialogRef: RefObject<DialogRef>,
+) {
   const { formatDate } = useDatetime()
-  const [dateBeingExcused,setDateBeingExcused] = useState<string | null>('')
+  const [dateBeingExcused, setDateBeingExcused] = useState<string | null>('')
   function handleCreateExcuseAbsenceSolicitationButtonClick(workdayLogDate: string) {
     dialogRef.current?.open()
     setDateBeingExcused(workdayLogDate)

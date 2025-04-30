@@ -8,7 +8,7 @@ import {
   TableRow,
   TableCell,
 } from '@heroui/table'
-import { Button, Pagination, Spinner } from '@heroui/react'
+import { Button, Chip, Pagination, Spinner } from '@heroui/react'
 
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
@@ -16,7 +16,7 @@ import { TimePunchDialog } from '@/ui/work-schedule/widgets/components/time-punc
 import { useCollaboratorHistoryTable } from './use-collaborator-history-table'
 import { CreateExcuseAbsenceSolicitationModal } from '../create-excuse-absence-modal'
 import { useRef } from 'react'
-import { DialogRef } from '@/ui/global/widgets/components/dialog/types'
+import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
 
 type CollaboratorHistoryTableProps = {
   workdayLogs: WorkdayLogDto[]
@@ -35,33 +35,33 @@ const getStatusLabel = (status?: string) => {
   switch (status) {
     case 'day_off':
       return (
-        <div className='p-1 w-24 text-sm text-center text-white bg-blue-300 rounded-md'>
+        <Chip variant='flat' color='default'>
           FOLGA
-        </div>
+        </Chip>
       )
     case 'absence':
       return (
-        <div className='p-1 w-24 text-sm text-center text-white bg-red-600 rounded-md'>
+        <Chip variant='flat' color='danger'>
           FALTA
-        </div>
+        </Chip>
       )
     case 'normal_day':
       return (
-        <div className='p-1 w-24 text-sm text-center text-white bg-green-600 rounded-md'>
+        <Chip variant='flat' color='primary'>
           DIA NORMAL
-        </div>
+        </Chip>
       )
-    case "excused_absence":
+    case 'excused_absence':
       return (
-        <div className='p-1 w-32 text-sm text-center text-white bg-yellow-400 rounded-md'>
+        <Chip variant='flat' color='warning'>
           FALTA ABONADA
-        </div>
+        </Chip>
       )
     default:
       return (
-        <div className='p-1 w-24 text-sm text-center text-white bg-gray-400 rounded-md'>
-          {status}
-        </div>
+        <Chip variant='flat' color='warning'>
+          FALTA ABONADA
+        </Chip>
       )
   }
 }
@@ -127,7 +127,9 @@ export const CollaboratorHistoryTable = ({
               <TableCell>
                 <TimePunchDialog
                   timePunch={row.timePunch}
-                  onTimeLogChange={onTimeLogChange}
+                  onTimeLogChange={(time, period) =>
+                    onTimeLogChange(row.id, time, period)
+                  }
                 />
               </TableCell>
               <TableCell>
@@ -136,13 +138,13 @@ export const CollaboratorHistoryTable = ({
                 </div>
               </TableCell>
               <TableCell>
-                {row.status === 'normal_day' && (
+                {row.status === 'absence' && (
                   <Button
                     type='button'
                     size='sm'
-                    color='secondary'
+                    color='primary'
                     className='text-sm text-white font-medium whitespace-nowrap p-1 rounded-md min-w-[120px]'
-                    onClick={() =>
+                    onPress={() =>
                       handleCreateExcuseAbsenceSolicitationButtonClick(row.date)
                     }
                   >

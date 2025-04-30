@@ -18,7 +18,7 @@ export interface WorkScheduleService {
     startDate: string,
     endDate: string,
     page: number,
-  ): string
+  ): Promise<ApiResponse<PaginationResponse<WorkdayLogDto>>>
   getCollaborationSectorHistory(
     date: string,
     collaboratorName?: string,
@@ -38,7 +38,7 @@ export interface WorkScheduleService {
     time: string,
     timePunchPeriod: TimePunchPeriod,
   ): Promise<ApiResponse<void>>
-  punchTime(timePunchLogId: string, time: string): Promise<ApiResponse<void>>
+  punchTime(workdayLogId: string, time: string): Promise<ApiResponse<void>>
   scheduleDaysOff(
     workdaysCount: number,
     daysOffCount: number,

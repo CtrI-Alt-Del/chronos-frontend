@@ -1,11 +1,10 @@
 import { Button } from '@heroui/button'
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@heroui/modal'
-import { RefObject, useRef, useState } from 'react'
+import { ModalHeader, ModalBody, ModalFooter } from '@heroui/modal'
+import type { RefObject } from 'react'
 import { Dialog } from '@/ui/global/widgets/components/dialog'
-import { FileInput } from '@/ui/global/widgets/components/file-input'
 import { useCreateExcuseAbsenceSolicitationModal } from './use-attachment-upload-modal'
 import { JustificationModal } from '@/ui/global/widgets/components/justification-modal'
-import { DialogRef } from '@/ui/global/widgets/components/dialog/types'
+import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
 
 type AttachmentUploadModalProps = {
   workDayLogDate: string
@@ -16,20 +15,20 @@ export const CreateExcuseAbsenceSolicitationModal = ({
   workDayLogDate,
   ref,
 }: AttachmentUploadModalProps) => {
-  const { handleFileChange, handleSubmit, isLoading,handleJustificationTypeChange,handleDescriptionChange } =
-    useCreateExcuseAbsenceSolicitationModal(workDayLogDate)
+  const {
+    isLoading,
+    handleFileChange,
+    handleSubmit,
+    handleJustificationTypeChange,
+    handleDescriptionChange,
+  } = useCreateExcuseAbsenceSolicitationModal(workDayLogDate)
 
   return (
-    <Dialog
-      ref={ref}
-      trigger={null}
-      size='md'
-      title=''
-    >
+    <Dialog ref={ref} trigger={null} size='md' title=''>
       {(onClose) => (
         <>
           <ModalHeader className='flex justify-center items-center w-full text-lg'>
-            {`Pedir abono de falta para ${workDayLogDate}`}
+            Pedir abono de falta para {workDayLogDate}
           </ModalHeader>
           <ModalBody>
             <JustificationModal

@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 import { CACHE } from '@/@core/global/constants'
 import type { HourBankService } from '@/@core/hour-bank/interfaces'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
@@ -36,7 +34,6 @@ export function useTransactions(
     key: CACHE.hourBank.key(collaboratorId),
     fetcher: fetchHourBank,
     dependencies: [startDate, endDate],
-    fallbackData: fallbackTransactions,
     shouldRefetchOnFocus: true,
   })
 
