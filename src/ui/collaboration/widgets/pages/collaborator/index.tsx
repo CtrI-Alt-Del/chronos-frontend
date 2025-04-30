@@ -28,7 +28,7 @@ export const CollaboratorPage = ({
   const { md } = useBreakpoint()
 
   return (
-    <div className='w-full max-w-5xl mx-auto justify-between mt-3 md:-translate-x-6'>
+    <div className='w-full max-w-6xl mx-auto justify-between mt-3 md:-translate-x-6'>
       <Tabs
         aria-label='Opções'
         selectedKey={activeTab}
