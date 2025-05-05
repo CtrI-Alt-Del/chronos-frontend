@@ -28,6 +28,9 @@ export const CACHE = {
     },
   },
   portal: {
+    dayOffScheduleAdjustmentSolicitations: {
+      key: 'portal/day-off-schedule-adjustment-solicitations',
+    },
     paidOvertimeSolicitations: {
       key: 'portal/paid-overtime-solicitations',
     },

@@ -7,19 +7,20 @@ import type {
   PaidOvertimeSolicitationDto,
   TimePunchLogAdjustmentSolicitationDto,
 } from '../dtos'
+import { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 
 export interface PortalService {
   createDayOffScheduleAdjustmentSolicitation(
-    solicitation: DayOffScheduleAdjustmentSolicitationDto,
+    dayOffSchedule: DayOffScheduleDto
   ): Promise<ApiResponse<void>>
   attachJustificationToSolicitation(
-    solicitationId:string,
-    justificationTypeId:string,
-    justificationTypeName:string,
-    justificationTypeShouldHaveAttachment:string,
-    description:string,
-    attachment?: File
-  ):Promise<ApiResponse<void>>
+    solicitationId: string,
+    justificationTypeId: string,
+    justificationTypeName: string,
+    justificationTypeShouldHaveAttachment: string,
+    description: string,
+    attachment?: File,
+  ): Promise<ApiResponse<void>>
   getJustificationAttachmentUrl(key: string): Promise<
     ApiResponse<{
       url: string
@@ -32,12 +33,18 @@ export interface PortalService {
     dayOff: string,
     workload: number,
     observation?: string,
-    
   ): Promise<ApiResponse<void>>
   approveDayOffSolicitation(
     solicitationId: string,
     feedbackMessage?: string,
   ): Promise<ApiResponse<void>>
+  approveDayOffScheduleAdjustmentSolicitation(
+    solicitationId: string,
+    feedbackMessage?: string,
+  ): Promise<ApiResponse<void>>
+  listDayOffScheduleAdjustmentSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<DayOffScheduleAdjustmentSolicitationDto>>>
   listDayOffSolicitations(
     page: number,
   ): Promise<ApiResponse<PaginationResponse<DayOffSolicitationDto>>>
@@ -49,7 +56,9 @@ export interface PortalService {
   listPaidOvertimeSolicitations(
     page: number,
   ): Promise<ApiResponse<PaginationResponse<PaidOvertimeSolicitationDto>>>
-  createExcusedAbsenceSolicitation(absenceDate: string): Promise<ApiResponse<ExcusedAbsenceSolicitationDto>>
+  createExcusedAbsenceSolicitation(
+    absenceDate: string,
+  ): Promise<ApiResponse<ExcusedAbsenceSolicitationDto>>
   approveExcusedAbsenceSolicitation(
     solicitationId: string,
     feedbackMessage?: string,

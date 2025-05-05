@@ -40,14 +40,14 @@ export const SolicitationTitleView = ({
     <div className='flex flex-col md:flex-row items-center justify-between w-full text-sm lg:text-base'>
       <div className='flex items-center gap-2'>
         <div
-          className={cn('w-3 h-3 rounded-full', INDICATOR_COLORS[solicitationStatus])}
+          className={cn('w-3 h-3 rounded-full', INDICATOR_COLORS[solicitationStatus.toLowerCase()])}
         />
         <span className='text-gray-500 text-sm md:text-lg'>
-          {TITLES[solicitationType]}
+          {TITLES[solicitationType.toLowerCase()]}
         </span>
       </div>
-      <Chip variant='bordered' color={CHIP_COLORS[solicitationStatus]}>
-        {LABELS[solicitationStatus]}
+      <Chip variant='bordered' color={CHIP_COLORS[solicitationStatus.toLowerCase()]}>
+        {LABELS[solicitationStatus.toLowerCase()]}
       </Chip>
     </div>
   )
