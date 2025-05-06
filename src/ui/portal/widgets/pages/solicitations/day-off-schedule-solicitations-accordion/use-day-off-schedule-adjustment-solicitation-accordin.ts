@@ -1,11 +1,15 @@
-
 import { CACHE } from '@/@core/global/constants'
 import type { PortalService } from '@/@core/portal/interfaces'
+import { ROUTES } from '@/constants'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
+import { useRouter } from 'next/navigation'
 
-export function useDayOffScheduleAdjustmentSolicitationAccordn(portalService: PortalService) {
+export function useDayOffScheduleAdjustmentSolicitationAccordn(
+  portalService: PortalService,
+) {
   const { showError, showSuccess } = useToast()
+  const router = useRouter()
 
   async function fetchSolicitations(page: number) {
     const response = await portalService.listDayOffScheduleAdjustmentSolicitations(page)
@@ -18,11 +22,15 @@ export function useDayOffScheduleAdjustmentSolicitationAccordn(portalService: Po
   async function handleSolicitationApprove(
     solicitationId: string,
     feedbackMessage?: string,
+    collaboratorId?: string,
   ) {
     const response = await portalService.approveDayOffScheduleAdjustmentSolicitation(
       solicitationId,
       feedbackMessage,
     )
+    if (collaboratorId) {
+      router.push(ROUTES.collaboration.collaborator(collaboratorId as string))
+    }
     if (response.isFailure) {
       showError(response.errorMessage)
     }
@@ -52,7 +60,7 @@ export function useDayOffScheduleAdjustmentSolicitationAccordn(portalService: Po
     isInfinity: true,
     dependencies: [],
   })
-  console.log(data) 
+  console.log(data)
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,

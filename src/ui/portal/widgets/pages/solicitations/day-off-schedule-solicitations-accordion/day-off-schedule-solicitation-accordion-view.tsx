@@ -7,7 +7,7 @@ import { Input } from '@heroui/input'
 type SolicitationAccordionProps = {
   solicitations: DayOffScheduleAdjustmentSolicitationDto[]
   isLoading: boolean
-  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string,collaboratorId?:string) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
 }
 
