@@ -28,6 +28,9 @@ export const CACHE = {
     },
   },
   portal: {
+    solicitations: {
+      key: 'portal/solicitations',
+    },
     paidOvertimeSolicitations: {
       key: 'portal/paid-overtime-solicitations',
     },
