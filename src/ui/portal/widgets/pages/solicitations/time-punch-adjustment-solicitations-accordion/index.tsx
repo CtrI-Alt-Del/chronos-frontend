@@ -40,7 +40,7 @@ export const TimePunchAdjustmentSolicitationAccordion = ({
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center h-64'>
+      <div className='flex justify-center items-center h-64'>
         <Spinner color='primary' />
       </div>
     )
@@ -48,14 +48,14 @@ export const TimePunchAdjustmentSolicitationAccordion = ({
 
   if (!solicitations || solicitations.length === 0) {
     return (
-      <div className='flex items-center justify-center h-64'>
+      <div className='flex justify-center items-center h-64'>
         <span className='text-gray-500'>Nenhuma solicitação encontrada</span>
       </div>
     )
   }
 
   const renderManagerActions = (solicitation: SolicitationDto) => (
-    <div className='flex flex-col md:flex-row gap-2 mt-2 w-full md:w-fit'>
+    <div className='flex flex-col gap-2 mt-2 w-full md:flex-row md:w-fit'>
       <AlertDialog
         isLoading={isResolvingSolicitation}
         trigger={
@@ -86,7 +86,7 @@ export const TimePunchAdjustmentSolicitationAccordion = ({
   )
 
   return (
-    <Accordion className='border border-gray-border rounded-lg px-4'>
+    <Accordion className='px-4 rounded-lg border border-gray-border'>
       {solicitations.map((solicitation) => {
         const statusInfo = STATUSES[solicitation.status] ?? {
           label: solicitation.status,
@@ -117,12 +117,12 @@ export const TimePunchAdjustmentSolicitationAccordion = ({
             aria-label={`Accordion ${solicitation.id}`}
             indicator={<Icon name='arrow-down' className='w-4 h-4' />}
             title={
-              <div className='flex flex-col md:flex-row items-center justify-between w-full text-sm lg:text-base'>
-                <div className='flex items-center gap-2'>
+              <div className='flex flex-col justify-between items-center w-full text-sm md:flex-row lg:text-base'>
+                <div className='flex gap-2 items-center'>
                   <div
                     className={`w-3 h-3 rounded-full ${statusInfo.color.split(' ')[0]}`}
                   />
-                  <span className='text-gray-500 text-sm md:text-lg'>
+                  <span className='text-sm text-gray-500 md:text-lg'>
                     Pedido pra alteração de ponto do dia{' '}
                     {formatDate(timePunch.workdayLogDate)}
                   </span>
@@ -135,19 +135,19 @@ export const TimePunchAdjustmentSolicitationAccordion = ({
               </div>
             }
             subtitle={
-              <div className='flex flex-col md:flex-row items-center gap-6 mt-2 pl-6'>
-                <span className='text-slate-800 text-sm'>
+              <div className='flex flex-col gap-6 items-center pl-6 mt-2 md:flex-row'>
+                <span className='text-sm text-slate-800'>
                   {formatDate(solicitation.date as Date)}
                 </span>
-                <div className='flex items-center gap-2'>
+                <div className='flex gap-2 items-center'>
                   <Avatar
                     color='primary'
                     isBordered
-                    className='size-3 rounded-full'
+                    className='rounded-full size-3'
                     radius='sm'
                   />
                   <span className='text-slate-800'>
-                    {solicitation.senderResponsible?.dto.name}
+                    {solicitation.senderResponsible?.entity?.name}
                   </span>
                 </div>
                 <span>{reasonText}</span>
@@ -155,7 +155,7 @@ export const TimePunchAdjustmentSolicitationAccordion = ({
               </div>
             }
           >
-            <div className='flex justify-between items-center flex-col md:flex-row'>
+            <div className='flex flex-col justify-between items-center md:flex-row'>
               <div>{timePunch.description}</div>
               {userRole === 'MANAGER' &&
                 solicitation.status === 'PENDING' &&
