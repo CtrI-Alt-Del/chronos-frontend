@@ -10,7 +10,7 @@ type Props<Solicitation extends SolicitationDto> = {
   solicitations: Solicitation[]
   isLoading: boolean
   children: (solicitation: Solicitation) => ReactNode
-  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string,collaboratorId?:string) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
 }
 

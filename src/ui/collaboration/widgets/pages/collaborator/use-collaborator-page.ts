@@ -4,6 +4,8 @@ import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-sto
 import type { Tab } from '@/ui/collaboration/stores/collaborator-store/types/tab'
 import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
+import { useQueryParamString } from '@/ui/global/hooks/use-query-param-string'
+import { useRouter } from 'next/navigation'
 
 export function useCollaboratorPage(
   currentCollaborator?: CollaboratorDto,
@@ -14,6 +16,7 @@ export function useCollaboratorPage(
   const { tab, setTab } = useTabSlice()
   const { collaborator, setCollaborator } = useCollaboratorSlice()
   const { dayOffSchedule, setDayOffSchedule } = useDayOffScheduleSlice()
+  const [currentTab, setCurrentTab] = useQueryParamString('tab')
 
   function handleTabChange(tab: Tab) {
     setTab(tab)
@@ -36,6 +39,9 @@ export function useCollaboratorPage(
       resetStore()
     }
   }, [])
+  useEffect(()=>{
+    setTab(currentTab as Tab)
+  },[currentTab,setTab])
 
   return {
     activeTab: tab,
