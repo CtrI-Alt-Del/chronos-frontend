@@ -12,11 +12,12 @@ import {
   GetHourBankBalanceAction,
   ListHourBankTransactionsAction,
 } from '../actions/hours-bank'
+import { idSchema, stringSchema } from '@/validation/schemas/global'
 
 export const listHourBankTransactions = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
+      collaboratorId: idSchema,
     }),
   )
   .action(async ({ clientInput }) => {
@@ -35,7 +36,7 @@ export const listHourBankTransactions = authActionClient
 export const getHourBankBalance = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
+      collaboratorId: idSchema,
     }),
   )
   .action(async ({ clientInput }) => {
@@ -54,9 +55,9 @@ export const getHourBankBalance = authActionClient
 export const createHourBankTransactionAdjustment = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
-      transactionTime: z.string(),
-      transactionOperation: z.string(),
+      collaboratorId: idSchema,
+      transactionTime: stringSchema,
+      transactionOperation: stringSchema,
     }),
   )
   .action(async ({ clientInput }) => {

@@ -12,22 +12,13 @@ import {
   UpdateCollaboratorAction,
 } from '../actions/collaboration'
 import { CACHE } from '@/@core/global/constants'
-
-const collaboratorSchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  cpf: z.string(),
-  isActive: z.boolean(),
-  role: z.string(),
-  sector: z.string(),
-  workload: z.number(),
-  password: z.string().optional(),
-})
+import { idSchema } from '@/validation/schemas/global/id-schema'
+import { collaboratorSchema } from '@/validation/schemas/work-schedule'
 
 export const getCollaborator = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
+      collaboratorId: idSchema,
     }),
   )
   .action(async ({ clientInput }) => {
@@ -59,7 +50,7 @@ export const getCollaboratorProfile = authActionClient.action(
 export const updateCollaborator = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string().uuid(),
+      collaboratorId: idSchema,
       collaboratorDto: collaboratorSchema,
     }),
   )
