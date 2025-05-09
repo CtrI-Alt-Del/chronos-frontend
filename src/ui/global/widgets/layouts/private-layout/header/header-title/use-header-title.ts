@@ -3,12 +3,38 @@ import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 import { useNavigation } from '@/ui/global/hooks/use-navigation'
 import { useMemo } from 'react'
 
+function createTitleRouter(routes: Record<string, string>) {
+  return {
+    resolve: (path: string) => {
+      if (typeof routes[path] !== 'undefined') {
+        return routes[path]
+      }
+      
+      const matchingPattern = Object.keys(routes)
+        .filter(pattern => pattern.endsWith('*'))
+        .find(pattern => path.startsWith(pattern.slice(0, -1)))
+      
+      if (matchingPattern) {
+        return routes[matchingPattern]
+      }
+      
+      return routes['default'] || 'Página não encontrada'
+    }
+  }
+}
+
 export function useHeaderTitle() {
   const { currentRoute } = useNavigation()
   const { account } = useAuthContext()
 
   const pageTitle = useMemo(() => {
-    const routeTitles: Record<string, string> = {
+    if (!currentRoute) {
+      return 'Página não encontrada'
+    }
+
+    const isManager = account?.role === 'MANAGER' || account?.role === 'ADMIN'
+    
+    const titleRouter = createTitleRouter({
       [ROUTES.workSchedule.timePunch]: 'Registrar ponto',
       [ROUTES.workSchedule.timeCard]: 'Espelho de pontos',
       [ROUTES.report]: 'Relatório analítico',
@@ -20,29 +46,15 @@ export function useHeaderTitle() {
       [ROUTES.collaboration.createCollaborator]: 'Cadastrar colaborador',
       [ROUTES.workSchedule.hoursBank]: 'Banco de horas',
       [ROUTES.portal.justificationTypes]: 'Tipos de Justificativas',
-    }
-
-    if (currentRoute === ROUTES.portal.solicitations) {
-      return account?.role === 'MANAGER' || account?.role === 'ADMIN'
-        ? 'Solicitações do Setor'
-        : 'Minhas Solicitações '
-    }
-    if (currentRoute.startsWith('/hour-bank/')) {
-      return 'Banco de horas'
-    }
-    if (currentRoute.startsWith('/work-schedule/schedules/')) {
-      return 'Escala'
-    }
-
-    if (currentRoute.startsWith('/collaboration/collaborators/create')) {
-      return 'Cadastrar colaborador'
-    }
-
-    if (currentRoute.startsWith('/collaboration/collaborators/')) {
-      return 'Perfil'
-    }
-
-    return routeTitles[currentRoute] || 'Página não encontrada'
+      [ROUTES.portal.solicitations]: isManager ? 'Solicitações do Setor' : 'Minhas Solicitações',
+      '/collaboration/collaborators/create*': 'Cadastrar colaborador',
+      '/collaboration/collaborators/*': 'Perfil',
+      '/hour-bank/*': 'Banco de horas',
+      '/work-schedule/schedules/*': 'Escala',
+      'default': 'Página não encontrada'
+    })
+    
+    return titleRouter.resolve(currentRoute)
   }, [currentRoute, account?.role])
 
   return {
