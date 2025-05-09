@@ -4,14 +4,15 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { useCreateTimePunchAdjustmentSolicitationAction } from '../use-create-time-punch-adjustment-solicitation-action'
+import { descriptionSchema, stringSchema } from '@/validation/schemas/global'
 
 export const timePunchAdjustmentRequestSchema = z
   .object({
-    description: z.string().optional(),
-    workdayLogDate: z.string().nonempty({ message: 'Data do ponto é obrigatória' }),
-    period: z.string().nonempty({ message: 'Período do ponto é obrigatório' }),
-    time: z.string({ message: 'Horário é obrigatório' }),
-    reason: z.string({ message: 'Motivo é obrigatório' }),
+    description: descriptionSchema.optional(),
+    workdayLogDate: stringSchema.nonempty({ message: 'Data do ponto é obrigatória' }),
+    period: stringSchema.nonempty({ message: 'Período do ponto é obrigatório' }),
+    time: stringSchema.nonempty({ message: 'Horário é obrigatório' }),
+    reason: stringSchema.nonempty({ message: 'Motivo é obrigatório' }),
   })
   .refine(
     (data) => {

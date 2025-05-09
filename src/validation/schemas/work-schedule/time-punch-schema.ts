@@ -1,8 +1,9 @@
 import { z } from 'zod'
+import { stringSchema } from '@/validation/schemas/global'
 
 export const timePunchSchema = z.object({
-  firstClockIn: z.string().nullable(),
-  firstClockOut: z.string().nullable(),
-  secondClockIn: z.string().nullable(),
-  secondClockOut: z.string().nullable(),
+  firstClockIn: stringSchema.nullable(),
+  firstClockOut: stringSchema.nullable(),
+  secondClockIn: stringSchema.nullable(),
+  secondClockOut: stringSchema.nullable(),
 })

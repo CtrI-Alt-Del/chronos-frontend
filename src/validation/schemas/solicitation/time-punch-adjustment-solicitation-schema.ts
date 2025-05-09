@@ -1,17 +1,24 @@
 import { z } from 'zod'
 import { responsibleAggregateSchema } from '../global/responsible-aggregate-schema'
+import {
+  dateSchema,
+  descriptionSchema,
+  feedbackMessageSchema,
+  idSchema,
+  stringSchema,
+} from '@/validation/schemas/global'
 
 export const timePunchAdjustmentSolicitationSchema = z.object({
-  id: z.string().optional(),
-  description: z.string().optional(),
-  date: z.coerce.date().optional(),
+  id: idSchema.optional(),
+  description: descriptionSchema.optional(),
+  date: dateSchema.optional(),
   status: z.enum(['PENDING', 'APPROVED', 'DENIED']).optional(),
-  feedbackMessage: z.string().optional(),
+  feedbackMessage: feedbackMessageSchema,
   senderResponsible: responsibleAggregateSchema.optional(),
   replierResponsible: responsibleAggregateSchema.optional(),
   type: z.literal('TIME_PUNCH').optional(),
-  time: z.string(),
-  period: z.string(),
-  workdayLogDate: z.coerce.date(),
-  reason: z.string(),
+  time: stringSchema,
+  period: stringSchema,
+  workdayLogDate: dateSchema,
+  reason: stringSchema,
 })

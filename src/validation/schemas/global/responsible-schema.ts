@@ -1,10 +1,14 @@
-import { z } from "zod"
+import { z } from 'zod'
+import { idSchema } from './id-schema'
+import { emailSchema } from './email-schema'
+import { nameSchema } from './name-schema'
+import { roleSchema } from './role-schema'
+import { sectorSchema } from './sector-schema'
 
 export const responsibleSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  email: z.string().email(),
-  role: z.string(),
-  sector: z.string()
+  id: idSchema,
+  name: nameSchema,
+  email: emailSchema,
+  role: roleSchema,
+  sector: sectorSchema,
 })
-

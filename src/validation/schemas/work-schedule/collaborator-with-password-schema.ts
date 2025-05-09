@@ -1,11 +1,18 @@
 import { z } from 'zod'
+import { cpfSchema } from '@/validation/schemas/global/cpf-schema'
+import { emailSchema } from '@/validation/schemas/global/email-schema'
+import { nameSchema } from '@/validation/schemas/global/name-schema'
+import { passwordSchema } from '@/validation/schemas/global/password-schema'
+import { roleSchema } from '@/validation/schemas/global/role-schema'
+import { sectorSchema } from '@/validation/schemas/global/sector-schema'
+import { booleanSchema } from '@/validation/schemas/global/boolean-schema'
 
 export const collaboratorWithPasswordSchema = z.object({
-  name: z.string().min(3, { message: 'Nome deve ter pelo menos 3 caracteres' }),
-  email: z.string().email({ message: 'Email inválido' }),
-  cpf: z.string(),
-  role: z.string().min(1, { message: 'Cargo é obrigatório' }),
-  sector: z.string().min(1, { message: 'Setor é obrigatório' }),
-  isActive: z.boolean(),
-  password: z.string().min(6, { message: 'Senha deve ter pelo menos 6 caracteres' }),
+  name: nameSchema,
+  email: emailSchema,
+  cpf: cpfSchema,
+  role: roleSchema,
+  sector: sectorSchema,
+  isActive: booleanSchema,
+  password: passwordSchema,
 })

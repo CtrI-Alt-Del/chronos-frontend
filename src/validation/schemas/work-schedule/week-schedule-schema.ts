@@ -1,10 +1,11 @@
 import { z } from 'zod'
 import { timePunchSchema } from './time-punch-schema'
+import { stringSchema } from '@/validation/schemas/global'
 
 export const weekScheduleSchema = z
   .array(
     z.object({
-      weekday: z.string(),
+      weekday: stringSchema,
       timePunch: timePunchSchema,
     }),
   )

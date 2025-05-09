@@ -16,6 +16,7 @@ import {
   UpdateDayOffAction,
 } from '../actions/work-schedule'
 import { GetWorkTimeAction } from '../actions/work-schedule/get-work-time-action'
+import { idSchema, stringSchema } from '@/validation/schemas/global'
 
 const getTodayWorkdayLog = authActionClient.action(async ({ clientInput, ctx }) => {
   const actionServer = NextCall({
@@ -34,7 +35,7 @@ const getTodayWorkdayLog = authActionClient.action(async ({ clientInput, ctx }) 
 export const getTimeCard = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
+      collaboratorId: idSchema,
     }),
   )
   .action(async ({ clientInput }) => {
@@ -52,7 +53,7 @@ export const getTimeCard = authActionClient
 export const getDayOffSchedule = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
+      collaboratorId: idSchema,
     }),
   )
   .action(async ({ clientInput }) => {
@@ -70,7 +71,7 @@ export const getDayOffSchedule = authActionClient
 export const updateDayOffSchedule = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string().uuid(),
+      collaboratorId: idSchema,
       dayOffSchedule: daysOffScheduleSchema,
     }),
   )
@@ -87,8 +88,8 @@ export const updateDayOffSchedule = authActionClient
 const punchTime = authActionClient
   .schema(
     z.object({
-      workdayLogId: z.string(),
-      time: z.string(),
+      workdayLogId: stringSchema,
+      time: stringSchema,
     }),
   )
   .action(async ({ clientInput, ctx }) => {
@@ -107,7 +108,7 @@ const punchTime = authActionClient
 export const getWorkTime = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
+      collaboratorId: idSchema,
     }),
   )
   .action(async ({ clientInput }) => {
