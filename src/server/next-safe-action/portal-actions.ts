@@ -28,6 +28,7 @@ import { timePunchAdjustmentSolicitationSchema } from '@/validation/schemas/soli
 import { CreateDayOffSolicitationAction } from '../actions/solicitation/create-day-off-solicitation'
 import { CreateExcusedAbsenceSolicitation } from '../actions/solicitation/create-excused-absence-solicitation'
 import { AttachJustificationToSolicitationAction } from '../actions/solicitation/attach-justification-to-solicitation-action'
+import { idSchema, descriptionSchema, stringSchema } from '@/validation/schemas/global'
 
 export const createDayOffScheduleAdjustmentSolicitation = authActionClient
   .schema(dayOffScheduleAdjustmentSolicitationSchema)
@@ -82,7 +83,7 @@ export const listJustificationTypes = authActionClient.action(async () => {
 export const deleteJustificaionType = authActionClient
   .schema(
     z.object({
-      justificationTypeId: z.string().uuid(),
+      justificationTypeId: idSchema,
     }),
   )
   .action(async ({ ctx, clientInput }) => {
@@ -99,7 +100,7 @@ export const deleteJustificaionType = authActionClient
 export const updateJustificationType = authActionClient
   .schema(
     z.object({
-      justificationTypeId: z.string().uuid(),
+      justificationTypeId: idSchema,
       justificationType: justificationTypeSchema,
     }),
   )
@@ -150,7 +151,7 @@ export const createPaidOvertimeSolicitation = authActionClient.action(async () =
 export const getAttachmentUrl = authActionClient
   .schema(
     z.object({
-      attachmentKey: z.string(),
+      attachmentKey: stringSchema,
     }),
   )
   .action(async ({ ctx, clientInput }) => {
@@ -164,7 +165,7 @@ export const getAttachmentUrl = authActionClient
     return action.handle(call)
   })
 export const createExcusedAbsenceSolicitation = authActionClient
-  .schema(z.object({ absenceDate: z.string() }))
+  .schema(z.object({ absenceDate: stringSchema }))
   .action(async ({ ctx, clientInput }) => {
     const call = NextCall({
       request: clientInput,
@@ -178,11 +179,11 @@ export const createExcusedAbsenceSolicitation = authActionClient
 export const attachJustificationToSolicitation = authActionClient
   .schema(
     z.object({
-      solicitationId: z.string().uuid(),
-      justificationTypeId: z.string().uuid(),
-      justificationTypeName: z.string(),
-      justificationTypeShouldHaveAttachment: z.string(),
-      description: z.string(),
+      solicitationId: idSchema,
+      justificationTypeId: idSchema,
+      justificationTypeName: stringSchema,
+      justificationTypeShouldHaveAttachment: stringSchema,
+      description: descriptionSchema,
       attachment: z.instanceof(File).optional(),
     }),
   )
