@@ -18,7 +18,11 @@ type Props<Solicitation> = {
   isViewerManager: boolean
   isLoading: boolean
   children: (solicitation: Solicitation) => ReactNode
-  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationApprove: (
+    solicitationId: string,
+    feedbackMessage?: string,
+    collaboratorId?: string,
+  ) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
 }
 
@@ -151,7 +155,11 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
                 <SolicitationActions
                   isLoading={isLoading}
                   onApprove={(feedbackMessage) =>
-                    onSolicitationApprove(String(solicitation.id), feedbackMessage)
+                    onSolicitationApprove(
+                      String(solicitation.id),
+                      feedbackMessage,
+                      String(solicitation.senderResponsible.id),
+                    )
                   }
                   onDeny={(feedbackMessage) =>
                     onSolicitationDeny(String(solicitation.id), feedbackMessage)
