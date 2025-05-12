@@ -1,7 +1,8 @@
-import { z } from "zod";
+import { z } from 'zod'
+import { dayOffSchema } from '@/validation/schemas/global'
+import { workloadSchema } from '@/validation/schemas/work-schedule'
 
 export const createDayOffSolicitationSchema = z.object({
-  dayOff: z.string().min(1, 'Data obrigatória'),
-  workload: z.number().min(1, 'Carga horária obrigatória').optional(),
+  dayOff: dayOffSchema,
+  workload: workloadSchema.optional(),
 })
-

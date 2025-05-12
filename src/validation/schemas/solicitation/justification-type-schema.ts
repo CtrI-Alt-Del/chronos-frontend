@@ -1,7 +1,8 @@
-import { z } from "zod";
+import { z } from 'zod'
+import { idSchema, stringSchema, booleanSchema } from '@/validation/schemas/global'
 
 export const justificationTypeSchema = z.object({
-  id: z.string().optional(),
-  name: z.string(),
-  shouldHaveAttachment: z.boolean(),
+  id: idSchema.optional(),
+  name: stringSchema,
+  shouldHaveAttachment: booleanSchema,
 })

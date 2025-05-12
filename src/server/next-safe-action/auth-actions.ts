@@ -12,6 +12,8 @@ import {
 } from '../actions/auth'
 import { NextServerRestClient } from '@/api/next/clients/next-server-api-client'
 import { AuthService } from '@/api/services/auth-service'
+import { idSchema } from '@/validation/schemas/global/id-schema'
+import { passwordSchema } from '@/validation/schemas/global/password-schema'
 
 export const allowPageForRoles = authActionClient
   .schema(z.array(z.enum(['admin', 'manager', 'employee'])))
@@ -27,8 +29,8 @@ export const allowPageForRoles = authActionClient
 export const updateCollaboratorPassword = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
-      password: z.string(),
+      collaboratorId: idSchema,
+      password: passwordSchema,
     }),
   )
   .action(async ({ clientInput }) => {
@@ -44,7 +46,7 @@ export const updateCollaboratorPassword = authActionClient
 export const enableCollaboratorAccount = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
+      collaboratorId: idSchema,
     }),
   )
   .action(async ({ clientInput }) => {
@@ -60,7 +62,7 @@ export const enableCollaboratorAccount = authActionClient
 export const disableCollaboratorAccount = authActionClient
   .schema(
     z.object({
-      collaboratorId: z.string(),
+      collaboratorId: idSchema,
     }),
   )
   .action(async ({ clientInput }) => {
