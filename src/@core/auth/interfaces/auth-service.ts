@@ -1,7 +1,8 @@
 import type { ApiResponse } from '../../global/responses'
 
 export interface AuthService {
-  login: (email: string, password: string) => Promise<ApiResponse<{ jwt: string }>>
+  login(otpCode: string): Promise<ApiResponse<{ jwt: string }>>
+  requestAuthentication(email: string, password: string): Promise<ApiResponse>
   updateCollaboratorPassword: (
     collaboratorId: string,
     password: string,
