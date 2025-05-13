@@ -6,7 +6,7 @@ import { useQueryParamNumber } from '@/ui/global/hooks/use-query-param-number'
 
 export function usePaidOvertimeSolicitationsAccordion(portalService: PortalService) {
   const { showError, showSuccess } = useToast()
-  const [page] = useQueryParamNumber('page', 1)
+  const [page, setPage] = useQueryParamNumber('page', 1)
 
   async function fetchSolicitations(page: number) {
     const response = await portalService.listPaidOvertimeSolicitations(page)
@@ -47,7 +47,7 @@ export function usePaidOvertimeSolicitationsAccordion(portalService: PortalServi
     }
   }
 
-  const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
+  const { data, isFetching, isRefetching, refetch, pagesCount } = usePaginatedCache({
     fetcher: fetchSolicitations,
     key: CACHE.portal.paidOvertimeSolicitations.key,
     isInfinity: false,
@@ -57,7 +57,10 @@ export function usePaidOvertimeSolicitationsAccordion(portalService: PortalServi
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,
+    currentPage: page,
+    totalPages: pagesCount,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handlePageChange: setPage,
   }
 }
