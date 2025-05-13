@@ -7,24 +7,12 @@ export const SolicitationsPage = () => {
   const { 
     activeTab, 
     handleTabChange,
-    currentPage,
-    totalPages,
-    hasMorePages,
-    handlePreviousPage,
-    handleNextPage,
-    isFetching
   } = useSolicitationsPage()
 
   return (
     <SolicitationsPageView 
       activeTab={activeTab} 
       onTabChange={handleTabChange}
-      currentPage={currentPage}
-      totalPages={totalPages}
-      hasMorePages={hasMorePages}
-      isFetching={isFetching}
-      onPreviousPage={handlePreviousPage}
-      onNextPage={handleNextPage}
     />
   )
 }

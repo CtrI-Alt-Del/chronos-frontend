@@ -9,16 +9,22 @@ export const PaidOvertimeSolicitationsAccordion = () => {
   const {
     solicitations,
     isFetchingSolicitations,
+    currentPage,
+    totalPages,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handlePageChange,
   } = usePaidOvertimeSolicitationsAccordion(portalService)
 
   return (
     <PaidOvertimeSolicitationsAccordionView
       solicitations={solicitations}
       isLoading={isFetchingSolicitations}
+      currentPage={currentPage}
+      totalPages={totalPages}
       onSolicitationApprove={handleSolicitationApprove}
       onSolicitationDeny={handleSolicitationDeny}
+      handlePageChange={handlePageChange}
     />
   )
 }
