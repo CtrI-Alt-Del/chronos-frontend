@@ -1,7 +1,8 @@
+import { useMemo } from 'react'
+
 import { ROUTES } from '@/constants/routes'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
 import { useNavigation } from '@/ui/global/hooks/use-navigation'
-import { useMemo } from 'react'
 
 function createTitleRouter(routes: Record<string, string>) {
   return {
@@ -9,17 +10,17 @@ function createTitleRouter(routes: Record<string, string>) {
       if (typeof routes[path] !== 'undefined') {
         return routes[path]
       }
-      
+
       const matchingPattern = Object.keys(routes)
-        .filter(pattern => pattern.endsWith('*'))
-        .find(pattern => path.startsWith(pattern.slice(0, -1)))
-      
+        .filter((pattern) => pattern.endsWith('*'))
+        .find((pattern) => path.startsWith(pattern.slice(0, -1)))
+
       if (matchingPattern) {
         return routes[matchingPattern]
       }
-      
-      return routes['default'] || 'Página não encontrada'
-    }
+
+      return routes.default || 'Página não encontrada'
+    },
   }
 }
 
@@ -33,7 +34,7 @@ export function useHeaderTitle() {
     }
 
     const isManager = account?.role === 'MANAGER' || account?.role === 'ADMIN'
-    
+
     const titleRouter = createTitleRouter({
       [ROUTES.workSchedule.timePunch]: 'Registrar ponto',
       [ROUTES.workSchedule.timeCard]: 'Espelho de pontos',
@@ -46,14 +47,16 @@ export function useHeaderTitle() {
       [ROUTES.collaboration.createCollaborator]: 'Cadastrar colaborador',
       [ROUTES.workSchedule.hoursBank]: 'Banco de horas',
       [ROUTES.portal.justificationTypes]: 'Tipos de Justificativas',
-      [ROUTES.portal.solicitations]: isManager ? 'Solicitações do Setor' : 'Minhas Solicitações',
+      [ROUTES.portal.solicitations]: isManager
+        ? 'Solicitações do Setor'
+        : 'Minhas Solicitações',
       '/collaboration/collaborators/create*': 'Cadastrar colaborador',
       '/collaboration/collaborators/*': 'Perfil',
       '/hour-bank/*': 'Banco de horas',
       '/work-schedule/schedules/*': 'Escala',
-      'default': 'Página não encontrada'
+      default: 'Página não encontrada',
     })
-    
+
     return titleRouter.resolve(currentRoute)
   }, [currentRoute, account?.role])
 

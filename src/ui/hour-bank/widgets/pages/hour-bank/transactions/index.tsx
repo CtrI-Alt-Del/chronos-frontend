@@ -46,3 +46,5 @@ export function Transactions({ collaboratorId, fallbackTransactions }: Props) {
     />
   )
 }
+
+// Eu apliquei essa estratégia na página de banco de horas e de solicitações e acho que ninguém percebeu
