@@ -11,9 +11,14 @@ export const VerifyJwtMiddleware = (): Controller => {
       const currentRoute = http.getCurrentRoute()
       const isAuthenticated = await http.hasCookie(COOKIES.jwt.key)
       const isPublicRoute = PUBLIC_ROUTES.map(String).includes(currentRoute)
+      const isLoginRoute = currentRoute === ROUTES.auth.login
 
       if (!isAuthenticated && !isPublicRoute) {
         return http.redirect(ROUTES.auth.login)
+      }
+
+      if (isAuthenticated && isLoginRoute) {
+        return http.redirect(ROUTES.root)
       }
 
       return http.pass()
