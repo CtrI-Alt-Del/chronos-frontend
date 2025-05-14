@@ -2,9 +2,11 @@ import { CACHE } from '@/@core/global/constants'
 import type { PortalService } from '@/@core/portal/interfaces'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
+import { useQueryParamNumber } from '@/ui/global/hooks/use-query-param-number'
 
 export function usePaidOvertimeSolicitationsAccordion(portalService: PortalService) {
   const { showError, showSuccess } = useToast()
+  const [page, setPage] = useQueryParamNumber('page', 1)
 
   async function fetchSolicitations(page: number) {
     const response = await portalService.listPaidOvertimeSolicitations(page)
@@ -45,17 +47,20 @@ export function usePaidOvertimeSolicitationsAccordion(portalService: PortalServi
     }
   }
 
-  const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
+  const { data, isFetching, isRefetching, refetch, pagesCount } = usePaginatedCache({
     fetcher: fetchSolicitations,
     key: CACHE.portal.paidOvertimeSolicitations.key,
-    isInfinity: true,
-    dependencies: [],
+    isInfinity: false,
+    dependencies: [page],
   })
 
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,
+    currentPage: page,
+    totalPages: pagesCount,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handlePageChange: setPage,
   }
 }

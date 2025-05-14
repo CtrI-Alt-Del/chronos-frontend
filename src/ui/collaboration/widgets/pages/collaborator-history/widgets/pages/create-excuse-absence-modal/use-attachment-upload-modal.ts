@@ -41,8 +41,8 @@ export function useCreateExcuseAbsenceSolicitationModal(workdayLogDate: string) 
     
     if (!description.trim()) {
       newErrors.description = 'Digite uma descrição'
-    } else if (description.length < 10) {
-      newErrors.description = 'A descrição deve ter pelo menos 10 caracteres'
+    } else if (description.length < 5) {
+      newErrors.description = 'A descrição deve ter pelo menos 5 caracteres'
     }
     
     if (selectedJustificationType?.shouldHaveAttachment && !selectedFile) {
