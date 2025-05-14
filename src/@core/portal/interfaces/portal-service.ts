@@ -77,6 +77,7 @@ export interface PortalService {
   listExcusedAbsenceSolicitations(
     page: number,
   ): Promise<ApiResponse<PaginationResponse<ExcusedAbsenceSolicitationDto>>>
+  cancelSolicitation(solicitationId: string): Promise<ApiResponse<void>>
   denySolicitation(
     solicitationId: string,
     feedbackMessage?: string,
