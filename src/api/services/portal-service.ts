@@ -1,4 +1,3 @@
-import type { DayOffScheduleAdjustmentSolicitationDto } from '@/@core/portal/dtos'
 import type { RestClient } from '@/@core/global/interfaces/rest'
 import type { PortalService as IPortalService } from '@/@core/portal/interfaces'
 
@@ -7,6 +6,19 @@ export const PortalService = (restClient: RestClient): IPortalService => {
   const JUSTIFICATION_TYPE_ROUTE = '/solicitation/justification-type'
 
   return {
+    async approveWithdrawSolicitation(solicitationId, feedbackMessage) {
+      return await restClient.put(
+        `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/withdraw`,
+        {
+          feedbackMessage,
+        },
+      )
+    },
+
+    async listWithdrawSolicitations(page) {
+      restClient.setParam('page', String(page))
+      return await restClient.get(`${SOLICITATIONS_ROUTE}/withdraw`)
+    },
     async listDayOffScheduleAdjustmentSolicitations(page) {
       restClient.setParam('page', String(page))
       return await restClient.get(`${SOLICITATIONS_ROUTE}/day-off-schedule-adjustment`)
@@ -47,13 +59,10 @@ export const PortalService = (restClient: RestClient): IPortalService => {
       return await restClient.get(`${SOLICITATIONS_ROUTE}/attachments/${key}`)
     },
 
-    async createDayOffScheduleAdjustmentSolicitation(
-      dayOffSchedule
-    ) {
-      return await restClient.post(
-        `${SOLICITATIONS_ROUTE}/day-off-schedule-adjustment`,
-        { dayOffSchedule: dayOffSchedule, }
-      )
+    async createDayOffScheduleAdjustmentSolicitation(dayOffSchedule) {
+      return await restClient.post(`${SOLICITATIONS_ROUTE}/day-off-schedule-adjustment`, {
+        dayOffSchedule: dayOffSchedule,
+      })
     },
 
     async createDayOffSolicitation(dayOff, observation?) {

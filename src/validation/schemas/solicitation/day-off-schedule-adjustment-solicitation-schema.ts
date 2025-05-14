@@ -1,6 +1,5 @@
 import { z } from 'zod'
 
-
 import { daysOffScheduleSchema, workScheduleSchema } from '../work-schedule'
 import {
   responsibleAggregateSchema,
