@@ -64,6 +64,9 @@ export interface PortalService {
   listPaidOvertimeSolicitations(
     page: number,
   ): Promise<ApiResponse<PaginationResponse<PaidOvertimeSolicitationDto>>>
+  createWithdrawSolicitation(
+    withdrawalDays: string[],
+  ): Promise<ApiResponse<WithdrawSolicitationDto>>
   createExcusedAbsenceSolicitation(
     absenceDate: string,
   ): Promise<ApiResponse<ExcusedAbsenceSolicitationDto>>

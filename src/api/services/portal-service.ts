@@ -6,6 +6,12 @@ export const PortalService = (restClient: RestClient): IPortalService => {
   const JUSTIFICATION_TYPE_ROUTE = '/solicitation/justification-type'
 
   return {
+    async createWithdrawSolicitation(withdrawalDays) {
+      return await restClient.post(`${SOLICITATIONS_ROUTE}/withdraw`, {
+        withdrawalDays,
+      })
+    },
+
     async approveWithdrawSolicitation(solicitationId, feedbackMessage) {
       return await restClient.put(
         `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/withdraw`,
