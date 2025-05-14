@@ -27,11 +27,14 @@ type Props<Solicitation> = {
   ) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
   handlePageChange: (page: number) => void
+  currentUserId: string
+  onSolicitationCancel: (solicitationId: string) => void
 }
 
 export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>({
   children,
   isViewerManager,
+  currentUserId,
   solicitations,
   isLoading,
   currentPage,
@@ -39,6 +42,7 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
   onSolicitationApprove,
   onSolicitationDeny,
   handlePageChange,
+  onSolicitationCancel,
 }: Props<Solicitation>) => {
   const { formatDate } = useDatetime()
 
@@ -80,7 +84,7 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
   }
 
   return (
-    <div className="space-y-4">
+    <div className='space-y-4'>
       <Accordion className='px-4 rounded-lg border border-gray-border'>
         {solicitations.map((solicitation) => (
           <AccordionItem
@@ -155,33 +159,32 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
                   </div>
                 )}
               </div>
-
               {children(solicitation)}
-
-              {isViewerManager && (
-                <div className='mt-6'>
-                  <SolicitationActions
-                    isLoading={isLoading}
-                    onApprove={(feedbackMessage) =>
-                      onSolicitationApprove(
-                        String(solicitation.id),
-                        feedbackMessage,
-                        String(solicitation.senderResponsible.id),
-                      )
-                    }
-                    onDeny={(feedbackMessage) =>
-                      onSolicitationDeny(String(solicitation.id), feedbackMessage)
-                    }
-                  />
-                </div>
-              )}
+              <div className='mt-6'>
+                <SolicitationActions
+                  isLoading={isLoading}
+                  isManager={isViewerManager}
+                  canCancel={currentUserId === solicitation.senderResponsible.id}
+                  onCancel={() => onSolicitationCancel(String(solicitation.id))}
+                  onApprove={(feedbackMessage) =>
+                    onSolicitationApprove(
+                      String(solicitation.id),
+                      feedbackMessage,
+                      String(solicitation.senderResponsible.id),
+                    )
+                  }
+                  onDeny={(feedbackMessage) =>
+                    onSolicitationDeny(String(solicitation.id), feedbackMessage)
+                  }
+                />
+              </div>
             </div>
           </AccordionItem>
         ))}
       </Accordion>
 
       {totalPages > 1 && (
-        <div className="flex justify-center">
+        <div className='flex justify-center'>
           <Pagination
             showControls
             total={totalPages}

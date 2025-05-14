@@ -33,6 +33,18 @@ export function useDayOffSolicitationsAccordion(portalService: PortalService) {
     }
   }
 
+  async function handleSolicitationCancel(
+    solicitationId: string,
+  ) {
+    const response = await portalService.cancelSolicitation(solicitationId)
+    if (response.isFailure) {
+      showError(response.errorMessage)
+    }
+    if (response.isSuccess) {
+      refetch()
+      showSuccess('Solicitação cancelada com sucesso')
+    }
+  }
   async function handleSolicitationDeny(
     solicitationId: string,
     feedbackMessage?: string,
@@ -61,6 +73,7 @@ export function useDayOffSolicitationsAccordion(portalService: PortalService) {
     totalPages: pagesCount,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handleSolicitationCancel,
     onPageChange: setPage,
   }
 }
