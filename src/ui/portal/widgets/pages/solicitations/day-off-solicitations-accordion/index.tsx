@@ -9,16 +9,22 @@ export const DayOffSolicitationsAccordion = () => {
   const {
     solicitations,
     isFetchingSolicitations,
+    currentPage,
+    totalPages,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    onPageChange,
   } = useDayOffSolicitationsAccordion(portalService)
 
   return (
     <DayOffSolicitationsAccordionView
       solicitations={solicitations}
       isLoading={isFetchingSolicitations}
+      currentPage={currentPage}
+      totalPages={totalPages}
       onSolicitationApprove={handleSolicitationApprove}
       onSolicitationDeny={handleSolicitationDeny}
+      handlePageChange={onPageChange}
     />
   )
 }

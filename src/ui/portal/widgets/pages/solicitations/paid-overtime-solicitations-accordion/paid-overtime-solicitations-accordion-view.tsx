@@ -4,15 +4,21 @@ import { SolicitationsAccordion } from '../solicitations-accordion'
 type Props = {
   solicitations: PaidOvertimeSolicitationDto[]
   isLoading: boolean
+  currentPage: number
+  totalPages: number
   onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
+  handlePageChange: (page: number) => void
 }
 
 export const PaidOvertimeSolicitationsAccordionView = ({
   solicitations,
   isLoading,
+  currentPage,
+  totalPages,
   onSolicitationApprove,
   onSolicitationDeny,
+  handlePageChange,
 }: Props) => {
   return (
     <SolicitationsAccordion
@@ -20,6 +26,9 @@ export const PaidOvertimeSolicitationsAccordionView = ({
       solicitations={solicitations}
       onSolicitationApprove={onSolicitationApprove}
       onSolicitationDeny={onSolicitationDeny}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
     >
       {() => (
         <div className='mt-6'>

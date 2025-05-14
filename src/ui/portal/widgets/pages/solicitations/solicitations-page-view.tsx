@@ -9,7 +9,10 @@ type Props = {
   onTabChange: (tab: string) => void
 }
 
-export const SolicitationsPageView = ({ activeTab, onTabChange }: Props) => {
+export const SolicitationsPageView = ({ 
+  activeTab, 
+  onTabChange,
+}: Props) => {
   return (
     <div>
       <div className='px-10 py-4'>
