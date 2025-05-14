@@ -1,10 +1,8 @@
 import type { ExcusedAbsenceSolicitationDto } from '@/@core/portal/dtos'
 import { portalActions } from '@/server/next-safe-action'
-import { useToast } from '@/ui/global/hooks/use-toast'
 import { useAction } from 'next-safe-action/hooks'
 
 export function useCreateExcuseAbsenceSolicitationAction() {
-  const { showError, showSuccess } = useToast()
   const { executeAsync, isExecuting } = useAction(
     portalActions.createExcusedAbsenceSolicitation,
     {

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { RefObject, useMemo, useState } from 'react'
 
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import { ROUTES } from '@/constants'
@@ -10,12 +10,14 @@ import { useCreateDayOffScheduleSolicitationAction } from './use-create-day-off-
 import { useUpdateDayOffScheduleAction } from './use-update-day-off-schedule-action'
 import { useNavigation } from '@/ui/global/hooks/use-navigation'
 import { useRest } from '@/ui/global/hooks/use-rest'
+import { DialogRef } from '@/ui/global/widgets/components/dialog/types'
 
 const WEEKDAYS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
 
 const TODAY = new Date()
 
 export function useDayOffScheduleTab(
+  dialogRef: RefObject<DialogRef>,
   dayOffSchedule?: DayOffScheduleDto,
   collaboratorId?: string,
 ) {
@@ -44,6 +46,13 @@ export function useDayOffScheduleTab(
   const { isCreatingSolicitation, createDayOffScheduleSolicitation } =
     useCreateDayOffScheduleSolicitationAction()
   const { account } = useAuthContext()
+
+  function handleCreateWithdrawSolicitationButtonClick() {
+    dialogRef.current?.open()
+  }
+  function handleCreateWithdrawSolicitationModalClose() {
+    dialogRef.current?.close()
+  }
 
   const isFormDirty = useMemo(() => {
     if (!dayOffSchedule) return false
@@ -215,5 +224,7 @@ export function useDayOffScheduleTab(
     handleDayButtonClick,
     handleSaveButtonClick,
     handleCreateDayOffScheduleSolicitationButtonClick,
+    handleCreateWithdrawSolicitationButtonClick,
+    handleCreateWithdrawSolicitationModalClose,
   }
 }
