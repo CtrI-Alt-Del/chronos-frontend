@@ -41,8 +41,6 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
   handlePageChange,
 }: Props<Solicitation>) => {
   const { formatDate } = useDatetime()
-  console.log("currentPage", currentPage)
-  console.log("totalPages", totalPages)
 
   if (isLoading) {
     return (
@@ -59,7 +57,6 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
                 <Skeleton className='mr-10 ml-auto w-32 h-6 rounded-full' />
               </div>
             </div>
-
             <div className='pl-5 mt-4 space-y-4'>
               {isViewerManager && (
                 <div className='flex gap-4 ml-7'>
@@ -158,13 +155,19 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
                   </div>
                 )}
               </div>
+
               {children(solicitation)}
+
               {isViewerManager && (
                 <div className='mt-6'>
                   <SolicitationActions
                     isLoading={isLoading}
                     onApprove={(feedbackMessage) =>
-                      onSolicitationApprove(String(solicitation.id), feedbackMessage)
+                      onSolicitationApprove(
+                        String(solicitation.id),
+                        feedbackMessage,
+                        String(solicitation.senderResponsible.id),
+                      )
                     }
                     onDeny={(feedbackMessage) =>
                       onSolicitationDeny(String(solicitation.id), feedbackMessage)
@@ -173,29 +176,14 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
                 </div>
               )}
             </div>
-            {children(solicitation)}
-            {isViewerManager && (
-              <div className='mt-6'>
-                <SolicitationActions
-                  isLoading={isLoading}
-                  onApprove={(feedbackMessage) =>
-                    onSolicitationApprove(
-                      String(solicitation.id),
-                      feedbackMessage,
-                      String(solicitation.senderResponsible.id),
-                    )
-                  }
-                  onDeny={(feedbackMessage) =>
-                    onSolicitationDeny(String(solicitation.id), feedbackMessage)
-                  }
-                />
-              </div>
-            )}
-          </div>
-           {totalPages > 1 && (
+          </AccordionItem>
+        ))}
+      </Accordion>
+
+      {totalPages > 1 && (
         <div className="flex justify-center">
           <Pagination
-            showControls={true}
+            showControls
             total={totalPages}
             initialPage={currentPage}
             page={currentPage}
@@ -204,8 +192,5 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
         </div>
       )}
     </div>
-        </AccordionItem>
-      ))}
-    </Accordion>
   )
 }

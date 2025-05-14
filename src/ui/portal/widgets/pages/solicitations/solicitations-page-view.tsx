@@ -45,7 +45,7 @@ export const SolicitationsPageView = ({
           </Tabs.Item>
           <Tabs.Item
             key='withdraw'
-            title={<Tabs.Title>Solicitações de afastamento</Tabs.Title>}
+            title={<Tabs.Title>Afastamento</Tabs.Title>}
           >
             <WithdrawSolicitationsAccordion />
           </Tabs.Item>
