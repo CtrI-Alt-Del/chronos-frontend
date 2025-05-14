@@ -5,8 +5,15 @@ export const AuthService = (restClient: RestClient): IAuthClient => {
   const MODULE = '/auth'
 
   return {
-    async login(email, password) {
-      return await restClient.post(`${MODULE}/login`, { email, password })
+    async login(otpCode) {
+      return await restClient.post(`${MODULE}/login`, { otpCode })
+    },
+
+    async requestAuthentication(email, password) {
+      return await restClient.post(MODULE, {
+        email,
+        password,
+      })
     },
 
     async enableCollaboratorAccount(collaboratorId) {

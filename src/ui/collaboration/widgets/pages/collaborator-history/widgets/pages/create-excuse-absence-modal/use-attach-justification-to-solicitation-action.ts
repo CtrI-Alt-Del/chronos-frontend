@@ -1,5 +1,4 @@
 import { portalActions } from '@/server/next-safe-action'
-import { attachJustificationToSolicitation } from '@/server/next-safe-action/portal-actions'
 import { useToast } from '@/ui/global/hooks/use-toast'
 import { useAction } from 'next-safe-action/hooks'
 

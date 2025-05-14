@@ -18,16 +18,16 @@ type UseAuthProviderProps = {
 export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
   const accountDto = jwt ? JSON.parse(jwtDecode<Jwt>(jwt).sub) : null
   const [account, setAccount] = useState<AccountDto | null>(accountDto)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(Boolean(jwt))
   const toast = useToast()
   const navigation = useNavigation()
   const cookieActions = useCookieActions()
 
-  async function login(email: string, password: string): Promise<void> {
-    setIsLoading(true)
+  async function login(otpCode: string): Promise<void> {
+    setIsAuthenticating(true)
 
-    const response = await authService.login(email, password)
+    const response = await authService.login(otpCode)
 
     if (response.isFailure) {
       toast.showError(response.errorMessage)
@@ -47,7 +47,7 @@ export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
       navigation.goTo(getRouteByRole(accountDto.role))
     }
 
-    setIsLoading(false)
+    setIsAuthenticating(false)
   }
 
   async function logout() {
@@ -80,7 +80,7 @@ export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
     jwt: jwt ?? null,
     account,
     isAuthenticated,
-    isLoading,
+    isAuthenticating,
     isAdmin: account?.role.toLowerCase() === 'admin',
     isManager: account?.role.toLowerCase() === 'manager',
     isEmployee: account?.role.toLowerCase() === 'employee',

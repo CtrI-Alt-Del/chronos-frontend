@@ -36,6 +36,8 @@ import {
   Hourglass,
   File,
   FileClock,
+  Check,
+  AlertCircle,
 } from 'lucide-react'
 
 export const ICONS: Record<
@@ -45,10 +47,12 @@ export const ICONS: Record<
   users: Users,
   activity: Activity,
   trash: Trash,
+  alert: AlertCircle,
   eye: Eye,
   plus: Plus,
   menu: Menu,
   star: Sparkles,
+  check: Check,
   minus: Minus,
   history: History,
   adjustment: Columns3,
