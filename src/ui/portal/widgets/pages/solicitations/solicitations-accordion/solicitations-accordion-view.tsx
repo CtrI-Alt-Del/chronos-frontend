@@ -20,7 +20,11 @@ type Props<Solicitation> = {
   currentPage: number
   totalPages: number
   children: (solicitation: Solicitation) => ReactNode
-  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationApprove: (
+    solicitationId: string,
+    feedbackMessage?: string,
+    collaboratorId?: string,
+  ) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
   handlePageChange: (page: number) => void
 }
@@ -169,11 +173,26 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
                 </div>
               )}
             </div>
-          </AccordionItem>
-        ))}
-      </Accordion>
-      
-      {totalPages > 1 && (
+            {children(solicitation)}
+            {isViewerManager && (
+              <div className='mt-6'>
+                <SolicitationActions
+                  isLoading={isLoading}
+                  onApprove={(feedbackMessage) =>
+                    onSolicitationApprove(
+                      String(solicitation.id),
+                      feedbackMessage,
+                      String(solicitation.senderResponsible.id),
+                    )
+                  }
+                  onDeny={(feedbackMessage) =>
+                    onSolicitationDeny(String(solicitation.id), feedbackMessage)
+                  }
+                />
+              </div>
+            )}
+          </div>
+           {totalPages > 1 && (
         <div className="flex justify-center">
           <Pagination
             showControls={true}
@@ -185,5 +204,8 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
         </div>
       )}
     </div>
+        </AccordionItem>
+      ))}
+    </Accordion>
   )
 }

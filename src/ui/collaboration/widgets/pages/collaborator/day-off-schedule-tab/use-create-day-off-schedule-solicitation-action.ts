@@ -24,7 +24,7 @@ export function useCreateDayOffScheduleSolicitationAction() {
     description?: string,
   ) {
     await executeAsync({
-      description: description,
+      // description: description,
       dayOffSchedule,
     })
   }

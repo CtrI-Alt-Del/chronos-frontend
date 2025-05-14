@@ -1,15 +1,23 @@
 import { z } from 'zod'
+
+
 import { daysOffScheduleSchema, workScheduleSchema } from '../work-schedule'
-import { responsibleAggregateSchema } from '../global/responsible-aggregate-schema'
+import {
+  responsibleAggregateSchema,
+  idSchema,
+  dateSchema,
+  descriptionSchema,
+  feedbackMessageSchema,
+} from '@/validation/schemas/global'
 
 export const dayOffScheduleAdjustmentSolicitationSchema = z.object({
-  id: z.string().optional(),
-  description: z.string().optional(),
-  date: z.coerce.date().optional(),
+  id: idSchema.optional(),
+  description: descriptionSchema.optional(),
+  date: dateSchema.optional(),
   status: z.enum(['PENDING', 'APPROVED', 'DENIED']).optional(),
-  feedbackMessage: z.string().optional(),
+  feedbackMessage: feedbackMessageSchema,
   senderResponsible: responsibleAggregateSchema.optional(),
   replierResponsible: responsibleAggregateSchema.optional(),
-  type: z.literal('DAY_OFF_SCHEDULE').optional(),
+  type: z.literal('DAY_OFF_SCHEDULE'),
   dayOffSchedule: daysOffScheduleSchema,
 })

@@ -3,8 +3,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useUpdatePasswordAction } from './use-update-password-action'
-
-const passwordSchema = z.string().min(6, 'A senha deve ter pelo menos 8 caracteres')
+import { passwordSchema } from '@/validation/schemas/global/password-schema'
 
 const passwordFormSchema = z
   .object({

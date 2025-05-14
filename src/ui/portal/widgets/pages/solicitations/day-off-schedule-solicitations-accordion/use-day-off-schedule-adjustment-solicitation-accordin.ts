@@ -1,15 +1,18 @@
 import { CACHE } from '@/@core/global/constants'
 import type { PortalService } from '@/@core/portal/interfaces'
+import { ROUTES } from '@/constants'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import { useQueryParamNumber } from '@/ui/global/hooks/use-query-param-number'
+import { useRouter } from 'next/navigation'
 
-export function useDayOffSolicitationsAccordion(portalService: PortalService) {
+export function useDayOffScheduleAdjustmentSolicitationAccordn(
+  portalService: PortalService,
+) {
   const { showError, showSuccess } = useToast()
-  const [page, setPage] = useQueryParamNumber('page', 1)
+  const router = useRouter()
 
   async function fetchSolicitations(page: number) {
-    const response = await portalService.listDayOffSolicitations(page)
+    const response = await portalService.listDayOffScheduleAdjustmentSolicitations(page)
     if (response.isFailure) {
       response.throwError()
     }
@@ -19,11 +22,15 @@ export function useDayOffSolicitationsAccordion(portalService: PortalService) {
   async function handleSolicitationApprove(
     solicitationId: string,
     feedbackMessage?: string,
+    collaboratorId?: string,
   ) {
-    const response = await portalService.approveDayOffSolicitation(
+    const response = await portalService.approveDayOffScheduleAdjustmentSolicitation(
       solicitationId,
       feedbackMessage,
     )
+    if (collaboratorId) {
+      router.push(ROUTES.collaboration.collaborator(collaboratorId as string))
+    }
     if (response.isFailure) {
       showError(response.errorMessage)
     }
@@ -47,20 +54,17 @@ export function useDayOffSolicitationsAccordion(portalService: PortalService) {
     }
   }
 
-  const { data, isFetching, isRefetching, refetch, pagesCount } = usePaginatedCache({
+  const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
     fetcher: fetchSolicitations,
-    key: CACHE.portal.dayOffSolicitations.key,
-    isInfinity: false,
-    dependencies: [page],
+    key: CACHE.portal.dayOffScheduleAdjustmentSolicitations.key,
+    isInfinity: true,
+    dependencies: [],
   })
   console.log(data)
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,
-    currentPage: page,
-    totalPages: pagesCount,
     handleSolicitationApprove,
     handleSolicitationDeny,
-    onPageChange: setPage,
   }
 }
