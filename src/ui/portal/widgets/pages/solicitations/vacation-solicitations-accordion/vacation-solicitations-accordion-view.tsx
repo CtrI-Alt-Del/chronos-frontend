@@ -7,7 +7,7 @@ type Props = {
   isLoading: boolean
   onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
-  // onSolicitationDeny: (solicitationId: string) => void
+  onSolicitationCancel: (solicitationId: string) => void
 }
 
 export const VacationSolicitationsAccordionView = ({
@@ -15,6 +15,7 @@ export const VacationSolicitationsAccordionView = ({
   isLoading,
   onSolicitationApprove,
   onSolicitationDeny,
+  onSolicitationCancel
 }: Props) => {
   return (
     <SolicitationsAccordion
@@ -22,6 +23,7 @@ export const VacationSolicitationsAccordionView = ({
       solicitations={solicitations}
       onSolicitationApprove={onSolicitationApprove}
       onSolicitationDeny={onSolicitationDeny}
+      onSolicitationCancel={onSolicitationCancel}
     >
       {(solicitation) => (
         <div className='mt-6'>

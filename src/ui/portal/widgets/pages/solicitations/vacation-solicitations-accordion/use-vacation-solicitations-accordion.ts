@@ -44,6 +44,16 @@ export function useVacationSolicitationsAccordion(portalService: PortalService) 
       showSuccess('Solicitação negada com sucesso')
     }
   }
+  async function handleSolicitationCancel(solicitationId: string){
+    const response = await portalService.cancelSolicitation(solicitationId)
+    if (response.isFailure) {
+      showError(response.errorMessage)
+    }
+    if (response.isSuccess) {
+      refetch()
+      showSuccess('Solicitação cancelada com sucesso')
+    }
+  }
 
   const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
     fetcher: fetchSolicitations,
@@ -56,5 +66,6 @@ export function useVacationSolicitationsAccordion(portalService: PortalService) 
     isFetchingSolicitations: isFetching || isRefetching,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handleSolicitationCancel,
   }
 }

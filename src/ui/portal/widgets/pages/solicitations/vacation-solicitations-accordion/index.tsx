@@ -11,6 +11,7 @@ export const VacationSolicitationsAccordion = () => {
     isFetchingSolicitations,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handleSolicitationCancel,
   } = useVacationSolicitationsAccordion(portalService)
 
   return (
@@ -19,6 +20,7 @@ export const VacationSolicitationsAccordion = () => {
       isLoading={isFetchingSolicitations}
       onSolicitationApprove={handleSolicitationApprove}
       onSolicitationDeny={handleSolicitationDeny}
+      onSolicitationCancel={handleSolicitationCancel}
     />
   )
 }
