@@ -20,6 +20,7 @@ import {
 } from '../actions/solicitation'
 import {
   createDayOffSolicitationSchema,
+  createWithdrawSolicitationSchema,
   dayOffScheduleAdjustmentSolicitationSchema,
   justificationTypeSchema,
 } from '@/validation/schemas/solicitation'
@@ -29,6 +30,7 @@ import { CreateDayOffSolicitationAction } from '../actions/solicitation/create-d
 import { CreateExcusedAbsenceSolicitation } from '../actions/solicitation/create-excused-absence-solicitation'
 import { AttachJustificationToSolicitationAction } from '../actions/solicitation/attach-justification-to-solicitation-action'
 import { idSchema, descriptionSchema, stringSchema } from '@/validation/schemas/global'
+import { CreateWithdrawSolicitationAction } from '../actions/solicitation/create-withdraw-solicitation-action'
 
 export const createDayOffScheduleAdjustmentSolicitation = authActionClient
   .schema(dayOffScheduleAdjustmentSolicitationSchema)
@@ -195,5 +197,18 @@ export const attachJustificationToSolicitation = authActionClient
     const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = PortalService(apiClient)
     const action = AttachJustificationToSolicitationAction(service)
+    return action.handle(call)
+  })
+
+export const createWithdrawSolicitation = authActionClient
+  .schema(createWithdrawSolicitationSchema)
+  .action(async ({ ctx, clientInput }) => {
+    const call = NextCall({
+      request: clientInput,
+      account: ctx.account,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
+    const service = PortalService(apiClient)
+    const action = CreateWithdrawSolicitationAction(service)
     return action.handle(call)
   })

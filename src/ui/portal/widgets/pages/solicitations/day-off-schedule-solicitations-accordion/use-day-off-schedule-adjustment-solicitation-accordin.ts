@@ -40,6 +40,18 @@ export function useDayOffScheduleAdjustmentSolicitationAccordn(
     }
   }
 
+  async function handleSolicitationCancel(
+    solicitationId: string,
+  ) {
+    const response = await portalService.cancelSolicitation(solicitationId)
+    if (response.isFailure) {
+      showError(response.errorMessage)
+    }
+    if (response.isSuccess) {
+      refetch()
+      showSuccess('Solicitação cancelada com sucesso')
+    }
+  }
   async function handleSolicitationDeny(
     solicitationId: string,
     feedbackMessage?: string,
@@ -53,18 +65,17 @@ export function useDayOffScheduleAdjustmentSolicitationAccordn(
       showSuccess('Solicitação negada com sucesso')
     }
   }
-
   const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
     fetcher: fetchSolicitations,
     key: CACHE.portal.dayOffScheduleAdjustmentSolicitations.key,
     isInfinity: true,
     dependencies: [],
   })
-  console.log(data)
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handleSolicitationCancel,
   }
 }

@@ -1,10 +1,10 @@
 'use client'
 
 import { useRest } from '@/ui/global/hooks/use-rest'
-import { WithdrawSolicitationsAccordionView } from './withdraw-solicitations-accordion-view'
-import { useWithdrawSolicitationsAccordion } from './use-withdraw-solicitations-accordion'
+import { useVacationSolicitationsAccordion } from './use-vacation-solicitations-accordion'
+import { VacationSolicitationsAccordionView } from './vacation-solicitations-accordion-view'
 
-export const WithdrawSolicitationsAccordion = () => {
+export const VacationSolicitationsAccordion = () => {
   const { portalService } = useRest()
   const {
     solicitations,
@@ -12,10 +12,10 @@ export const WithdrawSolicitationsAccordion = () => {
     handleSolicitationApprove,
     handleSolicitationDeny,
     handleSolicitationCancel,
-  } = useWithdrawSolicitationsAccordion(portalService)
+  } = useVacationSolicitationsAccordion(portalService)
 
   return (
-    <WithdrawSolicitationsAccordionView
+    <VacationSolicitationsAccordionView
       solicitations={solicitations}
       isLoading={isFetchingSolicitations}
       onSolicitationApprove={handleSolicitationApprove}

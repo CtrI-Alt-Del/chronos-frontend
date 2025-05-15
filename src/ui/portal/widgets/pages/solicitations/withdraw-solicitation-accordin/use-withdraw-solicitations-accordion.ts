@@ -45,6 +45,17 @@ export function useWithdrawSolicitationsAccordion(portalService: PortalService) 
     }
   }
 
+  async function handleSolicitationCancel(solicitationId: string) {
+    console.log(solicitationId, 'banana legal grande')
+    const response = await portalService.cancelSolicitation(solicitationId)
+    if (response.isFailure) {
+      showError(response.errorMessage)
+    }
+    if (response.isSuccess) {
+      refetch()
+      showSuccess('Solicitação cancelada com sucesso')
+    }
+  }
   const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
     fetcher: fetchSolicitations,
     key: CACHE.portal.dayOffSolicitations.key,
@@ -56,5 +67,6 @@ export function useWithdrawSolicitationsAccordion(portalService: PortalService) 
     isFetchingSolicitations: isFetching || isRefetching,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handleSolicitationCancel,
   }
 }
