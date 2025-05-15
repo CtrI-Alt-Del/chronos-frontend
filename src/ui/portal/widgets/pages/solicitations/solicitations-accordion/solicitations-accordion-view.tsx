@@ -128,37 +128,38 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
               {solicitation.justification && (
                 <Justification justification={solicitation.justification} />
               )}
-              <div>
-                {solicitation.description && (
+
+              {solicitation.description && (
+                <Textarea
+                  label='Observação'
+                  defaultValue={solicitation.description}
+                  isReadOnly
+                />
+              )}
+
+              {solicitation.feedbackMessage && (
+                <div>
                   <Textarea
-                    label='Observação'
-                    defaultValue={solicitation.description}
+                    label='Mensagem de feedback'
+                    defaultValue={solicitation.feedbackMessage}
                     isReadOnly
                   />
-                )}
-                {solicitation.feedbackMessage && (
-                  <div>
-                    <Textarea
-                      label='Mensagem de feedback'
-                      defaultValue={solicitation.feedbackMessage}
-                      isReadOnly
+                  <div className='flex gap-2 items-center mt-3 text-sm text-slate-700'>
+                    Gerente responsável:
+                    <Avatar
+                      color='primary'
+                      isBordered
+                      className='rounded-full size-3'
+                      radius='sm'
                     />
-                    <div className='flex gap-2 items-center mt-3 text-sm text-slate-700'>
-                      Gerente responsável:
-                      <Avatar
-                        color='primary'
-                        isBordered
-                        className='rounded-full size-3'
-                        radius='sm'
-                      />
-                      <span>
-                        {solicitation.replierResponsible?.entity?.name} |{' '}
-                        {solicitation.replierResponsible?.entity?.email}
-                      </span>
-                    </div>
+                    <span>
+                      {solicitation.replierResponsible?.entity?.name} |{' '}
+                      {solicitation.replierResponsible?.entity?.email}
+                    </span>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
+
               {children(solicitation)}
               <div className='mt-6'>
                 <SolicitationActions

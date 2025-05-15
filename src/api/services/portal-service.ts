@@ -160,5 +160,17 @@ export const PortalService = (restClient: RestClient): IPortalService => {
     async deleteJustificationType(id) {
       return await restClient.delete(`${JUSTIFICATION_TYPE_ROUTE}/${id}`)
     },
+    async listVacationSolicitations(page) {
+      restClient.setParam('page', String(page))
+      return await restClient.get(`${SOLICITATIONS_ROUTE}/vacation`)
+    },
+    async approveVacationSolicitation(solicitationId, feedbackMessage) {
+      return await restClient.put(
+        `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/vacation`,
+        {
+          feedbackMessage,
+        },
+      )
+    },
   }
 }
