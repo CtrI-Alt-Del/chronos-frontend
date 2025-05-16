@@ -5,8 +5,19 @@ import { Dialog } from '@/ui/global/widgets/components/dialog'
 import { Icon } from '@/ui/global/widgets/components/Icon'
 import { Button } from '@heroui/button'
 import { DateRangePicker } from '@heroui/date-picker'
+import type { DateValue, RangeValue } from '@heroui/react'
 
-export const VacationSolicitationDialogView = () => {
+type VacationSolicitationDialogViewProps = {
+  onSubmit: () => void
+  isSubmitting: boolean
+  handleDatesChange: (value: RangeValue<DateValue> | null) => void
+}
+
+export const VacationSolicitationDialogView = ({
+  onSubmit,
+  isSubmitting,
+  handleDatesChange,
+}: VacationSolicitationDialogViewProps) => {
   return (
     <Dialog
       title='Solicitacao de Ferias'
@@ -27,23 +38,24 @@ export const VacationSolicitationDialogView = () => {
           <DateRangePicker
             label='Dias de ferias'
             minValue={today(getLocalTimeZone())}
-            onChange={() => {}}
+            onChange={handleDatesChange}
           />
           <div className='flex justify-center items-center gap-4 mt-4'>
             <Button
               className='w-40'
               color='danger'
               onPress={() => onCancel()}
-              isDisabled={false}
+              isDisabled={isSubmitting}
             >
               Cancelar
             </Button>
             <Button
               className='w-40'
               color='primary'
-              onPress={() => {}}
-              isLoading={false}
-              isDisabled={false}
+              type='submit'
+              onPress={onSubmit}
+              isLoading={isSubmitting}
+              isDisabled={isSubmitting}
             >
               Enviar
             </Button>

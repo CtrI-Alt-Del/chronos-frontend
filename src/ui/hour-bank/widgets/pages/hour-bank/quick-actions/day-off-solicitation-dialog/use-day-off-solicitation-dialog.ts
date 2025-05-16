@@ -15,8 +15,6 @@ export function useDayOffSolicitationDialog(workload:number) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setValue,
-    watch,
   } = useForm<DayOffFormData>({
     resolver: zodResolver(createDayOffSolicitationSchema),
     mode: 'onSubmit',
