@@ -6,6 +6,9 @@ import { Input } from '@heroui/input'
 
 import { useDayOffScheduleTab } from './use-day-off-schedule-tab'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
+import { useRef } from 'react'
+import { DialogRef } from '@/ui/global/widgets/components/dialog/types'
+import { CreateWithdrawSolicitationModal } from './create-withdraw-solicitation-modal'
 
 type DayOffScheduleProps = {
   dayOffSchedule?: DayOffScheduleDto
@@ -16,6 +19,7 @@ export const DayOffScheduleTab = ({
   dayOffSchedule,
   collaboratorId,
 }: DayOffScheduleProps) => {
+  const withDrawSolicitationRef = useRef<DialogRef>(null)
   const {
     error,
     workdaysCount,
@@ -35,33 +39,45 @@ export const DayOffScheduleTab = ({
     handleDaysOffSchedule,
     handleDayButtonClick,
     handleCreateDayOffScheduleSolicitationButtonClick,
-  } = useDayOffScheduleTab(dayOffSchedule, collaboratorId)
+    handleCreateWithdrawSolicitationButtonClick,
+    handleCreateWithdrawSolicitationModalClose,
+  } = useDayOffScheduleTab(withDrawSolicitationRef, dayOffSchedule, collaboratorId)
 
   return (
     <div>
-      {!isEmployee ? (
+      <div className='flex justify-between'>
+        {!isEmployee ? (
+          <Button
+            color='primary'
+            size='md'
+            onPress={handleSaveButtonClick}
+            isDisabled={isSaveButtonDisabled}
+            isLoading={isLoading}
+            className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
+          >
+            Salvar jornada
+          </Button>
+        ) : (
+          <Button
+            color='primary'
+            size='md'
+            onPress={handleCreateDayOffScheduleSolicitationButtonClick}
+            isDisabled={isCreateDayOffSolicitationButtonDisabled}
+            isLoading={isLoading}
+            className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
+          >
+            Criar solicitacao de troca de jornada
+          </Button>
+        )}
         <Button
           color='primary'
           size='md'
-          onPress={handleSaveButtonClick}
-          isDisabled={isSaveButtonDisabled}
-          isLoading={isLoading}
+          onPress={handleCreateWithdrawSolicitationButtonClick}
           className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
         >
-          Salvar jornada
+          Criar pedido de afastamento
         </Button>
-      ) : (
-        <Button
-          color='primary'
-          size='md'
-          onPress={handleCreateDayOffScheduleSolicitationButtonClick}
-          isDisabled={isCreateDayOffSolicitationButtonDisabled}
-          isLoading={isLoading}
-          className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
-        >
-          Criar solicitacao de troca de jornada
-        </Button>
-      )}
+      </div>
       <div className='flex flex-col mb-4 md:flex-row'>
         <div className='flex gap-2 items-center'>
           <Input
@@ -148,6 +164,7 @@ export const DayOffScheduleTab = ({
           )
         })}
       </div>
+      <CreateWithdrawSolicitationModal ref={withDrawSolicitationRef} />
     </div>
   )
 }
