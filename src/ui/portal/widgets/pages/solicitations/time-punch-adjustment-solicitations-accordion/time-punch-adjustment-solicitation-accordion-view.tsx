@@ -1,169 +1,54 @@
-'use client'
+import type { TimePunchLogAdjustmentSolicitationDto } from '@/@core/portal/dtos'
+import { today, getLocalTimeZone } from '@internationalized/date'
+import { parseISO, isSameDay } from 'date-fns'
+import { SolicitationsAccordion } from '../solicitations-accordion'
+import { Input } from '@heroui/input'
+import { DateRangeCalendar } from '@/ui/global/widgets/components/date-range-calendar'
 
-import type {
-  SolicitationDto,
-  TimePunchLogAdjustmentSolicitationDto,
-} from '@/@core/portal/dtos'
-import { useDatetime } from '@/ui/global/hooks/use-datetime'
-import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
-import { Icon } from '@/ui/global/widgets/components/Icon'
-import { Accordion, AccordionItem } from '@heroui/accordion'
-import { Avatar } from '@heroui/avatar'
-import { Button } from '@heroui/button'
-import { Spinner } from '@heroui/spinner'
-
-export const STATUSES: Record<string, { label: string; color: string }> = {
-  PENDING: { label: 'Pendente', color: 'bg-yellow-500 text-yellow-500' },
-  APPROVED: { label: 'Aprovado', color: 'bg-green-500 text-green-500' },
-  DENIED: { label: 'Negado', color: 'bg-red-500 text-red-500' },
-}
-
-export const REASON_TEXT_MAP: Record<string, string> = {
-  SICK: 'Estava doente',
-  FORGOTTEN: 'Esqueci de bater o ponto',
-  UNWANTED: 'Bati sem querer',
-  OTHER: 'Outro',
-}
-
-export const PERIOD_TEXT_MAP: Record<string, string> = {
-  FIRST_CLOCK_IN: 'Primeira Entrada',
-  FIRST_CLOCK_OUT: 'Primeira Saída',
-  SECOND_CLOCK_IN: 'Segunda Entrada',
-  SECOND_CLOCK_OUT: 'Segunda Saída',
-}
-
-type SolicitationAccordionViewProps = {
-  solicitations: TimePunchLogAdjustmentSolicitationDto[] | null
+type Props = {
+  solicitations: TimePunchLogAdjustmentSolicitationDto[]
   isLoading: boolean
-  userRole: string
-  isResolvingSolicitation: boolean
-  handleDeny: (solicitation: SolicitationDto) => void
-  handleApprove: (solicitation: SolicitationDto) => void
+  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
 }
 
-export const TimePunchAdjustmentSolicitationAccordionView = ({
-  userRole,
+export const TimePunchAdjustmentSolicitationsAccordionView = ({
   solicitations,
   isLoading,
-  isResolvingSolicitation,
-  handleDeny,
-  handleApprove,
-}: SolicitationAccordionViewProps) => {
-  const { formatDate } = useDatetime()
-
-  if (isLoading) {
-    return (
-      <div className='flex justify-center items-center h-64'>
-        <Spinner color='primary' />
-      </div>
-    )
-  }
-
-  if (!solicitations || solicitations.length === 0) {
-    return (
-      <div className='flex justify-center items-center h-64'>
-        <span className='text-gray-500'>Nenhuma solicitação encontrada</span>
-      </div>
-    )
-  }
-
+  onSolicitationApprove,
+  onSolicitationDeny,
+}: Props) => {
   return (
-    <Accordion className='px-4 rounded-lg border border-gray-border'>
-      {solicitations.map((solicitation) => {
-        const statusInfo = STATUSES[solicitation.status] ?? {
-          label: solicitation.status,
-          color: 'bg-gray-500 text-gray-500',
-        }
-        const timePunch = solicitation as TimePunchLogAdjustmentSolicitationDto
-
-        const reasonText =
-          REASON_TEXT_MAP[timePunch.reason] || timePunch.reason
-
-        const periodText =
-          PERIOD_TEXT_MAP[timePunch.period] || timePunch.period
-
-        return (
-          <AccordionItem
-            key={solicitation.id}
-            hideIndicator={userRole === 'EMPLOYEE'}
-            aria-label={`Accordion ${solicitation.id}`}
-            indicator={<Icon name='arrow-down' className='w-4 h-4' />}
-            title={
-              <div className='flex flex-col justify-between items-center w-full text-sm md:flex-row lg:text-base'>
-                <div className='flex gap-2 items-center'>
-                  <div
-                    className={`w-3 h-3 rounded-full ${statusInfo.color.split(' ')[0]}`}
-                  />
-                  <span className='text-sm text-gray-500 md:text-lg'>
-                    Pedido pra alteração de ponto do dia{' '}
-                    {formatDate(timePunch.workdayLogDate)}
-                  </span>
-                </div>
-                <span
-                  className={`block translate-y-3 text-base ${statusInfo.color.split(' ')[1]}`}
-                >
-                  {statusInfo.label}
-                </span>
-              </div>
-            }
-            subtitle={
-              <div className='flex flex-col gap-6 items-center pl-6 mt-2 md:flex-row'>
-                <span className='text-sm text-slate-800'>
-                  {formatDate(solicitation.date as Date)}
-                </span>
-                <div className='flex gap-2 items-center'>
-                  <Avatar
-                    color='primary'
-                    isBordered
-                    className='rounded-full size-3'
-                    radius='sm'
-                  />
-                  <span className='text-slate-800'>
-                    {solicitation.senderResponsible?.entity?.name}
-                  </span>
-                </div>
-                <span>{reasonText}</span>
-                <span>{periodText}</span>
-              </div>
-            }
-          >
-            <div className='flex flex-col justify-between items-center md:flex-row'>
-              <div>{timePunch.description}</div>
-              {userRole === 'MANAGER' &&
-                solicitation.status === 'PENDING' && (
-                  <div className='flex flex-col gap-2 mt-2 w-full md:flex-row md:w-fit'>
-                    <AlertDialog
-                      isLoading={isResolvingSolicitation}
-                      trigger={
-                        <Button color='success' className='text-white' size='sm'>
-                          Aprovar
-                        </Button>
-                      }
-                      onCancel={() => {}}
-                      title='ALERTA'
-                      onConfirm={() => handleApprove(solicitation)}
-                    >
-                      Você tem certeza que deseja aprovar essa solicitação?
-                    </AlertDialog>
-                    <AlertDialog
-                      isLoading={isResolvingSolicitation}
-                      trigger={
-                        <Button color='danger' size='sm'>
-                          Negar
-                        </Button>
-                      }
-                      onCancel={() => {}}
-                      title='ALERTA'
-                      onConfirm={() => handleDeny(solicitation)}
-                    >
-                      Você tem certeza que deseja negar essa solicitação?
-                    </AlertDialog>
-                  </div>
-                )}
-            </div>
-          </AccordionItem>
-        )
-      })}
-    </Accordion>
+    <SolicitationsAccordion
+      isLoading={isLoading}
+      solicitations={solicitations}
+      onSolicitationApprove={onSolicitationApprove}
+      onSolicitationDeny={onSolicitationDeny}
+    >
+      {(solicitation) => (
+        <div className='mt-6'>
+          <div className="flex gap-4">
+            <Input
+              type="date"
+              value={solicitation.date.toDateString()}
+              readOnly
+              label="Data"
+            />
+            <Input
+              type="time"
+              value={solicitation.time}
+              readOnly
+              label="Horário"
+            />
+            <Input
+              type="text"
+              value={solicitation.period}
+              readOnly
+              label="Período"
+            />
+          </div>
+        </div>
+      )}
+    </SolicitationsAccordion>
   )
-} 
+}
