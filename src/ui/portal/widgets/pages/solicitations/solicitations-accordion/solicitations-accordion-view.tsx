@@ -161,6 +161,7 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
               )}
 
               {children(solicitation)}
+
               <div className='mt-6'>
                 <SolicitationActions
                   isLoading={isLoading}
