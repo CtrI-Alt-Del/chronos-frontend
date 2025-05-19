@@ -2,14 +2,12 @@ import { CACHE } from '@/@core/global/constants'
 import type { PortalService } from '@/@core/portal/interfaces'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import { useQueryParamNumber } from '@/ui/global/hooks/use-query-param-number'
 
-export function useDayOffSolicitationsAccordion(portalService: PortalService) {
+export function useVacationSolicitationsAccordion(portalService: PortalService) {
   const { showError, showSuccess } = useToast()
-  const [page, setPage] = useQueryParamNumber('page', 1)
 
   async function fetchSolicitations(page: number) {
-    const response = await portalService.listDayOffSolicitations(page)
+    const response = await portalService.listVacationSolicitations(page)
     if (response.isFailure) {
       response.throwError()
     }
@@ -20,7 +18,7 @@ export function useDayOffSolicitationsAccordion(portalService: PortalService) {
     solicitationId: string,
     feedbackMessage?: string,
   ) {
-    const response = await portalService.approveDayOffSolicitation(
+    const response = await portalService.approveVacationSolicitation(
       solicitationId,
       feedbackMessage,
     )
@@ -33,18 +31,6 @@ export function useDayOffSolicitationsAccordion(portalService: PortalService) {
     }
   }
 
-  async function handleSolicitationCancel(
-    solicitationId: string,
-  ) {
-    const response = await portalService.cancelSolicitation(solicitationId)
-    if (response.isFailure) {
-      showError(response.errorMessage)
-    }
-    if (response.isSuccess) {
-      refetch()
-      showSuccess('Solicitação cancelada com sucesso')
-    }
-  }
   async function handleSolicitationDeny(
     solicitationId: string,
     feedbackMessage?: string,
@@ -58,22 +44,28 @@ export function useDayOffSolicitationsAccordion(portalService: PortalService) {
       showSuccess('Solicitação negada com sucesso')
     }
   }
+  async function handleSolicitationCancel(solicitationId: string){
+    const response = await portalService.cancelSolicitation(solicitationId)
+    if (response.isFailure) {
+      showError(response.errorMessage)
+    }
+    if (response.isSuccess) {
+      refetch()
+      showSuccess('Solicitação cancelada com sucesso')
+    }
+  }
 
-  const { data, isFetching, isRefetching, refetch, pagesCount } = usePaginatedCache({
+  const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
     fetcher: fetchSolicitations,
-    key: CACHE.portal.dayOffSolicitations.key,
-    isInfinity: false,
-    dependencies: [page],
+    key: CACHE.portal.vacationSolicitations.key,
+    isInfinity: true,
+    dependencies: [],
   })
-  console.log(data)
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,
-    currentPage: page,
-    totalPages: pagesCount,
     handleSolicitationApprove,
     handleSolicitationDeny,
     handleSolicitationCancel,
-    onPageChange: setPage,
   }
 }

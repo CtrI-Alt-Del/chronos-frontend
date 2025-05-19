@@ -6,6 +6,16 @@ export const PortalService = (restClient: RestClient): IPortalService => {
   const JUSTIFICATION_TYPE_ROUTE = '/solicitation/justification-type'
 
   return {
+    async cancelSolicitation(solicitationId) {
+      return await restClient.patch(`${SOLICITATIONS_ROUTE}/${solicitationId}/cancel`)
+    },
+
+    async createWithdrawSolicitation(withdrawalDays) {
+      return await restClient.post(`${SOLICITATIONS_ROUTE}/withdraw`, {
+        withdrawalDays,
+      })
+    },
+
     async approveWithdrawSolicitation(solicitationId, feedbackMessage) {
       return await restClient.put(
         `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/withdraw`,
@@ -149,6 +159,18 @@ export const PortalService = (restClient: RestClient): IPortalService => {
 
     async deleteJustificationType(id) {
       return await restClient.delete(`${JUSTIFICATION_TYPE_ROUTE}/${id}`)
+    },
+    async listVacationSolicitations(page) {
+      restClient.setParam('page', String(page))
+      return await restClient.get(`${SOLICITATIONS_ROUTE}/vacation`)
+    },
+    async approveVacationSolicitation(solicitationId, feedbackMessage) {
+      return await restClient.put(
+        `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/vacation`,
+        {
+          feedbackMessage,
+        },
+      )
     },
   }
 }

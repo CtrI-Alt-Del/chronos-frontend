@@ -20,7 +20,7 @@ export const DateRangeCalendar = ({ days }: Props) => {
           end: maxDate,
         }}
         isReadOnly
-        className='pointer-events-none opacity-70'
+        className=' opacity-70'
       />
     </div>
   )

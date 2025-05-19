@@ -27,11 +27,14 @@ type Props<Solicitation> = {
   ) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
   handlePageChange: (page: number) => void
+  currentUserId: string
+  onSolicitationCancel: (solicitationId: string) => void
 }
 
 export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>({
   children,
   isViewerManager,
+  currentUserId,
   solicitations,
   isLoading,
   currentPage,
@@ -39,10 +42,9 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
   onSolicitationApprove,
   onSolicitationDeny,
   handlePageChange,
+  onSolicitationCancel,
 }: Props<Solicitation>) => {
   const { formatDate } = useDatetime()
-  console.log("currentPage", currentPage)
-  console.log("totalPages", totalPages)
 
   if (isLoading) {
     return (
@@ -59,7 +61,6 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
                 <Skeleton className='mr-10 ml-auto w-32 h-6 rounded-full' />
               </div>
             </div>
-
             <div className='pl-5 mt-4 space-y-4'>
               {isViewerManager && (
                 <div className='flex gap-4 ml-7'>
@@ -83,7 +84,7 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
   }
 
   return (
-    <div className="space-y-4">
+    <div className='space-y-4'>
       <Accordion className='px-4 rounded-lg border border-gray-border'>
         {solicitations.map((solicitation) => (
           <AccordionItem
@@ -127,57 +128,46 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
               {solicitation.justification && (
                 <Justification justification={solicitation.justification} />
               )}
-              <div>
-                {solicitation.description && (
+
+              {solicitation.description && (
+                <Textarea
+                  label='Observação'
+                  defaultValue={solicitation.description}
+                  isReadOnly
+                />
+              )}
+
+              {solicitation.feedbackMessage && (
+                <div>
                   <Textarea
-                    label='Observação'
-                    defaultValue={solicitation.description}
+                    label='Mensagem de feedback'
+                    defaultValue={solicitation.feedbackMessage}
                     isReadOnly
                   />
-                )}
-                {solicitation.feedbackMessage && (
-                  <div>
-                    <Textarea
-                      label='Mensagem de feedback'
-                      defaultValue={solicitation.feedbackMessage}
-                      isReadOnly
+                  <div className='flex gap-2 items-center mt-3 text-sm text-slate-700'>
+                    Gerente responsável:
+                    <Avatar
+                      color='primary'
+                      isBordered
+                      className='rounded-full size-3'
+                      radius='sm'
                     />
-                    <div className='flex gap-2 items-center mt-3 text-sm text-slate-700'>
-                      Gerente responsável:
-                      <Avatar
-                        color='primary'
-                        isBordered
-                        className='rounded-full size-3'
-                        radius='sm'
-                      />
-                      <span>
-                        {solicitation.replierResponsible?.entity?.name} |{' '}
-                        {solicitation.replierResponsible?.entity?.email}
-                      </span>
-                    </div>
+                    <span>
+                      {solicitation.replierResponsible?.entity?.name} |{' '}
+                      {solicitation.replierResponsible?.entity?.email}
+                    </span>
                   </div>
-                )}
-              </div>
-              {children(solicitation)}
-              {isViewerManager && (
-                <div className='mt-6'>
-                  <SolicitationActions
-                    isLoading={isLoading}
-                    onApprove={(feedbackMessage) =>
-                      onSolicitationApprove(String(solicitation.id), feedbackMessage)
-                    }
-                    onDeny={(feedbackMessage) =>
-                      onSolicitationDeny(String(solicitation.id), feedbackMessage)
-                    }
-                  />
                 </div>
               )}
-            </div>
-            {children(solicitation)}
-            {isViewerManager && (
+
+              {children(solicitation)}
+
               <div className='mt-6'>
                 <SolicitationActions
                   isLoading={isLoading}
+                  isManager={isViewerManager}
+                  canCancel={currentUserId === solicitation.senderResponsible.id}
+                  onCancel={() => onSolicitationCancel(String(solicitation.id))}
                   onApprove={(feedbackMessage) =>
                     onSolicitationApprove(
                       String(solicitation.id),
@@ -190,14 +180,15 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
                   }
                 />
               </div>
-            )}
+            </div>
           </AccordionItem>
         ))}
       </Accordion>
+
       {totalPages > 1 && (
-        <div className="flex justify-center">
+        <div className='flex justify-center'>
           <Pagination
-            showControls={true}
+            showControls
             total={totalPages}
             initialPage={currentPage}
             page={currentPage}

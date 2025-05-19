@@ -4,16 +4,14 @@ import { ExcusedAbsenceSolicitationsAccordion } from './excused-absence-solicita
 import { DayOffSolicitationsAccordion } from './day-off-solicitations-accordion'
 import { DayOffScheduleAdjustmentSolicitationsAccordion } from './day-off-schedule-solicitations-accordion'
 import { WithdrawSolicitationsAccordion } from './withdraw-solicitation-accordin'
+import { VacationSolicitationsAccordion } from './vacation-solicitations-accordion'
 
 type Props = {
   activeTab: string
   onTabChange: (tab: string) => void
 }
 
-export const SolicitationsPageView = ({ 
-  activeTab, 
-  onTabChange,
-}: Props) => {
+export const SolicitationsPageView = ({ activeTab, onTabChange }: Props) => {
   return (
     <div>
       <div className='px-10 py-4'>
@@ -45,9 +43,12 @@ export const SolicitationsPageView = ({
           </Tabs.Item>
           <Tabs.Item
             key='withdraw'
-            title={<Tabs.Title>Solicitações de afastamento</Tabs.Title>}
+            title={<Tabs.Title>Afastamento</Tabs.Title>}
           >
             <WithdrawSolicitationsAccordion />
+          </Tabs.Item>
+          <Tabs.Item key='vacation' title={<Tabs.Title>Férias</Tabs.Title>}>
+            <VacationSolicitationsAccordion />
           </Tabs.Item>
         </Tabs.Container>
       </div>
