@@ -191,8 +191,10 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
                 />
               </div>
             )}
-          </div>
-           {totalPages > 1 && (
+          </AccordionItem>
+        ))}
+      </Accordion>
+      {totalPages > 1 && (
         <div className="flex justify-center">
           <Pagination
             showControls={true}
@@ -204,8 +206,5 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
         </div>
       )}
     </div>
-        </AccordionItem>
-      ))}
-    </Accordion>
   )
 }
