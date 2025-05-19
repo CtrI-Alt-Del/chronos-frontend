@@ -1,12 +1,16 @@
 import { DayOffSolicitationDialog } from './day-off-solicitation-dialog'
 import { PaidOvertimeSolicitationDialog } from './paid-overtime-solicitation-dialog'
+import { VacationSolicitationDialog } from './vacation-solicitation-dialog'
 
 type QuickActionsViewProps = {
   isCollaboratorItself: boolean
-  workload:number
+  workload: number
 }
 
-export const QuickActionsView = ({ isCollaboratorItself,workload }: QuickActionsViewProps) => {
+export const QuickActionsView = ({
+  isCollaboratorItself,
+  workload,
+}: QuickActionsViewProps) => {
   if (isCollaboratorItself)
     return (
       <div>
@@ -17,6 +21,7 @@ export const QuickActionsView = ({ isCollaboratorItself,workload }: QuickActions
         <div className='flex gap-3 mt-3 w-full'>
           <PaidOvertimeSolicitationDialog />
           <DayOffSolicitationDialog workload={workload} />
+          <VacationSolicitationDialog />
         </div>
       </div>
     )

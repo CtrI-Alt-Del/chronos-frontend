@@ -31,6 +31,8 @@ import { CreateExcusedAbsenceSolicitation } from '../actions/solicitation/create
 import { AttachJustificationToSolicitationAction } from '../actions/solicitation/attach-justification-to-solicitation-action'
 import { idSchema, descriptionSchema, stringSchema } from '@/validation/schemas/global'
 import { CreateWithdrawSolicitationAction } from '../actions/solicitation/create-withdraw-solicitation-action'
+import { LucideArrowDownCircle } from 'lucide-react'
+import { CreateVacationSolicitationAction } from '../actions/solicitation/create-vacation-solicitation-action'
 
 export const createDayOffScheduleAdjustmentSolicitation = authActionClient
   .schema(dayOffScheduleAdjustmentSolicitationSchema)
@@ -210,5 +212,21 @@ export const createWithdrawSolicitation = authActionClient
     const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = PortalService(apiClient)
     const action = CreateWithdrawSolicitationAction(service)
+    return action.handle(call)
+  })
+export const createVacationSolicitation = authActionClient
+  .schema(
+    z.object({
+      vacationDays: z.array(stringSchema),
+    }),
+  )
+  .action(async ({ ctx, clientInput }) => {
+    const call = NextCall({
+      request: clientInput,
+      account: ctx.account,
+    })
+    const apiClient = await NextServerRestClient({ isCacheEnabled: false })
+    const service = PortalService(apiClient)
+    const action = CreateVacationSolicitationAction(service)
     return action.handle(call)
   })
