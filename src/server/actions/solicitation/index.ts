@@ -1,5 +1,4 @@
 export { CreateDayOffScheduleAdjustmentSolicitationAction } from './create-day-off-schedule-adjustment-solicitation'
-export { CreatePaidOvertimeSolicitationAction } from './create-paid-overtime-solicitation-action'
 export { CreateTimePunchAdjustmentSolicitationAction } from './create-time-punch-adjustment-solicitation'
 export { GetAttachmentUrlAction } from './get-attachment-url-action'
 export { CreateJustificationTypeAction } from './create-justification-type-action'
