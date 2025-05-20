@@ -15,4 +15,5 @@ export interface HourBankService {
     page?: number,
   ): Promise<ApiResponse<PaginationResponse<HourBankTransactionDto>>>
   getHourBankBalance(collaboratorId: string): Promise<ApiResponse<HourBankBalanceDto>>
+  createPaidOvertime(collaboratorId: string): Promise<ApiResponse<void>>
 }

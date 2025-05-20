@@ -4,7 +4,6 @@ import type {
   DayOffSolicitationDto,
   ExcusedAbsenceSolicitationDto,
   JustificationTypeDto,
-  PaidOvertimeSolicitationDto,
   TimePunchLogAdjustmentSolicitationDto,
   WithdrawSolicitationDto,
 } from '../dtos'
@@ -56,14 +55,6 @@ export interface PortalService {
   listWithdrawSolicitations(
     page: number,
   ): Promise<ApiResponse<PaginationResponse<WithdrawSolicitationDto>>>
-  createPaidOvertimeSolicitation(): Promise<ApiResponse<void>>
-  approvePaidOvertimeSolicitation(
-    solicitationId: string,
-    feedbackMessage?: string,
-  ): Promise<ApiResponse<void>>
-  listPaidOvertimeSolicitations(
-    page: number,
-  ): Promise<ApiResponse<PaginationResponse<PaidOvertimeSolicitationDto>>>
   createExcusedAbsenceSolicitation(
     absenceDate: string,
   ): Promise<ApiResponse<ExcusedAbsenceSolicitationDto>>
