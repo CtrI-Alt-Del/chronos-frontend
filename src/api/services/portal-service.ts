@@ -87,24 +87,6 @@ export const PortalService = (restClient: RestClient): IPortalService => {
       )
     },
 
-    async createPaidOvertimeSolicitation() {
-      return await restClient.post(`${SOLICITATIONS_ROUTE}/paid-overtime`)
-    },
-
-    async listPaidOvertimeSolicitations(page) {
-      restClient.setParam('page', String(page))
-      return await restClient.get(`${SOLICITATIONS_ROUTE}/paid-overtime`)
-    },
-
-    async approvePaidOvertimeSolicitation(solicitationId, feedbackMessage) {
-      return await restClient.put(
-        `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/paid-overtime`,
-        {
-          feedbackMessage,
-        },
-      )
-    },
-
     async createExcusedAbsenceSolicitation(absenceDate) {
       return await restClient.post(`${SOLICITATIONS_ROUTE}/excused-absence`, {
         absenceDate: absenceDate,

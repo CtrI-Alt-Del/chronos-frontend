@@ -41,5 +41,12 @@ export const HourBankService = (restClient: RestClient): IHourBankService => {
     async getHourBankBalance(collaboratorId: string) {
       return await restClient.get(`${MODULE}/${collaboratorId}/balance`)
     },
+
+    async createPaidOvertime(collaboratorId: string) {
+      return await restClient.post(
+        `${MODULE}/paid-overtime`,
+        {}
+      )
+    },
   }
 }
