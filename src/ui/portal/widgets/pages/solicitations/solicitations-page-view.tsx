@@ -1,5 +1,4 @@
 import { Tabs } from '@/ui/global/widgets/components/tabs'
-import { PaidOvertimeSolicitationsAccordion } from './paid-overtime-solicitations-accordion'
 import { ExcusedAbsenceSolicitationsAccordion } from './excused-absence-solicitations-accordion'
 import { DayOffSolicitationsAccordion } from './day-off-solicitations-accordion'
 import { DayOffScheduleAdjustmentSolicitationsAccordion } from './day-off-schedule-solicitations-accordion'
@@ -10,8 +9,8 @@ type Props = {
   onTabChange: (tab: string) => void
 }
 
-export const SolicitationsPageView = ({ 
-  activeTab, 
+export const SolicitationsPageView = ({
+  activeTab,
   onTabChange,
 }: Props) => {
   return (
@@ -29,13 +28,6 @@ export const SolicitationsPageView = ({
             title={<Tabs.Title>Abono de falta</Tabs.Title>}
           >
             <ExcusedAbsenceSolicitationsAccordion />
-          </Tabs.Item>
-
-          <Tabs.Item
-            key='paid-overtime'
-            title={<Tabs.Title>Hora extra remunerada</Tabs.Title>}
-          >
-            <PaidOvertimeSolicitationsAccordion />
           </Tabs.Item>
           <Tabs.Item
             key='day-off-schedule'
