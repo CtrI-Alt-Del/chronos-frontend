@@ -2,29 +2,30 @@ import type { RestClient } from '@/@core/global/interfaces/rest'
 import type { PortalService as IPortalService } from '@/@core/portal/interfaces'
 
 export const PortalService = (restClient: RestClient): IPortalService => {
-  const SOLICITATIONS_ROUTE = '/solicitation/solicitations'
-  const JUSTIFICATION_TYPE_ROUTE = '/solicitation/justification-type'
+  const SOLICITATIONS_RESOURCE = '/portal/solicitations'
+  const JUSTIFICATION_TYPE_RESOURCE = '/portal/justification-type'
+  const WORK_LEAVE_CALENDAR_RESOURCE = '/portal/work-leave-calendar'
 
   return {
     async createVacationSolicitation(vacationDays) {
-      return await restClient.post(`${SOLICITATIONS_ROUTE}/vacation`, {
+      return await restClient.post(`${SOLICITATIONS_RESOURCE}/vacation`, {
         vacationDays,
       })
     },
 
     async cancelSolicitation(solicitationId) {
-      return await restClient.patch(`${SOLICITATIONS_ROUTE}/${solicitationId}/cancel`)
+      return await restClient.patch(`${SOLICITATIONS_RESOURCE}/${solicitationId}/cancel`)
     },
 
     async createWithdrawSolicitation(withdrawalDays) {
-      return await restClient.post(`${SOLICITATIONS_ROUTE}/withdraw`, {
+      return await restClient.post(`${SOLICITATIONS_RESOURCE}/withdraw`, {
         withdrawalDays,
       })
     },
 
     async approveWithdrawSolicitation(solicitationId, feedbackMessage) {
       return await restClient.put(
-        `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/withdraw`,
+        `${SOLICITATIONS_RESOURCE}/${solicitationId}/approve/withdraw`,
         {
           feedbackMessage,
         },
@@ -33,15 +34,15 @@ export const PortalService = (restClient: RestClient): IPortalService => {
 
     async listWithdrawSolicitations(page) {
       restClient.setParam('page', String(page))
-      return await restClient.get(`${SOLICITATIONS_ROUTE}/withdraw`)
+      return await restClient.get(`${SOLICITATIONS_RESOURCE}/withdraw`)
     },
     async listDayOffScheduleAdjustmentSolicitations(page) {
       restClient.setParam('page', String(page))
-      return await restClient.get(`${SOLICITATIONS_ROUTE}/day-off-schedule-adjustment`)
+      return await restClient.get(`${SOLICITATIONS_RESOURCE}/day-off-schedule-adjustment`)
     },
     async approveDayOffScheduleAdjustmentSolicitation(solicitationId, feedbackMessage) {
       return await restClient.put(
-        `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/day-off-schedule-adjustment`,
+        `${SOLICITATIONS_RESOURCE}/${solicitationId}/approve/day-off-schedule-adjustment`,
         {
           feedbackMessage,
         },
@@ -65,24 +66,31 @@ export const PortalService = (restClient: RestClient): IPortalService => {
         justificationTypeShouldHaveAttachment,
       )
       formData.append('description', description)
-      if (attachment != undefined) {
+      if (attachment) {
         formData.append('attachment', attachment)
       }
 
-      return await restClient.multipart(`/solicitation/justification/attach`, formData)
+      return await restClient.multipart('/portal/justification/attach', formData)
     },
     async getJustificationAttachmentUrl(key) {
-      return await restClient.get(`${SOLICITATIONS_ROUTE}/attachments/${key}`)
+      return await restClient.get(`${SOLICITATIONS_RESOURCE}/attachments/${key}`)
+    },
+
+    async getWorkLeaveCalendar() {
+      return await restClient.get(`${WORK_LEAVE_CALENDAR_RESOURCE}`)
     },
 
     async createDayOffScheduleAdjustmentSolicitation(dayOffSchedule) {
-      return await restClient.post(`${SOLICITATIONS_ROUTE}/day-off-schedule-adjustment`, {
-        dayOffSchedule: dayOffSchedule,
-      })
+      return await restClient.post(
+        `${SOLICITATIONS_RESOURCE}/day-off-schedule-adjustment`,
+        {
+          dayOffSchedule: dayOffSchedule,
+        },
+      )
     },
 
     async createDayOffSolicitation(dayOff, observation?) {
-      return await restClient.post(`${SOLICITATIONS_ROUTE}/day-off`, {
+      return await restClient.post(`${SOLICITATIONS_RESOURCE}/day-off`, {
         dayOff,
         description: observation,
         workload: 8,
@@ -91,12 +99,12 @@ export const PortalService = (restClient: RestClient): IPortalService => {
 
     async listDayOffSolicitations(page) {
       restClient.setParam('page', String(page))
-      return await restClient.get(`${SOLICITATIONS_ROUTE}/day-off`)
+      return await restClient.get(`${SOLICITATIONS_RESOURCE}/day-off`)
     },
 
     async approveDayOffSolicitation(solicitationId, feedbackMessage) {
       return await restClient.put(
-        `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/day-off`,
+        `${SOLICITATIONS_RESOURCE}/${solicitationId}/approve/day-off`,
         {
           feedbackMessage,
         },
@@ -104,17 +112,17 @@ export const PortalService = (restClient: RestClient): IPortalService => {
     },
 
     async createPaidOvertimeSolicitation() {
-      return await restClient.post(`${SOLICITATIONS_ROUTE}/paid-overtime`)
+      return await restClient.post(`${SOLICITATIONS_RESOURCE}/paid-overtime`)
     },
 
     async listPaidOvertimeSolicitations(page) {
       restClient.setParam('page', String(page))
-      return await restClient.get(`${SOLICITATIONS_ROUTE}/paid-overtime`)
+      return await restClient.get(`${SOLICITATIONS_RESOURCE}/paid-overtime`)
     },
 
     async approvePaidOvertimeSolicitation(solicitationId, feedbackMessage) {
       return await restClient.put(
-        `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/paid-overtime`,
+        `${SOLICITATIONS_RESOURCE}/${solicitationId}/approve/paid-overtime`,
         {
           feedbackMessage,
         },
@@ -122,19 +130,19 @@ export const PortalService = (restClient: RestClient): IPortalService => {
     },
 
     async createExcusedAbsenceSolicitation(absenceDate) {
-      return await restClient.post(`${SOLICITATIONS_ROUTE}/excused-absence`, {
+      return await restClient.post(`${SOLICITATIONS_RESOURCE}/excused-absence`, {
         absenceDate: absenceDate,
       })
     },
 
     async listExcusedAbsenceSolicitations(page) {
       restClient.setParam('page', String(page))
-      return await restClient.get(`${SOLICITATIONS_ROUTE}/excused-absence`)
+      return await restClient.get(`${SOLICITATIONS_RESOURCE}/excused-absence`)
     },
 
     async approveExcusedAbsenceSolicitation(solicitationId, feedbackMessage) {
       return await restClient.put(
-        `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/excused-absence`,
+        `${SOLICITATIONS_RESOURCE}/${solicitationId}/approve/excused-absence`,
         {
           feedbackMessage,
         },
@@ -142,37 +150,45 @@ export const PortalService = (restClient: RestClient): IPortalService => {
     },
 
     async createTimePunchLogAdjustmentSolicitation(solicitation) {
-      return restClient.post(`${SOLICITATIONS_ROUTE}/time-punch-adjustment`, solicitation)
+      return restClient.post(
+        `${SOLICITATIONS_RESOURCE}/time-punch-adjustment`,
+        solicitation,
+      )
     },
 
     async denySolicitation(solicitationId, feedbackMessage) {
-      return restClient.patch(`${SOLICITATIONS_ROUTE}/${solicitationId}/deny`, {
+      return restClient.patch(`${SOLICITATIONS_RESOURCE}/${solicitationId}/deny`, {
         feedbackMessage,
       })
     },
 
     async listJustificationTypes() {
-      return await restClient.get(`${JUSTIFICATION_TYPE_ROUTE}`)
+      return await restClient.get(`${JUSTIFICATION_TYPE_RESOURCE}`)
     },
 
     async createJustificationType(justificationType) {
-      return await restClient.post(`${JUSTIFICATION_TYPE_ROUTE}`, justificationType)
+      return await restClient.post(`${JUSTIFICATION_TYPE_RESOURCE}`, justificationType)
     },
 
     async updateJustificationType(justificationType, id) {
-      return await restClient.put(`${JUSTIFICATION_TYPE_ROUTE}/${id}`, justificationType)
+      return await restClient.put(
+        `${JUSTIFICATION_TYPE_RESOURCE}/${id}`,
+        justificationType,
+      )
     },
 
     async deleteJustificationType(id) {
-      return await restClient.delete(`${JUSTIFICATION_TYPE_ROUTE}/${id}`)
+      return await restClient.delete(`${JUSTIFICATION_TYPE_RESOURCE}/${id}`)
     },
+
     async listVacationSolicitations(page) {
       restClient.setParam('page', String(page))
-      return await restClient.get(`${SOLICITATIONS_ROUTE}/vacation`)
+      return await restClient.get(`${SOLICITATIONS_RESOURCE}/vacation`)
     },
+
     async approveVacationSolicitation(solicitationId, feedbackMessage) {
       return await restClient.put(
-        `${SOLICITATIONS_ROUTE}/${solicitationId}/approve/vacation`,
+        `${SOLICITATIONS_RESOURCE}/${solicitationId}/approve/vacation`,
         {
           feedbackMessage,
         },

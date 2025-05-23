@@ -1,5 +1,5 @@
 export type { SolicitationDto } from './solicitation-dto'
-export type {VacationSolicitationDto} from "./vacation-solicitation-dto"
+export type { VacationSolicitationDto } from './vacation-solicitation-dto'
 export type { WithdrawSolicitationDto } from './withdraw-solicitation-dto'
 export type { JustificationDto } from './justification-dto'
 export type { AttachmentDto } from './attachment-dto'
@@ -9,3 +9,4 @@ export type { ExcusedAbsenceSolicitationDto } from './excused-sbsence-solicitati
 export type { PaidOvertimeSolicitationDto } from './paid-overtime-solicitation-dto'
 export type { DayOffScheduleAdjustmentSolicitationDto } from './day-off-schedule-adjustment-solicitation-dto'
 export type { TimePunchLogAdjustmentSolicitationDto } from './time-punch-log-adjustment-solicitation-dto'
+export type { WorkLeaveCalendarDto } from './work-leave-calendar-dto'

@@ -8,6 +8,7 @@ import type {
   TimePunchLogAdjustmentSolicitationDto,
   VacationSolicitationDto,
   WithdrawSolicitationDto,
+  WorkLeaveCalendarDto,
 } from '../dtos'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 
@@ -28,6 +29,7 @@ export interface PortalService {
       url: string
     }>
   >
+  getWorkLeaveCalendar(): Promise<ApiResponse<WorkLeaveCalendarDto[]>>
   createTimePunchLogAdjustmentSolicitation(
     solicitation: TimePunchLogAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>

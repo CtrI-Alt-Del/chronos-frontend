@@ -46,6 +46,9 @@ export const CACHE = {
     justificationType: {
       key: 'portal/justification-type',
     },
+    workLeaveCalendar: {
+      key: 'portal/work-leave-calendar',
+    },
   },
   hourBank: {
     key: (collaboratorId: string) => `/hour-bank/transactions/${collaboratorId}`,

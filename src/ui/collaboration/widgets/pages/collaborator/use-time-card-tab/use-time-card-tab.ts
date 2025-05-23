@@ -28,8 +28,6 @@ export function useTimeCardTab(collaboratorId: string, date: Date) {
   })
 
   function handleDateInputChange(month: number, year: number) {
-    console.log('month', month)
-    console.log('year', year)
     setMonth(month)
     setYear(year)
   }
