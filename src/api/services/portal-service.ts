@@ -7,9 +7,10 @@ export const PortalService = (restClient: RestClient): IPortalService => {
   const WORK_LEAVE_CALENDAR_RESOURCE = '/portal/work-leave-calendar'
 
   return {
-    async createVacationSolicitation(vacationDays) {
-      return await restClient.post(`${SOLICITATIONS_RESOURCE}/vacation`, {
-        vacationDays,
+    async createVacationSolicitation(startedAt, endedAt) {
+      return await restClient.post(`${SOLICITATIONS_RESOURCE}/work-leave/vacation`, {
+        startedAt,
+        endedAt,
       })
     },
 
@@ -17,9 +18,10 @@ export const PortalService = (restClient: RestClient): IPortalService => {
       return await restClient.patch(`${SOLICITATIONS_RESOURCE}/${solicitationId}/cancel`)
     },
 
-    async createWithdrawSolicitation(withdrawalDays) {
-      return await restClient.post(`${SOLICITATIONS_RESOURCE}/withdraw`, {
-        withdrawalDays,
+    async createWithdrawSolicitation(startedAt, endedAt) {
+      return await restClient.post(`${SOLICITATIONS_RESOURCE}/work-leave/withdraw`, {
+        startedAt,
+        endedAt,
       })
     },
 
@@ -34,7 +36,7 @@ export const PortalService = (restClient: RestClient): IPortalService => {
 
     async listWithdrawSolicitations(page) {
       restClient.setParam('page', String(page))
-      return await restClient.get(`${SOLICITATIONS_RESOURCE}/withdraw`)
+      return await restClient.get(`${SOLICITATIONS_RESOURCE}/work-leave/withdraw`)
     },
     async listDayOffScheduleAdjustmentSolicitations(page) {
       restClient.setParam('page', String(page))
@@ -183,7 +185,7 @@ export const PortalService = (restClient: RestClient): IPortalService => {
 
     async listVacationSolicitations(page) {
       restClient.setParam('page', String(page))
-      return await restClient.get(`${SOLICITATIONS_RESOURCE}/vacation`)
+      return await restClient.get(`${SOLICITATIONS_RESOURCE}/work-leave/vacation`)
     },
 
     async approveVacationSolicitation(solicitationId, feedbackMessage) {

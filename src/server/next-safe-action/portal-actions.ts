@@ -217,7 +217,8 @@ export const createWithdrawSolicitation = authActionClient
 export const createVacationSolicitation = authActionClient
   .schema(
     z.object({
-      vacationDays: z.array(stringSchema),
+      startedAt: stringSchema,
+      endedAt: stringSchema,
     }),
   )
   .action(async ({ ctx, clientInput }) => {

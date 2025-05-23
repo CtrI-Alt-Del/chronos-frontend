@@ -1,5 +1,7 @@
 import type { SolicitationDto } from './solicitation-dto'
 
 export type VacationSolicitationDto = SolicitationDto & {
-  vacationDays: string[]
+  startedAt: string
+  endedAt: string
+  isVacation: boolean
 }

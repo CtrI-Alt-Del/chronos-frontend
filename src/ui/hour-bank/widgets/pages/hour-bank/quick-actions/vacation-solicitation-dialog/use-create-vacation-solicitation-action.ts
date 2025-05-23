@@ -18,9 +18,13 @@ export function useCreateVacationSolicitationAction() {
       },
     },
   )
-  async function createVacationSolicitation(vacationDays: string[]): Promise<void> {
+  async function createVacationSolicitation(
+    startedAt: string,
+    endedAt: string,
+  ): Promise<void> {
     await executeAsync({
-      vacationDays,
+      startedAt,
+      endedAt,
     })
   }
   return {

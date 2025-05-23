@@ -21,20 +21,10 @@ export function useVacationSolicitationDialog() {
     setSelectedDates(value)
   }
   function onSubmit() {
-    const startDate = selectedDates?.start.toDate('America/Sao_Paulo')
-    const endDate = selectedDates?.end.toDate('America/Sao_Paulo')
-    if (!startDate || !endDate) {
-      console.log('TENTA BUGA O SITE NAO OTARIO')
-      return
-    }
-    const vacationDays: string[] = []
-    let currentDate = new Date(startDate)
-    while (currentDate <= endDate) {
-      vacationDays.push(currentDate.toISOString().split('T')[0])
-      currentDate.setDate(currentDate.getDate() + 1)
-    }
-
-    createVacationSolicitation(vacationDays)
+    const startDate = selectedDates?.start.toString()
+    const endDate = selectedDates?.end.toString()
+    if (!startDate || !endDate) return
+    createVacationSolicitation(startDate, endDate)
   }
   return {
     handleSubmit: onSubmit,

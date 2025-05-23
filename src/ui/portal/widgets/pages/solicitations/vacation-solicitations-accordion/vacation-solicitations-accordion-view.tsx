@@ -15,7 +15,7 @@ export const VacationSolicitationsAccordionView = ({
   isLoading,
   onSolicitationApprove,
   onSolicitationDeny,
-  onSolicitationCancel
+  onSolicitationCancel,
 }: Props) => {
   return (
     <SolicitationsAccordion
@@ -27,7 +27,10 @@ export const VacationSolicitationsAccordionView = ({
     >
       {(solicitation) => (
         <div className='mt-6'>
-          <DateRangeCalendar days={solicitation.vacationDays} />
+          <DateRangeCalendar
+            startedAt={solicitation.startedAt}
+            endedAt={solicitation.endedAt}
+          />
         </div>
       )}
     </SolicitationsAccordion>

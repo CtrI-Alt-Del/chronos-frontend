@@ -12,4 +12,5 @@ export type SolicitationDto = {
   justification?: JustificationDto
   senderResponsible: AggregateDto<ResponsibleDto>
   replierResponsible?: AggregateDto<ResponsibleDto>
+  isVacation?: boolean
 }
