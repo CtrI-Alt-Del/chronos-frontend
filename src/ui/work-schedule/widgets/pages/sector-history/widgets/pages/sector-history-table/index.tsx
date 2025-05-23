@@ -8,7 +8,7 @@ import {
   TableRow,
   TableCell,
 } from '@heroui/table'
-import { Pagination, Spinner } from '@heroui/react'
+import { Chip, Pagination, Spinner } from '@heroui/react'
 
 import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
@@ -31,12 +31,34 @@ const getStatusLabel = (status?: string) => {
   switch (status) {
     case 'day_off':
       return (
-        <div className='bg-blue-300 text-white p-1 rounded-md text-center'>FOLGA</div>
+        <Chip variant='flat' color='default'>
+          FOLGA
+        </Chip>
       )
     case 'absence':
-      return <div className='bg-red-600 text-white p-1 rounded-md text-center'>FALTA</div>
+      return (
+        <Chip variant='flat' color='danger'>
+          FALTA
+        </Chip>
+      )
+    case 'normal_day':
+      return (
+        <Chip variant='flat' color='primary'>
+          DIA NORMAL
+        </Chip>
+      )
+    case 'excused_absence':
+      return (
+        <Chip variant='flat' color='warning'>
+          FALTA ABONADA
+        </Chip>
+      )
     default:
-      return null
+      return (
+        <Chip variant='flat' color='warning'>
+          FALTA ABONADA
+        </Chip>
+      )
   }
 }
 export const SectorHistoryTable = ({
