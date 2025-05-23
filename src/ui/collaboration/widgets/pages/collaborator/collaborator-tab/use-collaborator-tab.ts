@@ -3,9 +3,9 @@ import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import { collaboratorSchema } from '@/validation/schemas/work-schedule'
 import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
-import type { CollaboratorDto } from '@/@core/collaboration/dtos'
 import { useCollaboratorStore } from '@/ui/collaboration/stores/collaborator-store'
 import { useUpdateCollaboratorAction } from './use-update-collaborator-action'
 

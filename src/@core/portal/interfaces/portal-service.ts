@@ -29,7 +29,7 @@ export interface PortalService {
       url: string
     }>
   >
-  getWorkLeaveCalendar(): Promise<ApiResponse<WorkLeaveCalendarDto[]>>
+  getWorkLeaveCalendar(): Promise<ApiResponse<WorkLeaveCalendarDto>>
   createTimePunchLogAdjustmentSolicitation(
     solicitation: TimePunchLogAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
