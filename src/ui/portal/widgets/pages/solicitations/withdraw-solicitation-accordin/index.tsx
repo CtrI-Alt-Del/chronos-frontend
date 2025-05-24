@@ -12,12 +12,18 @@ export const WithdrawSolicitationsAccordion = () => {
     handleSolicitationApprove,
     handleSolicitationDeny,
     handleSolicitationCancel,
+    currentPage,
+    totalPages,
+    handlePageChange,
   } = useWithdrawSolicitationsAccordion(portalService)
 
   return (
     <WithdrawSolicitationsAccordionView
       solicitations={solicitations}
       isLoading={isFetchingSolicitations}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
       onSolicitationApprove={handleSolicitationApprove}
       onSolicitationDeny={handleSolicitationDeny}
       onSolicitationCancel={handleSolicitationCancel}
