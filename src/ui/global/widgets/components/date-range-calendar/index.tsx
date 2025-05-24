@@ -2,22 +2,21 @@ import { RangeCalendar } from '@heroui/react'
 import { parseDate, type CalendarDate } from '@internationalized/date'
 
 type Props = {
-  days: string[] 
+  startedAt: string
+  endedAt: string
 }
 
-export const DateRangeCalendar = ({ days }: Props) => {
-  const parsedDays: CalendarDate[] = days.map((d) => parseDate(d))
-
-  const minDate = parsedDays.reduce((a, b) => (a.compare(b) < 0 ? a : b))
-  const maxDate = parsedDays.reduce((a, b) => (a.compare(b) > 0 ? a : b))
+export const DateRangeCalendar = ({ startedAt,endedAt }: Props) => {
+  const startedAtDate: CalendarDate = parseDate(startedAt)
+  const endedAtDate: CalendarDate = parseDate(endedAt)
 
   return (
     <div className='relative'>
       <RangeCalendar
         aria-label='Dias'
         defaultValue={{
-          start: minDate,
-          end: maxDate,
+          start: startedAtDate,
+          end: endedAtDate,
         }}
         isReadOnly
         className=' opacity-70'

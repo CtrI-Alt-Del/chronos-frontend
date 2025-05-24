@@ -67,23 +67,15 @@ export function useCreateWithdrawSolicitationModal() {
     }
 
     try {
-      const startDate = selectedDates?.start.toDate('America/Sao_Paulo')
-      const endDate = selectedDates?.end.toDate('America/Sao_Paulo')
+      const startDate = selectedDates?.start.toString()
+      const endDate = selectedDates?.end.toString()
 
       if (!startDate || !endDate) {
         showError('Selecione um intervalo de datas válido')
         return
       }
 
-      const withdrawalDays: string[] = []
-      let currentDate = new Date(startDate)
-
-      while (currentDate <= endDate) {
-        withdrawalDays.push(currentDate.toISOString().split('T')[0]) // "YYYY-MM-DD"
-        currentDate.setDate(currentDate.getDate() + 1)
-      }
-
-      const solicitation = await createWithdrawSolicitation(withdrawalDays)
+      const solicitation = await createWithdrawSolicitation(startDate, endDate)
       if (!selectedJustificationType) {
         showError('Tipo de justificativa não selecionado')
         return

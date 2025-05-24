@@ -21,6 +21,7 @@ export const ROUTES = {
     timePunch: '/work-schedule/time-punch',
     timeCard: '/work-schedule/time-card',
     hoursBank: '/work-schedule/hours-bank',
+    dashboard: '/work-schedule/dashboard',
   },
   hourBank: (collaboratorId?: string) => `/hour-bank/${collaboratorId}`,
   portal: {

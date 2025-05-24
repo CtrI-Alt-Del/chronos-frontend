@@ -30,7 +30,7 @@ export const WithdrawSolicitationsAccordionView = ({
     >
       {(solicitation) => (
         <div className='mt-6'>
-          <DateRangeCalendar days={solicitation.withdrawalDays} />
+          <DateRangeCalendar startedAt={solicitation.startedAt} endedAt={solicitation.endedAt} />
         </div>
       )}
     </SolicitationsAccordion>

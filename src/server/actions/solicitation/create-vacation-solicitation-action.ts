@@ -3,7 +3,8 @@ import type { PortalService } from '@/@core/portal/interfaces'
 import type { Call } from '@/@core/global/interfaces/rpc'
 import { ROUTES } from '@/constants'
 type RequestBody = {
-  vacationDays: string[]
+  startedAt: string
+  endedAt: string
 }
 export const CreateVacationSolicitationAction = (
   service: PortalService,
@@ -12,7 +13,8 @@ export const CreateVacationSolicitationAction = (
     async handle(call: Call<RequestBody>) {
       const solicitation = call.getRequest()
       const response = await service.createVacationSolicitation(
-        solicitation.vacationDays,
+        solicitation.startedAt,
+        solicitation.endedAt,
       )
       if (response.isFailure) response.throwError()
       call.redirect(ROUTES.portal.solicitations)

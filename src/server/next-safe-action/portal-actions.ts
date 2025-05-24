@@ -10,7 +10,6 @@ import { authActionClient } from './clients/auth-action-client'
 import {
   CreateDayOffScheduleAdjustmentSolicitationAction,
   CreateJustificationTypeAction,
-  CreatePaidOvertimeSolicitationAction,
   CreateTimePunchAdjustmentSolicitationAction,
   DeleteJustificationTypeAction,
   GetAttachmentUrlAction,
@@ -144,14 +143,6 @@ export const createDayOffSolicitation = authActionClient
     return action.handle(call)
   })
 
-export const createPaidOvertimeSolicitation = authActionClient.action(async () => {
-  const call = NextCall()
-  const apiClient = await NextServerRestClient({ isCacheEnabled: false })
-  const service = PortalService(apiClient)
-  const action = CreatePaidOvertimeSolicitationAction(service)
-  return action.handle(call)
-})
-
 export const getAttachmentUrl = authActionClient
   .schema(
     z.object({
@@ -217,7 +208,8 @@ export const createWithdrawSolicitation = authActionClient
 export const createVacationSolicitation = authActionClient
   .schema(
     z.object({
-      vacationDays: z.array(stringSchema),
+      startedAt: stringSchema,
+      endedAt: stringSchema,
     }),
   )
   .action(async ({ ctx, clientInput }) => {

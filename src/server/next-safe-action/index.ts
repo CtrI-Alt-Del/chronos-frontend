@@ -12,6 +12,10 @@ import {
   updateDayOffSchedule,
   punchTime,
   getWorkTime,
+  getYearlyAbsenceReport,
+  getDailyPunchsReport,
+  getCollaboratorsMissingTimeReport,
+  getWorkdayStatusReport,
 } from './work-schedule-actions'
 import {
   getCollaborator,
@@ -21,7 +25,6 @@ import {
 import {
   createDayOffScheduleAdjustmentSolicitation,
   createDayOffSolicitation,
-  createPaidOvertimeSolicitation,
   createTimePunchAdjustmentSolicitation,
   createJustificationType,
   deleteJustificaionType,
@@ -38,6 +41,7 @@ import {
   listHourBankTransactions,
   getHourBankBalance,
   createHourBankTransactionAdjustment,
+  createPaidOvertime,
 } from './hour-bank-actions'
 
 const portalActions = {
@@ -46,7 +50,6 @@ const portalActions = {
   createDayOffScheduleAdjustmentSolicitation,
   resolveSolicitation,
   createJustificationType,
-  createPaidOvertimeSolicitation,
   deleteJustificaionType,
   updateJustificationType,
   listJustificationTypes,
@@ -78,6 +81,10 @@ const workScheduleActions = {
   getTimeCard,
   updateDayOffSchedule,
   punchTime,
+  getWorkdayStatusReport,
+  getYearlyAbsenceReport,
+  getDailyPunchsReport,
+  getCollaboratorsMissingTimeReport,
 }
 
 const collaborationActions = {
@@ -90,6 +97,7 @@ const hourBankActions = {
   listHourBankTransactions,
   getHourBankBalance,
   createHourBankTransactionAdjustment,
+  createPaidOvertime,
 }
 
 export {

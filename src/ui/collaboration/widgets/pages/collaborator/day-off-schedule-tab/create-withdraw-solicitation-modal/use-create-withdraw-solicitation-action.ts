@@ -5,12 +5,15 @@ import { useAction } from 'next-safe-action/hooks'
 export function useCreateWithDrawSolicitationAction() {
   const { executeAsync, isExecuting } = useAction(
     portalActions.createWithdrawSolicitation,
-    {
-    },
+    {},
   )
-  async function createWithdrawSolicitation(withdrawalDays: string[]): Promise<WithdrawSolicitationDto> {
+  async function createWithdrawSolicitation(
+    startedAt: string,
+    endedAt: string,
+  ): Promise<WithdrawSolicitationDto> {
     const response = await executeAsync({
-      withdrawalDays,
+      startedAt,
+      endedAt,
     })
     return response?.data as WithdrawSolicitationDto
   }

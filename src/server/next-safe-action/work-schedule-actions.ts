@@ -14,6 +14,10 @@ import {
   GetTimeCardAction,
   PunchTimeAction,
   UpdateDayOffAction,
+  GetWorkdayStatusReportAction,
+  GetYearlyAbsenceReportAction,
+  GetCollaboratorsMissingTimeReportAction,
+  GetDailyPunchsReportAction,
 } from '../actions/work-schedule'
 import { GetWorkTimeAction } from '../actions/work-schedule/get-work-time-action'
 import { idSchema, stringSchema } from '@/validation/schemas/global'
@@ -118,6 +122,60 @@ export const getWorkTime = authActionClient
     const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = WorkScheduleService(apiClient)
     const action = GetWorkTimeAction(service)
+    return action.handle(actionServer)
+  })
+
+export const getWorkdayStatusReport = authActionClient
+  .action(async () => {
+    const actionServer = NextCall()
+    const apiClient = await NextServerRestClient()
+    const service = WorkScheduleService(apiClient)
+    const action = GetWorkdayStatusReportAction(service)
+    return action.handle(actionServer)
+  })
+
+export const getYearlyAbsenceReport = authActionClient
+  .schema(z.object({
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+  }))
+  .action(async ({ clientInput }) => {
+    const actionServer = NextCall({
+      request: clientInput,
+    })
+    const apiClient = await NextServerRestClient()
+    const service = WorkScheduleService(apiClient)
+    const action = GetYearlyAbsenceReportAction(service)
+    return action.handle(actionServer)
+  })
+
+export const getDailyPunchsReport = authActionClient
+  .schema(z.object({
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+  }))
+  .action(async ({ clientInput }) => {
+    const actionServer = NextCall({
+      request: clientInput,
+    })
+    const apiClient = await NextServerRestClient()
+    const service = WorkScheduleService(apiClient)
+    const action = GetDailyPunchsReportAction(service)
+    return action.handle(actionServer)
+  })
+
+export const getCollaboratorsMissingTimeReport = authActionClient
+  .schema(z.object({
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+  }))
+  .action(async ({ clientInput }) => {
+    const actionServer = NextCall({
+      request: clientInput,
+    })
+    const apiClient = await NextServerRestClient()
+    const service = WorkScheduleService(apiClient)
+    const action = GetCollaboratorsMissingTimeReportAction(service)
     return action.handle(actionServer)
   })
 

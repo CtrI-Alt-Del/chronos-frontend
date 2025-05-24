@@ -53,10 +53,28 @@ const getStatusLabel = (status?: string) => {
           FALTA ABONADA
         </Chip>
       )
+    case "vacation":
+      return (
+        <Chip variant='flat' color='success'>
+          FÉRIAS
+        </Chip>
+      )
+    case 'work_leave':
+      return (
+        <Chip variant='flat' color='secondary'>
+          AFASTAMENTO
+        </Chip>
+      )
+    case "holiday":
+      return (
+        <Chip variant='flat' color='success'>
+          FERIADO
+        </Chip>
+      )
     default:
       return (
         <Chip variant='flat' color='warning'>
-          FALTA ABONADA
+          `{status}`
         </Chip>
       )
   }
