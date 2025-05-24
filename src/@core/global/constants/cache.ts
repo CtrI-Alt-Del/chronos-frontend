@@ -58,6 +58,9 @@ export const CACHE = {
     workLeaveCalendar: {
       key: 'portal/work-leave-calendar',
     },
+    timePunchLogAdjustmentSolicitations: {
+      key: 'portal/time-punch-log-adjustment-solicitations',
+    },
   },
   hourBank: {
     key: (collaboratorId: string) => `/hour-bank/transactions/${collaboratorId}`,
