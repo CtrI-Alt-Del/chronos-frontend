@@ -3,6 +3,7 @@ import type { ApiResponse } from '@/@core/global/responses'
 import type { DayOffScheduleDto, WorkdayLogDto, WorkTimeDto } from '../dtos'
 import type { TimePunchPeriod } from '../types'
 import type { TimeCardDto } from '../dtos/time-card-dto'
+import type { WorkdayStatusReportDto, YearlyAbsenceReportDto, DailyPunchsReportDto, CollaboratorsMissingTimeReportDto } from '../dtos'
 
 export interface WorkScheduleService {
   createDayOffSchedule(
@@ -43,4 +44,8 @@ export interface WorkScheduleService {
     workdaysCount: number,
     daysOffCount: number,
   ): Promise<ApiResponse<string>>
+  getWorkdayStatusReport(): Promise<ApiResponse<WorkdayStatusReportDto>>
+  getYearlyAbsenceReport(startDate?: string, endDate?: string): Promise<ApiResponse<YearlyAbsenceReportDto>>
+  getDailyPunchsReport(startDate?: string, endDate?: string): Promise<ApiResponse<DailyPunchsReportDto>>
+  getCollaboratorsMissingTimeReport(startDate?: string, endDate?: string): Promise<ApiResponse<CollaboratorsMissingTimeReportDto>>
 }

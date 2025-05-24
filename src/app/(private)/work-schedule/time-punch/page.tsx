@@ -11,7 +11,6 @@ const Page = async () => {
   return (
     <TimePunchPage
       workdayLog={workScheduleResponse.data.workdayLog}
-      collaborationName={collaborationResponse.data.collaborator.name}
     />
   )
 }

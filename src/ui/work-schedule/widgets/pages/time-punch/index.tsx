@@ -10,10 +10,9 @@ import { cn } from '@heroui/theme'
 
 type TimePunchPageProps = {
   workdayLog: WorkdayLogDto
-  collaborationName: string
 }
 
-export const TimePunchPage = ({ workdayLog, collaborationName }: TimePunchPageProps) => {
+export const TimePunchPage = ({ workdayLog }: TimePunchPageProps) => {
   const {
     currentTime,
     completeDate,
@@ -29,7 +28,7 @@ export const TimePunchPage = ({ workdayLog, collaborationName }: TimePunchPagePr
   return (
     <div className='flex flex-col justify-center items-center p-6 h-full rounded-lg border border-gray-border'>
       <div className='mb-6 text-3xl font-medium'>
-        <p>Bem-vindo(a), {collaborationName}!</p>
+        <p>Bem-vindo(a), {workdayLog.collaborator.name}!</p>
       </div>
 
       <div className='text-center'>
@@ -71,9 +70,9 @@ export const TimePunchPage = ({ workdayLog, collaborationName }: TimePunchPagePr
               <strong className='block w-full text-xl font-normal text-center'>
                 {currentPeriod}
               </strong>
-              <p className='text-lg mt-6 mb-3'>
+              <p className='mt-6 mb-3 text-lg'>
                 <strong className='font-semibold'>Seu horário:</strong>
-                <time className='ml-3 mx-auto w-max text-3xl font-bold border-b border-slate-900'>
+                <time className='mx-auto ml-3 w-max text-3xl font-bold border-b border-slate-900'>
                   {currentTime}
                 </time>
               </p>

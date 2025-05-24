@@ -38,6 +38,7 @@ import {
   FileClock,
   Check,
   AlertCircle,
+  LayoutDashboard,
 } from 'lucide-react'
 
 export const ICONS: Record<
@@ -74,6 +75,7 @@ export const ICONS: Record<
   upload: Upload,
   hourglass: Hourglass,
   file: File,
+  dashboard: LayoutDashboard,
   'justication-type': EthernetPort,
   'week-schedule': NotebookTabs,
   'arrow-down': ChevronDown,

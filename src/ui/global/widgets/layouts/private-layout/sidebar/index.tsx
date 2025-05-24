@@ -57,64 +57,70 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           <ProfileCard />
         </div>
 
-        <NavbarContent className='flex flex-col w-full hover:cursor-pointer'>
-          <NavbarContent className='flex flex-col gap-0 w-full'>
-            {(isManager || isEmployee) && (
-              <NavbarLink
-                href={ROUTES.workSchedule.timePunch}
-                icon='star'
-                title='Registrar ponto'
-              />
-            )}
+        <NavbarContent className='flex flex-col gap-0 w-full'>
+          {(isManager || isEmployee || isAdmin) && (
+            <NavbarLink
+              href={ROUTES.workSchedule.dashboard}
+              icon='dashboard'
+              title='Dashboard'
+            />
+          )}
 
-            {(isManager || isEmployee) && (
-              <NavbarLink
-                href={ROUTES.hourBank(collaboratorId)}
-                icon='clock'
-                title='Banco de horas'
-              />
-            )}
+          {(isManager || isEmployee) && (
+            <NavbarLink
+              href={ROUTES.workSchedule.timePunch}
+              icon='star'
+              title='Registrar ponto'
+            />
+          )}
 
-            {isManager && (
-              <NavbarLink
-                href={ROUTES.workSchedule.sectorHistory}
-                icon='file-clock'
-                title='Histórico de pontos'
-              />
-            )}
+          {(isManager || isEmployee) && (
+            <NavbarLink
+              href={ROUTES.hourBank(collaboratorId)}
+              icon='clock'
+              title='Banco de horas'
+            />
+          )}
 
-            {(isManager || isEmployee) && (
-              <NavbarLink
-                href={ROUTES.workSchedule.collaboratorHistory}
-                icon='history'
-                title='Meu histórico de pontos'
-              />
-            )}
+          {isManager && (
+            <NavbarLink
+              href={ROUTES.workSchedule.sectorHistory}
+              icon='file-clock'
+              title='Histórico de pontos'
+            />
+          )}
 
-            {(isAdmin || isManager) && (
-              <NavbarLink
-                href={ROUTES.collaboration.collaborators}
-                icon='collaborator'
-                title='Colaboradores'
-              />
-            )}
+          {(isManager || isEmployee) && (
+            <NavbarLink
+              href={ROUTES.workSchedule.collaboratorHistory}
+              icon='history'
+              title='Meu histórico de pontos'
+            />
+          )}
 
-            {(isManager || isEmployee) && (
-              <NavbarLink
-                href={ROUTES.portal.solicitations}
-                icon='report'
-                title='Solicitações'
-              />
-            )}
+          {(isAdmin || isManager) && (
+            <NavbarLink
+              href={ROUTES.collaboration.collaborators}
+              icon='collaborator'
+              title='Colaboradores'
+            />
+          )}
 
-            {(isAdmin || isManager) && (
-              <NavbarLink
-                href={ROUTES.portal.justificationTypes}
-                icon='justication-type'
-                title='Tipos de Justificativas'
-              />
-            )}
-          </NavbarContent>
+          {(isManager || isEmployee) && (
+            <NavbarLink
+              href={ROUTES.portal.solicitations}
+              icon='report'
+              title='Solicitações'
+            />
+          )}
+
+          {(isAdmin || isManager) && (
+            <NavbarLink
+              href={ROUTES.portal.justificationTypes}
+              icon='justication-type'
+              title='Tipos de Justificativas'
+            />
+          )}
         </NavbarContent>
 
         <Button
