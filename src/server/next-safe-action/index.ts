@@ -25,7 +25,6 @@ import {
 import {
   createDayOffScheduleAdjustmentSolicitation,
   createDayOffSolicitation,
-  createPaidOvertimeSolicitation,
   createTimePunchAdjustmentSolicitation,
   createJustificationType,
   deleteJustificaionType,
@@ -42,6 +41,7 @@ import {
   listHourBankTransactions,
   getHourBankBalance,
   createHourBankTransactionAdjustment,
+  createPaidOvertime,
 } from './hour-bank-actions'
 
 const portalActions = {
@@ -50,7 +50,6 @@ const portalActions = {
   createDayOffScheduleAdjustmentSolicitation,
   resolveSolicitation,
   createJustificationType,
-  createPaidOvertimeSolicitation,
   deleteJustificaionType,
   updateJustificationType,
   listJustificationTypes,
@@ -98,6 +97,7 @@ const hourBankActions = {
   listHourBankTransactions,
   getHourBankBalance,
   createHourBankTransactionAdjustment,
+  createPaidOvertime,
 }
 
 export {

@@ -10,7 +10,6 @@ import { authActionClient } from './clients/auth-action-client'
 import {
   CreateDayOffScheduleAdjustmentSolicitationAction,
   CreateJustificationTypeAction,
-  CreatePaidOvertimeSolicitationAction,
   CreateTimePunchAdjustmentSolicitationAction,
   DeleteJustificationTypeAction,
   GetAttachmentUrlAction,
@@ -143,14 +142,6 @@ export const createDayOffSolicitation = authActionClient
     const action = CreateDayOffSolicitationAction(service)
     return action.handle(call)
   })
-
-export const createPaidOvertimeSolicitation = authActionClient.action(async () => {
-  const call = NextCall()
-  const apiClient = await NextServerRestClient({ isCacheEnabled: false })
-  const service = PortalService(apiClient)
-  const action = CreatePaidOvertimeSolicitationAction(service)
-  return action.handle(call)
-})
 
 export const getAttachmentUrl = authActionClient
   .schema(

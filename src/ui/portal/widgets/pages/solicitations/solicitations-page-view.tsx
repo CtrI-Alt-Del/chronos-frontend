@@ -1,17 +1,18 @@
 import { Tabs } from '@/ui/global/widgets/components/tabs'
-import { PaidOvertimeSolicitationsAccordion } from './paid-overtime-solicitations-accordion'
 import { ExcusedAbsenceSolicitationsAccordion } from './excused-absence-solicitations-accordion'
 import { DayOffSolicitationsAccordion } from './day-off-solicitations-accordion'
 import { DayOffScheduleAdjustmentSolicitationsAccordion } from './day-off-schedule-solicitations-accordion'
 import { WithdrawSolicitationsAccordion } from './withdraw-solicitation-accordin'
-import { VacationSolicitationsAccordion } from './vacation-solicitations-accordion'
 
 type Props = {
   activeTab: string
   onTabChange: (tab: string) => void
 }
 
-export const SolicitationsPageView = ({ activeTab, onTabChange }: Props) => {
+export const SolicitationsPageView = ({
+  activeTab,
+  onTabChange,
+}: Props) => {
   return (
     <div>
       <div className='px-10 py-4'>
@@ -28,13 +29,6 @@ export const SolicitationsPageView = ({ activeTab, onTabChange }: Props) => {
           >
             <ExcusedAbsenceSolicitationsAccordion />
           </Tabs.Item>
-
-          <Tabs.Item
-            key='paid-overtime'
-            title={<Tabs.Title>Hora extra remunerada</Tabs.Title>}
-          >
-            <PaidOvertimeSolicitationsAccordion />
-          </Tabs.Item>
           <Tabs.Item
             key='day-off-schedule'
             title={<Tabs.Title>Escala de folgas</Tabs.Title>}
@@ -43,12 +37,9 @@ export const SolicitationsPageView = ({ activeTab, onTabChange }: Props) => {
           </Tabs.Item>
           <Tabs.Item
             key='withdraw'
-            title={<Tabs.Title>Afastamento</Tabs.Title>}
+            title={<Tabs.Title>Solicitações de afastamento</Tabs.Title>}
           >
             <WithdrawSolicitationsAccordion />
-          </Tabs.Item>
-          <Tabs.Item key='vacation' title={<Tabs.Title>Férias</Tabs.Title>}>
-            <VacationSolicitationsAccordion />
           </Tabs.Item>
         </Tabs.Container>
       </div>

@@ -8,10 +8,10 @@ type Props = {
   onConfirm: () => void
 }
 
-export const PaidOvertimeSolicitationDialogView = ({ isLoading, onConfirm }: Props) => {
+export const PaidOvertimeDialogView = ({ isLoading, onConfirm }: Props) => {
   return (
     <AlertDialog
-      title='Soliciatação de hora extra'
+      title='Hora Extra Remunerada'
       trigger={
         <div
           role='button'
@@ -23,7 +23,7 @@ export const PaidOvertimeSolicitationDialogView = ({ isLoading, onConfirm }: Pro
           )}
         >
           {isLoading ? (
-            <div className='grid place-items-center flex-1'>
+            <div className='grid flex-1 place-items-center'>
               <Spinner />
             </div>
           ) : (
@@ -43,10 +43,11 @@ export const PaidOvertimeSolicitationDialogView = ({ isLoading, onConfirm }: Pro
     >
       <div>
         <p>
-          Você tem direito de solicitar{' '}
+          Você tem direito de converter{' '}
           <strong className='text-primary-500'>2 horas</strong> do banco de horas como
           horas extras remuneradas.
         </p>
+        <p className='mt-3'>Esta ação debitará diretamente do seu banco de horas.</p>
         <p className='mt-3'>Você tem certeza que deseja concluir essa ação?</p>
       </div>
     </AlertDialog>

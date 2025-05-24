@@ -9,6 +9,7 @@ import { CACHE } from '@/@core/global/constants'
 import { HourBankService } from '@/api/services'
 import {
   CreateHourBankTransactionAdjustmentAction,
+  CreatePaidOvertimeAction,
   GetHourBankBalanceAction,
   ListHourBankTransactionsAction,
 } from '../actions/hours-bank'
@@ -70,5 +71,24 @@ export const createHourBankTransactionAdjustment = authActionClient
     })
     const service = HourBankService(restClient)
     const action = CreateHourBankTransactionAdjustmentAction(service)
+    return action.handle(actionServer)
+  })
+
+export const createPaidOvertime = authActionClient
+  .schema(
+    z.object({
+      collaboratorId: idSchema,
+    }),
+  )
+  .action(async ({ clientInput }) => {
+    const actionServer = NextCall({
+      request: clientInput,
+    })
+    const restClient = await NextServerRestClient({
+      cacheKey: CACHE.hourBank.key(clientInput.collaboratorId),
+      isCacheEnabled: false,
+    })
+    const service = HourBankService(restClient)
+    const action = CreatePaidOvertimeAction(service)
     return action.handle(actionServer)
   })
