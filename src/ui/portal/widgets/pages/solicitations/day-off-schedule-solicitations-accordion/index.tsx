@@ -11,6 +11,9 @@ export const DayOffScheduleAdjustmentSolicitationsAccordion = () => {
     handleSolicitationApprove,
     handleSolicitationDeny,
     handleSolicitationCancel,
+    currentPage,
+    totalPages,
+    handlePageChange,
   } = useDayOffScheduleAdjustmentSolicitationAccordn(portalService)
   return (
     <DayOffScheduleSolicitationAccordionView
@@ -19,6 +22,9 @@ export const DayOffScheduleAdjustmentSolicitationsAccordion = () => {
       onSolicitationApprove={handleSolicitationApprove}
       onSolicitationDeny={handleSolicitationDeny}
       onSolicitationCancel={handleSolicitationCancel}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
     />
   )
 }
