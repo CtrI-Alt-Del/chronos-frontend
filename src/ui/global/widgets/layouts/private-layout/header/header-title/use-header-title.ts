@@ -36,6 +36,7 @@ export function useHeaderTitle() {
     const isManager = account?.role === 'MANAGER' || account?.role === 'ADMIN'
 
     const titleRouter = createTitleRouter({
+      [ROUTES.workSchedule.dashboard]: 'Dashboard',
       [ROUTES.workSchedule.timePunch]: 'Registrar ponto',
       [ROUTES.workSchedule.timeCard]: 'Espelho de pontos',
       [ROUTES.report]: 'Relatório analítico',
