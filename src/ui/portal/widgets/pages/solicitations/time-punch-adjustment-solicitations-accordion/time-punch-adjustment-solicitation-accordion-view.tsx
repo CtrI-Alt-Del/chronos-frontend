@@ -8,29 +8,41 @@ import { DateRangeCalendar } from '@/ui/global/widgets/components/date-range-cal
 type Props = {
   solicitations: TimePunchLogAdjustmentSolicitationDto[]
   isLoading: boolean
+  currentPage: number
+  totalPages: number
+  handlePageChange: (page: number) => void
   onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationCancel: (solicitationId: string) => void
 }
 
 export const TimePunchAdjustmentSolicitationsAccordionView = ({
   solicitations,
   isLoading,
+  currentPage,
+  totalPages,
+  handlePageChange,
   onSolicitationApprove,
   onSolicitationDeny,
+  onSolicitationCancel,
 }: Props) => {
   return (
     <SolicitationsAccordion
       isLoading={isLoading}
       solicitations={solicitations}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
       onSolicitationApprove={onSolicitationApprove}
       onSolicitationDeny={onSolicitationDeny}
+      onSolicitationCancel={onSolicitationCancel}
     >
       {(solicitation) => (
         <div className='mt-6'>
           <div className="flex gap-4">
             <Input
               type="date"
-              value={solicitation.date.toDateString()}
+              value={solicitation.date.toString()}
               readOnly
               label="Data"
             />

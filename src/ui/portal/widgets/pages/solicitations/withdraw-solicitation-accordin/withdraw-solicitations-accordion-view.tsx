@@ -8,22 +8,32 @@ import { DateRangeCalendar } from '@/ui/global/widgets/components/date-range-cal
 type Props = {
   solicitations: WithdrawSolicitationDto[]
   isLoading: boolean
+  currentPage: number
+  totalPages: number
   onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
   onSolicitationCancel: (solicitationId: string) => void
+  handlePageChange: (page: number) => void
 }
 
 export const WithdrawSolicitationsAccordionView = ({
   solicitations,
   isLoading,
+  currentPage,
+  totalPages,
   onSolicitationApprove,
   onSolicitationDeny,
-  onSolicitationCancel
+  onSolicitationCancel,
+  handlePageChange,
 }: Props) => {
+  console.log("solicitations-withdraw-solicitation-accordion-view", solicitations)
   return (
     <SolicitationsAccordion
       isLoading={isLoading}
       solicitations={solicitations}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
       onSolicitationApprove={onSolicitationApprove}
       onSolicitationDeny={onSolicitationDeny}
       onSolicitationCancel={onSolicitationCancel}

@@ -3,6 +3,8 @@ import { ExcusedAbsenceSolicitationsAccordion } from './excused-absence-solicita
 import { DayOffSolicitationsAccordion } from './day-off-solicitations-accordion'
 import { DayOffScheduleAdjustmentSolicitationsAccordion } from './day-off-schedule-solicitations-accordion'
 import { WithdrawSolicitationsAccordion } from './withdraw-solicitation-accordin'
+import { VacationSolicitationsAccordion } from './vacation-solicitations-accordion'
+import { TimePunchAdjustmentSolicitationsAccordion } from './time-punch-adjustment-solicitations-accordion'
 
 type Props = {
   activeTab: string
@@ -23,6 +25,9 @@ export const SolicitationsPageView = ({
           <Tabs.Item key='day-off' title={<Tabs.Title>Folga</Tabs.Title>}>
             <DayOffSolicitationsAccordion />
           </Tabs.Item>
+          <Tabs.Item key='time-punch-adjustment' title={<Tabs.Title>Ajuste de ponto</Tabs.Title>}>
+            <TimePunchAdjustmentSolicitationsAccordion />
+          </Tabs.Item>
           <Tabs.Item
             key='excused-absence'
             title={<Tabs.Title>Abono de falta</Tabs.Title>}
@@ -35,9 +40,12 @@ export const SolicitationsPageView = ({
           >
             <DayOffScheduleAdjustmentSolicitationsAccordion />
           </Tabs.Item>
+          <Tabs.Item key='vacation' title={<Tabs.Title>Férias</Tabs.Title>}>
+            <VacationSolicitationsAccordion />
+          </Tabs.Item>
           <Tabs.Item
             key='withdraw'
-            title={<Tabs.Title>Solicitações de afastamento</Tabs.Title>}
+            title={<Tabs.Title>Afastamento</Tabs.Title>}
           >
             <WithdrawSolicitationsAccordion />
           </Tabs.Item>

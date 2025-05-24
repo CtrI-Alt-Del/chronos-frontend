@@ -1,5 +1,6 @@
 import { DayOffSolicitationDialog } from './day-off-solicitation-dialog'
 import { PaidOvertimeDialog } from './paid-overtime-dialog'
+import { VacationSolicitationDialog } from './vacation-solicitation-dialog'
 
 type QuickActionsViewProps = {
   isCollaboratorItself: boolean
@@ -17,6 +18,7 @@ export const QuickActionsView = ({ isCollaboratorItself, workload }: QuickAction
         <div className='flex gap-3 mt-3 w-full'>
           <PaidOvertimeDialog />
           <DayOffSolicitationDialog workload={workload} />
+          <VacationSolicitationDialog />
         </div>
       </div>
     )

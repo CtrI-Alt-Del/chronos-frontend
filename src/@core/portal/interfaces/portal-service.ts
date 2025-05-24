@@ -32,11 +32,21 @@ export interface PortalService {
   createTimePunchLogAdjustmentSolicitation(
     solicitation: TimePunchLogAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
+  approveTimePunchLogAdjustmentSolicitation(
+    solicitationId: string,
+    feedbackMessage?: string,
+  ): Promise<ApiResponse<void>>
+  listTimePunchLogAdjustmentSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<TimePunchLogAdjustmentSolicitationDto>>>
   createDayOffSolicitation(
     dayOff: string,
     workload: number,
     observation?: string,
   ): Promise<ApiResponse<void>>
+  listVacationSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<VacationSolicitationDto>>>
   approveVacationSolicitation(
     solicitationId: string,
     feedbackMessage?: string,

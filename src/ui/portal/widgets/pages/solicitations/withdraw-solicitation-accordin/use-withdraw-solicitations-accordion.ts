@@ -56,17 +56,21 @@ export function useWithdrawSolicitationsAccordion(portalService: PortalService) 
       showSuccess('Solicitação cancelada com sucesso')
     }
   }
-  const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
-    fetcher: fetchSolicitations,
-    key: CACHE.portal.dayOffSolicitations.key,
-    isInfinity: true,
-    dependencies: [],
-  })
+  const { data, isFetching, isRefetching, page, pagesCount, setPage, refetch } =
+    usePaginatedCache({
+      fetcher: fetchSolicitations,
+      key: CACHE.portal.dayOffSolicitations.key,
+      isInfinity: true,
+      dependencies: [],
+    })
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,
+    currentPage: page,
+    totalPages: pagesCount,
     handleSolicitationApprove,
     handleSolicitationDeny,
     handleSolicitationCancel,
+    handlePageChange: setPage,
   }
 }
