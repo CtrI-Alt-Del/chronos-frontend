@@ -10,6 +10,7 @@ export type IconName =
   | 'confirm'
   | 'check'
   | 'cpf'
+  | 'dashboard'
   | 'day-off-schedule'
   | 'edit'
   | 'email'
