@@ -1,7 +1,6 @@
 
 import type { Action } from '@/@core/global/interfaces/rpc'
 import type { PortalService } from '@/@core/portal/interfaces'
-import { ROUTES } from '@/constants'
 import type { Call } from '@/@core/global/interfaces/rpc'
 import type { ExcusedAbsenceSolicitationDto } from '@/@core/portal/dtos'
 type RequestBody = {

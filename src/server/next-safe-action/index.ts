@@ -30,6 +30,8 @@ import {
   updateJustificationType,
   createExcusedAbsenceSolicitation,
   attachJustificationToSolicitation,
+  createWithdrawSolicitation,
+  createVacationSolicitation,
 } from './portal-actions'
 import {
   listHourBankTransactions,
@@ -50,6 +52,8 @@ const portalActions = {
   createTimePunchAdjustmentSolicitation,
   createDayOffSolicitation,
   getAttachmentUrl,
+  createWithdrawSolicitation,
+  createVacationSolicitation,
 }
 
 const authActions = {

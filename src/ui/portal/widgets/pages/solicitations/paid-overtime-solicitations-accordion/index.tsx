@@ -14,6 +14,7 @@ export const PaidOvertimeSolicitationsAccordion = () => {
     handleSolicitationApprove,
     handleSolicitationDeny,
     handlePageChange,
+    handleSolicitationCancel,
   } = usePaidOvertimeSolicitationsAccordion(portalService)
 
   return (
@@ -24,6 +25,7 @@ export const PaidOvertimeSolicitationsAccordion = () => {
       totalPages={totalPages}
       onSolicitationApprove={handleSolicitationApprove}
       onSolicitationDeny={handleSolicitationDeny}
+      onSolicitationCancel={handleSolicitationCancel}
       handlePageChange={handlePageChange}
     />
   )

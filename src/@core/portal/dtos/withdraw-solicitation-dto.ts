@@ -1,5 +1,7 @@
 import type { SolicitationDto } from './solicitation-dto'
 
 export type WithdrawSolicitationDto = SolicitationDto & {
-  withdrawalDays: string[]
+  startedAt: string
+  endedAt: string
+  isVacation: boolean
 }

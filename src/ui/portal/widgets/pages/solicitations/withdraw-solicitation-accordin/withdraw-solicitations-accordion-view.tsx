@@ -10,6 +10,7 @@ type Props = {
   isLoading: boolean
   onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationCancel: (solicitationId: string) => void
 }
 
 export const WithdrawSolicitationsAccordionView = ({
@@ -17,6 +18,7 @@ export const WithdrawSolicitationsAccordionView = ({
   isLoading,
   onSolicitationApprove,
   onSolicitationDeny,
+  onSolicitationCancel
 }: Props) => {
   return (
     <SolicitationsAccordion
@@ -24,10 +26,11 @@ export const WithdrawSolicitationsAccordionView = ({
       solicitations={solicitations}
       onSolicitationApprove={onSolicitationApprove}
       onSolicitationDeny={onSolicitationDeny}
+      onSolicitationCancel={onSolicitationCancel}
     >
       {(solicitation) => (
         <div className='mt-6'>
-          <DateRangeCalendar days={solicitation.withdrawalDays} />
+          <DateRangeCalendar startedAt={solicitation.startedAt} endedAt={solicitation.endedAt} />
         </div>
       )}
     </SolicitationsAccordion>

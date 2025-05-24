@@ -7,25 +7,29 @@ const TITLES: Record<string, string> = {
   day_off: 'Pedido de folga',
   excused_absence: 'Abono de falta',
   paid_overtime: 'Hora extra remunerada',
-  withdraw: "Afastamento"
+  work_leave: "Afastamento",
+  vacation: "Ferias"
 }
 
 const INDICATOR_COLORS: Record<string, string> = {
   approved: 'bg-green-500 text-white',
   pending: 'bg-yellow-500',
   denied: 'bg-red-500',
+  canceled: "bg-purple-500"
 }
 
-const CHIP_COLORS: Record<string, 'success' | 'warning' | 'danger'> = {
+const CHIP_COLORS: Record<string, 'success' | "secondary" | 'warning' | 'danger'> = {
   approved: 'success',
   pending: 'warning',
   denied: 'danger',
+  canceled: "secondary"
 }
 
 const LABELS: Record<string, string> = {
   pending: 'Pendente',
   approved: 'Aprovada',
   denied: 'Negada',
+  canceled: "Cancelada"
 }
 
 type Props = {

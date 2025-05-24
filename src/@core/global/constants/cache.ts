@@ -40,8 +40,14 @@ export const CACHE = {
     dayOffSolicitations: {
       key: 'portal/day-off-solicitations',
     },
+    vacationSolicitations: {
+      key: 'portal/vacation-solicitations',
+    },
     justificationType: {
       key: 'portal/justification-type',
+    },
+    workLeaveCalendar: {
+      key: 'portal/work-leave-calendar',
     },
   },
   hourBank: {

@@ -11,6 +11,7 @@ export const WithdrawSolicitationsAccordion = () => {
     isFetchingSolicitations,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handleSolicitationCancel,
   } = useWithdrawSolicitationsAccordion(portalService)
 
   return (
@@ -19,6 +20,7 @@ export const WithdrawSolicitationsAccordion = () => {
       isLoading={isFetchingSolicitations}
       onSolicitationApprove={handleSolicitationApprove}
       onSolicitationDeny={handleSolicitationDeny}
+      onSolicitationCancel={handleSolicitationCancel}
     />
   )
 }

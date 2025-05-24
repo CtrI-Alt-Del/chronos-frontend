@@ -10,6 +10,8 @@ type Props = {
   totalPages: number
   onSolicitationApprove: (solicitationId: string, feedbackMessage?: string) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationCancel: (solicitationId: string) => void
+
   handlePageChange: (page: number) => void
 }
 
@@ -20,6 +22,7 @@ export const ExcusedAbsenceSolicitationsAccordionView = ({
   totalPages,
   onSolicitationApprove,
   onSolicitationDeny,
+  onSolicitationCancel,
   handlePageChange,
 }: Props) => {
   return (
@@ -28,6 +31,7 @@ export const ExcusedAbsenceSolicitationsAccordionView = ({
       solicitations={solicitations}
       onSolicitationApprove={onSolicitationApprove}
       onSolicitationDeny={onSolicitationDeny}
+      onSolicitationCancel={onSolicitationCancel}
       currentPage={currentPage}
       totalPages={totalPages}
       handlePageChange={handlePageChange}
