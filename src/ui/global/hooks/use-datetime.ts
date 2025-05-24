@@ -4,6 +4,7 @@ import { formatInTimeZone, toZonedTime } from 'date-fns-tz'
 import { ptBR } from 'date-fns/locale'
 import {
   addDays,
+  differenceInDays,
   eachDayOfInterval,
   endOfMonth,
   getDay,
@@ -20,10 +21,6 @@ export function useDatetime() {
     return formatInTimeZone(date, TIME_ZONE, "EEEE, dd 'de' MMMM 'de' yyyy", {
       locale: ptBR,
     })
-  }
-
-  function formatDateWithWeekday(date: Date): string {
-    return formatInTimeZone(date, TIME_ZONE, 'dd/MM/yyyy')
   }
 
   function formatIsoDate(date: Date | string): string {
@@ -47,6 +44,10 @@ export function useDatetime() {
       locale: ptBR,
     })
   }
+
+  const getDaysCountOfRange = useCallback((startDate: Date, endDate: Date) => {
+    return differenceInDays(endDate, startDate)
+  }, [])
 
   function getFirstMonthDayOf(date: Date) {
     return startOfMonth(date)
@@ -117,6 +118,7 @@ export function useDatetime() {
     getCurrentMonthFirstMonday,
     getMonthDaysCountOf,
     getWeekdayIndex,
+    getDaysCountOfRange,
     getCurrentDate,
   }
 }

@@ -38,10 +38,12 @@ export const PortalService = (restClient: RestClient): IPortalService => {
       restClient.setParam('page', String(page))
       return await restClient.get(`${SOLICITATIONS_RESOURCE}/work-leave/withdraw`)
     },
+
     async listDayOffScheduleAdjustmentSolicitations(page) {
       restClient.setParam('page', String(page))
       return await restClient.get(`${SOLICITATIONS_RESOURCE}/day-off-schedule-adjustment`)
     },
+
     async approveDayOffScheduleAdjustmentSolicitation(solicitationId, feedbackMessage) {
       return await restClient.put(
         `${SOLICITATIONS_RESOURCE}/${solicitationId}/approve/day-off-schedule-adjustment`,
@@ -78,7 +80,9 @@ export const PortalService = (restClient: RestClient): IPortalService => {
       return await restClient.get(`${SOLICITATIONS_RESOURCE}/attachments/${key}`)
     },
 
-    async getWorkLeaveCalendar() {
+    async getWorkLeaveCalendar(year, month) {
+      restClient.setParam('year', String(year))
+      restClient.setParam('month', String(month))
       return await restClient.get(`${WORK_LEAVE_CALENDAR_RESOURCE}`)
     },
 

@@ -121,6 +121,15 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               title='Tipos de Justificativas'
             />
           )}
+
+
+          {(isAdmin || isManager) && (
+            <NavbarLink
+              href={ROUTES.portal.workLeaveCalendar}
+              icon='calendar'
+              title='Calendário de férias e afastamentos'
+            />
+          )}
         </NavbarContent>
 
         <Button

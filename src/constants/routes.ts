@@ -27,6 +27,7 @@ export const ROUTES = {
   portal: {
     solicitations: '/portal/solicitations',
     justificationTypes: '/portal/justification-types',
+    workLeaveCalendar: '/portal/work-leave-calendar',
   },
   report: '/relatorio',
 } as const
