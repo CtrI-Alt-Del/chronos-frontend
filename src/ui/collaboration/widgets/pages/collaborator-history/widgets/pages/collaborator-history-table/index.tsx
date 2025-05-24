@@ -57,10 +57,28 @@ const getStatusLabel = (status?: string) => {
           FALTA ABONADA
         </Chip>
       )
+    case 'vacation':
+      return (
+        <Chip variant='flat' color='success'>
+          FÉRIAS
+        </Chip>
+      )
+    case 'work_leave':
+      return (
+        <Chip variant='flat' color='secondary'>
+          AFASTAMENTO
+        </Chip>
+      )
+    case 'holiday':
+      return (
+        <Chip variant='flat' color='success'>
+          FERIADO
+        </Chip>
+      )
     default:
       return (
         <Chip variant='flat' color='warning'>
-          FALTA ABONADA
+          `{status}`
         </Chip>
       )
   }
@@ -143,7 +161,7 @@ export const CollaboratorHistoryTable = ({
                     type='button'
                     size='sm'
                     color='primary'
-                    className='text-sm text-white font-medium whitespace-nowrap p-1 rounded-md min-w-[120px]'
+                    className='text-sm text-white  font-medium whitespace-nowrap p-1 rounded-md min-w-[120px]'
                     onPress={() =>
                       handleCreateExcuseAbsenceSolicitationButtonClick(row.date)
                     }
