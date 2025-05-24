@@ -47,6 +47,7 @@ export function useHeaderTitle() {
       [ROUTES.collaboration.createCollaborator]: 'Cadastrar colaborador',
       [ROUTES.workSchedule.hoursBank]: 'Banco de horas',
       [ROUTES.portal.justificationTypes]: 'Tipos de Justificativas',
+      [ROUTES.portal.workLeaveCalendar]: 'Calendário de férias e afastamentos',
       [ROUTES.portal.solicitations]: isManager
         ? 'Solicitações do Setor'
         : 'Minhas Solicitações',

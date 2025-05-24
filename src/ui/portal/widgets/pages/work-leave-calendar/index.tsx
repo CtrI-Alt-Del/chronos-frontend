@@ -1,20 +1,37 @@
+'use client'
+
 import { useRest } from '@/ui/global/hooks/use-rest'
 import { useWorkLeaveCalendar } from './use-work-leave-calendar'
 import { WorkLeaveCalendarPageView } from './work-leave-calendar-view'
+import { useDatetime } from '@/ui/global/hooks/use-datetime'
 
 const today = new Date()
 
 export const WorkLeaveCalendarPage = () => {
   const { portalService } = useRest()
-  const { workLeaveCalendar, isLoading, month, year, handleDateInputChange } =
-    useWorkLeaveCalendar(portalService, today)
+  const {
+    collaboratorWorkLeaves,
+    isLoading,
+    month,
+    year,
+    page,
+    itemsCount,
+    handleDateInputChange,
+    handlePageChange,
+  } = useWorkLeaveCalendar(portalService, today)
+  const { getMonthDaysOf } = useDatetime()
+  const monthDays = getMonthDaysOf()
 
   return (
     <WorkLeaveCalendarPageView
-      workLeaveCalendar={workLeaveCalendar}
+      collaboratorWorkLeaves={collaboratorWorkLeaves}
       month={month}
       year={year}
-      handleDateInputChange={handleDateInputChange}
+      monthDays={monthDays}
+      page={page}
+      itemsCount={itemsCount}
+      onPageChange={handlePageChange}
+      onDateInputChange={handleDateInputChange}
     />
   )
 }
