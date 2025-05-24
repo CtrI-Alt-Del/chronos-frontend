@@ -76,5 +76,26 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
       restClient.setParam('daysOffCount', String(daysOffCount))
       return await restClient.get(`${MODULE}/day-off-schedules`)
     },
+
+    async getWorkdayStatusReport() {
+      return await restClient.get('/reports/workday-status')
+    },
+
+    async getYearlyAbsenceReport(startDate?: string, endDate?: string) {
+      if (startDate) restClient.setParam('startDate', startDate)
+      if (endDate) restClient.setParam('endDate', endDate)
+      return await restClient.get('/reports/yearly-absence')
+    },
+
+    async getDailyPunchsReport(date?: string) {
+      if (date) restClient.setParam('date', date)
+      return await restClient.get('/reports/daily-punchs')
+    },
+
+    async getCollaboratorsMissingTimeReport(startDate?: string, endDate?: string) {
+      if (startDate) restClient.setParam('startDate', startDate)
+      if (endDate) restClient.setParam('endDate', endDate)
+      return await restClient.get('/reports/collaborators-missing-time')
+    },
   }
 }
