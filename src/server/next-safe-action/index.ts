@@ -12,6 +12,10 @@ import {
   updateDayOffSchedule,
   punchTime,
   getWorkTime,
+  getYearlyAbsenceReport,
+  getDailyPunchsReport,
+  getCollaboratorsMissingTimeReport,
+  getWorkdayStatusReport,
 } from './work-schedule-actions'
 import {
   getCollaborator,
@@ -78,6 +82,10 @@ const workScheduleActions = {
   getTimeCard,
   updateDayOffSchedule,
   punchTime,
+  getWorkdayStatusReport,
+  getYearlyAbsenceReport,
+  getDailyPunchsReport,
+  getCollaboratorsMissingTimeReport,
 }
 
 const collaborationActions = {
