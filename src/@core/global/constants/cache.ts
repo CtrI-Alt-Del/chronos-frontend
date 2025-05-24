@@ -26,6 +26,15 @@ export const CACHE = {
     timeCard: {
       key: (collaboratorId: string) => `/workSchedule/time-card/${collaboratorId}`,
     },
+    collaboratorsMissingTime: {
+      key: '/workSchedule/collaborators-missing-time',
+    },
+    dailyTimePunch: {
+      key: '/workSchedule/daily-time-punch',
+    },
+    yearlyUserAbsence: {
+      key: '/workSchedule/yearly-user-absence',
+    },
   },
   portal: {
     dayOffScheduleAdjustmentSolicitations: {
