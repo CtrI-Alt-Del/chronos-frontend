@@ -1,9 +1,7 @@
-import { CollaboratorHistoryPage } from "@/ui/collaboration/widgets/pages/collaborator-history/widgets/pages";
+import { CollaboratorHistoryPage } from '@/ui/collaboration/widgets/pages/collaborator-history/widgets/pages'
 
 const Page = () => {
-  return (
-    <CollaboratorHistoryPage/>
-  )
+  return <CollaboratorHistoryPage />
 }
 
-export default Page;
+export default Page

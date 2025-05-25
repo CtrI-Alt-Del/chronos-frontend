@@ -17,8 +17,8 @@ export function useCreateDayOffSolicitationAction() {
       },
     },
   )
-  async function createDayOffSolicitation(dayOff: string,workload:number) {
-    console.log('createDayOffSolicitation', dayOff,workload)
+  async function createDayOffSolicitation(dayOff: string, workload: number) {
+    console.log('createDayOffSolicitation', dayOff, workload)
     await executeAsync({
       dayOff,
       workload,

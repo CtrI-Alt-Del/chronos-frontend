@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useCreateWithDrawSolicitationAction } from './use-create-withdraw-solicitation-action'
 import type { JustificationTypeDto } from '@/@core/portal/dtos'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import { DateValue, RangeValue } from '@heroui/react'
+import type { DateValue, RangeValue } from '@heroui/react'
 import { useAttachJusficationToSolicitationAction } from '../../../collaborator-history/widgets/pages/create-excuse-absence-modal/use-attach-justification-to-solicitation-action'
 export function useCreateWithdrawSolicitationModal() {
   const [selectedDates, setSelectedDates] = useState<RangeValue<DateValue> | null>()

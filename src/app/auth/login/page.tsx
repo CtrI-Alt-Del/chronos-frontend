@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import { LoginPage } from "@/ui/auth/widgets/pages/login";
+import { LoginPage } from '@/ui/auth/widgets/pages/login'
 
 export default function Page() {
-  return <LoginPage />;
+  return <LoginPage />
 }

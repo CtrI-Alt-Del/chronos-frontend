@@ -1,18 +1,18 @@
 'use client'
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 
 type BackgroundSquareProps = {
-  left?: number;
-  right?: number;
-  top?: number;
-  bottom?: number;
-  color: string;
-  opacity?: number;
-  rotation: number;
-  animate?: boolean;
-  delay?: number;
-};
+  left?: number
+  right?: number
+  top?: number
+  bottom?: number
+  color: string
+  opacity?: number
+  rotation: number
+  animate?: boolean
+  delay?: number
+}
 
 export function BackgroundSquare({
   left,
@@ -31,7 +31,7 @@ export function BackgroundSquare({
     top,
     bottom,
     backgroundColor: color,
-  };
+  }
 
   const combinedAnimation = animate
     ? {
@@ -44,25 +44,25 @@ export function BackgroundSquare({
           scale: {
             repeat: Infinity,
             duration: 4,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay,
           },
           opacity: {
             repeat: Infinity,
             duration: 4,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay,
           },
           y: {
             repeat: Infinity,
             duration: 6,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: delay + 0.5,
           },
           x: {
             repeat: Infinity,
             duration: 7,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: delay + 1,
           },
           rotate: {
@@ -70,14 +70,14 @@ export function BackgroundSquare({
           },
         },
       }
-    : { rotate: rotation };
+    : { rotate: rotation }
 
   return (
     <motion.div
-      className="absolute w-[580px] h-[580px] rounded-xl"
+      className='absolute w-[580px] h-[580px] rounded-xl'
       style={style}
       animate={combinedAnimation}
       initial={{ rotate: rotation, opacity: opacity, x: 0, y: 0 }}
     />
-  );
+  )
 }

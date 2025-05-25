@@ -18,6 +18,7 @@ export const WorkLeaveCalendarPage = () => {
     itemsCount,
     handleDateInputChange,
     handlePageChange,
+    handleCollaboratorNameChange,
   } = useWorkLeaveCalendar(portalService, today)
   const { getMonthDaysOf } = useDatetime()
   const monthDays = getMonthDaysOf()
@@ -32,6 +33,7 @@ export const WorkLeaveCalendarPage = () => {
       itemsCount={itemsCount}
       onPageChange={handlePageChange}
       onDateInputChange={handleDateInputChange}
+      onCollaboratorNameChange={handleCollaboratorNameChange}
     />
   )
 }

@@ -1,7 +1,7 @@
-import { Button } from '@heroui/button' 
+import { Button } from '@heroui/button'
 import { twMerge } from 'tailwind-merge'
 
-import { Icon } from '../Icon' 
+import { Icon } from '../Icon'
 
 type SelectProps = {
   children: string

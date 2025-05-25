@@ -1,6 +1,5 @@
 export type CollaboratorListParams = {
-    page: number
-    name?: string
-    status: string
-  }
-  
+  page: number
+  name?: string
+  status: string
+}

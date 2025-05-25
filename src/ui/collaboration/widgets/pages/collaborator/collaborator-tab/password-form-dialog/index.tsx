@@ -29,7 +29,7 @@ export function PasswordFormDialog({ collaboratorId }: PasswordFormDialogProps) 
       }
     >
       {(closeDialog) => (
-        <form  onSubmit={handleFormSubmit} className='flex flex-col gap-6 pb-3'>
+        <form onSubmit={handleFormSubmit} className='flex flex-col gap-6 pb-3'>
           <Input
             label='Senha'
             type='password'
@@ -50,7 +50,9 @@ export function PasswordFormDialog({ collaboratorId }: PasswordFormDialogProps) 
           />
 
           <div className='flex justify-between items-center mt-3'>
-            <Button type='submit' color='primary' isLoading={isSubmitting}>Altera senha</Button>
+            <Button type='submit' color='primary' isLoading={isSubmitting}>
+              Altera senha
+            </Button>
             <Button type='button' onPress={closeDialog} isDisabled={isSubmitting}>
               Cancelar
             </Button>

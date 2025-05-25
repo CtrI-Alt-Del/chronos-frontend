@@ -1,11 +1,8 @@
-import { NotFoundPage } from "@/ui/global/widgets/components/not-found";
-import { notFound } from "next/navigation";
-
+import { NotFoundPage } from '@/ui/global/widgets/components/not-found'
+import { notFound } from 'next/navigation'
 
 const Page = () => {
-    return(
-    <NotFoundPage/> )
+  return <NotFoundPage />
 }
 
-export default Page;
-
+export default Page

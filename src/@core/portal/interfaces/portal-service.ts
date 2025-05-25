@@ -5,40 +5,68 @@ import type {
   ExcusedAbsenceSolicitationDto,
   JustificationTypeDto,
   TimePunchLogAdjustmentSolicitationDto,
-  VacationSolicitationDto,
-  WithdrawSolicitationDto,
   CollaboratorWorkLeaveDto,
+  WorkLeaveSolicitationDto,
 } from '../dtos'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 
 export interface PortalService {
-  createDayOffScheduleAdjustmentSolicitation(
-    dayOffSchedule: DayOffScheduleDto,
-  ): Promise<ApiResponse<void>>
-  attachJustificationToSolicitation(
-    solicitationId: string,
-    justificationTypeId: string,
-    justificationTypeName: string,
-    justificationTypeShouldHaveAttachment: string,
-    description: string,
-    attachment?: File,
-  ): Promise<ApiResponse<void>>
+  getWorkLeaveCalendar(
+    year: number,
+    month: number,
+    collaboratorName?: string,
+  ): Promise<ApiResponse<PaginationResponse<CollaboratorWorkLeaveDto>>>
   getJustificationAttachmentUrl(key: string): Promise<
     ApiResponse<{
       url: string
     }>
   >
-  getWorkLeaveCalendar(
-    year: number,
-    month: number,
-  ): Promise<ApiResponse<PaginationResponse<CollaboratorWorkLeaveDto>>>
+  listJustificationTypes(): Promise<ApiResponse<JustificationTypeDto[]>>
+  listDayOffScheduleAdjustmentSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<DayOffScheduleAdjustmentSolicitationDto>>>
+  listDayOffSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<DayOffSolicitationDto>>>
+  listExcusedAbsenceSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<ExcusedAbsenceSolicitationDto>>>
+  listVacationSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<WorkLeaveSolicitationDto>>>
+  listWithdrawSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<WorkLeaveSolicitationDto>>>
+  createDayOffScheduleAdjustmentSolicitation(
+    dayOffSchedule: DayOffScheduleDto,
+  ): Promise<ApiResponse<void>>
   createTimePunchLogAdjustmentSolicitation(
     solicitation: TimePunchLogAdjustmentSolicitationDto,
+  ): Promise<ApiResponse<void>>
+  createVacationSolicitation(
+    solicitation: WorkLeaveSolicitationDto,
+  ): Promise<ApiResponse<void>>
+  createWithdrawSolicitation(
+    solicitation: WorkLeaveSolicitationDto,
   ): Promise<ApiResponse<void>>
   createDayOffSolicitation(
     dayOff: string,
     workload: number,
     observation?: string,
+  ): Promise<ApiResponse<void>>
+  createExcusedAbsenceSolicitation(
+    absenceDate: string,
+  ): Promise<ApiResponse<ExcusedAbsenceSolicitationDto>>
+  createJustificationType(
+    justificationType: JustificationTypeDto,
+  ): Promise<ApiResponse<JustificationTypeDto>>
+  updateJustificationType(
+    justificationType: JustificationTypeDto,
+    id: string,
+  ): Promise<ApiResponse<JustificationTypeDto>>
+  approveExcusedAbsenceSolicitation(
+    solicitationId: string,
+    feedbackMessage?: string,
   ): Promise<ApiResponse<void>>
   approveVacationSolicitation(
     solicitationId: string,
@@ -56,37 +84,18 @@ export interface PortalService {
     solicitationId: string,
     feedbackMessage?: string,
   ): Promise<ApiResponse<void>>
-  listDayOffScheduleAdjustmentSolicitations(
-    page: number,
-  ): Promise<ApiResponse<PaginationResponse<DayOffScheduleAdjustmentSolicitationDto>>>
-  listDayOffSolicitations(
-    page: number,
-  ): Promise<ApiResponse<PaginationResponse<DayOffSolicitationDto>>>
-  listWithdrawSolicitations(
-    page: number,
-  ): Promise<ApiResponse<PaginationResponse<WithdrawSolicitationDto>>>
-  createExcusedAbsenceSolicitation(
-    absenceDate: string,
-  ): Promise<ApiResponse<ExcusedAbsenceSolicitationDto>>
-  approveExcusedAbsenceSolicitation(
-    solicitationId: string,
-    feedbackMessage?: string,
-  ): Promise<ApiResponse<void>>
-  listExcusedAbsenceSolicitations(
-    page: number,
-  ): Promise<ApiResponse<PaginationResponse<ExcusedAbsenceSolicitationDto>>>
   cancelSolicitation(solicitationId: string): Promise<ApiResponse<void>>
   denySolicitation(
     solicitationId: string,
     feedbackMessage?: string,
   ): Promise<ApiResponse<void>>
-  listJustificationTypes(): Promise<ApiResponse<JustificationTypeDto[]>>
-  createJustificationType(
-    justificationType: JustificationTypeDto,
-  ): Promise<ApiResponse<JustificationTypeDto>>
-  updateJustificationType(
-    justificationType: JustificationTypeDto,
-    id: string,
-  ): Promise<ApiResponse<JustificationTypeDto>>
+  attachJustificationToSolicitation(
+    solicitationId: string,
+    justificationTypeId: string,
+    justificationTypeName: string,
+    justificationTypeShouldHaveAttachment: string,
+    description: string,
+    attachment?: File,
+  ): Promise<ApiResponse<void>>
   deleteJustificationType(id: string): Promise<ApiResponse<void>>
 }

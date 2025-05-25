@@ -27,25 +27,15 @@ export const TimePunchAdjustmentSolicitationsAccordionView = ({
     >
       {(solicitation) => (
         <div className='mt-6'>
-          <div className="flex gap-4">
+          <div className='flex gap-4'>
             <Input
-              type="date"
+              type='date'
               value={solicitation.date.toDateString()}
               readOnly
-              label="Data"
+              label='Data'
             />
-            <Input
-              type="time"
-              value={solicitation.time}
-              readOnly
-              label="Horário"
-            />
-            <Input
-              type="text"
-              value={solicitation.period}
-              readOnly
-              label="Período"
-            />
+            <Input type='time' value={solicitation.time} readOnly label='Horário' />
+            <Input type='text' value={solicitation.period} readOnly label='Período' />
           </div>
         </div>
       )}

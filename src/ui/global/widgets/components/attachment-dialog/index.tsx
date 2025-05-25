@@ -10,7 +10,7 @@ type AttachmentDialogProps = {
 }
 
 export const AttachmentDialog = ({ trigger, attachmentKey }: AttachmentDialogProps) => {
-  const { attachmentUrl,isLoading } = useAttachmentDialog(attachmentKey)
+  const { attachmentUrl, isLoading } = useAttachmentDialog(attachmentKey)
   const dialogRef = useRef<DialogRef>(null)
   return (
     <Dialog ref={dialogRef} title='' trigger={trigger}>

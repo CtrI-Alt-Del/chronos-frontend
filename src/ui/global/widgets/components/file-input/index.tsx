@@ -9,7 +9,12 @@ type FileInputProps = {
   onChange: (file: File) => void
 }
 
-export const FileInput = ({ label = 'Escolher Arquivo', name, accept, onChange }: FileInputProps) => {
+export const FileInput = ({
+  label = 'Escolher Arquivo',
+  name,
+  accept,
+  onChange,
+}: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [fileName, setFileName] = useState<string | null>(null)
 
@@ -22,11 +27,10 @@ export const FileInput = ({ label = 'Escolher Arquivo', name, accept, onChange }
   }
 
   return (
-    <div className="flex flex-col gap-2 items-start w-full">
-
+    <div className='flex flex-col gap-2 items-start w-full'>
       <input
         ref={inputRef}
-        type="file"
+        type='file'
         name={name}
         accept={accept}
         className='hidden'
@@ -36,18 +40,16 @@ export const FileInput = ({ label = 'Escolher Arquivo', name, accept, onChange }
       <Button
         type='button'
         startContent={
-          fileName ? null : <Icon name="upload" className="w-6 h-6 text-gray-500" />
+          fileName ? null : <Icon name='upload' className='w-6 h-6 text-gray-500' />
         }
         color='default'
         className='w-full h-16 bg-[#f4f4f5] text-gray-700'
         radius='sm'
         onClick={() => inputRef.current?.click()}
-        size="lg"
+        size='lg'
       >
-        {<span className="text-md">{fileName || "Selecione o arquivo"}</span>}
+        {<span className='text-md'>{fileName || 'Selecione o arquivo'}</span>}
       </Button>
-
     </div>
   )
 }
-

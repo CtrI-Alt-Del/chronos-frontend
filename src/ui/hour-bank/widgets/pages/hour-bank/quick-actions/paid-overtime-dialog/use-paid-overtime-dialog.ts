@@ -1,6 +1,4 @@
-export function usePaidOvertimeDialog(
-  createPaidOvertime: () => Promise<void>,
-) {
+export function usePaidOvertimeDialog(createPaidOvertime: () => Promise<void>) {
   async function handleDialogConfirm() {
     await createPaidOvertime()
   }

@@ -1,6 +1,6 @@
 import type { SolicitationDto } from './solicitation-dto'
 
-export type WithdrawSolicitationDto = SolicitationDto & {
+export type WorkLeaveSolicitationDto = SolicitationDto & {
   startedAt: string
   endedAt: string
   isVacation: boolean

@@ -2,8 +2,10 @@ import { CACHE } from '@/@core/global/constants'
 import type { PortalService } from '@/@core/portal/interfaces'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
-  
-export function useTimePunchAdjustmentSolicitationsAccordion(portalService: PortalService) {
+
+export function useTimePunchAdjustmentSolicitationsAccordion(
+  portalService: PortalService,
+) {
   const { showError, showSuccess } = useToast()
 
   async function fetchSolicitations(page: number) {

@@ -7,7 +7,7 @@ import { useCreateDayOffSolicitationAction } from './use-create-day-off-solicita
 
 type DayOffFormData = z.infer<typeof createDayOffSolicitationSchema>
 
-export function useDayOffSolicitationDialog(workload:number) {
+export function useDayOffSolicitationDialog(workload: number) {
   const { createDayOffSolicitation, isCreatingSolicitation } =
     useCreateDayOffSolicitationAction()
 
@@ -20,7 +20,7 @@ export function useDayOffSolicitationDialog(workload:number) {
     mode: 'onSubmit',
   })
   function onSubmit(data: DayOffFormData) {
-    createDayOffSolicitation(data.dayOff,workload)
+    createDayOffSolicitation(data.dayOff, workload)
   }
 
   return {

@@ -11,16 +11,12 @@ type DayOffSolicitationDialogProps = {
   workload: number
 }
 
-export const DayOffSolicitationDialog = ({workload}:DayOffSolicitationDialogProps) => {
-  const {
-    errors,
-    isSubmitting,
-    register,
-    handleSubmit,
-  } = useDayOffSolicitationDialog(workload)
+export const DayOffSolicitationDialog = ({ workload }: DayOffSolicitationDialogProps) => {
+  const { errors, isSubmitting, register, handleSubmit } =
+    useDayOffSolicitationDialog(workload)
   return (
     <Dialog
-      title='Solicitacao de Ferias'
+      title='Solicitação de Ferias'
       trigger={
         <div className='flex gap-4 w-full cursor-pointer items-center p-4 bg-white rounded-lg border border-[#D5E7FF] hover:shadow-md hover:border-blue-300 hover:bg-blue-50 transition-all duration-300'>
           <div className='p-3 rounded-lg bg-[#2D2B4F]'>
@@ -43,7 +39,7 @@ export const DayOffSolicitationDialog = ({workload}:DayOffSolicitationDialogProp
             isInvalid={Boolean(errors.dayOff)}
             errorMessage={errors.dayOff?.message}
           />
-          <div className='flex justify-center items-center gap-4 mt-4'>
+          <div className='flex justify-center items-center gap-4 mt-4 pb-3'>
             <Button
               className='w-40'
               color='danger'

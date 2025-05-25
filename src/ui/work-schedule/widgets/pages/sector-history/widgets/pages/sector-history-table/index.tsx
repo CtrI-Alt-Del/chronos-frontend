@@ -53,7 +53,7 @@ const getStatusLabel = (status?: string) => {
           FALTA ABONADA
         </Chip>
       )
-    case "vacation":
+    case 'vacation':
       return (
         <Chip variant='flat' color='success'>
           FÉRIAS
@@ -65,7 +65,7 @@ const getStatusLabel = (status?: string) => {
           AFASTAMENTO
         </Chip>
       )
-    case "holiday":
+    case 'holiday':
       return (
         <Chip variant='flat' color='success'>
           FERIADO

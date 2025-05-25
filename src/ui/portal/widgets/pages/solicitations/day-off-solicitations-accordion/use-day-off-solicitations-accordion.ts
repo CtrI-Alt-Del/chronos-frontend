@@ -33,9 +33,7 @@ export function useDayOffSolicitationsAccordion(portalService: PortalService) {
     }
   }
 
-  async function handleSolicitationCancel(
-    solicitationId: string,
-  ) {
+  async function handleSolicitationCancel(solicitationId: string) {
     const response = await portalService.cancelSolicitation(solicitationId)
     if (response.isFailure) {
       showError(response.errorMessage)

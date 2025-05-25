@@ -1,5 +1,5 @@
 export type AttachmentDto = {
-  key: string 
-  name: string 
+  key: string
+  name: string
   contentType: string
 }

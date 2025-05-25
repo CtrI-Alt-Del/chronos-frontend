@@ -4,7 +4,6 @@ import type { ResponsibleDto } from '@/@core/global/dtos/ResponsibleDto'
 
 export type WorkdayLogDto = {
   id?: string
-  collaborator: any
   date: Date
   timePunch: TimePunchDto
   status: string

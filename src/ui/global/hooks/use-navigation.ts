@@ -1,8 +1,8 @@
-import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 export const useNavigation = () => {
-  const pathname = usePathname();
+  const pathname = usePathname()
   const router = useRouter()
 
   function goTo(route: string) {
@@ -17,5 +17,5 @@ export const useNavigation = () => {
     currentRoute: pathname,
     goTo,
     reloadRoute,
-  };
-}; 
+  }
+}

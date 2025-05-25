@@ -6,11 +6,11 @@ import { Button } from '@heroui/button'
 
 type Props = {
   isLoading: boolean
+  isManager: boolean
+  canCancel: boolean
   onApproveSubmit: (event: FormEvent<HTMLFormElement>) => void
   onDenySubmit: (event: FormEvent<HTMLFormElement>) => void
   onCancelSubmit: (event: FormEvent<HTMLFormElement>) => void
-  isManager: boolean
-  canCancel: boolean
 }
 
 export const SolicitationActionsView = ({

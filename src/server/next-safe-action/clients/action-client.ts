@@ -10,7 +10,7 @@ export const actionClient = createSafeActionClient({
       return error.message
     }
     console.error('Action error:', error)
-    
+
     if (error.message === 'NEXT_NOT_FOUND') {
       redirect('/not-found')
     }

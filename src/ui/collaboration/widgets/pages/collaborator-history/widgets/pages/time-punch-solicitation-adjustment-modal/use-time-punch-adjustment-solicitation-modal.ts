@@ -1,4 +1,4 @@
-import { useCreateTimePunchAdjustmentSolicitationAction } from "./use-create-time-punch-adjustment-solicitation-action"
+import { useCreateTimePunchAdjustmentSolicitationAction } from './use-create-time-punch-adjustment-solicitation-action'
 
 export function useTimePunchAdjustmentSolicitationModal() {
   const today = new Date().toLocaleDateString('pt-BR', {

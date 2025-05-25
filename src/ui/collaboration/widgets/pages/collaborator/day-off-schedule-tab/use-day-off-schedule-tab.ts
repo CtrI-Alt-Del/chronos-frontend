@@ -1,4 +1,4 @@
-import { RefObject, useMemo, useState } from 'react'
+import { type RefObject, useMemo, useState } from 'react'
 
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import { ROUTES } from '@/constants'
@@ -10,7 +10,7 @@ import { useCreateDayOffScheduleSolicitationAction } from './use-create-day-off-
 import { useUpdateDayOffScheduleAction } from './use-update-day-off-schedule-action'
 import { useNavigation } from '@/ui/global/hooks/use-navigation'
 import { useRest } from '@/ui/global/hooks/use-rest'
-import { DialogRef } from '@/ui/global/widgets/components/dialog/types'
+import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
 
 const WEEKDAYS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
 

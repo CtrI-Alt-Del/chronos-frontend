@@ -44,7 +44,7 @@ export function useVacationSolicitationsAccordion(portalService: PortalService) 
       showSuccess('Solicitação negada com sucesso')
     }
   }
-  async function handleSolicitationCancel(solicitationId: string){
+  async function handleSolicitationCancel(solicitationId: string) {
     const response = await portalService.cancelSolicitation(solicitationId)
     if (response.isFailure) {
       showError(response.errorMessage)

@@ -1,5 +1,5 @@
 export type WorkdayStatusReportDto = {
-  activateCollaborators: number;
-  vacationCollaborators: number;
-  withdrawCollaborators: number;
+  activateCollaborators: number
+  vacationCollaborators: number
+  withdrawCollaborators: number
 }

@@ -1,1 +1,1 @@
-export type {AccountDto} from "./account-dto"
+export type { AccountDto } from './account-dto'

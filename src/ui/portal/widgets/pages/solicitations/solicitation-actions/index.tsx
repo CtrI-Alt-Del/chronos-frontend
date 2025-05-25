@@ -3,20 +3,20 @@ import { useSolicitationActions } from './use-solicitation-actions'
 
 type Props = {
   isLoading: boolean
+  isManager: boolean
+  canCancel: boolean
   onApprove: (feedbackMessage?: string) => void
   onDeny: (feedbackMessage?: string) => void
   onCancel: VoidFunction
-  isManager: boolean
-  canCancel: boolean
 }
 
 export const SolicitationActions = ({
   isLoading,
+  isManager,
+  canCancel,
   onApprove,
   onDeny,
   onCancel,
-  isManager,
-  canCancel,
 }: Props) => {
   const {
     handleApproveSolicitationFormSubmit,

@@ -36,8 +36,8 @@ export const PaidOvertimeSolicitationsAccordionView = ({
       {() => (
         <div className='mt-6'>
           <p className='text-md text-slate-500'>
-            ☝Débito de <strong className='text-primary'>2 horas</strong> no banco de
-            horas se aprovada.
+            ☝Débito de <strong className='text-primary'>2 horas</strong> no banco de horas
+            se aprovada.
           </p>
         </div>
       )}

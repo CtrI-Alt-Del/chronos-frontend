@@ -18,7 +18,7 @@ export const WithdrawSolicitationsAccordionView = ({
   isLoading,
   onSolicitationApprove,
   onSolicitationDeny,
-  onSolicitationCancel
+  onSolicitationCancel,
 }: Props) => {
   return (
     <SolicitationsAccordion
@@ -30,7 +30,10 @@ export const WithdrawSolicitationsAccordionView = ({
     >
       {(solicitation) => (
         <div className='mt-6'>
-          <DateRangeCalendar startedAt={solicitation.startedAt} endedAt={solicitation.endedAt} />
+          <DateRangeCalendar
+            startedAt={solicitation.startedAt}
+            endedAt={solicitation.endedAt}
+          />
         </div>
       )}
     </SolicitationsAccordion>

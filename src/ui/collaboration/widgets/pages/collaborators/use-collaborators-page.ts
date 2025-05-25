@@ -7,7 +7,7 @@ import { useToast } from '@/ui/global/hooks/use-toast'
 import { useRest } from '@/ui/global/hooks/use-rest'
 
 export function useCollaboratorsPage() {
-  const { collaborationService,authService } = useRest()
+  const { collaborationService, authService } = useRest()
   const [isAlteringCollaboratorStatus, setIsAlteringCollaboratorStatus] =
     useState<boolean>(false)
   const [status, setStatus] = useQueryParamString('active', 'true')

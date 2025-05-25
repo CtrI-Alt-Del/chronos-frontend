@@ -1,14 +1,9 @@
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-} from "@heroui/modal"
-import { Slot } from "@radix-ui/react-slot"
-import { ForwardedRef, ReactNode, useImperativeHandle } from "react"
+import { Modal, ModalContent, ModalHeader, ModalBody } from '@heroui/modal'
+import { Slot } from '@radix-ui/react-slot'
+import { type ForwardedRef, type ReactNode, useImperativeHandle } from 'react'
 
-import { ModalRef } from "./modal-ref"
-import { useModal } from "./use-modal"
+import type { ModalRef } from './modal-ref'
+import { useModal } from './use-modal'
 
 type ModalProps = {
   title?: string
@@ -18,21 +13,19 @@ type ModalProps = {
   isDismissable?: boolean
   hideCloseButton?: boolean
   onOpen?: () => void
-  ref?: ForwardedRef<ModalRef>,
+  ref?: ForwardedRef<ModalRef>
 }
 
-export const ModalComponent = (
-  {
-    title,
-    children,
-    trigger,
-    size,
-    isDismissable,
-    hideCloseButton,
-    onOpen: onOpenModal,
-    ref,
-  }: ModalProps,
-) => {
+export const ModalComponent = ({
+  title,
+  children,
+  trigger,
+  size,
+  isDismissable,
+  hideCloseButton,
+  onOpen: onOpenModal,
+  ref,
+}: ModalProps) => {
   const { isOpen, open, close } = useModal(onOpenModal)
 
   useImperativeHandle(

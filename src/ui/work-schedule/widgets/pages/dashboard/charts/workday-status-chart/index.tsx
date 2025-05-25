@@ -6,8 +6,5 @@ export const WorkdayStatusChart = async () => {
   if (!response?.data) return
   const workdayStatusReport = response.data
 
-  return (
-    <WorkdayStatusChartView workdayStatus={workdayStatusReport} />
-  )
+  return <WorkdayStatusChartView workdayStatus={workdayStatusReport} />
 }
-

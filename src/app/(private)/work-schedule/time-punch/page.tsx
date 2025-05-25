@@ -8,11 +8,7 @@ const Page = async () => {
   if (!workScheduleResponse?.data) return
   if (!collaborationResponse?.data) return
 
-  return (
-    <TimePunchPage
-      workdayLog={workScheduleResponse.data.workdayLog}
-    />
-  )
+  return <TimePunchPage workdayLog={workScheduleResponse.data.workdayLog} />
 }
 
 export default Page

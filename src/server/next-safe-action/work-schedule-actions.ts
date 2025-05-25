@@ -125,20 +125,21 @@ export const getWorkTime = authActionClient
     return action.handle(actionServer)
   })
 
-export const getWorkdayStatusReport = authActionClient
-  .action(async () => {
-    const actionServer = NextCall()
-    const apiClient = await NextServerRestClient()
-    const service = WorkScheduleService(apiClient)
-    const action = GetWorkdayStatusReportAction(service)
-    return action.handle(actionServer)
-  })
+export const getWorkdayStatusReport = authActionClient.action(async () => {
+  const actionServer = NextCall()
+  const apiClient = await NextServerRestClient()
+  const service = WorkScheduleService(apiClient)
+  const action = GetWorkdayStatusReportAction(service)
+  return action.handle(actionServer)
+})
 
 export const getYearlyAbsenceReport = authActionClient
-  .schema(z.object({
-    startDate: z.string().optional(),
-    endDate: z.string().optional(),
-  }))
+  .schema(
+    z.object({
+      startDate: z.string().optional(),
+      endDate: z.string().optional(),
+    }),
+  )
   .action(async ({ clientInput }) => {
     const actionServer = NextCall({
       request: clientInput,
@@ -150,10 +151,12 @@ export const getYearlyAbsenceReport = authActionClient
   })
 
 export const getDailyPunchsReport = authActionClient
-  .schema(z.object({
-    startDate: z.string().optional(),
-    endDate: z.string().optional(),
-  }))
+  .schema(
+    z.object({
+      startDate: z.string().optional(),
+      endDate: z.string().optional(),
+    }),
+  )
   .action(async ({ clientInput }) => {
     const actionServer = NextCall({
       request: clientInput,
@@ -165,10 +168,12 @@ export const getDailyPunchsReport = authActionClient
   })
 
 export const getCollaboratorsMissingTimeReport = authActionClient
-  .schema(z.object({
-    startDate: z.string().optional(),
-    endDate: z.string().optional(),
-  }))
+  .schema(
+    z.object({
+      startDate: z.string().optional(),
+      endDate: z.string().optional(),
+    }),
+  )
   .action(async ({ clientInput }) => {
     const actionServer = NextCall({
       request: clientInput,

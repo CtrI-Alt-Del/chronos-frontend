@@ -9,7 +9,6 @@ import type { AccountDto } from '@/@core/auth/dtos'
 import { ROUTES } from '@/constants/routes'
 import type { Role } from '@/@core/global/types'
 
-
 export async function allowPageByRole(roles: Role[]) {
   const nextCookies = await NextCookies()
   const jwt = nextCookies.get(COOKIES.jwt.key)
@@ -19,11 +18,9 @@ export async function allowPageByRole(roles: Role[]) {
   }
 
   const account = jwtDecode<AccountDto>(jwt.value)
-  console.log({ account });
-
+  console.log({ account })
 
   if (!roles.map(String).includes(account.role)) {
     return redirect(ROUTES.auth.login)
   }
 }
-

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { DateValue, form, RangeValue } from '@heroui/react'
+import { type DateValue, form, type RangeValue } from '@heroui/react'
 import { useCreateVacationSolicitationAction } from './use-create-vacation-solicitation-action'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'

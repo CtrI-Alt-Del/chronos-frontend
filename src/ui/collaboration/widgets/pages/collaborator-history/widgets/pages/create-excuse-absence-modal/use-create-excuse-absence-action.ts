@@ -5,10 +5,11 @@ import { useAction } from 'next-safe-action/hooks'
 export function useCreateExcuseAbsenceSolicitationAction() {
   const { executeAsync, isExecuting } = useAction(
     portalActions.createExcusedAbsenceSolicitation,
-    {
-    },
+    {},
   )
-  async function createExcusedAbsenceSolicitation(absenceDate: string): Promise<ExcusedAbsenceSolicitationDto> {
+  async function createExcusedAbsenceSolicitation(
+    absenceDate: string,
+  ): Promise<ExcusedAbsenceSolicitationDto> {
     const response = await executeAsync({
       absenceDate,
     })

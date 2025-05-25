@@ -1,6 +1,6 @@
 export type YearlyAbsenceReportDto = {
   monthlyAbsences: {
-    collaboratorsAbsence: number;
-    managersAbsence: number;
-  }[];
+    collaboratorsAbsence: number
+    managersAbsence: number
+  }[]
 }

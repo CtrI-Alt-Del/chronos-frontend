@@ -1,4 +1,5 @@
 import type { RestClient } from '@/@core/global/interfaces/rest'
+import type { WorkLeaveSolicitationDto } from '@/@core/portal/dtos'
 import type { PortalService as IPortalService } from '@/@core/portal/interfaces'
 
 export const PortalService = (restClient: RestClient): IPortalService => {
@@ -7,22 +8,22 @@ export const PortalService = (restClient: RestClient): IPortalService => {
   const WORK_LEAVE_CALENDAR_RESOURCE = '/portal/work-leave-calendar'
 
   return {
-    async createVacationSolicitation(startedAt, endedAt) {
-      return await restClient.post(`${SOLICITATIONS_RESOURCE}/work-leave/vacation`, {
-        startedAt,
-        endedAt,
-      })
-    },
-
     async cancelSolicitation(solicitationId) {
       return await restClient.patch(`${SOLICITATIONS_RESOURCE}/${solicitationId}/cancel`)
     },
 
-    async createWithdrawSolicitation(startedAt, endedAt) {
-      return await restClient.post(`${SOLICITATIONS_RESOURCE}/work-leave/withdraw`, {
-        startedAt,
-        endedAt,
-      })
+    async createVacationSolicitation(solicitation: WorkLeaveSolicitationDto) {
+      return await restClient.post(
+        `${SOLICITATIONS_RESOURCE}/work-leave/vacation`,
+        solicitation,
+      )
+    },
+
+    async createWithdrawSolicitation(solicitation: WorkLeaveSolicitationDto) {
+      return await restClient.post(
+        `${SOLICITATIONS_RESOURCE}/work-leave/withdraw`,
+        solicitation,
+      )
     },
 
     async approveWithdrawSolicitation(solicitationId, feedbackMessage) {
@@ -80,9 +81,11 @@ export const PortalService = (restClient: RestClient): IPortalService => {
       return await restClient.get(`${SOLICITATIONS_RESOURCE}/attachments/${key}`)
     },
 
-    async getWorkLeaveCalendar(year, month) {
+    async getWorkLeaveCalendar(year, month, collaboratorName) {
       restClient.setParam('year', String(year))
       restClient.setParam('month', String(month))
+      if (collaboratorName) restClient.setParam('collaboratorName', collaboratorName)
+
       return await restClient.get(`${WORK_LEAVE_CALENDAR_RESOURCE}`)
     },
 

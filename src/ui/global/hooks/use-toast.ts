@@ -1,4 +1,4 @@
-import { addToast } from "@heroui/toast";
+import { addToast } from '@heroui/toast'
 
 export function useToast() {
   function showSuccess(message: string) {

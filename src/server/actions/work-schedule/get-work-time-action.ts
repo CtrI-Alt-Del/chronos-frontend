@@ -1,6 +1,6 @@
-import type { Action } from "@/@core/global/interfaces/rpc";
-import type { WorkTimeDto } from "@/@core/work-schedule/dtos";
-import type { WorkScheduleService } from "@/@core/work-schedule/interfaces";
+import type { Action } from '@/@core/global/interfaces/rpc'
+import type { WorkTimeDto } from '@/@core/work-schedule/dtos'
+import type { WorkScheduleService } from '@/@core/work-schedule/interfaces'
 
 type Request = {
   collaboratorId: string
@@ -10,7 +10,9 @@ type Response = {
   workTime: WorkTimeDto
 }
 
-export const GetWorkTimeAction = (service: WorkScheduleService):Action<Request,Response> => {
+export const GetWorkTimeAction = (
+  service: WorkScheduleService,
+): Action<Request, Response> => {
   return {
     async handle(call) {
       const { collaboratorId } = call.getRequest()
@@ -22,5 +24,4 @@ export const GetWorkTimeAction = (service: WorkScheduleService):Action<Request,R
       }
     },
   }
-
 }

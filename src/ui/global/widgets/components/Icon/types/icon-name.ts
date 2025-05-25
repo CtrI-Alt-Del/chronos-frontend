@@ -28,6 +28,7 @@ export type IconName =
   | 'report'
   | 'role'
   | 'sector'
+  | 'search'
   | 'star'
   | 'time-card'
   | 'timer'

@@ -1,5 +1,5 @@
 export type JustificationTypeDto = {
-  id?:string 
-  name: string 
+  id?: string
+  name: string
   shouldHaveAttachment: boolean
 }

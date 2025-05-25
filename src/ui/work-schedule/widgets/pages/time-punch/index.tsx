@@ -1,12 +1,12 @@
 'use client'
 
 import { Button } from '@heroui/button'
+import { cn } from '@heroui/theme'
 
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
 import { AlertDialog } from '@/ui/global/widgets/components/alert-dialog'
 import { useTimePunchPage } from './use-time-punch-page'
 import { TimePunchStepper } from './time-stepper'
-import { cn } from '@heroui/theme'
 
 type TimePunchPageProps = {
   workdayLog: WorkdayLogDto
@@ -28,7 +28,7 @@ export const TimePunchPage = ({ workdayLog }: TimePunchPageProps) => {
   return (
     <div className='flex flex-col justify-center items-center p-6 h-full rounded-lg border border-gray-border'>
       <div className='mb-6 text-3xl font-medium'>
-        <p>Bem-vindo(a), {workdayLog.collaborator.name}!</p>
+        <p>Bem-vindo(a), {workdayLog.responsible.entity?.name}!</p>
       </div>
 
       <div className='text-center'>

@@ -1,1 +1,1 @@
-export type { CollaboratorListParams } from "./collaborator-list-params"
+export type { CollaboratorListParams } from './collaborator-list-params'

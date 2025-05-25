@@ -10,7 +10,7 @@ export const TimePunchAdjustmentSolicitationsAccordion = () => {
     solicitations,
     isFetchingSolicitations,
     handleSolicitationApprove,
-    handleSolicitationDeny
+    handleSolicitationDeny,
   } = useTimePunchAdjustmentSolicitationsAccordion(portalService)
 
   return (

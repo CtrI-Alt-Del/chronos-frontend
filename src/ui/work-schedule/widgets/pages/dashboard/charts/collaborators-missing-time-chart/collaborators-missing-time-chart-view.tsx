@@ -30,7 +30,6 @@ export function CollaboratorsMissingTimeChartView({
   handleStartDateInputChange,
   handleEndDateInputChange,
 }: CollaboratorsMissingTimeChartViewProps) {
-
   return (
     <Card>
       <CardHeader>
@@ -48,7 +47,10 @@ export function CollaboratorsMissingTimeChartView({
           </div> */}
         </div>
         <ResponsiveContainer width='100%' height='100%'>
-          <BarChart data={missingTime} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
+          <BarChart
+            data={missingTime}
+            margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
+          >
             <CartesianGrid strokeDasharray='3 3' vertical={false} />
             <XAxis
               dataKey='day'

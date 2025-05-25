@@ -1,4 +1,4 @@
-import { useDisclosure } from "@heroui/modal"
+import { useDisclosure } from '@heroui/modal'
 
 export function useModal(onOpenModal?: () => void) {
   const { isOpen, onOpen, onClose } = useDisclosure()

@@ -1,6 +1,7 @@
+import { Input } from '@heroui/input'
+
 import type { DayOffScheduleAdjustmentSolicitationDto } from '@/@core/portal/dtos'
 import { SolicitationsAccordion } from '../solicitations-accordion'
-import { Input } from '@heroui/input'
 
 type SolicitationAccordionProps = {
   solicitations: DayOffScheduleAdjustmentSolicitationDto[]

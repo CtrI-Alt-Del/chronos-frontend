@@ -1,7 +1,6 @@
 import { type ForwardedRef, forwardRef } from 'react'
-import { Button } from '@heroui/button' 
+import { Button } from '@heroui/button'
 import { twMerge } from 'tailwind-merge'
-
 
 import { Tag } from '../tag'
 import type { IconName } from '../Icon/types'

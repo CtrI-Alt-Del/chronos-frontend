@@ -31,7 +31,7 @@ export const NavbarLink = ({ href, icon, title }: NavbarLinkProps) => {
         <span className='mr-2'>
           <Icon name={icon} size={16} className={isActive ? 'text-blue-800' : ''} />
         </span>
-        <span>{title}</span>
+        <span className='truncate'>{title}</span>
       </Link>
       <span
         className={`w-[80%] h-1 ${

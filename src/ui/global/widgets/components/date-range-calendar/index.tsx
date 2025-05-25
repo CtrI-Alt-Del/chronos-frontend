@@ -6,7 +6,7 @@ type Props = {
   endedAt: string
 }
 
-export const DateRangeCalendar = ({ startedAt,endedAt }: Props) => {
+export const DateRangeCalendar = ({ startedAt, endedAt }: Props) => {
   const startedAtDate: CalendarDate = parseDate(startedAt)
   const endedAtDate: CalendarDate = parseDate(endedAt)
 
@@ -24,4 +24,3 @@ export const DateRangeCalendar = ({ startedAt,endedAt }: Props) => {
     </div>
   )
 }
-

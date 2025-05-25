@@ -1,5 +1,3 @@
-import type { CollaboratorWorkLeaveDto } from '@/@core/portal/dtos'
-import { MonthInput } from '@/ui/global/widgets/components/month-input'
 import {
   Table,
   TableBody,
@@ -8,10 +6,14 @@ import {
   TableHeader,
   TableRow,
 } from '@heroui/table'
-import { WorkLeave } from './work-leave'
-import { Avatar } from '@heroui/avatar'
-import { useDatetime } from '@/ui/global/hooks/use-datetime'
 import { Pagination } from '@heroui/react'
+import { Avatar } from '@heroui/avatar'
+
+import type { CollaboratorWorkLeaveDto } from '@/@core/portal/dtos'
+import { MonthInput } from '@/ui/global/widgets/components/month-input'
+import { useDatetime } from '@/ui/global/hooks/use-datetime'
+import { Search } from '@/ui/global/widgets/components/search'
+import { WorkLeave } from './work-leave'
 
 type Props = {
   collaboratorWorkLeaves: CollaboratorWorkLeaveDto[]
@@ -20,6 +22,7 @@ type Props = {
   monthDays: Date[]
   page: number
   itemsCount: number
+  onCollaboratorNameChange: (collaboratorName: string) => void
   onPageChange: (page: number) => void
   onDateInputChange: (month: number, year: number) => void
 }
@@ -31,6 +34,7 @@ export const WorkLeaveCalendarPageView = ({
   monthDays,
   page,
   itemsCount,
+  onCollaboratorNameChange,
   onPageChange,
   onDateInputChange,
 }: Props) => {
@@ -100,6 +104,7 @@ export const WorkLeaveCalendarPageView = ({
     <div className='mt-6'>
       <div className='flex items-center gap-2'>
         <MonthInput year={year} month={month} onChange={onDateInputChange} />
+        <Search placeholder='Pesquisar colaborador' onChange={onCollaboratorNameChange} />
       </div>
 
       <Table

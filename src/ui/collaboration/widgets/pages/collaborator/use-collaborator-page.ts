@@ -39,9 +39,9 @@ export function useCollaboratorPage(
       resetStore()
     }
   }, [])
-  useEffect(()=>{
+  useEffect(() => {
     setTab(currentTab as Tab)
-  },[currentTab,setTab])
+  }, [currentTab, setTab])
 
   return {
     activeTab: tab,

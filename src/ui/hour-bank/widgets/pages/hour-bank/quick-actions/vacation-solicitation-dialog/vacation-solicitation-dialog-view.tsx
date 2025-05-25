@@ -20,7 +20,7 @@ export const VacationSolicitationDialogView = ({
 }: VacationSolicitationDialogViewProps) => {
   return (
     <Dialog
-      title='Solicitacao de Ferias'
+      title='solicitação de Ferias'
       trigger={
         <div className='flex gap-4 w-full cursor-pointer items-center p-4 bg-white rounded-lg border border-[#D5E7FF] hover:shadow-md hover:border-blue-300 hover:bg-blue-50 transition-all duration-300'>
           <div className='p-3 rounded-lg bg-[#2D2B4F]'>

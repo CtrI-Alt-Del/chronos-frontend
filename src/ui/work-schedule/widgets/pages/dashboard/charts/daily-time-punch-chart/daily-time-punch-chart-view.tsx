@@ -30,7 +30,6 @@ export function DailyTimePunchChartView({
   handleStartDateInputChange,
   handleEndDateInputChange,
 }: DailyTimePunchChartViewProps) {
-
   return (
     <Card>
       <CardHeader>
@@ -45,7 +44,10 @@ export function DailyTimePunchChartView({
         /> */}
         <div className='w-full h-[400px] rounded-2xl'>
           <ResponsiveContainer width='100%' height='100%'>
-            <LineChart data={dailyPunchs} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+            <LineChart
+              data={dailyPunchs}
+              margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+            >
               <CartesianGrid strokeDasharray='4 4' stroke='#d1d5db' />
               <XAxis
                 dataKey='hour'

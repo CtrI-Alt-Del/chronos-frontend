@@ -1,6 +1,6 @@
 export type { SolicitationDto } from './solicitation-dto'
 export type { VacationSolicitationDto } from './vacation-solicitation-dto'
-export type { WithdrawSolicitationDto } from './withdraw-solicitation-dto'
+export type { WorkLeaveSolicitationDto } from './work-leave-solicitation-dto'
 export type { JustificationDto } from './justification-dto'
 export type { AttachmentDto } from './attachment-dto'
 export type { DayOffSolicitationDto } from './day-off-solicitation-dto'

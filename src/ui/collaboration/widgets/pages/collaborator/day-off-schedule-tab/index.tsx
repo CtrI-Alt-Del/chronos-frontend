@@ -7,7 +7,7 @@ import { Input } from '@heroui/input'
 import { useDayOffScheduleTab } from './use-day-off-schedule-tab'
 import type { DayOffScheduleDto } from '@/@core/work-schedule/dtos'
 import { useRef } from 'react'
-import { DialogRef } from '@/ui/global/widgets/components/dialog/types'
+import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
 import { CreateWithdrawSolicitationModal } from './create-withdraw-solicitation-modal'
 
 type DayOffScheduleProps = {
@@ -66,7 +66,7 @@ export const DayOffScheduleTab = ({
             isLoading={isLoading}
             className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
           >
-            Criar solicitacao de troca de jornada
+            Criar solicitação de troca de jornada
           </Button>
         )}
         <Button

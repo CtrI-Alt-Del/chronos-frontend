@@ -7,29 +7,29 @@ const TITLES: Record<string, string> = {
   day_off: 'Pedido de folga',
   excused_absence: 'Abono de falta',
   paid_overtime: 'Hora extra remunerada',
-  work_leave: "Afastamento",
-  vacation: "Ferias"
+  work_leave: 'Afastamento',
+  vacation: 'Ferias',
 }
 
 const INDICATOR_COLORS: Record<string, string> = {
   approved: 'bg-green-500 text-white',
   pending: 'bg-yellow-500',
   denied: 'bg-red-500',
-  canceled: "bg-purple-500"
+  canceled: 'bg-purple-500',
 }
 
-const CHIP_COLORS: Record<string, 'success' | "secondary" | 'warning' | 'danger'> = {
+const CHIP_COLORS: Record<string, 'success' | 'secondary' | 'warning' | 'danger'> = {
   approved: 'success',
   pending: 'warning',
   denied: 'danger',
-  canceled: "secondary"
+  canceled: 'secondary',
 }
 
 const LABELS: Record<string, string> = {
   pending: 'Pendente',
   approved: 'Aprovada',
   denied: 'Negada',
-  canceled: "Cancelada"
+  canceled: 'Cancelada',
 }
 
 type Props = {
@@ -45,7 +45,10 @@ export const SolicitationTitleView = ({
     <div className='flex flex-col md:flex-row items-center justify-between w-full text-sm lg:text-base'>
       <div className='flex items-center gap-2'>
         <div
-          className={cn('w-3 h-3 rounded-full', INDICATOR_COLORS[solicitationStatus.toLowerCase()])}
+          className={cn(
+            'w-3 h-3 rounded-full',
+            INDICATOR_COLORS[solicitationStatus.toLowerCase()],
+          )}
         />
         <span className='text-gray-500 text-sm md:text-lg'>
           {TITLES[solicitationType.toLowerCase()]}

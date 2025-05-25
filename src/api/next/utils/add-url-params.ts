@@ -1,4 +1,3 @@
-
 export function addUrlParams(url: string, params: Record<string, string>) {
   if (!Object.values(params).length) return url
 
@@ -10,4 +9,3 @@ export function addUrlParams(url: string, params: Record<string, string>) {
 
   return `${url}?${urlParams.join('&')}`
 }
-

@@ -14,7 +14,8 @@ export const HeaderView = ({
       )}
       <p className='font-normal text-[#7C7C7C]'>
         {isCollaboratorItself
-          ? 'Resumo do seu saldo banco de horas' : 'Resumo do saldo banco de horas do colaborador'}
+          ? 'Resumo do seu saldo banco de horas'
+          : 'Resumo do saldo banco de horas do colaborador'}
       </p>
     </div>
   )

@@ -6,7 +6,10 @@ type QuickActionsViewProps = {
   workload: number
 }
 
-export const QuickActionsView = ({ isCollaboratorItself, workload }: QuickActionsViewProps) => {
+export const QuickActionsView = ({
+  isCollaboratorItself,
+  workload,
+}: QuickActionsViewProps) => {
   if (isCollaboratorItself)
     return (
       <div>

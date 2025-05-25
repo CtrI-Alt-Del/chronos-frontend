@@ -30,7 +30,6 @@ export const YearlyUserAbsenceChartView = ({
   handleStartDateInputChange,
   handleEndDateInputChange,
 }: YearlyUserAbsenceChartViewProps) => {
-
   return (
     <Card>
       <CardHeader>
@@ -45,7 +44,10 @@ export const YearlyUserAbsenceChartView = ({
         /> */}
         <div className='w-full h-[400px]'>
           <ResponsiveContainer width='100%' height='100%'>
-            <LineChart data={yearlyUserAbsence} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
+            <LineChart
+              data={yearlyUserAbsence}
+              margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
+            >
               <CartesianGrid strokeDasharray='4 4' stroke='#d1d5db' />
               <XAxis
                 dataKey='month'
