@@ -17,6 +17,7 @@ import { useCollaboratorHistoryTable } from './use-collaborator-history-table'
 import { CreateExcuseAbsenceSolicitationModal } from '../create-excuse-absence-modal'
 import { useRef } from 'react'
 import type { DialogRef } from '@/ui/global/widgets/components/dialog/types'
+import { useDatetime } from '@/ui/global/hooks/use-datetime'
 
 type CollaboratorHistoryTableProps = {
   workdayLogs: WorkdayLogDto[]
@@ -25,7 +26,7 @@ type CollaboratorHistoryTableProps = {
   pagesCount: number
   onPageChange: (page: number) => void
   onTimeLogChange: (
-    timePunchLogId: string,
+    workdayLogDate: Date,
     timeLog: string,
     timePunchPeriod: TimePunchPeriod,
   ) => void
@@ -92,12 +93,10 @@ export const CollaboratorHistoryTable = ({
   onTimeLogChange,
 }: CollaboratorHistoryTableProps) => {
   const dialogRef = useRef<DialogRef>(null)
-  const {
-    rows,
-    dateBeingExcused,
-    handleCreateExcuseAbsenceSolicitationButtonClick,
-    handleDialogClose,
-  } = useCollaboratorHistoryTable(workdayLogs, dialogRef)
+  const { rows, dateBeingExcused, handleCreateExcuseAbsenceSolicitationButtonClick } =
+    useCollaboratorHistoryTable(workdayLogs, dialogRef)
+  const { parseDate } = useDatetime()
+
   return (
     <div>
       <Table
@@ -146,7 +145,7 @@ export const CollaboratorHistoryTable = ({
                 <TimePunchDialog
                   timePunch={row.timePunch}
                   onTimeLogChange={(time, period) =>
-                    onTimeLogChange(row.id, time, period)
+                    onTimeLogChange(parseDate(row.date), time, period)
                   }
                 />
               </TableCell>

@@ -1,11 +1,15 @@
 'use client'
 
+import { DateRangeInput } from '@/ui/global/widgets/components/date-range-input'
+import { useRest } from '@/ui/global/hooks/use-rest'
+import { useAuthContext } from '@/ui/auth/hooks/use-auth-context'
+import { TimePunchAdjustmentModal } from './time-punch-solicitation-adjustment-modal'
 import { useCollaboratorHistoryPage } from './use-collaborator-history-page'
 import { CollaboratorHistoryTable } from './collaborator-history-table'
-import { DateRangeInput } from '@/ui/global/widgets/components/date-range-input'
-import { TimePunchAdjustmentModal } from './time-punch-solicitation-adjustment-modal'
 
 export const CollaboratorHistoryPage = () => {
+  const { account } = useAuthContext()
+  const { workScheduleService } = useRest()
   const {
     workdayLogs,
     startDate,
@@ -17,7 +21,7 @@ export const CollaboratorHistoryPage = () => {
     handleEndDateChange,
     handlePageChange,
     handleTimeLogChange,
-  } = useCollaboratorHistoryPage()
+  } = useCollaboratorHistoryPage(workScheduleService, account?.collaboratorId)
 
   return (
     <div className=''>

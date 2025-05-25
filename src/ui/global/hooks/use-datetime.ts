@@ -8,6 +8,7 @@ import {
   eachDayOfInterval,
   endOfMonth,
   getDay,
+  parse,
   getDaysInMonth,
   startOfMonth,
   subDays,
@@ -26,6 +27,10 @@ export function useDatetime() {
   function formatIsoDate(date: Date | string): string {
     return formatInTimeZone(date, TIME_ZONE, 'yyyy-MM-dd')
   }
+
+  const parseDate = useCallback((date: string): Date => {
+    return inZonedTime(parse(date, 'dd/MM/yyyy', new Date()))
+  }, [])
 
   const formatDate = useCallback((date: Date | string): string => {
     return formatInTimeZone(date, TIME_ZONE, 'dd/MM/yyyy')
@@ -111,6 +116,7 @@ export function useDatetime() {
     formatDateTime,
     minusDays,
     plusDays,
+    parseDate,
     inZonedTime,
     getFirstMonthDayOf,
     getLastMonthDayOf,

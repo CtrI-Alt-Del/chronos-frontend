@@ -56,7 +56,7 @@ const DialogComponent = (
       >
         <ModalContent className='z-50'>
           <ModalHeader>{title}</ModalHeader>
-          <ModalBody>
+          <ModalBody className='p-8 pb-6'>
             {typeof children === 'function' ? children(close) : children}
           </ModalBody>
         </ModalContent>

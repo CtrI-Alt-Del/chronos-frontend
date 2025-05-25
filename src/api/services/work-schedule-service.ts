@@ -55,10 +55,11 @@ export const WorkScheduleService = (restClient: RestClient): IWorkScheduleServic
       return await restClient.get(`${MODULE}/workday-logs/history/${collaboratorId}`)
     },
 
-    async adjustTimePunch(workdayLogId, time, period) {
+    async adjustTimePunch(collaboratorId, workdayLogDate, time, period) {
       return await restClient.patch(
-        `${MODULE}/workday-logs/${workdayLogId}/time-punch/adjustment`,
+        `${MODULE}/workday-logs/${collaboratorId}/time-punch/adjustment`,
         {
+          date: workdayLogDate,
           time,
           period,
         },

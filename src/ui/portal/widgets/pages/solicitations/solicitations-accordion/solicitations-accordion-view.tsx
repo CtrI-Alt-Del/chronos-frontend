@@ -12,6 +12,7 @@ import { SolicitationTitle } from './solicitation-title'
 import { SolicitationActions } from '../solicitation-actions'
 import Link from 'next/link'
 import { ROUTES } from '@/constants'
+import { JusticationViewer } from '../../../components/justification-viewer'
 
 type Props<Solicitation> = {
   solicitations: Solicitation[]
@@ -127,7 +128,7 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
           >
             <div className='pb-3 pl-5'>
               {solicitation.justification && (
-                <Justification justification={solicitation.justification} />
+                <JusticationViewer justification={solicitation.justification} />
               )}
               <div>
                 {solicitation.description && (

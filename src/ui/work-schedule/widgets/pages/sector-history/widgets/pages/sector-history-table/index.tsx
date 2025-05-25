@@ -14,6 +14,7 @@ import type { TimePunchPeriod } from '@/@core/work-schedule/types'
 import type { WorkdayLogDto } from '@/@core/work-schedule/dtos'
 import { TimePunchDialog } from '@/ui/work-schedule/widgets/components/time-punch-dialog'
 import { useSectorHistoryTable } from './use-sector-history-table'
+import { useDatetime } from '@/ui/global/hooks/use-datetime'
 
 type SectorHistoryTableProps = {
   workdayLogs: WorkdayLogDto[]
@@ -22,7 +23,8 @@ type SectorHistoryTableProps = {
   pagesCount: number
   onPageChange: (page: number) => void
   onTimeLogChange: (
-    timePunchLogId: string,
+    collaboratorId: string,
+    workdayLogDate: Date,
     timeLog: string,
     timePunchPeriod: TimePunchPeriod,
   ) => void
@@ -88,6 +90,7 @@ export const SectorHistoryTable = ({
   onTimeLogChange,
 }: SectorHistoryTableProps) => {
   const { rows } = useSectorHistoryTable(workdayLogs)
+  const { parseDate } = useDatetime()
 
   return (
     <Table
@@ -143,7 +146,12 @@ export const SectorHistoryTable = ({
               <TimePunchDialog
                 timePunch={row.timePunch}
                 onTimeLogChange={(timeLog, timePunchPeriod) =>
-                  onTimeLogChange(row.id, timeLog, timePunchPeriod)
+                  onTimeLogChange(
+                    row.collaborator.id,
+                    parseDate(row.date),
+                    timeLog,
+                    timePunchPeriod,
+                  )
                 }
               />
             </TableCell>

@@ -47,14 +47,16 @@ export function useSectorHistoryPage() {
   }
 
   async function handleTimeLogChange(
-    workdayLogId: string,
+    collaboratorId: string,
+    workdayLogDate: Date,
     timeLog: string,
     timePunchPeriod: TimePunchPeriod,
   ) {
     setIsAdjustingTimePunchLog(true)
 
     const response = await workScheduleService.adjustTimePunch(
-      workdayLogId,
+      collaboratorId,
+      formatIsoDate(workdayLogDate),
       timeLog,
       timePunchPeriod,
     )

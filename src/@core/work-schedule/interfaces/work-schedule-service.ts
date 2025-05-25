@@ -40,7 +40,8 @@ export interface WorkScheduleService {
     dayOffSchedule: DayOffScheduleDto,
   ): Promise<ApiResponse<void>>
   adjustTimePunch(
-    workdayLogId: string,
+    collaboratorId: string,
+    workdayLogDate: string,
     time: string,
     timePunchPeriod: TimePunchPeriod,
   ): Promise<ApiResponse<void>>

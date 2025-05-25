@@ -36,7 +36,7 @@ export const JustificationModal = ({
   return (
     <>
       <div className='space-y-6'>
-        <div className='flex  justify-center items-center flex-col space-y-9   mx-8 '>
+        <div className='flex  justify-center items-center flex-col space-y-6'>
           <JustificationTypeSelect onSelect={handleJustificationTypeChange} />
           {needsAttachment && <FileInput onChange={handleFileChange} />}
 
