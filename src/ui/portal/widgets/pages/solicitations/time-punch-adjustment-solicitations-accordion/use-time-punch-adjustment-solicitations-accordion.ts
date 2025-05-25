@@ -20,7 +20,7 @@ export function useTimePunchAdjustmentSolicitationsAccordion(
     solicitationId: string,
     feedbackMessage?: string,
   ) {
-    const response = await portalService.approveTimePunchLogSolicitation(
+    const response = await portalService.approveTimePunchLogAdjustmentSolicitation(
       solicitationId,
       feedbackMessage,
     )
@@ -47,16 +47,32 @@ export function useTimePunchAdjustmentSolicitationsAccordion(
     }
   }
 
-  const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
-    fetcher: fetchSolicitations,
-    key: CACHE.portal.timePunchLogAdjustmentSolicitations.key,
-    isInfinity: true,
-    dependencies: [],
-  })
+  async function handleSolicitationCancel(solicitationId: string) {
+    const response = await portalService.cancelSolicitation(solicitationId)
+    if (response.isFailure) {
+      showError(response.errorMessage)
+    }
+    if (response.isSuccess) {
+      refetch()
+      showSuccess('Solicitação cancelada com sucesso')
+    }
+  }
+
+  const { data, isFetching, isRefetching, refetch, page, pagesCount, setPage } =
+    usePaginatedCache({
+      fetcher: fetchSolicitations,
+      key: CACHE.portal.timePunchLogAdjustmentSolicitations.key,
+      isInfinity: true,
+      dependencies: [],
+    })
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handleSolicitationCancel,
+    handlePageChange: setPage,
+    currentPage: page,
+    totalPages: pagesCount,
   }
 }

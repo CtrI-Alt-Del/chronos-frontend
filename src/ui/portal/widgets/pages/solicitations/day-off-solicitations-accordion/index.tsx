@@ -13,7 +13,7 @@ export const DayOffSolicitationsAccordion = () => {
     totalPages,
     handleSolicitationApprove,
     handleSolicitationDeny,
-    onPageChange,
+    handlePageChange,
     handleSolicitationCancel,
   } = useDayOffSolicitationsAccordion(portalService)
 
@@ -25,7 +25,7 @@ export const DayOffSolicitationsAccordion = () => {
       totalPages={totalPages}
       onSolicitationApprove={handleSolicitationApprove}
       onSolicitationDeny={handleSolicitationDeny}
-      handlePageChange={onPageChange}
+      handlePageChange={handlePageChange}
       onSolicitationCancel={handleSolicitationCancel}
     />
   )

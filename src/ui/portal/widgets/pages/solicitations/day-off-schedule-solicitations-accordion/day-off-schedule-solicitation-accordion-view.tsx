@@ -13,6 +13,9 @@ type SolicitationAccordionProps = {
   ) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
   onSolicitationCancel: (solicitationId: string) => void
+  currentPage: number
+  totalPages: number
+  handlePageChange: (page: number) => void
 }
 
 export const DayOffScheduleSolicitationAccordionView = ({
@@ -21,14 +24,20 @@ export const DayOffScheduleSolicitationAccordionView = ({
   onSolicitationApprove,
   onSolicitationDeny,
   onSolicitationCancel,
+  currentPage,
+  totalPages,
+  handlePageChange,
 }: SolicitationAccordionProps) => {
   return (
     <SolicitationsAccordion
       isLoading={isLoading}
+      solicitations={solicitations}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
       onSolicitationDeny={onSolicitationDeny}
       onSolicitationApprove={onSolicitationApprove}
       onSolicitationCancel={onSolicitationCancel}
-      solicitations={solicitations}
     >
       {(solicitation) => (
         <div>

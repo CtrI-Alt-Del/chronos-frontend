@@ -72,6 +72,6 @@ export function useExcusedAbsenceSolicitationsAccordion(portalService: PortalSer
     handleSolicitationApprove,
     handleSolicitationDeny,
     handleSolicitationCancel,
-    onPageChange: setPage,
+    handlePageChange: setPage,
   }
 }

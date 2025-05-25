@@ -2,11 +2,9 @@ import { CACHE } from '@/@core/global/constants'
 import type { PortalService } from '@/@core/portal/interfaces'
 import { usePaginatedCache } from '@/ui/global/hooks/use-paginated-cache'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import { useQueryParamNumber } from '@/ui/global/hooks/use-query-param-number'
 
 export function useDayOffSolicitationsAccordion(portalService: PortalService) {
   const { showError, showSuccess } = useToast()
-  const [page, setPage] = useQueryParamNumber('page', 1)
 
   async function fetchSolicitations(page: number) {
     const response = await portalService.listDayOffSolicitations(page)
@@ -57,13 +55,14 @@ export function useDayOffSolicitationsAccordion(portalService: PortalService) {
     }
   }
 
-  const { data, isFetching, isRefetching, refetch, pagesCount } = usePaginatedCache({
-    fetcher: fetchSolicitations,
-    key: CACHE.portal.dayOffSolicitations.key,
-    isInfinity: false,
-    dependencies: [page],
-  })
-  console.log(data)
+  const { data, isFetching, isRefetching, page, pagesCount, setPage, refetch } =
+    usePaginatedCache({
+      fetcher: fetchSolicitations,
+      key: CACHE.portal.dayOffSolicitations.key,
+      isInfinity: false,
+      dependencies: [],
+    })
+
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,
@@ -72,6 +71,6 @@ export function useDayOffSolicitationsAccordion(portalService: PortalService) {
     handleSolicitationApprove,
     handleSolicitationDeny,
     handleSolicitationCancel,
-    onPageChange: setPage,
+    handlePageChange: setPage,
   }
 }

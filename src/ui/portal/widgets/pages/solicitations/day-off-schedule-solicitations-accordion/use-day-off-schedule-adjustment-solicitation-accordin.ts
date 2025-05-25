@@ -63,17 +63,22 @@ export function useDayOffScheduleAdjustmentSolicitationAccordn(
       showSuccess('Solicitação negada com sucesso')
     }
   }
-  const { data, isFetching, isRefetching, refetch } = usePaginatedCache({
-    fetcher: fetchSolicitations,
-    key: CACHE.portal.dayOffScheduleAdjustmentSolicitations.key,
-    isInfinity: true,
-    dependencies: [],
-  })
+  const { data, isFetching, isRefetching, refetch, page, pagesCount, setPage } =
+    usePaginatedCache({
+      fetcher: fetchSolicitations,
+      key: CACHE.portal.dayOffScheduleAdjustmentSolicitations.key,
+      isInfinity: true,
+      dependencies: [],
+    })
+
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,
     handleSolicitationApprove,
     handleSolicitationDeny,
     handleSolicitationCancel,
+    handlePageChange: setPage,
+    currentPage: page,
+    totalPages: pagesCount,
   }
 }

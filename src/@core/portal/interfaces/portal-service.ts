@@ -28,6 +28,9 @@ export interface PortalService {
   listDayOffSolicitations(
     page: number,
   ): Promise<ApiResponse<PaginationResponse<DayOffSolicitationDto>>>
+  listTimePunchLogAdjustmentSolicitations(
+    page: number,
+  ): Promise<ApiResponse<PaginationResponse<TimePunchLogAdjustmentSolicitationDto>>>
   listExcusedAbsenceSolicitations(
     page: number,
   ): Promise<ApiResponse<PaginationResponse<ExcusedAbsenceSolicitationDto>>>
@@ -65,6 +68,10 @@ export interface PortalService {
     id: string,
   ): Promise<ApiResponse<JustificationTypeDto>>
   approveExcusedAbsenceSolicitation(
+    solicitationId: string,
+    feedbackMessage?: string,
+  ): Promise<ApiResponse<void>>
+  approveTimePunchLogAdjustmentSolicitation(
     solicitationId: string,
     feedbackMessage?: string,
   ): Promise<ApiResponse<void>>
