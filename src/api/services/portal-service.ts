@@ -144,6 +144,18 @@ export const PortalService = (restClient: RestClient): IPortalService => {
       )
     },
 
+    async listTimePunchLogAdjustmentSolicitations(page) {
+      restClient.setParam('page', String(page))
+      return await restClient.get(`${SOLICITATIONS_RESOURCE}/time-punch-adjustment`)
+    },
+
+    async approveTimePunchLogAdjustmentSolicitation(solicitationId, feedbackMessage) {
+      return await restClient.put(
+        `${SOLICITATIONS_RESOURCE}/${solicitationId}/approve/time-punch-adjustment`,
+        { feedbackMessage },
+      )
+    },
+
     async denySolicitation(solicitationId, feedbackMessage) {
       return restClient.patch(`${SOLICITATIONS_RESOURCE}/${solicitationId}/deny`, {
         feedbackMessage,

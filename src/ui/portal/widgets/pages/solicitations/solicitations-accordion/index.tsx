@@ -13,13 +13,19 @@ type Props<Solicitation extends SolicitationDto> = {
   totalPages: number
   handlePageChange: (page: number) => void
   children: (solicitation: Solicitation) => ReactNode
-  onSolicitationApprove: (solicitationId: string, feedbackMessage?: string, collaboratorId?: string) => void
+  onSolicitationApprove: (
+    solicitationId: string,
+    feedbackMessage?: string,
+    collaboratorId?: string,
+  ) => void
   onSolicitationDeny: (solicitationId: string, feedbackMessage?: string) => void
+  onSolicitationCancel: (solicitationId: string) => void
 }
 
 export const SolicitationsAccordion = <Solicitation extends SolicitationDto>(
   props: Props<Solicitation>,
 ) => {
-  const { isManager } = useAuthContext()
-  return <SolicitationsAccordionView isViewerManager={isManager} {...props} />
+  const { isManager, account } = useAuthContext()
+
+  return <SolicitationsAccordionView currentUserId={account?.collaboratorId as string} isViewerManager={isManager} {...props} />
 }

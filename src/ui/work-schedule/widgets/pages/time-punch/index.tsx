@@ -28,7 +28,7 @@ export const TimePunchPage = ({ workdayLog }: TimePunchPageProps) => {
   return (
     <div className='flex flex-col justify-center items-center p-6 h-full rounded-lg border border-gray-border'>
       <div className='mb-6 text-3xl font-medium'>
-        <p>Bem-vindo(a), {workdayLog.collaborator.name}!</p>
+        <p>Bem-vindo(a)</p>
       </div>
 
       <div className='text-center'>

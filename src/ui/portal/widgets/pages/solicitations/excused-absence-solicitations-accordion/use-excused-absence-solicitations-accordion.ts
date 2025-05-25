@@ -33,9 +33,7 @@ export function useExcusedAbsenceSolicitationsAccordion(portalService: PortalSer
     }
   }
 
-  async function handleSolicitationCancel(
-    solicitationId: string,
-  ) {
+  async function handleSolicitationCancel(solicitationId: string) {
     const response = await portalService.cancelSolicitation(solicitationId)
     if (response.isFailure) {
       showError(response.errorMessage)
@@ -74,6 +72,6 @@ export function useExcusedAbsenceSolicitationsAccordion(portalService: PortalSer
     handleSolicitationApprove,
     handleSolicitationDeny,
     handleSolicitationCancel,
-    onPageChange: setPage,
+    handlePageChange: setPage,
   }
 }

@@ -13,8 +13,8 @@ export const ExcusedAbsenceSolicitationsAccordion = () => {
     totalPages,
     handleSolicitationApprove,
     handleSolicitationDeny,
-    onPageChange,
     handleSolicitationCancel,
+    handlePageChange,
   } = useExcusedAbsenceSolicitationsAccordion(portalService)
 
   return (
@@ -26,7 +26,7 @@ export const ExcusedAbsenceSolicitationsAccordion = () => {
       onSolicitationApprove={handleSolicitationApprove}
       onSolicitationDeny={handleSolicitationDeny}
       onSolicitationCancel={handleSolicitationCancel}
-      handlePageChange={onPageChange}
+      handlePageChange={handlePageChange}
     />
   )
 }

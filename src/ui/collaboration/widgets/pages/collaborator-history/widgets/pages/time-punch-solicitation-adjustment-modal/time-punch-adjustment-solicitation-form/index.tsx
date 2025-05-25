@@ -19,9 +19,9 @@ export const TimePunchAdjustmentTab = ({
   return (
     <Form
       onSubmit={handleSubmit}
-      className='w-full max-w-lg space-y-6 bg-white p-8 rounded-lg shadow-sm'
+      className='p-8 space-y-6 w-full max-w-lg bg-white rounded-lg shadow-sm'
     >
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 w-full'>
+      <div className='grid grid-cols-1 gap-4 w-full md:grid-cols-2'>
         <Input
           isRequired
           type='date'
@@ -72,7 +72,7 @@ export const TimePunchAdjustmentTab = ({
         isInvalid={Boolean(errors.description)}
         {...register('description')}
       />
-      <div className='flex justify-end gap-4 mt-6'>
+      <div className='flex gap-4 justify-end mt-6'>
         <Button
           onPress={onCancel}
           isDisabled={isSubmitting}

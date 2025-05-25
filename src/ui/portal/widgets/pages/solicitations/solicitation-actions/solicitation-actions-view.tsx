@@ -22,7 +22,7 @@ export const SolicitationActionsView = ({
   onCancelSubmit,
 }: Props) => {
   return (
-    <div className='flex flex-col md:flex-row gap-2 mt-2 w-full md:w-fit'>
+    <div className='flex flex-col gap-2 mt-2 w-full md:flex-row md:w-fit'>
       {canCancel && (
         <div className=''>
           <Dialog
@@ -35,7 +35,7 @@ export const SolicitationActionsView = ({
           >
             {(closeDialog) => (
               <form onSubmit={onCancelSubmit} className='pb-3'>
-                <div className='flex items-center gap-2 mt-6'>
+                <div className='flex gap-2 items-center mt-6'>
                   <Button
                     type='submit'
                     color='primary'
@@ -53,7 +53,7 @@ export const SolicitationActionsView = ({
         </div>
       )}
 
-      {isManager && (
+      {true && (
         <>
           <Dialog
             title='Aprovar solicitação'
@@ -66,7 +66,7 @@ export const SolicitationActionsView = ({
             {(closeDialog) => (
               <form onSubmit={onApproveSubmit} className='pb-3'>
                 <Textarea label='Mensagem de feedback' name='feedback-message' />
-                <div className='flex items-center gap-2 mt-6'>
+                <div className='flex gap-2 items-center mt-6'>
                   <Button
                     type='submit'
                     color='primary'
@@ -93,7 +93,7 @@ export const SolicitationActionsView = ({
             {(closeDialog) => (
               <form onSubmit={onDenySubmit} className='pb-3'>
                 <Textarea label='Mensagem de feedback' name='feedback-message' />
-                <div className='flex items-center gap-2 mt-6'>
+                <div className='flex gap-2 items-center mt-6'>
                   <Button
                     type='submit'
                     color='primary'
