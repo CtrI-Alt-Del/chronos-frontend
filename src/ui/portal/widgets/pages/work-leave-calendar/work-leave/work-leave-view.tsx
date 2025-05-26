@@ -1,7 +1,9 @@
 import { Chip, Tooltip } from '@heroui/react'
 import { cn } from '@heroui/theme'
 
+import type { JustificationDto } from '@/@core/portal/dtos'
 import { FormattedDate } from '@/ui/global/widgets/components/formatted-date'
+import { JusticationViewerView } from '../../../components/justification-viewer/justification-viewer'
 
 type Props = {
   description: string
@@ -9,6 +11,7 @@ type Props = {
   endedAt: Date
   isVacation: boolean
   daysCount: number
+  justification?: JustificationDto
 }
 
 export const WorkLeaveView = ({
@@ -17,6 +20,7 @@ export const WorkLeaveView = ({
   endedAt,
   isVacation,
   daysCount,
+  justification,
 }: Props) => {
   return (
     <Tooltip
@@ -44,6 +48,10 @@ export const WorkLeaveView = ({
               </Chip>
               <span className='mr-auto ml-4'>{daysCount}</span>
             </div>
+
+            {justification && (
+              <JusticationViewerView justification={justification} isSmall />
+            )}
           </div>
         </div>
       }

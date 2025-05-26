@@ -18,7 +18,7 @@ export function useWithdrawSolicitationsAccordion(portalService: PortalService) 
     solicitationId: string,
     feedbackMessage?: string,
   ) {
-    const response = await portalService.approveWithdrawSolicitation(
+    const response = await portalService.approveWorkLeaveSolicitation(
       solicitationId,
       feedbackMessage,
     )
@@ -46,16 +46,18 @@ export function useWithdrawSolicitationsAccordion(portalService: PortalService) 
   }
 
   async function handleSolicitationCancel(solicitationId: string) {
-    console.log(solicitationId, 'banana legal grande')
     const response = await portalService.cancelSolicitation(solicitationId)
+
     if (response.isFailure) {
       showError(response.errorMessage)
     }
+
     if (response.isSuccess) {
       refetch()
       showSuccess('Solicitação cancelada com sucesso')
     }
   }
+
   const { data, isFetching, isRefetching, page, pagesCount, setPage, refetch } =
     usePaginatedCache({
       fetcher: fetchSolicitations,
@@ -63,6 +65,7 @@ export function useWithdrawSolicitationsAccordion(portalService: PortalService) 
       isInfinity: true,
       dependencies: [],
     })
+
   return {
     solicitations: data ?? [],
     isFetchingSolicitations: isFetching || isRefetching,

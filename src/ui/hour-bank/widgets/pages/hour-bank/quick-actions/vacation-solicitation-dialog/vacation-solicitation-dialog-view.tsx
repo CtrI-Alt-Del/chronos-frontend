@@ -1,22 +1,23 @@
 'use client'
 
+import type { DateValue, RangeValue } from '@heroui/react'
+import { DateRangePicker } from '@heroui/date-picker'
+import { Button } from '@heroui/button'
 import { getLocalTimeZone, today } from '@internationalized/date'
+
 import { Dialog } from '@/ui/global/widgets/components/dialog'
 import { Icon } from '@/ui/global/widgets/components/Icon'
-import { Button } from '@heroui/button'
-import { DateRangePicker } from '@heroui/date-picker'
-import type { DateValue, RangeValue } from '@heroui/react'
 
 type VacationSolicitationDialogViewProps = {
-  onSubmit: () => void
   isSubmitting: boolean
-  handleDatesChange: (value: RangeValue<DateValue> | null) => void
+  onSubmit: () => void
+  onDateRangeChange: (value: RangeValue<DateValue> | null) => void
 }
 
 export const VacationSolicitationDialogView = ({
-  onSubmit,
   isSubmitting,
-  handleDatesChange,
+  onDateRangeChange,
+  onSubmit,
 }: VacationSolicitationDialogViewProps) => {
   return (
     <Dialog
@@ -38,7 +39,7 @@ export const VacationSolicitationDialogView = ({
           <DateRangePicker
             label='Dias de ferias'
             minValue={today(getLocalTimeZone())}
-            onChange={handleDatesChange}
+            onChange={onDateRangeChange}
           />
           <div className='flex justify-center items-center gap-4 mt-4'>
             <Button

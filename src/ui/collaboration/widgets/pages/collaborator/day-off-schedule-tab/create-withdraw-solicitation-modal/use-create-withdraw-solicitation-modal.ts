@@ -1,43 +1,50 @@
 import { useState } from 'react'
-import { useCreateWithDrawSolicitationAction } from './use-create-withdraw-solicitation-action'
+import type { DateValue, RangeValue } from '@heroui/react'
+
 import type { JustificationTypeDto } from '@/@core/portal/dtos'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import type { DateValue, RangeValue } from '@heroui/react'
+import { useCreateWithDrawSolicitationAction } from './use-create-withdraw-solicitation-action'
 import { useAttachJusficationToSolicitationAction } from '../../../collaborator-history/widgets/pages/create-excuse-absence-modal/use-attach-justification-to-solicitation-action'
+import { useRest } from '@/ui/global/hooks/use-rest'
+import { useNavigation } from '@/ui/global/hooks/use-navigation'
+import { ROUTES } from '@/constants'
+
 export function useCreateWithdrawSolicitationModal() {
+  const { portalService } = useRest()
   const [selectedDates, setSelectedDates] = useState<RangeValue<DateValue> | null>()
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined)
   const [selectedJustificationType, setSelectedJustificationType] =
     useState<JustificationTypeDto | null>(null)
   const [description, setDescription] = useState<string>('')
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const { showError } = useToast()
-
-  const { createWithdrawSolicitation, isCreatingSolicitation } =
-    useCreateWithDrawSolicitationAction()
+  const { showSuccess, showError } = useToast()
+  useCreateWithDrawSolicitationAction()
   const { attachSolicitationToSolicitation, isAttaching } =
     useAttachJusficationToSolicitationAction()
+  const [isCreatingSolicitation, setIsCreatingSolicitation] = useState(false)
+  const { goTo } = useNavigation()
 
-  const handleFileChange = (file: File | null) => {
-    setSelectedFile(file || undefined)
+  function handleFileChange(file: File | null) {
+    setSelectedFile(file ?? undefined)
     setErrors((prev) => ({ ...prev, file: '' }))
   }
-  const handleDatesChange = (value: RangeValue<DateValue> | null) => {
+
+  function handleDatesChange(value: RangeValue<DateValue> | null) {
     setSelectedDates(value)
     setErrors((prev) => ({ ...prev, dates: '' }))
   }
 
-  const handleDescriptionChange = (description: string) => {
+  function handleDescriptionChange(description: string) {
     setDescription(description)
     setErrors((prev) => ({ ...prev, description: '' }))
   }
 
-  const handleJustificationTypeChange = (justificationType: JustificationTypeDto) => {
+  function handleJustificationTypeChange(justificationType: JustificationTypeDto) {
     setSelectedJustificationType(justificationType)
     setErrors((prev) => ({ ...prev, justificationType: '' }))
   }
 
-  const validateForm = (): boolean => {
+  function validateForm(): boolean {
     const newErrors: Record<string, string> = {}
 
     if (!selectedJustificationType) {
@@ -59,36 +66,52 @@ export function useCreateWithdrawSolicitationModal() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = async () => {
+  async function handleSubmit() {
     if (!validateForm()) {
       const firstError = Object.values(errors)[0]
       if (firstError) showError(firstError)
       return
     }
 
-    try {
-      const startDate = selectedDates?.start.toString()
-      const endDate = selectedDates?.end.toString()
+    const startDate = selectedDates?.start.toString()
+    const endDate = selectedDates?.end.toString()
 
-      if (!startDate || !endDate) {
-        showError('Selecione um intervalo de datas válido')
-        return
-      }
+    if (!startDate || !endDate) {
+      showError('Selecione um intervalo de datas válido')
+      return
+    }
 
-      const solicitation = await createWithdrawSolicitation(startDate, endDate)
-      if (!selectedJustificationType) {
-        showError('Tipo de justificativa não selecionado')
-        return
-      }
+    if (!selectedJustificationType?.id) {
+      showError('Tipo de justificativa não selecionado')
+      return
+    }
+
+    setIsCreatingSolicitation(true)
+
+    const response = await portalService.createWithdrawSolicitation(
+      startDate,
+      endDate,
+      description,
+    )
+
+    if (response.isFailure) {
+      showError(response.errorMessage)
+    }
+
+    if (response.isSuccess) {
+      showSuccess('Solicitação de afastamento criada com sucesso')
       await attachSolicitationToSolicitation(
-        solicitation.id as string,
-        selectedJustificationType.id as string,
+        response.body.id,
+        selectedJustificationType.id,
         selectedJustificationType.name,
         String(selectedJustificationType.shouldHaveAttachment),
         description,
         selectedFile,
       )
-    } catch (error) {}
+      goTo(`${ROUTES.portal.solicitations}?tab=withdraw`)
+    }
+
+    setIsCreatingSolicitation(false)
   }
 
   return {

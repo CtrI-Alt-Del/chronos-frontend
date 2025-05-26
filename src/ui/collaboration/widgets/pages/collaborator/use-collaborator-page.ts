@@ -16,7 +16,7 @@ export function useCollaboratorPage(
   const { tab, setTab } = useTabSlice()
   const { collaborator, setCollaborator } = useCollaboratorSlice()
   const { dayOffSchedule, setDayOffSchedule } = useDayOffScheduleSlice()
-  const [currentTab, setCurrentTab] = useQueryParamString('tab')
+  const [currentTab, setCurrentTab] = useQueryParamString('tab', 'collaborator-tab')
 
   function handleTabChange(tab: Tab) {
     setTab(tab)
@@ -35,12 +35,11 @@ export function useCollaboratorPage(
   }, [currentDayOffSchedule, dayOffSchedule, setDayOffSchedule])
 
   useEffect(() => {
+    if (currentTab) setTab(currentTab as Tab)
+
     return () => {
       resetStore()
     }
-  }, [])
-  useEffect(() => {
-    setTab(currentTab as Tab)
   }, [currentTab, setTab])
 
   return {

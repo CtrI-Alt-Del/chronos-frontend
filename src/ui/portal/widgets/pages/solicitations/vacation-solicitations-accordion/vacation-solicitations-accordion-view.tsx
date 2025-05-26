@@ -23,7 +23,6 @@ export const VacationSolicitationsAccordionView = ({
   onSolicitationCancel,
   handlePageChange,
 }: Props) => {
-  console.log("solicitations-vacation-solicitation-accordion-view", solicitations)
   return (
     <SolicitationsAccordion
       isLoading={isLoading}

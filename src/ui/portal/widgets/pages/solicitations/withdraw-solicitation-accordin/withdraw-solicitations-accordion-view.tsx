@@ -1,4 +1,4 @@
-import type { WithdrawSolicitationDto } from '@/@core/portal/dtos'
+import type { WorkLeaveSolicitationDto } from '@/@core/portal/dtos'
 import { today, getLocalTimeZone } from '@internationalized/date'
 import { parseISO, isSameDay } from 'date-fns'
 import { SolicitationsAccordion } from '../solicitations-accordion'
@@ -6,7 +6,7 @@ import { Input } from '@heroui/input'
 import { DateRangeCalendar } from '@/ui/global/widgets/components/date-range-calendar'
 
 type Props = {
-  solicitations: WithdrawSolicitationDto[]
+  solicitations: WorkLeaveSolicitationDto[]
   isLoading: boolean
   currentPage: number
   totalPages: number
@@ -26,7 +26,6 @@ export const WithdrawSolicitationsAccordionView = ({
   onSolicitationCancel,
   handlePageChange,
 }: Props) => {
-  console.log('solicitations-withdraw-solicitation-accordion-view', solicitations)
   return (
     <SolicitationsAccordion
       isLoading={isLoading}

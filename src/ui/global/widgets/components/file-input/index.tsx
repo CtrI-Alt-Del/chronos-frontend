@@ -27,7 +27,7 @@ export const FileInput = ({
   }
 
   return (
-    <div className='flex flex-col gap-2 items-start w-full'>
+    <div className='flex gap-2 w-full'>
       <input
         ref={inputRef}
         type='file'
@@ -40,7 +40,7 @@ export const FileInput = ({
       <Button
         type='button'
         startContent={
-          fileName ? null : <Icon name='upload' className='w-6 h-6 text-gray-500' />
+          fileName ? null : <Icon name='upload' size={18} className='text-gray-500' />
         }
         color='default'
         className='w-full h-16 bg-[#f4f4f5] text-gray-700'
@@ -48,7 +48,7 @@ export const FileInput = ({
         onClick={() => inputRef.current?.click()}
         size='lg'
       >
-        {<span className='text-md'>{fileName || 'Selecione o arquivo'}</span>}
+        {<span className='text-sm'>{fileName || 'Selecione o arquivo'}</span>}
       </Button>
     </div>
   )

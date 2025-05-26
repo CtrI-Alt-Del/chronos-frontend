@@ -70,6 +70,7 @@ export const WorkLeaveCalendarPageView = ({
               startedAt={startedAt}
               endedAt={endedAt}
               isVacation={workLeave.isVacation}
+              justification={workLeave.justification}
             />
           )
         }
@@ -107,29 +108,31 @@ export const WorkLeaveCalendarPageView = ({
         <Search placeholder='Pesquisar colaborador' onChange={onCollaboratorNameChange} />
       </div>
 
-      <Table
-        bottomContent={
-          page > 1 && (
-            <div className='flex w-full justify-start'>
-              <Pagination
-                aria-label='paginação'
-                showControls
-                page={page}
-                total={itemsCount}
-                onChange={onPageChange}
-              />
-            </div>
-          )
-        }
-        className='w-[1500px] mt-3'
-      >
-        <TableHeader className='flex items-center'>{tableColumns}</TableHeader>
-        <TableBody>
-          {collaboratorWorkLeaves.map((collaboratorWorkLeave) =>
-            getCollaboratorWorkLeave(collaboratorWorkLeave),
-          )}
-        </TableBody>
-      </Table>
+      <div className='w-[calc(100vw-20rem)] overflow-x-auto rounded-md'>
+        <Table
+          bottomContent={
+            page > 1 && (
+              <div className='flex w-full justify-start'>
+                <Pagination
+                  aria-label='paginação'
+                  showControls
+                  page={page}
+                  total={itemsCount}
+                  onChange={onPageChange}
+                />
+              </div>
+            )
+          }
+          className='w-[1500px] mt-3 overflow-x-auto'
+        >
+          <TableHeader className='flex items-center'>{tableColumns}</TableHeader>
+          <TableBody>
+            {collaboratorWorkLeaves.map((collaboratorWorkLeave) =>
+              getCollaboratorWorkLeave(collaboratorWorkLeave),
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   )
 }

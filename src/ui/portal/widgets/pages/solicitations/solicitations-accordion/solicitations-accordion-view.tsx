@@ -126,7 +126,7 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
               </div>
             }
           >
-            <div className='pb-3 pl-5'>
+            <div className='pb-3 pl-5 space-y-4'>
               {solicitation.justification && (
                 <JusticationViewer justification={solicitation.justification} />
               )}
@@ -162,25 +162,23 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
                 )}
               </div>
               {children(solicitation)}
-              {isViewerManager && solicitation.status === 'PENDING' && (
-                <div className='mt-6'>
-                  <SolicitationActions
-                    isLoading={isLoading}
-                    isManager={isViewerManager}
-                    canCancel={
-                      solicitation.status === 'PENDING' &&
-                      solicitation.senderResponsible.id === viewerId
-                    }
-                    onApprove={(feedbackMessage) =>
-                      onSolicitationApprove(String(solicitation.id), feedbackMessage)
-                    }
-                    onDeny={(feedbackMessage) =>
-                      onSolicitationDeny(String(solicitation.id), feedbackMessage)
-                    }
-                    onCancel={() => onSolicitationCancel(String(solicitation.id))}
-                  />
-                </div>
-              )}
+              <div className='mt-6'>
+                <SolicitationActions
+                  isLoading={isLoading}
+                  isManager={isViewerManager}
+                  canCancel={
+                    solicitation.status === 'PENDING' &&
+                    solicitation.senderResponsible.id === viewerId
+                  }
+                  onApprove={(feedbackMessage) =>
+                    onSolicitationApprove(String(solicitation.id), feedbackMessage)
+                  }
+                  onDeny={(feedbackMessage) =>
+                    onSolicitationDeny(String(solicitation.id), feedbackMessage)
+                  }
+                  onCancel={() => onSolicitationCancel(String(solicitation.id))}
+                />
+              </div>
             </div>
           </AccordionItem>
         ))}

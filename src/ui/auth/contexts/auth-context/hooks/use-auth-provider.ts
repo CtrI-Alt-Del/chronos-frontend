@@ -52,6 +52,7 @@ export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
 
   async function logout() {
     setAccount(null)
+    setIsAuthenticated(false)
     await cookieActions.deleteCookie(COOKIES.jwt.key)
     navigation.goTo(ROUTES.auth.login)
     navigation.reloadRoute()
@@ -75,6 +76,8 @@ export function useAuthProvider({ authService, jwt }: UseAuthProviderProps) {
     }
     return route
   }
+
+  console.log('isAuthenticated', isAuthenticated)
 
   return {
     jwt: jwt ?? null,

@@ -9,6 +9,7 @@ type Props = {
 export const OtpVerification = ({ onCodeResend }: Props) => {
   const { login, isAuthenticated, isAuthenticating } = useAuthContext()
   const { handleInputChange, handleSubmitCode } = useOtpVerification(login)
+
   return (
     <OtpVerificationView
       isVerified={isAuthenticated}

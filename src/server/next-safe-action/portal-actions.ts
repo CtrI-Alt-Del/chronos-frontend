@@ -19,7 +19,6 @@ import {
 } from '../actions/solicitation'
 import {
   createDayOffSolicitationSchema,
-  createWithdrawSolicitationSchema,
   dayOffScheduleAdjustmentSolicitationSchema,
   justificationTypeSchema,
 } from '@/validation/schemas/solicitation'
@@ -30,7 +29,6 @@ import { CreateExcusedAbsenceSolicitation } from '../actions/solicitation/create
 import { AttachJustificationToSolicitationAction } from '../actions/solicitation/attach-justification-to-solicitation-action'
 import { idSchema, descriptionSchema, stringSchema } from '@/validation/schemas/global'
 import { CreateWithdrawSolicitationAction } from '../actions/solicitation/create-withdraw-solicitation-action'
-import { LucideArrowDownCircle } from 'lucide-react'
 import { CreateVacationSolicitationAction } from '../actions/solicitation/create-vacation-solicitation-action'
 
 export const createDayOffScheduleAdjustmentSolicitation = authActionClient
@@ -117,6 +115,7 @@ export const updateJustificationType = authActionClient
     const action = UpdateJustificationTypeAction(service)
     return action.handle(call)
   })
+
 export const createTimePunchAdjustmentSolicitation = authActionClient
   .schema(timePunchAdjustmentSolicitationSchema)
   .action(async ({ ctx, clientInput }) => {
@@ -159,6 +158,7 @@ export const getAttachmentUrl = authActionClient
     const action = GetAttachmentUrlAction(service)
     return action.handle(call)
   })
+
 export const createExcusedAbsenceSolicitation = authActionClient
   .schema(z.object({ absenceDate: stringSchema }))
   .action(async ({ ctx, clientInput }) => {
@@ -171,6 +171,7 @@ export const createExcusedAbsenceSolicitation = authActionClient
     const action = CreateExcusedAbsenceSolicitation(service)
     return action.handle(call)
   })
+
 export const attachJustificationToSolicitation = authActionClient
   .schema(
     z.object({
@@ -194,28 +195,34 @@ export const attachJustificationToSolicitation = authActionClient
   })
 
 export const createWithdrawSolicitation = authActionClient
-  .schema(createWithdrawSolicitationSchema)
-  .action(async ({ ctx, clientInput }) => {
+  .schema(
+    z.object({
+      startedAt: stringSchema,
+      endedAt: stringSchema,
+      description: descriptionSchema.optional(),
+    }),
+  )
+  .action(async ({ clientInput }) => {
     const call = NextCall({
       request: clientInput,
-      account: ctx.account,
     })
     const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = PortalService(apiClient)
     const action = CreateWithdrawSolicitationAction(service)
     return action.handle(call)
   })
+
 export const createVacationSolicitation = authActionClient
   .schema(
     z.object({
       startedAt: stringSchema,
       endedAt: stringSchema,
+      description: descriptionSchema.optional(),
     }),
   )
-  .action(async ({ ctx, clientInput }) => {
+  .action(async ({ clientInput }) => {
     const call = NextCall({
       request: clientInput,
-      account: ctx.account,
     })
     const apiClient = await NextServerRestClient({ isCacheEnabled: false })
     const service = PortalService(apiClient)

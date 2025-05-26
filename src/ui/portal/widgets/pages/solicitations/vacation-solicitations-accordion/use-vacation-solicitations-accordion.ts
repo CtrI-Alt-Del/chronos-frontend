@@ -18,7 +18,7 @@ export function useVacationSolicitationsAccordion(portalService: PortalService) 
     solicitationId: string,
     feedbackMessage?: string,
   ) {
-    const response = await portalService.approveVacationSolicitation(
+    const response = await portalService.approveWorkLeaveSolicitation(
       solicitationId,
       feedbackMessage,
     )

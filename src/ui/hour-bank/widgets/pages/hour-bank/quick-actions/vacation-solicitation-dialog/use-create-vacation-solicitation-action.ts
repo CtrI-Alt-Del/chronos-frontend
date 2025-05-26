@@ -1,7 +1,7 @@
-import type { WithdrawSolicitationDto } from '@/@core/portal/dtos'
+import { useAction } from 'next-safe-action/hooks'
+
 import { portalActions } from '@/server/next-safe-action'
 import { useToast } from '@/ui/global/hooks/use-toast'
-import { useAction } from 'next-safe-action/hooks'
 
 export function useCreateVacationSolicitationAction() {
   const { showError, showSuccess } = useToast()
@@ -18,6 +18,7 @@ export function useCreateVacationSolicitationAction() {
       },
     },
   )
+
   async function createVacationSolicitation(
     startedAt: string,
     endedAt: string,
@@ -27,8 +28,9 @@ export function useCreateVacationSolicitationAction() {
       endedAt,
     })
   }
+
   return {
-    createVacationSolicitation,
     isCreatingSolicitation: isExecuting,
+    createVacationSolicitation,
   }
 }

@@ -53,7 +53,7 @@ export const SolicitationActionsView = ({
         </div>
       )}
 
-      {true && (
+      {isManager && (
         <>
           <Dialog
             title='Aprovar solicitação'
@@ -64,7 +64,7 @@ export const SolicitationActionsView = ({
             }
           >
             {(closeDialog) => (
-              <form onSubmit={onApproveSubmit} className='pb-3'>
+              <form onSubmit={onApproveSubmit}>
                 <Textarea label='Mensagem de feedback' name='feedback-message' />
                 <div className='flex gap-2 items-center mt-6'>
                   <Button

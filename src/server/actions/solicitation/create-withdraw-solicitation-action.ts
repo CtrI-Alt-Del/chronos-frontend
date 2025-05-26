@@ -1,24 +1,29 @@
 import type { Action } from '@/@core/global/interfaces/rpc'
 import type { PortalService } from '@/@core/portal/interfaces'
 import type { Call } from '@/@core/global/interfaces/rpc'
-import type { WithdrawSolicitationDto } from '@/@core/portal/dtos'
+import type { WorkLeaveSolicitationDto } from '@/@core/portal/dtos'
+import { ROUTES } from '@/constants'
+
 type RequestBody = {
   startedAt: string
   endedAt: string
+  description?: string
 }
-type ResponseBody = WithdrawSolicitationDto
+
+type ResponseBody = WorkLeaveSolicitationDto
 export const CreateWithdrawSolicitationAction = (
   service: PortalService,
 ): Action<RequestBody, ResponseBody> => {
   return {
     async handle(call: Call<RequestBody>) {
-      const solicitation = call.getRequest()
+      const { startedAt, endedAt, description } = call.getRequest()
       const response = await service.createWithdrawSolicitation(
-        solicitation.startedAt,
-        solicitation.endedAt,
+        startedAt,
+        endedAt,
+        description,
       )
       if (response.isFailure) response.throwError()
-      return response.body
+      call.redirect(`${ROUTES.portal.solicitations}?tab=withdraw`)
     },
   }
 }

@@ -13,7 +13,7 @@ import { FileInput } from '../file-input'
 import type { JustificationTypeDto } from '@/@core/portal/dtos'
 
 type JusitificationModalProps = {
-  onFileInputChange: (file: File | null) => void
+  onFileInputChange: (file: File) => void
   onJustificationTypeChange: (type: JustificationTypeDto) => void
   onDescriptionChange: (description: string) => void
 }
@@ -23,15 +23,8 @@ export const JustificationModal = ({
   onJustificationTypeChange,
   onDescriptionChange,
 }: JusitificationModalProps) => {
-  const {
-    handleJustificationTypeChange,
-    fileInputRef,
-    needsAttachment,
-    handleFileChange,
-    selectedFile,
-    today,
-  } = useJustificationDialog({ onJustificationTypeChange, onFileInputChange })
-  const imageInputRef = useRef<ImageInputRef>(null)
+  const { needsAttachment, handleJustificationTypeChange, handleFileChange } =
+    useJustificationDialog({ onJustificationTypeChange, onFileInputChange })
 
   return (
     <>
@@ -42,9 +35,9 @@ export const JustificationModal = ({
 
           <Textarea
             onChange={(e) => onDescriptionChange(e.target.value)}
-            className='w-full  max-h-full flex flex-wrap md:flex-nowrap '
+            className='w-full  max-h-full flex flex-wrap md:flex-nowrap'
             size='lg'
-            label={<span className='text-xl font-semibold'>Descricao</span>}
+            label={<span className='text-md font-semibold'>Descricao</span>}
             minRows={5}
             placeholder='Insira a descricao'
           />

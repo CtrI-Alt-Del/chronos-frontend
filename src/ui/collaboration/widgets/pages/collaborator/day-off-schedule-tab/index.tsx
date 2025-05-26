@@ -45,7 +45,7 @@ export const DayOffScheduleTab = ({
 
   return (
     <div>
-      <div className='flex justify-between'>
+      <div>
         {!isEmployee ? (
           <Button
             color='primary'
@@ -73,7 +73,7 @@ export const DayOffScheduleTab = ({
           color='primary'
           size='md'
           onPress={handleCreateWithdrawSolicitationButtonClick}
-          className='my-6 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
+          className='translate-x-3 text-xs min-w-32 md:ml-auto md:text-sm md:min-w-36'
         >
           Criar pedido de afastamento
         </Button>
@@ -147,9 +147,8 @@ export const DayOffScheduleTab = ({
             <Button
               key={String(index)}
               size='sm'
-              isIconOnly
               className={cn(
-                'px-6 py-2 md:px-10 md:py-4 lg:px-14 lg:py-8 text-md md:text-lg border rounded-xl text-center text-slate-800 transition-all bg-slate-200',
+                'md:px-10 md:py-4 lg:px-14 lg:py-8 text-md md:text-lg border rounded-xl text-center text-slate-800 transition-all bg-slate-200',
                 (!isCalendarEnabled || isLoading) && 'pointer-events-none',
                 daysOff.includes(day) ? 'bg-red-300' : 'bg-auto',
               )}

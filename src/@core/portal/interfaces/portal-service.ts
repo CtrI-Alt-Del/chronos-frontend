@@ -47,11 +47,15 @@ export interface PortalService {
     solicitation: TimePunchLogAdjustmentSolicitationDto,
   ): Promise<ApiResponse<void>>
   createVacationSolicitation(
-    solicitation: WorkLeaveSolicitationDto,
+    startedAt: string,
+    endedAt: string,
+    description?: string,
   ): Promise<ApiResponse<void>>
   createWithdrawSolicitation(
-    solicitation: WorkLeaveSolicitationDto,
-  ): Promise<ApiResponse<void>>
+    startedAt: string,
+    endedAt: string,
+    description?: string,
+  ): Promise<ApiResponse<{ id: string }>>
   createDayOffSolicitation(
     dayOff: string,
     workload: number,
@@ -75,11 +79,7 @@ export interface PortalService {
     solicitationId: string,
     feedbackMessage?: string,
   ): Promise<ApiResponse<void>>
-  approveVacationSolicitation(
-    solicitationId: string,
-    feedbackMessage?: string,
-  ): Promise<ApiResponse<void>>
-  approveWithdrawSolicitation(
+  approveWorkLeaveSolicitation(
     solicitationId: string,
     feedbackMessage?: string,
   ): Promise<ApiResponse<void>>
