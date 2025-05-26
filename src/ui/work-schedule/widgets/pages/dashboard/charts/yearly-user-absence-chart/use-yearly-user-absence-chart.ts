@@ -2,10 +2,12 @@ import { useRest } from '@/ui/global/hooks/use-rest'
 import { useCache } from '@/ui/global/hooks/use-cache'
 import { CACHE } from '@/@core/global/constants'
 import { useState } from 'react'
+import { useDatetime } from '@/ui/global/hooks/use-datetime'
 
 export function useYearlyUserAbsenceChart() {
   const { workScheduleService } = useRest()
-  const [startDate, setStartDate] = useState<Date>(new Date())
+  const { minusDays } = useDatetime()
+  const [startDate, setStartDate] = useState<Date>(minusDays(new Date(), 365))
   const [endDate, setEndDate] = useState<Date>(new Date())
 
   const months = [

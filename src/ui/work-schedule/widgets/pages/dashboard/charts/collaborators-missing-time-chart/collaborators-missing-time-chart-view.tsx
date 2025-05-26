@@ -30,9 +30,10 @@ export function CollaboratorsMissingTimeChartView({
   handleStartDateInputChange,
   handleEndDateInputChange,
 }: CollaboratorsMissingTimeChartViewProps) {
+  console.log({ missingTime })
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className='px-6 pt-6'>
         <h3 className='text-xl font-semibold'>Colaboradores Sem Marcação</h3>
       </CardHeader>
       <CardBody>

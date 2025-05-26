@@ -48,7 +48,7 @@ export function WorkdayStatusChartView({ workdayStatus }: WorkdayStatusChartView
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className='px-6 pt-6'>
         <h3 className='text-xl font-semibold'>Status dos Colaboradores</h3>
       </CardHeader>
       <CardBody>

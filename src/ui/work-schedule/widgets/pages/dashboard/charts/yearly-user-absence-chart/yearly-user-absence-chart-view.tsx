@@ -32,7 +32,7 @@ export const YearlyUserAbsenceChartView = ({
 }: YearlyUserAbsenceChartViewProps) => {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className='px-6 pt-6'>
         <h3 className='text-xl font-semibold'>Ausências por Tipo</h3>
       </CardHeader>
       <CardBody>

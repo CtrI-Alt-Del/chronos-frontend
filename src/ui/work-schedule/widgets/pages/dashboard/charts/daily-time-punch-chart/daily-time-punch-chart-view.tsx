@@ -32,7 +32,7 @@ export function DailyTimePunchChartView({
 }: DailyTimePunchChartViewProps) {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className='px-6 pt-6'>
         <h3 className='text-xl font-semibold'>Entradas e Saídas</h3>
       </CardHeader>
       <CardBody>
