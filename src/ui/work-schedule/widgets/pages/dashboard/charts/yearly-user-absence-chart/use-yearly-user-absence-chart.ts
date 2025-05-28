@@ -3,12 +3,16 @@ import { useCache } from '@/ui/global/hooks/use-cache'
 import { CACHE } from '@/@core/global/constants'
 import { useState } from 'react'
 import { useDatetime } from '@/ui/global/hooks/use-datetime'
+import { format } from 'date-fns'
 
 export function useYearlyUserAbsenceChart() {
   const { workScheduleService } = useRest()
   const { minusDays } = useDatetime()
-  const [startDate, setStartDate] = useState<Date>(minusDays(new Date(), 365))
-  const [endDate, setEndDate] = useState<Date>(new Date())
+  
+  // Inicializar com o ano corrente completo (1º janeiro a 31 dezembro)
+  const currentYear = new Date().getFullYear();
+  const [startDate, setStartDate] = useState<Date>(new Date(`${currentYear}-01-01`))
+  const [endDate, setEndDate] = useState<Date>(new Date(`${currentYear}-12-31`))
 
   const months = [
     'JAN',
@@ -26,8 +30,12 @@ export function useYearlyUserAbsenceChart() {
   ]
 
   const fetchMissingTime = async () => {
-    const response = await workScheduleService.getYearlyAbsenceReport()
+    const start = format(startDate, 'yyyy-MM-dd')
+    const end = format(endDate, 'yyyy-MM-dd')
+    console.log('[YearlyUserAbsence] Fetching with:', { start, end });
+    const response = await workScheduleService.getYearlyAbsenceReport(start, end)
     if (response.isFailure) response.throwError()
+    console.log('[YearlyUserAbsence] API response:', response.body)
     return response.body
   }
 
@@ -38,20 +46,38 @@ export function useYearlyUserAbsenceChart() {
   })
 
   function handleStartDateInputChange(date: Date) {
-    setStartDate(date)
+    console.log('[YearlyUserAbsence] Start date changed:', date)
+    const year = date.getFullYear();
+    setStartDate(new Date(`${year}-01-01`))
   }
 
   function handleEndDateInputChange(date: Date) {
-    setEndDate(date)
+    console.log('[YearlyUserAbsence] End date changed:', date)
+    const year = date.getFullYear();
+    setEndDate(new Date(`${year}-12-31`))
   }
 
-  const yearlyUserAbsence = data?.monthlyAbsences.map((absence, index) => ({
-    month: months[index],
-    colaboradores: absence.collaboratorsAbsence,
-    gestores: absence.managersAbsence,
-  }))
+  console.log('[YearlyUserAbsence] Start date:', startDate);
+  console.log('[YearlyUserAbsence] End date:', endDate);
+  console.log('[YearlyUserAbsence] API data:', data);
+  console.log('[YearlyUserAbsence] monthlyAbsences:', data?.monthlyAbsences);
 
-  console.log(yearlyUserAbsence)
+  const yearlyUserAbsence = data?.monthlyAbsences
+    .reduce((unique, item) => {
+      const exists = unique.find(u => u.month === item.month);
+      if (!exists) {
+        unique.push(item);
+      }
+      return unique;
+    }, [] as typeof data.monthlyAbsences)
+    .sort((a, b) => a.month - b.month)
+    .map((absence) => ({
+      month: months[absence.month - 1],
+      colaboradores: absence.collaboratorsAbsence,
+      gestores: absence.managersAbsence,
+    }));
+
+  console.log('[YearlyUserAbsence] Processed data:', yearlyUserAbsence);
 
   return {
     yearlyUserAbsence,

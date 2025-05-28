@@ -9,16 +9,24 @@ export const TimePunchAdjustmentSolicitationsAccordion = () => {
   const {
     solicitations,
     isFetchingSolicitations,
+    currentPage,
+    totalPages,
     handleSolicitationApprove,
     handleSolicitationDeny,
+    handleSolicitationCancel,
+    handlePageChange,
   } = useTimePunchAdjustmentSolicitationsAccordion(portalService)
 
   return (
     <TimePunchAdjustmentSolicitationsAccordionView
       solicitations={solicitations}
       isLoading={isFetchingSolicitations}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
       onSolicitationApprove={handleSolicitationApprove}
       onSolicitationDeny={handleSolicitationDeny}
+      onSolicitationCancel={handleSolicitationCancel}
     />
   )
 }

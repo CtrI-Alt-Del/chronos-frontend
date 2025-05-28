@@ -3,8 +3,7 @@ import type { DailyPunchsReportDto } from '@/@core/work-schedule/dtos'
 import type { WorkScheduleService } from '@/@core/work-schedule/interfaces'
 
 type Request = {
-  startDate?: string
-  endDate?: string
+  date?: string
 }
 
 type Response = {
@@ -16,8 +15,8 @@ export const GetDailyPunchsReportAction = (
 ): Action<Request, Response> => {
   return {
     async handle(call) {
-      const { startDate, endDate } = call.getRequest()
-      const response = await service.getDailyPunchsReport(startDate, endDate)
+      const { date } = call.getRequest()
+      const response = await service.getDailyPunchsReport(date)
       if (response.isFailure) response.throwError()
 
       return {

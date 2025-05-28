@@ -153,8 +153,7 @@ export const getYearlyAbsenceReport = authActionClient
 export const getDailyPunchsReport = authActionClient
   .schema(
     z.object({
-      startDate: z.string().optional(),
-      endDate: z.string().optional(),
+      date: z.string(),
     }),
   )
   .action(async ({ clientInput }) => {
