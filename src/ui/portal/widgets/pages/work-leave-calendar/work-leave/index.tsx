@@ -8,11 +8,13 @@ export type Props = {
   endedAt: Date
   isVacation: boolean
   justification?: JustificationDto
+  overlapsMonthStart: boolean
+  overlapsMothEnd: boolean
 }
 
 export const WorkLeave = (props: Props) => {
   const { getDaysCountOfRange } = useDatetime()
-  const daysCount = getDaysCountOfRange(props.startedAt, props.endedAt)
+  const daysCount = getDaysCountOfRange(props.startedAt, props.endedAt) + 1
 
   return <WorkLeaveView {...props} daysCount={daysCount} />
 }

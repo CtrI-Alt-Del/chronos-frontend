@@ -11,6 +11,8 @@ type Props = {
   endedAt: Date
   isVacation: boolean
   daysCount: number
+  overlapsMonthStart: boolean
+  overlapsMothEnd: boolean
   justification?: JustificationDto
 }
 
@@ -20,8 +22,20 @@ export const WorkLeaveView = ({
   endedAt,
   isVacation,
   daysCount,
+  overlapsMonthStart,
+  overlapsMothEnd,
   justification,
 }: Props) => {
+  let width = 0
+
+  if (overlapsMonthStart) {
+    width = daysCount - endedAt.getDate()
+  } else if (overlapsMothEnd) {
+    width = endedAt.getDate()
+  } else {
+    width = daysCount
+  }
+
   return (
     <Tooltip
       showArrow
@@ -62,7 +76,7 @@ export const WorkLeaveView = ({
           isVacation ? 'bg-[#186BD9]' : 'bg-[#ff355e]',
         )}
         style={{
-          width: `${(daysCount + 1) * 41}px`,
+          width: `${width * 41}px`,
         }}
       >
         <div>{description}</div>

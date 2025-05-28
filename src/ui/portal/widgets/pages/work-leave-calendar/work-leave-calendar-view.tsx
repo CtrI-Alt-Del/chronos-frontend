@@ -22,6 +22,7 @@ type Props = {
   monthDays: Date[]
   page: number
   itemsCount: number
+  pagesCount: number
   onCollaboratorNameChange: (collaboratorName: string) => void
   onPageChange: (page: number) => void
   onDateInputChange: (month: number, year: number) => void
@@ -34,6 +35,7 @@ export const WorkLeaveCalendarPageView = ({
   monthDays,
   page,
   itemsCount,
+  pagesCount,
   onCollaboratorNameChange,
   onPageChange,
   onDateInputChange,
@@ -62,7 +64,10 @@ export const WorkLeaveCalendarPageView = ({
         const startedAt = inZonedTime(workLeave.startedAt)
         const endedAt = inZonedTime(workLeave.endedAt)
 
-        if (startedAt.getTime() === day.getTime()) {
+        if (
+          startedAt.getMonth() === day.getMonth() &&
+          startedAt.getDate() === day.getDate()
+        ) {
           workLeaveIndex++
           workLeaveComponent = (
             <WorkLeave
@@ -71,6 +76,25 @@ export const WorkLeaveCalendarPageView = ({
               endedAt={endedAt}
               isVacation={workLeave.isVacation}
               justification={workLeave.justification}
+              overlapsMonthStart={endedAt.getMonth() !== day.getMonth()}
+              overlapsMothEnd={false}
+            />
+          )
+        } else if (
+          startedAt.getMonth() !== day.getMonth() &&
+          endedAt.getMonth() === day.getMonth() &&
+          day.getDate() <= endedAt.getDate()
+        ) {
+          workLeaveIndex++
+          workLeaveComponent = (
+            <WorkLeave
+              description={workLeave.description}
+              startedAt={startedAt}
+              endedAt={endedAt}
+              isVacation={workLeave.isVacation}
+              justification={workLeave.justification}
+              overlapsMonthStart={false}
+              overlapsMothEnd={true}
             />
           )
         }
@@ -111,13 +135,13 @@ export const WorkLeaveCalendarPageView = ({
       <div className='w-[calc(100vw-20rem)] overflow-x-auto rounded-md'>
         <Table
           bottomContent={
-            page > 1 && (
+            pagesCount > 1 && (
               <div className='flex w-full justify-start'>
                 <Pagination
                   aria-label='paginação'
                   showControls
                   page={page}
-                  total={itemsCount}
+                  total={pagesCount}
                   onChange={onPageChange}
                 />
               </div>

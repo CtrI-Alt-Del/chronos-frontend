@@ -54,6 +54,10 @@ export function useDatetime() {
     return differenceInDays(endDate, startDate)
   }, [])
 
+  const getDaysToMonthEnd = useCallback((date: Date) => {
+    return differenceInDays(endOfMonth(date), date)
+  }, [])
+
   function getFirstMonthDayOf(date: Date) {
     return startOfMonth(date)
   }
@@ -74,12 +78,11 @@ export function useDatetime() {
     return firstMonday
   }
 
-  function getMonthDaysOf() {
-    const today = new Date()
-    const firstDayOfMonth = startOfMonth(today)
+  function getMonthDaysOf(date: Date = new Date()) {
+    const firstDayOfMonth = startOfMonth(date)
     const daysInMonth = eachDayOfInterval({
       start: firstDayOfMonth,
-      end: endOfMonth(today),
+      end: endOfMonth(date),
     })
     return daysInMonth
   }
@@ -121,6 +124,7 @@ export function useDatetime() {
     getFirstMonthDayOf,
     getLastMonthDayOf,
     getMonthDaysOf,
+    getDaysToMonthEnd,
     getCurrentMonthFirstMonday,
     getMonthDaysCountOf,
     getWeekdayIndex,

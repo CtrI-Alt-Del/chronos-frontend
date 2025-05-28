@@ -56,7 +56,7 @@ export function usePaginatedCache<CacheItem>({
     if (!isEnabled) {
       return null
     }
-    return `${key}?${dependenciesQuery}&itemsPerPage=${itemsPerPage}&page=${pageIndex + 1}`
+    return `${key}?${dependenciesQuery}&itemsPerPage=${itemsPerPage}&page=${page + 1}`
   }
 
   async function infiniteFetcher() {
@@ -89,12 +89,12 @@ export function usePaginatedCache<CacheItem>({
     setPageQueryParam(size + 1)
   }
 
-  console.log('size', size)
-
   const items = useMemo(() => {
     if (data) return isInfinity ? data.flat() : data.at(-1) ?? []
     return []
   }, [data, isInfinity])
+
+  console.log({ page })
 
   return {
     data: items,
