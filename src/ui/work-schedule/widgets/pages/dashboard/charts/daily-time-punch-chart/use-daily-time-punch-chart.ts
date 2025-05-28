@@ -2,11 +2,11 @@ import { useRest } from '@/ui/global/hooks/use-rest'
 import { useCache } from '@/ui/global/hooks/use-cache'
 import { CACHE } from '@/@core/global/constants'
 import { useState } from 'react'
+import { format } from 'date-fns'
 
 export function useDailyTimePunchChart() {
   const { workScheduleService } = useRest()
   const [startDate, setStartDate] = useState<Date>(new Date())
-  const [endDate, setEndDate] = useState<Date>(new Date())
 
   function formatHour(index: number): string {
     const hour = index % 24
@@ -16,7 +16,8 @@ export function useDailyTimePunchChart() {
   }
 
   const fetchDailyPunchs = async () => {
-    const response = await workScheduleService.getDailyPunchsReport()
+    const date = format(startDate, 'yyyy-MM-dd')
+    const response = await workScheduleService.getDailyPunchsReport(date)
     if (response.isFailure) response.throwError()
     return response.body
   }
@@ -24,15 +25,11 @@ export function useDailyTimePunchChart() {
   const { data, isFetching } = useCache({
     fetcher: fetchDailyPunchs,
     key: CACHE.workSchedule.dailyTimePunch.key,
-    dependencies: [startDate, endDate],
+    dependencies: [startDate],
   })
 
   function handleStartDateInputChange(date: Date) {
     setStartDate(date)
-  }
-
-  function handleEndDateInputChange(date: Date) {
-    setEndDate(date)
   }
 
   const dailyPunchs = data?.clockEvents.map((event, index) => ({
@@ -45,8 +42,6 @@ export function useDailyTimePunchChart() {
     dailyPunchs,
     isFetching,
     startDate,
-    endDate,
     handleStartDateInputChange,
-    handleEndDateInputChange,
   }
 }

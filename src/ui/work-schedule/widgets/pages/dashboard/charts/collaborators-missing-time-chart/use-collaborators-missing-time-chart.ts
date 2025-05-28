@@ -12,9 +12,11 @@ export function useCollaboratorsMissingTimeChart() {
   const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
 
   const fetchMissingTime = async () => {
+    console.log('[CollaboratorsMissingTime] Fetching with:', { startDate, endDate });
     const response = await workScheduleService.getCollaboratorsMissingTimeReport()
     if (response.isFailure) response.throwError()
-    return response.body as CollaboratorsMissingTimeReportDto
+    console.log('[CollaboratorsMissingTime] API response:', response.body)
+    return response.body
   }
 
   const { data, isFetching } = useCache({
@@ -24,10 +26,12 @@ export function useCollaboratorsMissingTimeChart() {
   })
 
   function handleStartDateInputChange(date: Date) {
+    console.log('[CollaboratorsMissingTime] Start date changed:', date)
     setStartDate(date)
   }
 
   function handleEndDateInputChange(date: Date) {
+    console.log('[CollaboratorsMissingTime] End date changed:', date)
     setEndDate(date)
   }
 

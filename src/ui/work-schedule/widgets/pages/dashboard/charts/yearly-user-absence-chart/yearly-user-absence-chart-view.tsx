@@ -10,6 +10,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
+import { Select, SelectItem } from '@heroui/select'
+import { useState } from 'react'
 
 type YearlyUserAbsenceChartViewProps = {
   yearlyUserAbsence: Array<{
@@ -30,18 +32,41 @@ export const YearlyUserAbsenceChartView = ({
   handleStartDateInputChange,
   handleEndDateInputChange,
 }: YearlyUserAbsenceChartViewProps) => {
+  console.log('[YearlyUserAbsenceChartView] Data in view:', yearlyUserAbsence);
+  console.log('[YearlyUserAbsenceChartView] Number of months:', yearlyUserAbsence?.length);
+
+  const currentYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const years = Array.from({ length: 5 }, (_, i) => currentYear - i);
+
+  function handleYearChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const year = Number(event.target.value);
+    setSelectedYear(year);
+    handleStartDateInputChange(new Date(`${year}-01-01`));
+    handleEndDateInputChange(new Date(`${year}-12-31`));
+  }
+
   return (
     <Card>
       <CardHeader className='px-6 pt-6'>
-        <h3 className='text-xl font-semibold'>Ausências por Tipo</h3>
+        <h3 className='text-xl font-semibold'>Faltas por mês</h3>
       </CardHeader>
       <CardBody>
-        {/* <DateRangeInput
-          defeaultStartDate={startDate}
-          defeaultEndDate={endDate}
-          onStartDateChange={handleStartDateInputChange}
-          onEndDateChange={handleEndDateInputChange}
-        /> */}
+        <div className='flex gap-4 mb-4'>
+          <Select
+            label='Year'
+            value={selectedYear}
+            onChange={handleYearChange}
+            variant='flat'
+            size='lg'
+            radius='sm'
+            classNames={{ trigger: 'bg-[#f4f4f5] text-gray-700' }}
+          >
+            {years.map((year) => (
+              <SelectItem key={year}>{year}</SelectItem>
+            ))}
+          </Select>
+        </div>
         <div className='w-full h-[400px]'>
           <ResponsiveContainer width='100%' height='100%'>
             <LineChart
@@ -54,6 +79,8 @@ export const YearlyUserAbsenceChartView = ({
                 tick={{ fontSize: 12 }}
                 tickLine={false}
                 axisLine={false}
+                interval={0}
+                padding={{ left: 10, right: 10 }}
               />
               <YAxis tick={{ fontSize: 12 }} tickLine={false} axisLine={false} />
               <Tooltip

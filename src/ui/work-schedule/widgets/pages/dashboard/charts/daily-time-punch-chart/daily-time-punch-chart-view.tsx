@@ -1,4 +1,4 @@
-import { DateRangeInput } from '@/ui/global/widgets/components/date-range-input'
+import { DateInput } from '@/ui/global/widgets/components/date-input'
 import { Card, CardBody, CardHeader } from '@heroui/react'
 import {
   LineChart,
@@ -18,30 +18,24 @@ type DailyTimePunchChartViewProps = {
     Saídas: number
   }>
   startDate: Date
-  endDate: Date
   handleStartDateInputChange: (date: Date) => void
-  handleEndDateInputChange: (date: Date) => void
 }
 
 export function DailyTimePunchChartView({
   dailyPunchs,
   startDate,
-  endDate,
   handleStartDateInputChange,
-  handleEndDateInputChange,
 }: DailyTimePunchChartViewProps) {
   return (
     <Card>
       <CardHeader className='px-6 pt-6'>
-        <h3 className='text-xl font-semibold'>Entradas e Saídas</h3>
+        <h3 className='text-xl font-semibold'>Horas batidas por dia</h3>
       </CardHeader>
       <CardBody>
-        {/* <DateRangeInput
-          defeaultStartDate={startDate}
-          defeaultEndDate={endDate}
-          onStartDateChange={handleStartDateInputChange}
-          onEndDateChange={handleEndDateInputChange}
-        /> */}
+        <DateInput
+          defualtDate={startDate}
+          onChange={handleStartDateInputChange}
+        />
         <div className='w-full h-[400px] rounded-2xl'>
           <ResponsiveContainer width='100%' height='100%'>
             <LineChart
