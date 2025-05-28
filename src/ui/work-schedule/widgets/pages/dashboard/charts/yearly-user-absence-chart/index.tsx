@@ -12,6 +12,9 @@ export function YearlyUserAbsenceChart() {
     handleEndDateInputChange,
   } = useYearlyUserAbsenceChart()
 
+  console.log('[YearlyUserAbsenceChart] Data in component:', yearlyUserAbsence);
+  console.log('[YearlyUserAbsenceChart] Number of months:', yearlyUserAbsence?.length);
+
   if (!yearlyUserAbsence) return null
 
   return (

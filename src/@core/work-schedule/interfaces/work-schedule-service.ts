@@ -56,8 +56,7 @@ export interface WorkScheduleService {
     endDate?: string,
   ): Promise<ApiResponse<YearlyAbsenceReportDto>>
   getDailyPunchsReport(
-    startDate?: string,
-    endDate?: string,
+    date?: string,
   ): Promise<ApiResponse<DailyPunchsReportDto>>
   getCollaboratorsMissingTimeReport(
     startDate?: string,

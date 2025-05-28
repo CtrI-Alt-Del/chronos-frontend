@@ -30,23 +30,12 @@ export function CollaboratorsMissingTimeChartView({
   handleStartDateInputChange,
   handleEndDateInputChange,
 }: CollaboratorsMissingTimeChartViewProps) {
-  console.log({ missingTime })
   return (
     <Card>
       <CardHeader className='px-6 pt-6'>
-        <h3 className='text-xl font-semibold'>Colaboradores Sem Marcação</h3>
+        <h3 className='text-xl font-semibold'>Horas ausentes por colaborador</h3>
       </CardHeader>
       <CardBody>
-        <div className='flex w-full'>
-          {/* <div className='flex-1'>
-            <DateRangeInput
-              defeaultStartDate={startDate}
-              defeaultEndDate={endDate}
-              onStartDateChange={handleStartDateInputChange}
-              onEndDateChange={handleEndDateInputChange}
-            />
-          </div> */}
-        </div>
         <ResponsiveContainer width='100%' height='100%'>
           <BarChart
             data={missingTime}
