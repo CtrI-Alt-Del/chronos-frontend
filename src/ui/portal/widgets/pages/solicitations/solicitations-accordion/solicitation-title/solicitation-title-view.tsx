@@ -7,7 +7,7 @@ const TITLES: Record<string, string> = {
   day_off: 'Pedido de folga',
   excused_absence: 'Abono de falta',
   paid_overtime: 'Hora extra remunerada',
-  work_leave: 'Ausência do trabalho',
+  withdraw: 'Afastamento',
   vacation: 'Ferias',
 }
 

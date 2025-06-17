@@ -11,6 +11,7 @@ export function useWithdrawSolicitationsAccordion(portalService: PortalService) 
     if (response.isFailure) {
       response.throwError()
     }
+    console.log('[WithdrawSolicitationsAccordion] API response:', response.body)
     return response.body
   }
 

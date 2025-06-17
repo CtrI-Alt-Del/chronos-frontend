@@ -95,7 +95,7 @@ export const SolicitationsAccordionView = <Solicitation extends SolicitationDto>
             indicator={<Icon name='arrow-down' className='w-4 h-4' />}
             title={
               <SolicitationTitle
-                solicitationType={solicitation.type}
+                solicitationType={solicitation.isVacation ? 'vacation' : solicitation.type}
                 solicitationStatus={solicitation.status}
               />
             }

@@ -62,20 +62,13 @@ export function useYearlyUserAbsenceChart() {
   console.log('[YearlyUserAbsence] API data:', data);
   console.log('[YearlyUserAbsence] monthlyAbsences:', data?.monthlyAbsences);
 
-  const yearlyUserAbsence = data?.monthlyAbsences
-    .reduce((unique, item) => {
-      const exists = unique.find(u => u.month === item.month);
-      if (!exists) {
-        unique.push(item);
-      }
-      return unique;
-    }, [] as typeof data.monthlyAbsences)
-    .sort((a, b) => a.month - b.month)
-    .map((absence) => ({
-      month: months[absence.month - 1],
-      colaboradores: absence.collaboratorsAbsence,
-      gestores: absence.managersAbsence,
-    }));
+const yearlyUserAbsence = data?.monthlyAbsences
+  .slice(0, 12)
+  .map((absence, index) => ({
+    month: months[index], // associando o índice à string do mês
+    colaboradores: absence.collaboratorsAbsence,
+    gestores: absence.managersAbsence,
+  }))
 
   console.log('[YearlyUserAbsence] Processed data:', yearlyUserAbsence);
 

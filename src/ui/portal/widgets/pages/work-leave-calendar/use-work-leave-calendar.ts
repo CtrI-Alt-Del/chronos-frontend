@@ -7,14 +7,16 @@ import { useDatetime } from '@/ui/global/hooks/use-datetime'
 
 export function useWorkLeaveCalendar(portalService: PortalService, date: Date) {
   const [month, setMonth] = useState(date.getMonth() + 1)
+  const [lastValidMonth, setLastValidMonth] = useState(date.getMonth() + 1)
   const [year, setYear] = useState(date.getFullYear())
   const [collaboratorName, setCollaboratorName] = useState('')
   const { getMonthDaysOf } = useDatetime()
 
   async function fetchWorkLeaveCalendar() {
+    const usedMonth = month === 0 ? lastValidMonth : month
     const response = await portalService.getWorkLeaveCalendar(
       year,
-      month,
+      usedMonth,
       collaboratorName,
     )
     if (response.isFailure) {
@@ -31,9 +33,12 @@ export function useWorkLeaveCalendar(portalService: PortalService, date: Date) {
       dependencies: [year, month, collaboratorName],
     })
 
-  function handleDateInputChange(month: number, year: number) {
-    setMonth(month)
+  function handleDateInputChange(newMonth: number, year: number) {
+    setMonth(newMonth)
     setYear(year)
+    if (newMonth > 0 && newMonth <= 12) {
+      setLastValidMonth(newMonth)
+    }
   }
 
   function handleCollaboratorNameChange(collaboratorName: string) {
